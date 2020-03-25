@@ -47,7 +47,6 @@ public class LaunchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         tv_loading_version.setText("v-"+ Utils.getCurrentVersion()+" : "+Utils.getCurrentBuild());
         checkVersion();
-//        checkAutoLogin();
     }
 
     /**
@@ -72,6 +71,7 @@ public class LaunchActivity extends BaseActivity {
                                 + " new versionCode is " + appBean.getVersionCode()
                                 + " new versionName is " + appBean.getVersionName());
                         //调用以下方法，DownloadFileListener 才有效；
+                        //hock:这里要改成跳转到应用市场更新
                         //如果完全使用自己的下载方法，不需要设置DownloadFileListener
                         if(Utils.getCurrentVersion().equals(appBean.getVersionName())){
                             new AlertDialog.Builder(LaunchActivity.this)

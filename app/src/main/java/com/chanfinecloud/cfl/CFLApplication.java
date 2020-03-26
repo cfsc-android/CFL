@@ -58,6 +58,7 @@ public class CFLApplication extends Application {
         UMConfigure.init(this,"5cb6d69f0cafb29742001079","umeng", UMConfigure.DEVICE_TYPE_PHONE,"");//友盟注册
         refWatcher = LeakCanary.install(this);//LeakCanary注册
 
+
     }
 
 

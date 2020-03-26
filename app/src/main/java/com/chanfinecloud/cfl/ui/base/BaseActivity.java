@@ -54,7 +54,7 @@ public abstract class BaseActivity extends FragmentActivity implements NetBroadc
     protected boolean permission=false;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LynActivityManager.getInstance().pushActivity(this);//Activity入栈
         requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无标题
@@ -71,7 +71,6 @@ public abstract class BaseActivity extends FragmentActivity implements NetBroadc
             StatusBarUtil.setStatusBarMode(this, false, R.color.main_background);
         }
         //x.view().inject(this);//注入activity
-        ButterKnife.bind(this);//注入activity 改成butternife--Damien
         initReceiver();//注册网络状态检测广播服务
         handler=new BaseHandler(this);//初始化BaseHandler
 
@@ -79,8 +78,7 @@ public abstract class BaseActivity extends FragmentActivity implements NetBroadc
     }
     /**
      * damien
-     * ButterKnife 生效以后再进行数据绑定 尽量不要 Override onCreate
-     * 防止空指针可以再子类中setContentView 之后 bind
+     * 丢弃 onCreate   初始数据绑定的地方
      */
     protected abstract void initData();
 

@@ -39,7 +39,6 @@ public abstract  class BaseFragment extends Fragment {
     private Context context;
     private ProgressDialogView progressDialogView = null;
     protected static BaseHandler handler;
-    private Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -51,12 +50,11 @@ public abstract  class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
         initData();
     }
     /**
      * damien
-     * ButterKnife 生效以后再进行数据绑定 尽量不要用 Override onViewCreated
+     * 丢弃 onViewCreated   初始数据绑定的地方
      */
     protected abstract void initData();
 
@@ -72,9 +70,6 @@ public abstract  class BaseFragment extends Fragment {
         RefWatcher refWatcher = CFLApplication.getRefWatcher(getActivity());
         refWatcher.watch(this);//LeakCanary监听
 
-        if (unbinder != null){
-            unbinder.unbind();
-        }
 
     }
 

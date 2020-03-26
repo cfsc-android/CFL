@@ -49,6 +49,11 @@ public class LaunchActivity extends BaseActivity {
         checkVersion();
     }
 
+    @Override
+    protected void initData() {
+
+    }
+
     /**
      * 检查版本
      */

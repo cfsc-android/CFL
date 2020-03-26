@@ -23,6 +23,11 @@ public class LoginActivity extends BaseActivity {
         login_tv_text.setText("Login");
     }
 
+    @Override
+    protected void initData() {
+
+    }
+
 
     @Event({R.id.login_tv_text})
     private void onClickEvent(View v){

@@ -32,10 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 
-@ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
-    @ViewInject(R.id.toolbar_tv_title)
-    TextView toolbar_title;
 
     @ViewInject(R.id.main_srl)
     private SmartRefreshLayout main_srl;
@@ -51,12 +48,17 @@ public class MainActivity extends BaseActivity {
     private int pageSize=20;
 
     @Override
+    protected void initData() {
+        setContentView(R.layout.activity_main);
+
+    }
+   /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        title=getIntent().getExtras().getString("title");
-        toolbar_title.setText(title);
+        // title=getIntent().getExtras().getString("title");
+        // toolbar_title.setText(title);
 
-        adapter=new SimpleAdapter(data);
+       *//* adapter=new SimpleAdapter(data);
         main_rlv.setLayoutManager(new LinearLayoutManager(this));
         main_rlv.setAdapter(adapter);
         main_rlv.addOnItemTouchListener(new OnItemClickListener() {
@@ -82,8 +84,10 @@ public class MainActivity extends BaseActivity {
                 loadType=ListLoadingType.LoadMore;
             }
         });
-        main_srl.autoRefresh();
-    }
+        main_srl.autoRefresh();*//*
+    }*/
+
+
 
     /**
      * 请求数据

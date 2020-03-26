@@ -30,6 +30,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import butterknife.ButterKnife;
+
 import static com.chanfinecloud.cfl.CFLApplication.activityTrans;
 import static com.chanfinecloud.cfl.ui.base.BaseHandler.HTTP_CANCEL;
 import static com.chanfinecloud.cfl.ui.base.BaseHandler.HTTP_REQUEST;
@@ -41,7 +43,7 @@ import static com.chanfinecloud.cfl.util.PermissionUtil.REQUEST_CODE;
  * Version: 1.0
  * Describe:  Activity基础类
  */
-public class BaseActivity extends FragmentActivity implements NetBroadcastReceiver.NetEvent {
+public abstract class BaseActivity extends FragmentActivity implements NetBroadcastReceiver.NetEvent {
     public NetBroadcastReceiver netBroadcastReceiver;
     private ProgressDialogView progressDialogView = null;
 
@@ -68,10 +70,19 @@ public class BaseActivity extends FragmentActivity implements NetBroadcastReceiv
         }else{
             StatusBarUtil.setStatusBarMode(this, false, R.color.main_background);
         }
-        x.view().inject(this);//注入activity
+        //x.view().inject(this);//注入activity
+        ButterKnife.bind(this);//注入activity 改成butternife--Damien
         initReceiver();//注册网络状态检测广播服务
         handler=new BaseHandler(this);//初始化BaseHandler
+
+        initData();
     }
+    /**
+     * damien
+     * ButterKnife 生效以后再进行数据绑定 尽量不要 Override onCreate
+     * 防止空指针可以再子类中setContentView 之后 bind
+     */
+    protected abstract void initData();
 
 
     /**

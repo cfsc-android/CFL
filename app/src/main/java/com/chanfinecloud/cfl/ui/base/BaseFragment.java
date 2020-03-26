@@ -21,6 +21,9 @@ import org.xutils.x;
 
 import androidx.fragment.app.Fragment;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 import static com.chanfinecloud.cfl.CFLApplication.activityTrans;
 import static com.chanfinecloud.cfl.ui.base.BaseHandler.HTTP_CANCEL;
 import static com.chanfinecloud.cfl.ui.base.BaseHandler.HTTP_REQUEST;
@@ -31,12 +34,12 @@ import static com.chanfinecloud.cfl.ui.base.BaseHandler.HTTP_REQUEST;
  * Version: 1.0
  * Describe: Fragment基础类
  */
-public class BaseFragment extends Fragment {
+public abstract  class BaseFragment extends Fragment {
 
     private Context context;
-    private boolean injected = false;
     private ProgressDialogView progressDialogView = null;
     protected static BaseHandler handler;
+    private Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -46,18 +49,16 @@ public class BaseFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        injected = true;
-        return x.view().inject(this, inflater, container);//注入View
-    }
-
-    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (!injected) {
-            x.view().inject(this, this.getView());//注入View
-        }
+        unbinder = ButterKnife.bind(this, view);
+        initData();
     }
+    /**
+     * damien
+     * ButterKnife 生效以后再进行数据绑定 尽量不要用 Override onViewCreated
+     */
+    protected abstract void initData();
 
     @Override
     public void onDestroy() {
@@ -70,6 +71,11 @@ public class BaseFragment extends Fragment {
         handler.sendEmptyMessage(HTTP_CANCEL);//取消http请求
         RefWatcher refWatcher = CFLApplication.getRefWatcher(getActivity());
         refWatcher.watch(this);//LeakCanary监听
+
+        if (unbinder != null){
+            unbinder.unbind();
+        }
+
     }
 
     /**

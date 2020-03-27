@@ -42,6 +42,7 @@ android {
             signingConfig signingConfigs.cfl
             //测试
             buildConfigField "String", "BASE_URL", Debug_Url
+            buildConfigField "String", "ENV", "\"debug\""
         }
         release {
             debuggable true
@@ -52,6 +53,7 @@ android {
             signingConfig signingConfigs.cfl
             //正式
             buildConfigField "String", "BASE_URL", Release_Url
+            buildConfigField "String", "ENV", "\"release\""
 
         }
     }

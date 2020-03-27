@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * Created by Loong on 2020/3/25.
  * Version: 1.0
- * Describe:
+ * Describe: Activity栈管理工具类
  */
 public class LynActivityManager {
 

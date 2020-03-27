@@ -24,7 +24,7 @@ public class SharedPreferencesUtil {
     private SharedPreferencesUtil () {}
     public static SharedPreferencesUtil getInstance() {
         if (instance == null) {
-            synchronized (LynActivityManager.class) {
+            synchronized (SharedPreferencesUtil.class) {
                 if (instance == null) {
                     instance = new SharedPreferencesUtil();
                 }

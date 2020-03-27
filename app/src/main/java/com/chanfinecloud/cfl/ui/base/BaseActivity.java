@@ -22,6 +22,7 @@ import com.chanfinecloud.cfl.util.NetworkUtils;
 import com.chanfinecloud.cfl.util.PermissionUtil;
 import com.chanfinecloud.cfl.util.StatusBarUtil;
 import com.chanfinecloud.cfl.weidgt.ProgressDialogView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.x;
 
@@ -107,6 +108,17 @@ public class BaseActivity extends FragmentActivity implements NetBroadcastReceiv
         }else{
             permission=true;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);//友盟统计
+    }
+
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);//友盟统计
     }
 
     @Override

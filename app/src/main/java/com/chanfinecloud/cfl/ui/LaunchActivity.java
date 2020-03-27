@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.TokenEntity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
@@ -19,14 +21,11 @@ import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 import com.pgyersdk.update.javabean.AppBean;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
-
 import java.io.File;
 import java.util.Date;
 
-import androidx.annotation.Nullable;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -34,25 +33,34 @@ import androidx.annotation.Nullable;
  * Version: 1.0
  * Describe: 应用启动页
  */
-@ContentView(R.layout.activity_launch)
+
 public class LaunchActivity extends BaseActivity {
 
-    @ViewInject(R.id.tv_loading_version)
-    private TextView tv_loading_version;
 
+    @BindView(R.id.tv_loading_version)
+    TextView tvLoadingVersion;
     private ProgressDialog progressDialog;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setFullScreen(false);
+    protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        tv_loading_version.setText("v-"+ Utils.getCurrentVersion()+" : "+Utils.getCurrentBuild());
+
+    }
+
+    @Override
+    protected void initData() {
+        setFullScreen(false);
+        setContentView(R.layout.activity_launch);
+        ButterKnife.bind(this);
+        tvLoadingVersion.setText("v-" + Utils.getCurrentVersion() + " : " + Utils.getCurrentBuild());
         checkVersion();
     }
 
     /**
      * 检查版本
      */
-    private void checkVersion(){
+    private void checkVersion() {
         new PgyUpdateManager.Builder()
                 .setForced(false)                //设置是否强制提示更新,非自定义回调更新接口此方法有用
                 .setUserCanRetry(false)         //失败后是否提示重新下载，非自定义下载 apk 回调此方法有用
@@ -64,6 +72,7 @@ public class LaunchActivity extends BaseActivity {
                         Log.d("pgyer", "there is no new version");
                         checkAutoLogin();
                     }
+
                     @Override
                     public void onUpdateAvailable(final AppBean appBean) {
                         //有更新回调此方法
@@ -73,12 +82,12 @@ public class LaunchActivity extends BaseActivity {
                         //调用以下方法，DownloadFileListener 才有效；
                         //hock:这里要改成跳转到应用市场更新
                         //如果完全使用自己的下载方法，不需要设置DownloadFileListener
-                        if(Utils.getCurrentVersion().equals(appBean.getVersionName())){
+                        if (Utils.getCurrentVersion().equals(appBean.getVersionName())) {
                             new AlertDialog.Builder(LaunchActivity.this)
                                     .setTitle("更新")
-                                    .setMessage("发现新版本"+appBean.getVersionName()+"\n"+appBean.getReleaseNote())
+                                    .setMessage("发现新版本" + appBean.getVersionName() + "\n" + appBean.getReleaseNote())
                                     .setCancelable(false)
-                                    .setNegativeButton("确认更新",new DialogInterface.OnClickListener() {
+                                    .setNegativeButton("确认更新", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             PgyUpdateManager.downLoadApk(appBean.getDownloadURL());
@@ -91,10 +100,10 @@ public class LaunchActivity extends BaseActivity {
                                             checkAutoLogin();
                                         }
                                     }).show();
-                        }else{
+                        } else {
                             new AlertDialog.Builder(LaunchActivity.this)
                                     .setTitle("强制更新")
-                                    .setMessage("发现新版本"+appBean.getVersionName()+"\n"+appBean.getReleaseNote())
+                                    .setMessage("发现新版本" + appBean.getVersionName() + "\n" + appBean.getReleaseNote())
                                     .setCancelable(false)
                                     .setNegativeButton(
                                             "确认更新",
@@ -127,6 +136,7 @@ public class LaunchActivity extends BaseActivity {
                     public void downloadSuccessful(File file) {
                         PgyUpdateManager.installApk(file);
                     }
+
                     @Override
                     public void onProgressUpdate(Integer... integers) {
                         Log.e("pgyer", "update download apk progress" + integers[0]);
@@ -144,11 +154,12 @@ public class LaunchActivity extends BaseActivity {
 
     /**
      * 下载最新版进度
+     *
      * @param progress 进度条
      */
-    private void initProgressDialog(int progress){
-        if(progressDialog==null){
-            progressDialog=new ProgressDialog(this);
+    private void initProgressDialog(int progress) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressDialog.setCancelable(false);// 设置是否可以通过点击Back键取消
             progressDialog.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
@@ -156,9 +167,9 @@ public class LaunchActivity extends BaseActivity {
             progressDialog.setMax(100);
             progressDialog.setProgress(0);
             progressDialog.show();
-        }else{
+        } else {
             progressDialog.setProgress(progress);
-            if(progress==100){
+            if (progress == 100) {
                 progressDialog.dismiss();
             }
         }
@@ -167,21 +178,20 @@ public class LaunchActivity extends BaseActivity {
     /**
      * 检查是否自动登录
      */
-    private void checkAutoLogin(){
-        TokenEntity token= SharedPreferencesManage.getToken();
-        if(token!=null){
+    private void checkAutoLogin() {
+        TokenEntity token = SharedPreferencesManage.getToken();
+        if (token != null) {
             LogUtils.d(token.getAccess_token());
-            long time=new Date().getTime()/1000 - token.getInit_time();
-            if(token.getExpires_in()-time>3){
+            long time = new Date().getTime() / 1000 - token.getInit_time();
+            if (token.getExpires_in() - time > 3) {
                 startActivity(MainActivity.class);
-            }else{
+            } else {
                 startActivity(LoginActivity.class);
             }
-        }else{
+        } else {
             startActivity(LoginActivity.class);
         }
     }
-
 
 
 }

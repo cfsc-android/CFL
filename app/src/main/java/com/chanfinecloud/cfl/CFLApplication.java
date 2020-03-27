@@ -19,6 +19,7 @@ import com.squareup.leakcanary.RefWatcher;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
+import org.xutils.BuildConfig;
 import org.xutils.x;
 
 import java.util.HashMap;

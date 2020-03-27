@@ -7,7 +7,43 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <include layout="@layout/toolbar_layout"/>
+    <FrameLayout
+        android:id="@+id/main_fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/main_tabs_iv_home"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_tab_home_focus"
+            />
+        <ImageView
+            android:id="@+id/main_tabs_iv_key"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_tab_mine_blur"
+            />
+        <ImageView
+            android:id="@+id/main_tabs_iv_mine"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_tab_mine_blur"
+            />
+
+
+    </LinearLayout>
+
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/main_srl"
@@ -15,11 +51,13 @@
         android:layout_height="match_parent"
         app:srlEnableScrollContentWhenLoaded="true"
         app:srlEnableFooterFollowWhenLoadFinished="true"
-        >
+        android:visibility="gone">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_rlv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            />
+
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

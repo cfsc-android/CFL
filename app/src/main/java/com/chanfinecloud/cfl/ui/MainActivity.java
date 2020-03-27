@@ -39,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import cn.jpush.android.api.JPushInterface;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.config.Config.WORKORDER;
 
 public class MainActivity extends BaseActivity {
 
@@ -59,6 +60,7 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         setContentView(R.layout.activity_main);
         setAliasAndTag();
+        getData();
     }
    /* @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +103,7 @@ public class MainActivity extends BaseActivity {
      * 请求数据
      */
     private void getData(){
-        RequestParam requestParam=new RequestParam(BASE_URL+"work/orderType/pageByCondition", HttpMethod.Get);
+        RequestParam requestParam=new RequestParam(BASE_URL+WORKORDER+"work/orderType/pageByCondition", HttpMethod.Get);
         Map<String,Object> map=new HashMap<>();
         map.put("pageNo",page);
         map.put("pageSize",pageSize);

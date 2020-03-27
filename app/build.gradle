@@ -1,7 +1,9 @@
 apply plugin: 'com.android.application'
 
 def Release_Url = "\"http://10.222.1.25:9200/\""
+
 def Debug_Url = "\"http://10.222.5.51:8888/\""
+
 
 android {
     compileSdkVersion 29

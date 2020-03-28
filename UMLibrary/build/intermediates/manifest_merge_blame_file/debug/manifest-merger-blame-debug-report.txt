@@ -1,0 +1,63 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.umeng.message.lib"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="14"
+8-->D:\android\CFL\UMLibrary\AndroidManifest.xml
+9        android:targetSdkVersion="26" />
+9-->D:\android\CFL\UMLibrary\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->D:\android\CFL\UMLibrary\AndroidManifest.xml:8:5-67
+11-->D:\android\CFL\UMLibrary\AndroidManifest.xml:8:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->D:\android\CFL\UMLibrary\AndroidManifest.xml:9:5-79
+12-->D:\android\CFL\UMLibrary\AndroidManifest.xml:9:22-76
+13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+13-->D:\android\CFL\UMLibrary\AndroidManifest.xml:10:5-76
+13-->D:\android\CFL\UMLibrary\AndroidManifest.xml:10:22-73
+14    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+14-->D:\android\CFL\UMLibrary\AndroidManifest.xml:11:5-81
+14-->D:\android\CFL\UMLibrary\AndroidManifest.xml:11:22-78
+15    <uses-permission android:name="android.permission.WAKE_LOCK" />
+15-->D:\android\CFL\UMLibrary\AndroidManifest.xml:12:5-68
+15-->D:\android\CFL\UMLibrary\AndroidManifest.xml:12:22-65
+16    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+16-->D:\android\CFL\UMLibrary\AndroidManifest.xml:13:5-75
+16-->D:\android\CFL\UMLibrary\AndroidManifest.xml:13:22-72
+17    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
+17-->D:\android\CFL\UMLibrary\AndroidManifest.xml:14:5-82
+17-->D:\android\CFL\UMLibrary\AndroidManifest.xml:14:22-79
+18    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
+18-->D:\android\CFL\UMLibrary\AndroidManifest.xml:15:5-84
+18-->D:\android\CFL\UMLibrary\AndroidManifest.xml:15:22-81
+19    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
+19-->D:\android\CFL\UMLibrary\AndroidManifest.xml:16:5-84
+19-->D:\android\CFL\UMLibrary\AndroidManifest.xml:16:22-81
+20    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
+20-->D:\android\CFL\UMLibrary\AndroidManifest.xml:17:5-85
+20-->D:\android\CFL\UMLibrary\AndroidManifest.xml:17:22-82
+21    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+21-->D:\android\CFL\UMLibrary\AndroidManifest.xml:18:5-75
+21-->D:\android\CFL\UMLibrary\AndroidManifest.xml:18:22-72
+22    <uses-permission android:name="android.permission.GET_TASKS" />
+22-->D:\android\CFL\UMLibrary\AndroidManifest.xml:19:5-68
+22-->D:\android\CFL\UMLibrary\AndroidManifest.xml:19:22-65
+23    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+23-->D:\android\CFL\UMLibrary\AndroidManifest.xml:20:5-81
+23-->D:\android\CFL\UMLibrary\AndroidManifest.xml:20:22-78
+24    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+24-->D:\android\CFL\UMLibrary\AndroidManifest.xml:21:5-79
+24-->D:\android\CFL\UMLibrary\AndroidManifest.xml:21:22-76
+25    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+25-->D:\android\CFL\UMLibrary\AndroidManifest.xml:22:5-76
+25-->D:\android\CFL\UMLibrary\AndroidManifest.xml:22:22-73
+26
+27    <application>
+27-->D:\android\CFL\UMLibrary\AndroidManifest.xml:24:5-28:19
+28    </application>
+29
+30</manifest>

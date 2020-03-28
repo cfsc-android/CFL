@@ -32,6 +32,7 @@ android {
             signingConfig signingConfigs.cfl
             //测试
             buildConfigField "String", "BASE_URL", Debug_Url
+            buildConfigField "String", "ENV", "\"debug\""
         }
         release {
             debuggable true
@@ -42,6 +43,7 @@ android {
             signingConfig signingConfigs.cfl
             //正式
             buildConfigField "String", "BASE_URL", Release_Url
+            buildConfigField "String", "ENV", "\"release\""
 
         }
     }
@@ -85,4 +87,10 @@ dependencies {
 
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    //implementation 'com.youth.banner:banner:2.0.0-beta01'
+    implementation 'com.youth.banner:banner:1.4.10'
+}
+
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
 }

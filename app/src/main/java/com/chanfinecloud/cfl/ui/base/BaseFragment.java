@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.entity.core.Transition;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.fragment.lazyfrg.LazyFragment;
 import com.chanfinecloud.cfl.util.AtyTransitionUtil;
 import com.chanfinecloud.cfl.weidgt.ProgressDialogView;
 import com.squareup.leakcanary.RefWatcher;
@@ -34,7 +35,7 @@ import static com.chanfinecloud.cfl.ui.base.BaseHandler.HTTP_REQUEST;
  * Version: 1.0
  * Describe: Fragment基础类
  */
-public abstract  class BaseFragment extends Fragment {
+public abstract  class BaseFragment extends LazyFragment {
 
     private Context context;
     private ProgressDialogView progressDialogView = null;
@@ -47,16 +48,79 @@ public abstract  class BaseFragment extends Fragment {
         handler=new BaseHandler(getActivity());//初始化BaseHandler
     }
 
+
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onCreateViewLazy(Bundle savedInstanceState, LayoutInflater inflater) {
+        super.onCreateViewLazy(savedInstanceState, inflater);
+        initView(inflater);
         initData();
+
     }
+    /**
+     * damien
+     * bindView 的地方
+     */
+    protected abstract void initView(LayoutInflater inflater);
+
     /**
      * damien
      * 丢弃 onViewCreated   初始数据绑定的地方
      */
     protected abstract void initData();
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState == null) {// 数据初始化
+            dataInit();
+        } else {// 数据恢复
+            dataRestore(savedInstanceState);
+        }
+        eventDispose();// 事件
+    }
+
+    /**
+     * @方法说明:数据初始化
+     * @方法名称:dataInit
+     * @返回值:void
+     */
+    public void dataInit() {
+    }
+
+    /**
+     * @param savedInstanceState
+     * @方法说明:数据恢复
+     * @方法名称:dataRestore
+     * @返回值:void
+     */
+    public void dataRestore(Bundle savedInstanceState) {
+    }
+
+    /**
+     * @方法说明:处理
+     * @方法名称:eventDispose
+     * @返回值:void
+     */
+    public void eventDispose() {
+    }
+
+    /**
+     * @return
+     * @方法说明:获得上下文环境
+     * @方法名称:getContext
+     * @返回值:Context
+     */
+    @Override
+    public Context getContext() {
+        return context;
+    }
+
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        stopProgressDialog();
+    }
 
     @Override
     public void onDestroy() {
@@ -240,6 +304,7 @@ public abstract  class BaseFragment extends Fragment {
     protected void stopProgressDialog() {
         if (progressDialogView != null) {
             progressDialogView.stopLoad();
+            progressDialogView = null;
         }
     }
     /**

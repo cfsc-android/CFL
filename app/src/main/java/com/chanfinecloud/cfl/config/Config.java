@@ -12,11 +12,11 @@ import com.chanfinecloud.cfl.BuildConfig;
 public class Config {
 
     public static final String BASE_URL= BuildConfig.BASE_URL;//后台服务地址
-
+    public static final String ENV= BuildConfig.ENV;//当前运行环境
     public static final String PROVIDER_AUTHORITY="com.chanfinecloud.cflforemployee.fileprovider";//清单文件中provider的authorities属性的值
     public static final String SD_APP_DIR_NAME = "CFL"; //存储程序在外部SD卡上的根目录的名字
     public static final String PHOTO_DIR_NAME = "photo";    //存储照片在根目录下的文件夹名字
     public static final String File_DIR_NAME = "file";    //存储文件在根目录下的文件夹名字
-
+    public static final String  ARTICLE= ENV.equals("debug")?"":"smart-content-ms/";//文章
     public static final String[] PERMISSION={Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};//应用所需运行时权限
 }

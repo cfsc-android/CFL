@@ -55,22 +55,22 @@ public class BaseHandler extends Handler {
             HttpMethod httpMethod=requestParam.getMethod();
             switch (httpMethod){
                 case Get:
-                    taskList.add(XHttp.Get(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getCallback(),requestParam.isAuthorization()));
+                    taskList.add(XHttp.Get(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getParamHeader(),requestParam.getCallback(),requestParam.isAuthorization()));
                     break;
                 case Post:
-                    taskList.add(XHttp.Post(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getCallback(),requestParam.getParamType(), requestParam.isAuthorization()));
+                    taskList.add(XHttp.Post(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getParamHeader(),requestParam.getCallback(),requestParam.getParamType(), requestParam.isAuthorization()));
                     break;
                 case Put:
-                    taskList.add(XHttp.Put(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getCallback(),requestParam.getParamType(),requestParam.isAuthorization()));
+                    taskList.add(XHttp.Put(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getParamHeader(),requestParam.getCallback(),requestParam.getParamType(),requestParam.isAuthorization()));
                     break;
                 case Delete:
-                    taskList.add(XHttp.Delete(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getCallback(),requestParam.getParamType(),requestParam.isAuthorization()));
+                    taskList.add(XHttp.Delete(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getParamHeader(),requestParam.getCallback(),requestParam.getParamType(),requestParam.isAuthorization()));
                     break;
                 case Download:
-                    taskList.add(XHttp.DownLoadFile(requestParam.getUrl(),requestParam.getFilepath(),requestParam.getProgressCallback(),requestParam.isAuthorization()));
+                    taskList.add(XHttp.DownLoadFile(requestParam.getUrl(),requestParam.getFilepath(),requestParam.getParamHeader(),requestParam.getProgressCallback(),requestParam.isAuthorization()));
                     break;
                 case Upload:
-                    taskList.add(XHttp.UpLoadFile(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getCallback(),requestParam.isAuthorization()));
+                    taskList.add(XHttp.UpLoadFile(requestParam.getUrl(),requestParam.getRequestMap(),requestParam.getParamHeader(),requestParam.getCallback(),requestParam.isAuthorization()));
                     break;
             }
         }

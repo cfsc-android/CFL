@@ -23,6 +23,7 @@ import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.homehead.UnLock;
 import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
@@ -182,6 +183,7 @@ public class HomeFragment extends BaseFragment {
         map.put("auditStatus","1");
         map.put("pageNo","1");
         map.put("pageSize","10");
+        requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -224,6 +226,7 @@ public class HomeFragment extends BaseFragment {
         map.put("auditStatus","1");
         map.put("pageNo","1");
         map.put("pageSize","10");
+        requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -292,8 +295,7 @@ public class HomeFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.tv_to_menjin:
                 if(bind){
-//                    todo  新建  UnLock  然后取消一下注释
-                    //startActivity(UnLock.class);
+                    startActivity(UnLock.class);
                 }else{
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }

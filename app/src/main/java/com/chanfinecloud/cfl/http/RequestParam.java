@@ -24,10 +24,19 @@ public class RequestParam<T> implements Serializable {
     private HttpMethod method;
     private ParamType paramType;
     private Map<String, Object> requestMap;
+    private Map<String,String> paramHeader;
     private boolean authorization;
     private String filepath;
     private Callback.CommonCallback<T> callback;
     private Callback.ProgressCallback<T> progressCallback;
+
+    public Map<String, String> getParamHeader() {
+        return paramHeader;
+    }
+
+    public void setParamHeader(Map<String, String> paramHeader) {
+        this.paramHeader = paramHeader;
+    }
 
     public boolean isAuthorization() {
         return authorization;

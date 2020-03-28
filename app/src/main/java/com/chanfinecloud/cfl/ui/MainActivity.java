@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         setContentView(R.layout.activity_main);
         setAliasAndTag();
-        getData();
+        //getData();
         ButterKnife.bind(this);
         context=this;
         fragmentManager = getSupportFragmentManager();
@@ -158,6 +158,7 @@ public class MainActivity extends BaseActivity {
             }
         }
         return super.onKeyDown(keyCode, event);
+
 //        setAliasAndTag();
 //        getData();
     }
@@ -260,11 +261,12 @@ public class MainActivity extends BaseActivity {
      * 设置极光推送的alias（别名）和tag(标签)
      */
     private void setAliasAndTag(){
-        JPushInterface.setAlias(this,0x01,"ZXL");
+        JPushInterface.setAlias(this,0x01,"ZXL");//别名（userId）
+
         Set<String> tagSet = new LinkedHashSet<>();
-        tagSet.add("YZ");
-        tagSet.add("CFSC");
-        tagSet.add("TEMP");
+        tagSet.add("YZ");//身份（YG,YK，YZ，ZK，JS...员工端直接写死YG，业主则用当前项目身份）
+        tagSet.add("P_234ab909de");//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
+        tagSet.add("D_5656ac65de5b");//部门（'D_'+员工的部门Id）
         JPushInterface.setTags(this,0x02,tagSet);
     }
 }

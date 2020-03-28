@@ -158,7 +158,7 @@ public class FileManagement {
         SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(), "roomInfo", "roomInfo", roomInfo);
     }
 
-    public static ArrayList<RoomInfoEntity> getRoomInfo() {
+    public static ArrayList<RoomInfoEntity> getRoomInfo(ArrayList<RoomInfoEntity> roomInfo) {
         return (ArrayList<RoomInfoEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(), "roomInfo", "roomInfo");
     }
 

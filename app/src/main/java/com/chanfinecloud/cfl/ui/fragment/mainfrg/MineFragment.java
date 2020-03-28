@@ -15,14 +15,12 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.LoginUserEntity;
 import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
-import com.chanfinecloud.cfl.ui.activity.ExpressSearchActivity;
 import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
 import com.chanfinecloud.cfl.ui.activity.SettingActivity;
 import com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.Constants;
 import com.chanfinecloud.cfl.util.FileManagement;
-import com.chanfinecloud.cfl.util.XUtilsImageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

@@ -29,10 +29,15 @@ public class XHttp {
      * @param <T> ResultType
      * @return Callback.Cancelable
      */
-    public static <T> Callback.Cancelable Get(String url, Map<String, Object> map, Callback.CommonCallback<T> callback,boolean authorization){
+    public static <T> Callback.Cancelable Get(String url, Map<String, Object> map,Map<String, String> header,Callback.CommonCallback<T> callback,boolean authorization){
         LogUtil.d(url);
         RequestParams params=new RequestParams(url);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
+        if(null!=header){
+            for(Map.Entry<String, String> entry : header.entrySet()){
+                params.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
         if(null!=map){
             for(Map.Entry<String, Object> entry : map.entrySet()){
                 params.addQueryStringParameter(entry.getKey(), entry.getValue());
@@ -50,10 +55,15 @@ public class XHttp {
      * @param <T> ResultType
      * @return Callback.Cancelable
      */
-    public static <T> Callback.Cancelable Post(String url, Map<String, Object> map, Callback.CommonCallback<T> callback,ParamType paramType,boolean authorization) {
+    public static <T> Callback.Cancelable Post(String url, Map<String, Object> map, Map<String, String> header,Callback.CommonCallback<T> callback,ParamType paramType,boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
+        if(null!=header){
+            for(Map.Entry<String, String> entry : header.entrySet()){
+                params.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
         if (null != map) {
             if(paramType==ParamType.Json){
                 Gson gson=new Gson();
@@ -78,10 +88,15 @@ public class XHttp {
      * @param <T> ResultType
      * @return Callback.Cancelable
      */
-    public static <T> Callback.Cancelable Put(String url, Map<String, Object> map, Callback.CommonCallback<T> callback,ParamType paramType,boolean authorization) {
+    public static <T> Callback.Cancelable Put(String url, Map<String, Object> map, Map<String, String> header,Callback.CommonCallback<T> callback,ParamType paramType,boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
+        if(null!=header){
+            for(Map.Entry<String, String> entry : header.entrySet()){
+                params.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
         if (null != map) {
             if(paramType==ParamType.Json){
                 Gson gson=new Gson();
@@ -107,10 +122,15 @@ public class XHttp {
      * @param <T> ResultType
      * @return Callback.Cancelable
      */
-    public static <T> Callback.Cancelable Delete(String url, Map<String, Object> map, Callback.CommonCallback<T> callback,ParamType paramType,boolean authorization) {
+    public static <T> Callback.Cancelable Delete(String url, Map<String, Object> map, Map<String, String> header,Callback.CommonCallback<T> callback,ParamType paramType,boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
+        if(null!=header){
+            for(Map.Entry<String, String> entry : header.entrySet()){
+                params.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
         if (null != map) {
             if(paramType==ParamType.Json){
                 Gson gson=new Gson();
@@ -136,10 +156,15 @@ public class XHttp {
      * @param <T> ResultType
      * @return Callback.Cancelable
      */
-    public static <T> Callback.Cancelable UpLoadFile(String url, Map<String, Object> map, Callback.CommonCallback<T> callback,boolean authorization) {
+    public static <T> Callback.Cancelable UpLoadFile(String url, Map<String, Object> map,Map<String, String> header, Callback.CommonCallback<T> callback,boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
+        if(null!=header){
+            for(Map.Entry<String, String> entry : header.entrySet()){
+                params.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
         if (null != map) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
 //                params.addParameter(entry.getKey(), entry.getValue());
@@ -160,10 +185,15 @@ public class XHttp {
      * @param <T> ResultType
      * @return Callback.Cancelable
      */
-    public static <T> Callback.Cancelable DownLoadFile(String url, String filepath, Callback.ProgressCallback<T> callback,boolean authorization) {
+    public static <T> Callback.Cancelable DownLoadFile(String url, String filepath, Map<String, String> header,Callback.ProgressCallback<T> callback,boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
+        if(null!=header){
+            for(Map.Entry<String, String> entry : header.entrySet()){
+                params.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
         //设置断点续传
         params.setAutoResume(true);
         params.setSaveFilePath(filepath);

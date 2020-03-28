@@ -18,6 +18,7 @@ import com.chanfinecloud.cfl.entity.core.ListLoadingType;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.http.XHttp;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment;
 import com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment;
@@ -28,16 +29,27 @@ import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import cn.jpush.android.api.JPushInterface;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.config.Config.WORKORDER;
+
 /**
  * Created by damien on 2020/3/26.
  * Version: 1.0
@@ -57,9 +69,7 @@ public class MainActivity extends BaseActivity {
     RecyclerView mainRlv;
     @BindView(R.id.main_srl)
     SmartRefreshLayout mainSrl;
-    @ViewInject(R.id.main_srl)
-    private SmartRefreshLayout main_srl;
-    @ViewInject(R.id.main_rlv)
+
     private RecyclerView main_rlv;
 
     private String title;
@@ -78,6 +88,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         setContentView(R.layout.activity_main);
+        setAliasAndTag();
+        getData();
         ButterKnife.bind(this);
         context=this;
         fragmentManager = getSupportFragmentManager();
@@ -146,6 +158,8 @@ public class MainActivity extends BaseActivity {
             }
         }
         return super.onKeyDown(keyCode, event);
+        setAliasAndTag();
+        getData();
     }
    /* @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,14 +197,15 @@ public class MainActivity extends BaseActivity {
     }*/
 
 
+
     /**
      * 请求数据
      */
-    private void getData() {
-        RequestParam requestParam = new RequestParam(BASE_URL + "work/orderType/pageByCondition", HttpMethod.Get);
-        Map<String, Object> map = new HashMap<>();
-        map.put("pageNo", page);
-        map.put("pageSize", pageSize);
+    private void getData(){
+        RequestParam requestParam=new RequestParam(BASE_URL+WORKORDER+"work/orderType/pageByCondition", HttpMethod.Get);
+        Map<String,Object> map=new HashMap<>();
+        map.put("pageNo",page);
+        map.put("pageSize",pageSize);
         requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>() {
             @Override
@@ -238,5 +253,18 @@ public class MainActivity extends BaseActivity {
                 setTabSelection(1);
                 break;
         }
+    }
+
+
+    /**
+     * 设置极光推送的alias（别名）和tag(标签)
+     */
+    private void setAliasAndTag(){
+        JPushInterface.setAlias(this,0x01,"ZXL");
+        Set<String> tagSet = new LinkedHashSet<>();
+        tagSet.add("YZ");
+        tagSet.add("CFSC");
+        tagSet.add("TEMP");
+        JPushInterface.setTags(this,0x02,tagSet);
     }
 }

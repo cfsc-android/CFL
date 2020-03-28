@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Loong on 2020/2/3.
@@ -54,13 +55,19 @@ public class CFLApplication extends Application {
         mContext = getApplicationContext();
         x.Ext.init(this);//注册Utils
         x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
+
         PgyCrashManager.register();//蒲公英crash收集注册
-        UMConfigure.init(this,"5cb6d69f0cafb29742001079","umeng", UMConfigure.DEVICE_TYPE_PHONE,"");//友盟注册
+
+        UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"");//友盟注册
+        UMConfigure.setLogEnabled(true);//友盟日志
+
+
         refWatcher = LeakCanary.install(this);//LeakCanary注册
 
-
+        //极光推送初始化
+        JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);            // 初始化 JPush
     }
-
 
     static {
         //设置全局的Header构建器
@@ -83,8 +90,8 @@ public class CFLApplication extends Application {
         });
 
         //友盟第三方登录/分享渠道设置
-        PlatformConfig.setWeixin("wxd49aa41b4120e385", "56aeeca40a0f8165ac28c102795255ff");//微信
-        PlatformConfig.setQQZone("101852439", "acddc3daf0e8f674cde2068ccdf282ea");//QQ
+        PlatformConfig.setWeixin("wx9e26096ae63f011d", "22ba1246fa64314bb6cc97a7c10ac25c");//微信
+        PlatformConfig.setQQZone("101569547", "00261965102559b4d8732e9a747c771a");//QQ
     }
 
 

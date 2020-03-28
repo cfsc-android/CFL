@@ -154,15 +154,6 @@ public class FileManagement {
         return token;
     }
 
-    public static void setRoomInfo(ArrayList<RoomInfoEntity> roomInfo) {
-        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(), "roomInfo", "roomInfo", roomInfo);
-    }
-
-    public static ArrayList<RoomInfoEntity> getRoomInfo(ArrayList<RoomInfoEntity> roomInfo) {
-        return (ArrayList<RoomInfoEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(), "roomInfo", "roomInfo");
-    }
-
-
     public static void setBaseUser(LoginUserEntity loginUserEntity) {
         SharedPreferencesUtil.getInstance().saveObject(
                 CFLApplication.getAppContext(), "loginUserEntity_key",

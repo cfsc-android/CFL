@@ -23,6 +23,7 @@ import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.weidgt.ADTextView;
@@ -343,7 +344,7 @@ public class HomeFragment extends BaseFragment {
                 bundle_b.putString("title","产证查询");
                 bundle_b.putString("url","http://szjw.changsha.gov.cn/ywcx/");
                 bundle_b.putString("rightAction","share");
-               // startActivity(NewsInfoActivity.class,bundle_b);
+                startActivity(NewsInfoActivity.class,bundle_b);
                 break;
             case R.id.tv_to_more:
                 Bundle joinBundle=new Bundle();
@@ -383,7 +384,7 @@ public class HomeFragment extends BaseFragment {
                 Bundle a_bundle=new Bundle();
                 a_bundle.putString("title","周边服务");
                 a_bundle.putString("url","https://map.baidu.com/mobile/webapp/index/index");
-               // startActivity(NewsInfoActivity.class,a_bundle);
+                startActivity(NewsInfoActivity.class,a_bundle);
                 break;
         }
     }

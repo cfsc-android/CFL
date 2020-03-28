@@ -1,23 +1,24 @@
 package com.chanfinecloud.cfl.ui.fragment.mainfrg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.LoginUserEntity;
 import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.ui.activity.ExpressSearchActivity;
+import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
+import com.chanfinecloud.cfl.ui.activity.SettingActivity;
+import com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.Constants;
 import com.chanfinecloud.cfl.util.FileManagement;
@@ -62,8 +63,8 @@ public class MineFragment extends BaseFragment {
     TextView tvMineFace;
     @BindView(R.id.tv_mine_express)
     TextView tvMineExpress;
-    @BindView(R.id.tv_nime_wallet)
-    TextView tvNimeWallet;
+    @BindView(R.id.tv_mine_evaluation)
+    TextView tvMineEvaluation;
     @BindView(R.id.tv_mine_data)
     TextView tvMineData;
     @BindView(R.id.tv_mine_setting)
@@ -131,7 +132,7 @@ public class MineFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.iv_mine_head, R.id.tv_mine_name, R.id.tv_mine_address, R.id.ll_mine_head, R.id.tv_mine_gongdan, R.id.tv_mine_tousu, R.id.tv_mine_car, R.id.tv_mine_bill, R.id.tv_mine_face, R.id.tv_mine_express, R.id.tv_nime_wallet, R.id.tv_mine_data, R.id.tv_mine_setting})
+    @OnClick({R.id.iv_mine_head, R.id.tv_mine_name, R.id.tv_mine_address, R.id.ll_mine_head, R.id.tv_mine_gongdan, R.id.tv_mine_tousu, R.id.tv_mine_car, R.id.tv_mine_bill, R.id.tv_mine_face, R.id.tv_mine_express, R.id.tv_mine_evaluation, R.id.tv_mine_data, R.id.tv_mine_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_mine_head:
@@ -153,12 +154,18 @@ public class MineFragment extends BaseFragment {
             case R.id.tv_mine_face:
                 break;
             case R.id.tv_mine_express:
+                Bundle a_bundle=new Bundle();
+                a_bundle.putString("title","包裹查询");
+                a_bundle.putString("url","https://m.kuaidi100.com/app/?coname=hao123");
+                startActivity(NewsInfoActivity.class,a_bundle);
                 break;
-            case R.id.tv_nime_wallet:
+            case R.id.tv_mine_evaluation:
+                startActivity(new Intent(getActivity(), WaitingForDevelopmentActivity.class).putExtra("title", "评价"));
                 break;
             case R.id.tv_mine_data:
                 break;
             case R.id.tv_mine_setting:
+                startActivity(SettingActivity.class);
                 break;
         }
     }

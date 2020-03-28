@@ -158,8 +158,8 @@ public class MainActivity extends BaseActivity {
             }
         }
         return super.onKeyDown(keyCode, event);
-        setAliasAndTag();
-        getData();
+//        setAliasAndTag();
+//        getData();
     }
    /* @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,12 +220,12 @@ public class MainActivity extends BaseActivity {
                 }
                 adapter.notifyDataSetChanged();
                 if (loadType == ListLoadingType.Refresh) {
-                    main_srl.finishRefresh();
+                    mainSrl.finishRefresh();
                 } else {
                     if (page * pageSize >= 67) {
-                        main_srl.finishLoadMoreWithNoMoreData();
+                        mainSrl.finishLoadMoreWithNoMoreData();
                     } else {
-                        main_srl.finishLoadMore();
+                        mainSrl.finishLoadMore();
                     }
                 }
             }

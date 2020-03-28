@@ -5,6 +5,7 @@ import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.entity.LoginUserEntity;
 import com.chanfinecloud.cfl.entity.ProjectInfo;
 import com.chanfinecloud.cfl.entity.QQLoginEntity;
+import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.ThirdInfoEntity;
 import com.chanfinecloud.cfl.entity.WeiXinLoginEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
@@ -146,6 +147,14 @@ public class FileManagement {
         );
 
         return token;
+    }
+
+    public static void setRoomInfo(ArrayList<RoomInfoEntity> roomInfo) {
+        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(), "roomInfo", "roomInfo", roomInfo);
+    }
+
+    public static ArrayList<RoomInfoEntity> getRoomInfo() {
+        return (ArrayList<RoomInfoEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(), "roomInfo", "roomInfo");
     }
 
 

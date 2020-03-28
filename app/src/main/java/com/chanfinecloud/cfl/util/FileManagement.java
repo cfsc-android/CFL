@@ -10,9 +10,12 @@ import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.ThirdInfoEntity;
 import com.chanfinecloud.cfl.entity.TokenEntity;
 import com.chanfinecloud.cfl.entity.WeiXinLoginEntity;
+import com.chanfinecloud.cfl.entity.smart.OrderStatusEntity;
+import com.chanfinecloud.cfl.entity.smart.OrderTypeEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 此类描述的是:文件存储管理
@@ -272,4 +275,37 @@ public class FileManagement {
     public static TokenEntity getTokenEntity(){
         return (TokenEntity) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","token");
     }
+
+    public static void setComplainType(List<OrderTypeEntity> list){
+        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","complainType",list);
+    }
+
+    public static List<OrderTypeEntity> getComplainType(){
+        return (List<OrderTypeEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","complainType");
+    }
+
+    public static void setOrderType(List<OrderTypeEntity> list){
+        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","orderType",list);
+    }
+
+
+    public static void setComplainStatus(List<OrderStatusEntity> list){
+        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","complainStatus",list);
+    }
+
+    public static List<OrderStatusEntity> getComplainStatus(){
+        return (List<OrderStatusEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","complainStatus");
+    }
+
+    public static List<OrderTypeEntity> getOrderType(){
+        return (List<OrderTypeEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","orderType");
+    }
+    public static void setOrderStatus(List<OrderStatusEntity> list){
+        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","orderStatus",list);
+    }
+
+    public static List<OrderStatusEntity> getOrderStatus(){
+        return (List<OrderStatusEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","orderStatus");
+    }
+
 }

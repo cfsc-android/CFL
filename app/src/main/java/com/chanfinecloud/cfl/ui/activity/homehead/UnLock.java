@@ -15,6 +15,7 @@ import com.chanfinecloud.cfl.entity.smart.QrCodeEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
+import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
@@ -78,6 +79,7 @@ public class UnLock extends BaseActivity {
         requestMap.put("openTimes",4);
         requestMap.put("phaseId",FileManagement.getUserInfoEntity().getRoomList().get(0).getPhaseId());
         requestParam.setRequestMap(requestMap);
+        requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

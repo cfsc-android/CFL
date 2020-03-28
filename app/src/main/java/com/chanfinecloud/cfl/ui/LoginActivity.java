@@ -1,6 +1,7 @@
 package com.chanfinecloud.cfl.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,21 +15,28 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.ProjectInfo;
 import com.chanfinecloud.cfl.entity.QQLoginEntity;
+import com.chanfinecloud.cfl.entity.TokenEntity;
 import com.chanfinecloud.cfl.entity.WeiXinLoginEntity;
 import com.chanfinecloud.cfl.entity.core.Transition;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.OrderStatusEntity;
+import com.chanfinecloud.cfl.entity.smart.OrderTypeListEntity;
 import com.chanfinecloud.cfl.entity.smart.SmsKeyEntity;
+import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.RegisterActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.Constants;
 import com.chanfinecloud.cfl.util.FileManagement;
+import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.weidgt.EditTextDelView;
 import com.chanfinecloud.cfl.weidgt.alertview.AlertView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -37,8 +45,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.util.LogUtil;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,8 +61,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.chanfinecloud.cfl.config.Config.AUTH;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.config.Config.BASIC;
 import static com.chanfinecloud.cfl.config.Config.SMS;
+import static com.chanfinecloud.cfl.config.Config.WORKORDER;
 
 
 public class LoginActivity extends BaseActivity {
@@ -191,10 +208,27 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_login:
+                mobileNum = etdUserMobileNumber.getText().toString();
+                vcerificationCode = etUserMobileCode.getText().toString();
+                if (Utils.isEmpty(mobileNum)) {
+                    mAlertView = new AlertView("温馨提示", "手机号码不能为空",
+                            null, new String[]{"知道了"}, null, LoginActivity.this, AlertView.Style.Alert, null).setCancelable(true);
+                    mAlertView.show();
+                } else if (Utils.isEmpty(vcerificationCode)) {
+                    mAlertView = new AlertView("温馨提示", "验证码不能为空",
+                            null, new String[]{"知道了"}, null, this, AlertView.Style.Alert, null).setCancelable(true);
+                    mAlertView.show();
+//                } else if (!(Tools.isMobile(mobileNum))) {
+//                    Tools.showPrompt("请输入正确的手机号");
+                } else {
+//                    startProgressDialog("");
+                    login();
+                }
+// TODO: 2020/3/28记得删除  直接进去
+                loginClick();
                 break;
             case R.id.tv_register:
-                // TODO: 2020/3/28
-                //startActivity(RegisterActivity.class);
+                startActivity(RegisterActivity.class);
                 break;
             case R.id.ll_umeng_login_weixin:
                 showToast("待开发");
@@ -224,12 +258,252 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * @author TanYong
+     * create at 2017/4/21 15:57
+     * TODO：登录
+     */
+    private void login() {
+
+        RequestParam requestParam=new RequestParam(BASE_URL+AUTH+"oauth/user/household/login", HttpMethod.Post);
+        Map<String,Object> headerMap=new HashMap<>();
+        headerMap.put("client_id","mobile");
+        headerMap.put("client_secret","mobile");
+        requestParam.setParamHeader(headerMap);
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("mobile",mobileNum);
+        map.put("key",validKey);
+        map.put("validCode",vcerificationCode);
+        requestParam.setRequestMap(map);
+
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d("登录打印"+result);
+                Gson gson = new Gson();
+                TokenEntity token=gson.fromJson(result,TokenEntity.class);
+                token.setInit_time(new Date().getTime()/1000);
+                FileManagement.setTokenEntity(token);
+                FileManagement.setPhone(mobileNum);
+                initFileData();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+            }
+        });
+
+        sendRequest(requestParam,false);
+
+    }
+
+    /**
+     * 登录后初始用户数据
+     */
+    private void initFileData(){
+        initOrderType();
+        initOrderStatus();
+        initComplainType();
+        initComplainStatus();
+        getUserInfo();
+    }
+
+    //初始化工单类型
+    private void initOrderType(){
+        RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"work/orderType/pageByCondition", HttpMethod.Get);
+        Map<String,String> requestMap=new HashMap<>();
+        requestMap.put("pageNo","1");
+        requestMap.put("pageSize","100");
+        requestParam.setRequestMap(requestMap);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d(result);
+                BaseEntity<OrderTypeListEntity> baseEntity= JsonParse.parse(result, OrderTypeListEntity.class);
+                if(baseEntity.isSuccess()){
+                    FileManagement.setOrderType(baseEntity.getResult().getData());
+                    checkInitStatus(1);
+                }else{
+                    showToast(baseEntity.getMessage());
+                    checkInitStatus(0);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+                checkInitStatus(0);
+            }
+        });
+        sendRequest(requestParam,false);
+    }
+    //初始化工单状态
+    private void initOrderStatus(){
+
+        RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"work/orderStatus/selectWorkorderStatus", HttpMethod.Get);
+
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d(result);
+                BaseEntity baseEntity= JsonParse.parse(result);
+                if(baseEntity.isSuccess()){
+                    Type type = new TypeToken<List<OrderStatusEntity>>() {}.getType();
+                    List<OrderStatusEntity> list= (List<OrderStatusEntity>) JsonParse.parseList(result,type);
+                    FileManagement.setOrderStatus(list);
+                    checkInitStatus(1);
+                }else{
+                    showToast(baseEntity.getMessage());
+                    checkInitStatus(0);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+                checkInitStatus(0);
+            }
+        });
+        sendRequest(requestParam,false);
+
+
+    }
+    //初始化投诉类型
+    private void initComplainType(){
+
+        RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"work/complaintType/pageByCondition", HttpMethod.Get);
+        Map<String,String> requestMap=new HashMap<>();
+        requestMap.put("pageNo","1");
+        requestMap.put("pageSize","100");
+        requestParam.setRequestMap(requestMap);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d(result);
+                BaseEntity<OrderTypeListEntity> baseEntity= JsonParse.parse(result, OrderTypeListEntity.class);
+                if(baseEntity.isSuccess()){
+                    FileManagement.setComplainType(baseEntity.getResult().getData());
+                    checkInitStatus(1);
+                }else{
+                    showToast(baseEntity.getMessage());
+                    checkInitStatus(0);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+                checkInitStatus(0);
+            }
+        });
+        sendRequest(requestParam,false);
+
+    }
+    //初始化投诉状态
+    private void initComplainStatus(){
+
+        RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"work/complaintStatus/complaintStatusList", HttpMethod.Get);
+        Map<String,String> requestMap=new HashMap<>();
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d(result);
+                BaseEntity baseEntity= JsonParse.parse(result);
+                if(baseEntity.isSuccess()){
+                    Type type = new TypeToken<List<OrderStatusEntity>>() {}.getType();
+                    List<OrderStatusEntity> list= (List<OrderStatusEntity>) JsonParse.parseList(result,type);
+                    FileManagement.setComplainStatus(list);
+                    checkInitStatus(1);
+                }else{
+                    showToast(baseEntity.getMessage());
+                    checkInitStatus(0);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+                checkInitStatus(0);
+            }
+        });
+        sendRequest(requestParam,false);
+
+    }
+    //获取用户信息
+    private void getUserInfo(){
+
+        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/phone", HttpMethod.Get);
+        Map<String,String> requestMap=new HashMap<>();
+        requestMap.put("phoneNumber",FileManagement.getPhone());
+        requestParam.setRequestMap(requestMap);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d(result);
+                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result, UserInfoEntity.class);
+                if(baseEntity.isSuccess()){
+                    FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
+                    checkInitStatus(1);
+                }else{
+                    showToast(baseEntity.getMessage());
+                    checkInitStatus(0);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+                checkInitStatus(0);
+            }
+        });
+        sendRequest(requestParam,false);
+    }
+
+
+    private List<Integer> initStatus=new ArrayList<>();
+
+    private void checkInitStatus(int status){
+
+        initStatus.add(status);
+
+        LogUtils.d("初始结果打印"+initStatus.toString()+ "index0");
+        /*if(initStatus.indexOf(0)==-1&&initStatus.size() ==5){
+            startActivity(MainActivity.class);
+            finish();
+        }*/
+        // TODO: 2020/3/28  改回上面的
+        if(initStatus.size() >=5){
+            startActivity(MainActivity.class);
+            finish();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * @author TanYong
      * create at 2017/4/21 13:36
      * TODO：获取手机验证码
      */
     private void sendSMS() {
 
-        RequestParam requestParam=new RequestParam(BASE_URL+SMS+"sms-internal/codes", HttpMethod.Get);
+        RequestParam requestParam=new RequestParam(BASE_URL+SMS+"sms-internal/codes", HttpMethod.Post);
         Map<String,Object> map=new HashMap<>();
         map.put("phone",mobileNum);
         requestParam.setRequestMap(map);

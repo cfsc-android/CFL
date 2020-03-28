@@ -1,5 +1,6 @@
 package com.chanfinecloud.cfl.ui.fragment.mainfrg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -88,13 +89,65 @@ public class MineFragment extends BaseFragment {
     public void Event(EventBusMessage message){
         if("headerImg".equals(message.getMessage())){
             userEntity=FileManagement.getLoginUserEntity();
-            XUtilsImageUtils.display(ivMineHead,
+            /*XUtilsImageUtils.display(ivMineHead,
                     Constants.BASEHOST+userEntity.getHeadImageUrl(),
-                    true);
+                    true);*/
+            Glide.with(this)
+                    .load(Constants.BASEHOST+userEntity.getHeadImageUrl())
+                    .error(R.drawable.ic_default_img)
+                    .circleCrop()
+                    .into(ivMineHead);
         }else if("bind".equals(message.getMessage())){
             Log.e("bind","Mine_bind");
             bind=true;
-            initData();
+            initFaceData();
+        }
+    }
+
+    private void initFaceData() {
+        /** 测试人脸采集 zxl 2019-4-8 */
+        if(!bind){
+            if(FileManagement.getLoginType().equals("wx")){
+                /*XUtilsImageUtils.display(ivMineHead,
+                        FileManagement.getWXLogin().getIconurl(),
+                        true);*/
+                Glide.with(this)
+                        .load(FileManagement.getWXLogin().getIconurl())
+                        .error(R.drawable.ic_default_img)
+                        .circleCrop()
+                        .into(ivMineHead);
+                /** 注释 zxl 2019-4-8 */
+                tvMineName.setText(FileManagement.getWXLogin().getName());
+            }else{
+               /* XUtilsImageUtils.display(ivMineHead,
+                        FileManagement.getQQLogin().getIconurl(),
+                        true);*/
+                Glide.with(this)
+                        .load(FileManagement.getQQLogin().getIconurl())
+                        .error(R.drawable.ic_default_img)
+                        .circleCrop()
+                        .into(ivMineHead);
+                /** 注释 zxl 2019-4-8 */
+                tvMineName.setText(FileManagement.getQQLogin().getName());
+            }
+            tvMineAddress.setText("未绑定业主，无法获取房屋信息");
+            tvMineAddress.setTextColor(getResources().getColor(R.color.payment_btn));
+        }else{
+            userEntity = FileManagement.getLoginUserEntity();
+            roomInfoEntity = FileManagement.getRoomInfo();
+            if (userEntity != null) {
+                /*XUtilsImageUtils.display(ivMineHead,
+                        Constants.BASEHOST+userEntity.getHeadImageUrl(),
+                        true);*/
+                Glide.with(this)
+                        .load(Constants.BASEHOST+userEntity.getHeadImageUrl())
+                        .error(R.drawable.ic_default_img)
+                        .circleCrop()
+                        .into(ivMineHead);
+                tvMineName.setText(userEntity.getNickName());
+            }
+            tvMineAddress.setText(FileManagement.getUserInfoEntity().getAncestor());
+            tvMineAddress.setTextColor(getResources().getColor(R.color.white));
         }
     }
 
@@ -104,12 +157,14 @@ public class MineFragment extends BaseFragment {
         setContentView(view);
         unbinder = ButterKnife.bind(this, view);
 
-        if(FileManagement.getUserInfoEntity() != null && !TextUtils.isEmpty(FileManagement.getUserInfoEntity().getAvatarResource())){
-            Glide.with(this)
-                    .load(FileManagement.getUserInfoEntity().getAvatarResource())
-                    .error(R.drawable.ic_default_img)
-                    .circleCrop()
-                    .into(ivMineHead);
+        if(FileManagement.getUserInfoEntity() != null){
+            if (!TextUtils.isEmpty(FileManagement.getUserInfoEntity().getAvatarResource())){
+                Glide.with(this)
+                        .load(FileManagement.getUserInfoEntity().getAvatarResource())
+                        .error(R.drawable.ic_default_img)
+                        .circleCrop()
+                        .into(ivMineHead);
+            }
 
             tvMineName.setText(FileManagement.getUserInfoEntity().getNickName());
             tvMineAddress.setText(FileManagement.getUserInfoEntity().getAncestor());
@@ -129,6 +184,7 @@ public class MineFragment extends BaseFragment {
         if (unbinder != null) {
             unbinder.unbind();
         }
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick({R.id.iv_mine_head, R.id.tv_mine_name, R.id.tv_mine_address, R.id.ll_mine_head, R.id.tv_mine_gongdan, R.id.tv_mine_tousu, R.id.tv_mine_car, R.id.tv_mine_bill, R.id.tv_mine_face, R.id.tv_mine_express, R.id.tv_nime_wallet, R.id.tv_mine_data, R.id.tv_mine_setting})
@@ -160,6 +216,20 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.tv_mine_setting:
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (100 == resultCode) {
+            userEntity = FileManagement.getLoginUserEntity();
+            tvMineName.setText(userEntity.getNickName());
+            Glide.with(this)
+                    .load(userEntity.getHeadImageUrl())
+                    .error(R.drawable.ic_default_img)
+                    .circleCrop()
+                    .into(ivMineHead);
         }
     }
 }

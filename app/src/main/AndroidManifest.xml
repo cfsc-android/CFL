@@ -25,7 +25,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.LoginActivity"/>
+        <activity android:name=".ui.activity.RegisterActivity"></activity>
+        <activity android:name=".ui.activity.homehead.UnLock" />
+        <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.MainActivity" />
         <activity
             android:name=".ui.LaunchActivity"
@@ -35,20 +37,22 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- 网络状态监听服务 -->
+        </activity> <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-        </receiver>
+        </receiver> <!-- 友盟 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5e7d64e2dbc2ec080a6d05ba" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
-        <!--友盟-->
-        <meta-data android:value="5e7d64e2dbc2ec080a6d05ba" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
         <activity
             android:name=".weidgt.weixin.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -70,36 +74,31 @@
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-
-
-        <!-- 蒲公英APPKEY 必填 -->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 蒲公英APPKEY 必填 -->
         <meta-data
             android:name="PGYER_APPID"
-            android:value="d67cceb544c6f7d61bbcf11b53b3c1a6" />
-
-        <!-- Since JCore2.0.0 Required SDK核心功能-->
+            android:value="d67cceb544c6f7d61bbcf11b53b3c1a6" /> <!-- Since JCore2.0.0 Required SDK核心功能 -->
         <!-- 可配置android:process参数将Service放在其他进程中；android:enabled属性不能是false -->
         <!-- 这个是自定义Service，要继承极光JCommonService，可以在更多手机平台上使得推送通道保持的更稳定 -->
-        <service android:name="com.chanfinecloud.cfl.receiver.MyJCommonService"
+        <service
+            android:name=".receiver.MyJCommonService"
             android:enabled="true"
             android:exported="false"
             android:process=":pushcore">
             <intent-filter>
                 <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>
-        </service>
-        <!-- Required since 3.0.7 -->
+        </service> <!-- Required since 3.0.7 -->
         <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定的广播 -->
         <!-- 3.3.0开始所有事件将通过该类回调 -->
         <!-- 该广播需要继承 JPush 提供的 JPushMessageReceiver 类, 并如下新增一个 Intent-Filter -->
         <receiver
-            android:name="com.chanfinecloud.cfl.receiver.MyJPushMessageReceiver"
+            android:name=".receiver.MyJPushMessageReceiver"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </receiver>

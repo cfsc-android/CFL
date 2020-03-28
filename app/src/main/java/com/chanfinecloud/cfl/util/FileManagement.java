@@ -2,10 +2,13 @@ package com.chanfinecloud.cfl.util;
 
 
 import com.chanfinecloud.cfl.CFLApplication;
+import com.chanfinecloud.cfl.entity.HikUser;
 import com.chanfinecloud.cfl.entity.LoginUserEntity;
 import com.chanfinecloud.cfl.entity.ProjectInfo;
 import com.chanfinecloud.cfl.entity.QQLoginEntity;
+import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.ThirdInfoEntity;
+import com.chanfinecloud.cfl.entity.TokenEntity;
 import com.chanfinecloud.cfl.entity.WeiXinLoginEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 
@@ -240,5 +243,33 @@ public class FileManagement {
 
     public static UserInfoEntity getUserInfoEntity(){
         return (UserInfoEntity) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","userInfo");
+    }
+
+    public static void saveRoomInfo(ArrayList<RoomInfoEntity> roomInfo) {
+        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(), "roomInfo", "roomInfo", roomInfo);
+    }
+
+    public static ArrayList<RoomInfoEntity> getRoomInfo() {
+        return (ArrayList<RoomInfoEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(), "roomInfo", "roomInfo");
+    }
+
+    public static void setHikUser(HikUser hikUser){
+        SharedPreferencesUtil.getInstance().saveObject(
+                CFLApplication.getAppContext(), "hik_user", "HikUser",hikUser
+        );
+    }
+
+    public static HikUser getHikUser(){
+        HikUser u= (HikUser) SharedPreferencesUtil.getInstance().getObject(
+                CFLApplication.getAppContext(),"hik_user","HikUser"
+        );
+        return u;
+    }
+
+    public static void setTokenEntity(TokenEntity token){
+        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","token",token);
+    }
+    public static TokenEntity getTokenEntity(){
+        return (TokenEntity) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","token");
     }
 }

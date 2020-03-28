@@ -75,9 +75,16 @@ android {
         flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
     compileOptions {
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+
     }
+    /*android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "CFL-${variant.buildType.name}-v${defaultConfig.versionName}.apk"
+        }
+    }*/
 }
 
 dependencies {
@@ -122,4 +129,10 @@ dependencies {
     //ButterKnife
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    //implementation 'com.youth.banner:banner:2.0.0-beta01'
+    implementation 'com.youth.banner:banner:1.4.10'
+}
+
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
 }

@@ -47,6 +47,9 @@
         <activity android:name=".ui.activity.SettingAboutActivity" />
         <activity android:name=".ui.activity.WaitingForDevelopmentActivity" />
         <activity android:name=".ui.activity.NewsInfoActivity" />
+        <activity android:name=".ui.activity.NoticeActivity" />
+        <activity android:name=".ui.activity.NoticeDetailActivity" />
+        <activity android:name=".ui.activity.NoticeAttachmentActivity" />
 
 
 

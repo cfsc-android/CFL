@@ -23,6 +23,7 @@ import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.NoticeActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.UnLock;
 import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
@@ -338,8 +339,8 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.tv_project_progress:
                 Bundle projectBundle=new Bundle();
-                projectBundle.putString("notice_type",NoticeType.工程进程.getType());
-              //  startActivity(NoticeActivity.class,projectBundle);
+                projectBundle.putString("notice_type",NoticeType.工程进度.getType());
+                startActivity(NoticeActivity.class,projectBundle);
                 break;
             case R.id.tv_property_right:
                 Bundle bundle_b=new Bundle();
@@ -351,12 +352,12 @@ public class HomeFragment extends BaseFragment {
             case R.id.tv_to_more:
                 Bundle joinBundle=new Bundle();
                 joinBundle.putString("notice_type",NoticeType.入伙.getType());
-               // startActivity(NoticeActivity.class,joinBundle);
+                startActivity(NoticeActivity.class,joinBundle);
                 break;
             case R.id.tv_to_tongzhi:
                 Bundle noticeBundle=new Bundle();
                 noticeBundle.putString("notice_type",NoticeType.社区公告.getType());
-                //startActivity(NoticeActivity.class,noticeBundle);
+                startActivity(NoticeActivity.class,noticeBundle);
                 break;
             case R.id.tv_to_gonggao:
                 break;

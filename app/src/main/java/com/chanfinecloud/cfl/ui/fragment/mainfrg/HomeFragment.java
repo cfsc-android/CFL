@@ -23,7 +23,9 @@ import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.homehead.CarLock;
 import com.chanfinecloud.cfl.ui.activity.homehead.UnLock;
+import com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.weidgt.ADTextView;
@@ -305,7 +307,7 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.tv_to_visitor:
                 if(bind){
-                   //startActivity(VisitorActivity.class);
+                    startActivity(VisitorActivity.class);
                 }else{
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }
@@ -319,7 +321,7 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.iv_to_jiesuo:
                 if(bind){
-                    //startActivity(CarLock.class);
+                    startActivity(CarLock.class);
                 }else{
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }

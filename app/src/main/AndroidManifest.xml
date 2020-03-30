@@ -25,7 +25,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.RegisterActivity"></activity>
+        <activity android:name=".ui.activity.homehead.CarLock"></activity>
+        <activity android:name=".ui.activity.NewVisitorActivity" />
+        <activity android:name=".ui.activity.VisitorQrCodeActivity" />
+        <activity android:name=".ui.activity.homehead.VisitorActivity" />
+        <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.homehead.UnLock" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.MainActivity" />

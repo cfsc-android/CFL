@@ -73,6 +73,10 @@ public class UnLock extends BaseActivity {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
         Map<String,Object> requestMap=new HashMap<>();
+        if (FileManagement.getUserInfoEntity() == null){
+            showToast("用戶信息获取失败");
+            return;
+        }
         requestMap.put("cardNo",FileManagement.getUserInfoEntity().getDefaultCardNo());
         requestMap.put("effectTime",sdf.format(new Date()));
         requestMap.put("expireTime",sdf.format(new Date(new Date().getTime()+5*60*1000)));

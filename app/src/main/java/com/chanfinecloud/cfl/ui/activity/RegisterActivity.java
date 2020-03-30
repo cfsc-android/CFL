@@ -217,6 +217,7 @@ public class RegisterActivity extends BaseActivity {
         requestMap.put("name",weiXinLoginEntity.getName());
         requestMap.put("nickName",weiXinLoginEntity.getScreen_name());
         requestParam.setRequestMap(requestMap);
+        requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -248,7 +249,7 @@ public class RegisterActivity extends BaseActivity {
         requestMap.put("qqNo",qqLoginEntity.getUnionid());
         requestMap.put("loginMode","QQ");
         requestMap.put("nickName",qqLoginEntity.getName());
-
+        requestParam.setParamType(ParamType.Json);
         requestParam.setRequestMap(requestMap);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override

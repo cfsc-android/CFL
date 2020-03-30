@@ -135,4 +135,10 @@ public class Utils {
             return mobileNums.matches(telRegex);
     }
 
+    public static String getStringValue(String value) {
+        if (null == value) {
+            value = "";
+        }
+        return value;
+    }
 }

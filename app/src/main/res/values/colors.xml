@@ -465,4 +465,6 @@
     <color name="input_view_loss_focus_line_color">#b6b6b6</color>
     <color name="input_view_get_focus_line_color">#801fa1</color>
     <color name="line">#CCCCCC</color>
+    <color name="title_backgroud">#2C3447</color>
+    <color name="backgroud_color">#FFFDEF</color>
 </resources>

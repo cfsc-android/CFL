@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.TokenEntity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
@@ -26,6 +24,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -194,4 +193,9 @@ public class LaunchActivity extends BaseActivity {
     }
 
 
+    @OnClick(R.id.tv_loading_version)
+    public void onViewClicked() {
+
+        startActivity(LoginActivity.class);
+    }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 高度40 -->
+    <size android:height="@dimen/dp_20"/>
+    <!-- 圆角弧度 20 -->
+    <corners android:radius="@dimen/dp_25"/>
+
+    <!-- 变化率 -->
+    <gradient
+        android:endColor="@color/car_lock_theme"
+        android:startColor="@color/car_lock_theme" />
+
+</shape>

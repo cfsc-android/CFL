@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+
+import org.xutils.image.ImageOptions;
 
 /**
  * Created by Loong on 2020/3/25.
@@ -135,6 +139,22 @@ public class Utils {
             return mobileNums.matches(telRegex);
     }
 
+    public static ImageOptions getImageOption(){
+        ImageOptions imageOptions = new ImageOptions.Builder()
+                .setSize(120, 120)
+                .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                //设置加载过程中的图片
+                .setLoadingDrawableId(R.drawable.ic_launcher)
+                //设置加载失败后的图片
+                .setFailureDrawableId(R.drawable.ic_launcher)
+                //设置支持gif
+                .setIgnoreGif(false)
+                //设置显示圆形图片
+                .setCircular(false)
+                .setSquare(true)
+                .build();
+        return imageOptions;
+    }
     public static String getStringValue(String value) {
         if (null == value) {
             value = "";

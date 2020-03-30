@@ -154,7 +154,6 @@ public class FileManagement {
         return token;
     }
 
-
     public static void setBaseUser(LoginUserEntity loginUserEntity) {
         SharedPreferencesUtil.getInstance().saveObject(
                 CFLApplication.getAppContext(), "loginUserEntity_key",

@@ -24,8 +24,10 @@ import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.activity.homehead.CarLock;
+import com.chanfinecloud.cfl.ui.activity.NoticeActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.UnLock;
 import com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity;
+import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.weidgt.ADTextView;
@@ -339,25 +341,25 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.tv_project_progress:
                 Bundle projectBundle=new Bundle();
-                projectBundle.putString("notice_type",NoticeType.工程进程.getType());
-              //  startActivity(NoticeActivity.class,projectBundle);
+                projectBundle.putString("notice_type",NoticeType.工程进度.getType());
+                startActivity(NoticeActivity.class,projectBundle);
                 break;
             case R.id.tv_property_right:
                 Bundle bundle_b=new Bundle();
                 bundle_b.putString("title","产证查询");
                 bundle_b.putString("url","http://szjw.changsha.gov.cn/ywcx/");
                 bundle_b.putString("rightAction","share");
-               // startActivity(NewsInfoActivity.class,bundle_b);
+                startActivity(NewsInfoActivity.class,bundle_b);
                 break;
             case R.id.tv_to_more:
                 Bundle joinBundle=new Bundle();
                 joinBundle.putString("notice_type",NoticeType.入伙.getType());
-               // startActivity(NoticeActivity.class,joinBundle);
+                startActivity(NoticeActivity.class,joinBundle);
                 break;
             case R.id.tv_to_tongzhi:
                 Bundle noticeBundle=new Bundle();
                 noticeBundle.putString("notice_type",NoticeType.社区公告.getType());
-                //startActivity(NoticeActivity.class,noticeBundle);
+                startActivity(NoticeActivity.class,noticeBundle);
                 break;
             case R.id.tv_to_gonggao:
                 break;
@@ -387,7 +389,7 @@ public class HomeFragment extends BaseFragment {
                 Bundle a_bundle=new Bundle();
                 a_bundle.putString("title","周边服务");
                 a_bundle.putString("url","https://map.baidu.com/mobile/webapp/index/index");
-               // startActivity(NewsInfoActivity.class,a_bundle);
+                startActivity(NewsInfoActivity.class,a_bundle);
                 break;
         }
     }

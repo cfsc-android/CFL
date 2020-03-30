@@ -159,6 +159,8 @@ public class MainActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
 
+//        setAliasAndTag();
+//        getData();
     }
    /* @Override
     protected void onCreate(Bundle savedInstanceState) {

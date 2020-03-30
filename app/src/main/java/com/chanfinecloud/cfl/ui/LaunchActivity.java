@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.TokenEntity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.SharedPreferencesManage;
 import com.chanfinecloud.cfl.util.Utils;
@@ -178,7 +179,7 @@ public class LaunchActivity extends BaseActivity {
      * 检查是否自动登录
      */
     private void checkAutoLogin() {
-        TokenEntity token = SharedPreferencesManage.getToken();
+        TokenEntity token = FileManagement.getTokenEntity();
         if (token != null) {
             LogUtils.d(token.getAccess_token());
             long time = new Date().getTime() / 1000 - token.getInit_time();

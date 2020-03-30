@@ -126,8 +126,16 @@ public class CarLock extends BaseActivity {
         ButterKnife.bind(this);
 
         hikUser= FileManagement.getHikUser();
-        if (FileManagement.getUserInfoEntity() != null && FileManagement.getUserInfoEntity().getRoomList().size() > 0)
+
+        if (FileManagement.getUserInfoEntity() != null
+                && FileManagement.getUserInfoEntity().getRoomList() != null
+                && FileManagement.getUserInfoEntity().getRoomList().get(0) != null
+                && FileManagement.getUserInfoEntity().getRoomList().size() > 0
+                ){
+
             phaseId=FileManagement.getUserInfoEntity().getRoomList().get(0).getPhaseId();
+        }
+
         toolbarTvTitle.setText("智能锁车");
         sCarLock.setChecked(true);
         sCarLock.setClickable(false);

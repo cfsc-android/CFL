@@ -23,6 +23,7 @@ import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.LifePaymentActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.CarLock;
 import com.chanfinecloud.cfl.ui.activity.NoticeActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.UnLock;
@@ -364,7 +365,7 @@ public class HomeFragment extends BaseFragment {
             case R.id.tv_to_gonggao:
                 break;
             case R.id.tv_to_shjf:
-                //startActivity(LifePaymentActivity.class);
+                startActivity(LifePaymentActivity.class);
                 break;
             case R.id.tv_complaint:
                 if(bind){

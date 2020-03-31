@@ -16,7 +16,8 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.TokenEntity;
 import com.chanfinecloud.cfl.ui.LoginActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
-import com.chanfinecloud.cfl.util.ExitAppUtils;
+import com.chanfinecloud.cfl.util.FileManagement;
+import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.util.SharedPreferencesManage;
 import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.weidgt.NoUnderlineSpan;
@@ -136,7 +137,7 @@ public class SettingActivity extends BaseActivity {
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ExitAppUtils.getInstance().exit();
+                LynActivityManager.getInstance().removeAllActivity();
                 dialog.dismiss();
             }
         });
@@ -172,7 +173,6 @@ public class SettingActivity extends BaseActivity {
         });
         AlertDialog dialog = builder.create();  //创建AlertDialog对象
         dialog.show();
-
     }
 
     private void thirdUnBind(SHARE_MEDIA shareMedia){
@@ -212,11 +212,17 @@ public class SettingActivity extends BaseActivity {
 //        FileManagement.saveJpushTags("");
 //        JPushInterface.setAliasAndTags(getApplicationContext(), "", null, null);
         //暂时隐藏---------------------------------------------------------
+//        TokenEntity tokenEntity= SharedPreferencesManage.getToken();
+//        tokenEntity.setExpires_in(0);
+//        SharedPreferencesManage.saveToken(tokenEntity);
+//        startActivity(LoginActivity.class);
+//        LynActivityManager.getInstance().removeAllActivity();
+
         TokenEntity tokenEntity= SharedPreferencesManage.getToken();
         tokenEntity.setExpires_in(0);
-        SharedPreferencesManage.saveToken(tokenEntity);
+        FileManagement.setTokenEntity(tokenEntity);
+        LynActivityManager.getInstance().removeAllActivity();
         startActivity(LoginActivity.class);
-        ExitAppUtils.getInstance().exit();
     }
 
     /**

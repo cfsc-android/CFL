@@ -22,6 +22,7 @@ import com.chanfinecloud.cfl.entity.smart.NoticeType;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
+import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.LogUtils;
@@ -134,11 +135,12 @@ public class NoticeDetailActivity extends BaseActivity {
 
     //预览+1
     private void postPreview() {
-        RequestParam requestParam=new RequestParam(BASE_URL + ARTICLE +"smart/contentThumbup/annoucementUp", HttpMethod.Post);
+        RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE +"smart/contentThumbup/annoucementUp", HttpMethod.Post);
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("announcementId", noticeId);
         requestMap.put("field", "browseNum");
         requestParam.setRequestMap(requestMap);
+        requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

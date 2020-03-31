@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
-        android:layout_width="210dp"
-        android:layout_height="210dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="@dimen/dp_210"
+        android:layout_height="@dimen/dp_210"
+        android:layout_marginTop="@dimen/dp_120"
         android:layout_gravity="center"
         android:scaleType="fitCenter"
         android:src="@drawable/creating" />
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="努力建设中，敬请期待..."
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dp_20"
         android:textColor="@color/creating_text"
         android:textSize="34px" />
 

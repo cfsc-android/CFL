@@ -112,7 +112,7 @@ public class NoticeActivity extends BaseActivity {
     }
 
     private void getData() {
-        RequestParam requestParam=new RequestParam(BASE_URL + ARTICLE +"smart/content/pages", HttpMethod.Get);
+        RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE +"smart/content/pages", HttpMethod.Get);
         Map<String, String> requestMap = new HashMap<>();
         requestMap.put("projectId", "ec93bb06f5be4c1f19522ca78180e2i9");
         requestMap.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());

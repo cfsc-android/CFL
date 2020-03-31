@@ -22,7 +22,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="18sp"
+        android:textSize="@dimen/sp_18"
         android:textColor="@color/text_white"
         />
     <TextView

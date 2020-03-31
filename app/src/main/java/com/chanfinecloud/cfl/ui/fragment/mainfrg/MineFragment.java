@@ -15,9 +15,11 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.LoginUserEntity;
 import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.ui.activity.CommentActivity;
 import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
 import com.chanfinecloud.cfl.ui.activity.CarManageActivity;
 import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
+import com.chanfinecloud.cfl.ui.activity.PersonActivity;
 import com.chanfinecloud.cfl.ui.activity.SettingActivity;
 import com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity;
 import com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity;
@@ -61,6 +63,7 @@ public class MineFragment extends BaseFragment {
     TextView tvMineCar;
     @BindView(R.id.tv_mine_bill)
     TextView tvMineBill;
+
     @BindView(R.id.tv_mine_face)
     TextView tvMineFace;
     @BindView(R.id.tv_mine_express)
@@ -178,7 +181,7 @@ public class MineFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.iv_mine_head, R.id.tv_mine_name, R.id.tv_mine_address, R.id.ll_mine_head, R.id.tv_mine_gongdan, R.id.tv_mine_tousu, R.id.tv_mine_car, R.id.tv_mine_bill, R.id.tv_mine_face, R.id.tv_mine_express, R.id.tv_mine_evaluation, R.id.tv_mine_data, R.id.tv_mine_setting})
+    @OnClick({R.id.ll_mine_head, R.id.tv_mine_gongdan, R.id.tv_mine_tousu, R.id.tv_mine_car, R.id.tv_mine_bill, R.id.tv_mine_face, R.id.tv_mine_express, R.id.tv_mine_evaluation, R.id.tv_mine_data, R.id.tv_mine_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_mine_head:
@@ -189,6 +192,7 @@ public class MineFragment extends BaseFragment {
             case R.id.tv_mine_address:
                 break;
             case R.id.ll_mine_head:
+                startActivity(PersonActivity.class);
                 break;
             case R.id.tv_mine_gongdan:
                 break;
@@ -215,9 +219,11 @@ public class MineFragment extends BaseFragment {
                 startActivity(NewsInfoActivity.class,a_bundle);
                 break;
             case R.id.tv_mine_evaluation:
-                startActivity(new Intent(getActivity(), WaitingForDevelopmentActivity.class).putExtra("title", "评价"));
+                //startActivity(new Intent(getActivity(), WaitingForDevelopmentActivity.class).putExtra("title", "评价"));
+                startActivity(CommentActivity.class);
                 break;
             case R.id.tv_mine_data:
+                startActivity(PersonActivity.class);
                 break;
             case R.id.tv_mine_setting:
                 startActivity(SettingActivity.class);

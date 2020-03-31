@@ -130,9 +130,9 @@ public class PersonActivity extends BaseActivity {
             personTvBirthday.setText("请填写出生日期");
         }
 
-        if (!TextUtils.isEmpty(userInfoEntity.getAvatarResource())) {
+        if (!TextUtils.isEmpty(userInfoEntity.getAvatarResource().getUrl())) {
             Glide.with(this)
-                    .load(userInfoEntity.getAvatarResource())
+                    .load(userInfoEntity.getAvatarResource().getUrl())
                     .circleCrop()
                     .into(personIvAvatar);
 

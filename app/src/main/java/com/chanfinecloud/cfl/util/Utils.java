@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -160,5 +162,19 @@ public class Utils {
             value = "";
         }
         return value;
+    }
+
+    /**
+     * @param con
+     * @param resouce_Id
+     * @return
+     * @方法说明:加载布局文件
+     * @方法名称:LoadXmlView
+     * @返回 View
+     */
+    public static View LoadXmlView(Context con, int resouce_Id) {
+        LayoutInflater flat = LayoutInflater.from(con);
+        View view = flat.inflate(resouce_Id, null);
+        return view;
     }
 }

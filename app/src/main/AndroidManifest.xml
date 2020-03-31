@@ -25,7 +25,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.homehead.CarLock"></activity>
+        <activity android:name=".ui.activity.CarManageAddActivity"></activity>
+        <activity android:name=".ui.activity.CarManageActivity" />
+        <activity android:name=".ui.activity.OtherRoomDetailActivity" />
+        <activity android:name=".ui.activity.HouseholdAuditListActivity" />
+        <activity android:name=".ui.activity.ProjectSelectActivity" />
+        <activity android:name=".ui.activity.HouseholdAuditActivity" />
+        <activity android:name=".ui.activity.HouseholdTypeSelectActivity" />
+        <activity android:name=".ui.activity.RoomSelectActivity" />
+        <activity android:name=".ui.activity.HouseManageActivity" />
+        <activity android:name=".ui.activity.UnitSelectActivity" />
+        <activity android:name=".ui.activity.FaceCollectionPhotoActivity" />
+        <activity android:name=".ui.activity.HouseholdFaceActivity" />
+        <activity android:name=".ui.activity.minefeatures.HouseHoldActivity" />
+        <activity android:name=".ui.activity.homehead.CarLock" />
         <activity android:name=".ui.activity.NewVisitorActivity" />
         <activity android:name=".ui.activity.VisitorQrCodeActivity" />
         <activity android:name=".ui.activity.homehead.VisitorActivity" />
@@ -45,7 +58,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- 网络状态监听服务 -->
-
         <activity android:name=".ui.activity.SettingActivity" />
         <activity android:name=".ui.activity.SettingDetailActivity" />
         <activity android:name=".ui.activity.SettingAboutActivity" />
@@ -53,11 +65,7 @@
         <activity android:name=".ui.activity.NewsInfoActivity" />
         <activity android:name=".ui.activity.NoticeActivity" />
         <activity android:name=".ui.activity.NoticeDetailActivity" />
-        <activity android:name=".ui.activity.NoticeAttachmentActivity" />
-
-
-
-        <!-- 网络状态监听服务 -->
+        <activity android:name=".ui.activity.NoticeAttachmentActivity" /> <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

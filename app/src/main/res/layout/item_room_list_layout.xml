@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/item_room_status"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="等待审核"
+            android:textSize="18sp"
+            android:textColor="@color/text_white"
+            android:background="@drawable/bg_desc_shape"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/item_project_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18073667958"
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/text_primary"/>
+            <TextView
+                android:id="@+id/item_room_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="业主"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_desc"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_next"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/room_list_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:background="@color/view_line" />
+
+</LinearLayout>

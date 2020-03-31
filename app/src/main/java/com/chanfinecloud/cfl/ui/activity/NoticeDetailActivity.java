@@ -105,7 +105,7 @@ public class NoticeDetailActivity extends BaseActivity {
     }
 
     private void getData() {
-        startProgressDialog();
+
         RequestParam requestParam=new RequestParam(BASE_URL + ARTICLE +"smart/content/" + noticeId, HttpMethod.Get);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override

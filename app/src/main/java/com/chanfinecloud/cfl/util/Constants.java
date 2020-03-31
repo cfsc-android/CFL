@@ -215,7 +215,7 @@ public class Constants {
     }
 
     //保存本地文件夹
-    public final static String DATAPATH = Environment.getExternalStorageDirectory().getPath() + "/xiandao/";
+    public final static String DATAPATH = Environment.getExternalStorageDirectory().getPath() + "/chanfl/";
 
     //====================发现===============================
     public static final String ALLFIND = "/theme/getAllTheme.action";//所有帖子

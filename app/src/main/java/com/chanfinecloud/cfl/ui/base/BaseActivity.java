@@ -53,6 +53,7 @@ public abstract class BaseActivity extends FragmentActivity implements NetBroadc
     public boolean isNetConnect=true;
     protected static BaseHandler handler;
     protected boolean permission=false;
+    private boolean clickable = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +124,7 @@ public abstract class BaseActivity extends FragmentActivity implements NetBroadc
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);//友盟统计
+        clickable = true;
     }
 
     protected void onPause() {
@@ -406,5 +408,21 @@ public abstract class BaseActivity extends FragmentActivity implements NetBroadc
                 }
             }
         }
+    }
+
+    /**
+     * 当前是否可以点击
+     *
+     * @return
+     */
+    protected boolean isClickable() {
+        return clickable;
+    }
+
+    /**
+     * 锁定点击
+     */
+    protected void lockClick() {
+        clickable = false;
     }
 }

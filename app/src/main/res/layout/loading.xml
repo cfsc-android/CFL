@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/loading_group"
+        android:layout_width="100dip"
+        android:layout_height="100dip"
+        android:background="@drawable/bg_loading_group"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <!--<com.devspark.progressfragment.ProgressWheel xmlns:ProgressWheel="http://schemas.android.com/tools"-->
+        <!--android:id="@+id/progresswheel"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--ProgressWheel:pwBarColor="#448a2d98"-->
+        <!--ProgressWheel:pwBarLength="40dp"-->
+        <!--ProgressWheel:pwBarWidth="15dp"-->
+        <!--ProgressWheel:pwRimColor="#448a2d98"-->
+        <!--ProgressWheel:pwRimWidth="15dp"-->
+        <!--ProgressWheel:pwSpinSpeed="3dp"-->
+        <!--ProgressWheel:pwTextColor="#448a2d98"-->
+        <!--ProgressWheel:pwTextSize="14sp" />-->
+        <ImageView
+            android:id="@+id/loading_animato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/transparent"
+            android:src="@drawable/loading_image" />
+
+        <TextView
+            android:id="@+id/loading_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_15"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

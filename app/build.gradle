@@ -124,6 +124,7 @@ dependencies {
     //LeakCanary
     //debug版本
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
     //发布版本
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
@@ -133,6 +134,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     //implementation 'com.youth.banner:banner:2.0.0-beta01'
     implementation 'com.youth.banner:banner:1.4.10'
+    api 'com.baoyz.swipemenulistview:library:1.3.0'
+    api 'com.jph.takephoto:takephoto_library:4.0.3'
 }
 
 tasks.withType(JavaCompile) {

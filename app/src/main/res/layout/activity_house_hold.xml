@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical"
+    tools:context=".ui.activity.minefeatures.HouseHoldActivity">
+
+    <include layout="@layout/toolbar_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/view_background"
+        android:orientation="vertical">
+        <com.chanfinecloud.cfl.weidgt.easyindicator.EasyIndicator
+            android:id="@+id/household_ei_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            app:indicator_line_show="true"
+            app:indicator_line_height="1dp"
+            app:indicator_height="@dimen/dp_40"
+            app:indicator_normal_color="@color/text_desc"
+            app:indicator_selected_color="@color/text_primary"
+            app:indicator_line_color="@color/text_primary"
+            app:indicator_textSize="@dimen/sp_14"
+            app:indicator_width="0dp"/>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/household_vp_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</LinearLayout>

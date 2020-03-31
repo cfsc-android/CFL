@@ -11,4 +11,39 @@
         <attr name="ad_text_padding_left" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="EasyIndicator">
+        <!--指示器(整个Tab）的宽度，默认-1(MATCH_PARENT)为填充满-->
+        <attr name="indicator_width" format="dimension" />
+        <!--指示器的高度，默认45dp-->
+        <attr name="indicator_height" format="dimension" />
+
+        <!--指示器文字的大小，默认14sp-->
+        <attr name="indicator_textSize" format="dimension" />
+        <!--指示器选中时文字的大小，默认14sp-->
+        <attr name="indicator_select_textSize" format="dimension" />
+        <!--指示器选中时的背景颜色，默认R.attr.colorAccent-->
+        <attr name="indicator_selected_color" format="color" />
+        <!--指示器未选中时的背景颜色，默认黑色-->
+        <attr name="indicator_normal_color" format="color" />
+
+        <!--是否显示底部指示器，默认true-->
+        <attr name="indicator_line_show" format="boolean" />
+        <!--指示器底部的高度，默认3-->
+        <attr name="indicator_line_height" format="dimension" />
+        <!--指示器指示线的颜色，默认R.attr.colorAccent-->
+        <attr name="indicator_line_color" format="color" />
+
+        <!--指示器底部指示线的颜色，默认R.attr.xui_config_color_separator_dark-->
+        <attr name="indicator_bottom_line_color" format="color" />
+        <!--指示器底部指示线的高度，默认0-->
+        <attr name="indicator_bottom_line_height" format="dimension" />
+
+        <!--指示器垂直分割线的宽度，默认0-->
+        <attr name="indicator_vertical_line_w" format="dimension" />
+        <!--指示器垂直分割线的高度，默认0-->
+        <attr name="indicator_vertical_line_h" format="dimension" />
+        <!--指示器垂直分割线的颜色，默认R.attr.xui_config_color_separator_dark-->
+        <attr name="indicator_vertical_line_color" format="color" />
+    </declare-styleable>
+    <attr name="EasyIndicatorStyle" format="reference" />
 </resources>

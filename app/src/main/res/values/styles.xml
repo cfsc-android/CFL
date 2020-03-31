@@ -48,4 +48,14 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <!-- 自定义loading dialog -->
+    <style name="customer_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/bg_loading_trans</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
 </resources>

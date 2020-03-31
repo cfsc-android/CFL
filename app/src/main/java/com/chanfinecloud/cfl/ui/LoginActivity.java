@@ -196,7 +196,7 @@ public class LoginActivity extends BaseActivity {
                 //startActivity(IpSettingActivity.class);
                 break;
             case R.id.tv_login_project:
-                // TODO: 2020/3/28  startActivity(ProjectListActivity.class);
+                // TODO: 2020/3/31  startActivity(ProjectListActivity.class);
                 break;
             case R.id.tv_get_code:
                 mobileNum = etdUserMobileNumber.getText().toString();

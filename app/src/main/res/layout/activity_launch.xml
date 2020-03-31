@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/dp_10"
         android:textColor="@color/text_white"
         android:text="v-1.0.1"/>
 </RelativeLayout>

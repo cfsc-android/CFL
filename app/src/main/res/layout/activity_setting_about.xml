@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="@dimen/dp_50"
             android:gravity="center"
             android:orientation="vertical">
             <ImageView
@@ -26,8 +26,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:textSize="24sp"
+                android:layout_marginTop="@dimen/dp_30"
+                android:textSize="@dimen/sp_24"
                 android:textStyle="bold"
                 android:text="长房里业主端"/>
             <TextView
@@ -40,25 +40,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/dp_10"
             android:gravity="center"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_12"
                 android:textColor="@color/text_primary"
                 android:text="长房数创   版权所有"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_12"
                 android:textColor="@color/text_primary"
                 android:text="Copyright © 2020 ChanFine"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_12"
                 android:textColor="@color/text_primary"
                 android:text="All Right Reserved"/>
         </LinearLayout>

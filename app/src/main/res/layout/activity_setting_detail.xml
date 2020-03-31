@@ -14,10 +14,10 @@
         android:id="@+id/ll_setting_detail_notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_10"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:background="@color/text_white"
@@ -28,7 +28,7 @@
             android:textColor="@color/text_primary"
             android:text="接收新消息通知"/>
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             />
@@ -36,7 +36,7 @@
             android:id="@+id/s_setting_detail_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="@dimen/dp_5"
             />
     </LinearLayout>
     <LinearLayout
@@ -49,10 +49,10 @@
             android:id="@+id/ll_setting_detail_cache_cache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_10"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:background="@color/text_white">
@@ -62,7 +62,7 @@
                 android:textColor="@color/text_primary"
                 android:text="清除缓存"/>
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 />
@@ -74,16 +74,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/dp_20"
             android:background="@color/view_line"/>
         <LinearLayout
             android:id="@+id/ll_setting_detail_cache_file"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_10"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:background="@color/text_white">
@@ -93,7 +93,7 @@
                 android:textColor="@color/text_primary"
                 android:text="清理文件"/>
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 />

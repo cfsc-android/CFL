@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
@@ -29,7 +30,8 @@ import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.SharedPreferencesManage;
-import com.chanfinecloud.cfl.view.wheelview.BirthWheelDialog;
+import com.chanfinecloud.cfl.weidgt.photopicker.PhotoPicker;
+import com.chanfinecloud.cfl.weidgt.wheelview.BirthWheelDialog;
 import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.EventBus;
@@ -90,6 +92,12 @@ public class PersonActivity extends BaseActivity {
     private UserInfoEntity userInfoEntity;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        checkAppPermission();
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected void initData() {
         setContentView(R.layout.activity_person);
         ButterKnife.bind(this);
@@ -99,16 +107,22 @@ public class PersonActivity extends BaseActivity {
 
     private void init(){
         userInfoEntity = FileManagement.getUserInfoEntity();
-        personTvNickName.setText(userInfoEntity.getNickName()+"");
+
+       if (!TextUtils.isEmpty(userInfoEntity.getNickName())) {
+            personTvNickName.setText(userInfoEntity.getNickName());
+        } else {
+            personTvNickName.setText("请输入昵称");
+        }
         personTvTel.setText(userInfoEntity.getMobile());
         sex = userInfoEntity.getGender();
-        if (sex.equals("0")) {
+        if(!TextUtils.isEmpty(sex) && sex.equals("0")){
             personTvSex.setText("男");
-        } else if (sex.equals("1")) {
-            personTvSex.setText("女");
+        } else if (!TextUtils.isEmpty(sex) && sex.equals("1")) {
+                personTvSex.setText("女");
         } else {
             personTvSex.setText("未知");
         }
+
         birthday = userInfoEntity.getBirthday();
         if (!TextUtils.isEmpty(birthday)) {
             personTvBirthday.setText(birthday.substring(0, 10));
@@ -125,7 +139,7 @@ public class PersonActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.toolbar_btn_back, R.id.person_ll_birthday, R.id.person_ll_tel_bind, R.id.person_ll_sex})
+    @OnClick({R.id.toolbar_btn_back, R.id.person_ll_birthday, R.id.person_ll_tel_bind, R.id.person_ll_sex, R.id.person_iv_avatar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_btn_back:
@@ -154,7 +168,13 @@ public class PersonActivity extends BaseActivity {
             case R.id.person_ll_sex:
                 singleChoiceSex();
                 break;
-
+            case R.id.person_iv_avatar:
+                if(permission){
+                    PhotoPicker.pick(PersonActivity.this,1,true,REQUEST_CODE_CHOOSE);
+                }else{
+                    showToast("相机或读写手机存储的权限被禁止！");
+                }
+                break;
         }
     }
 
@@ -177,7 +197,7 @@ public class PersonActivity extends BaseActivity {
         builder.setSingleChoiceItems(cities, checkedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                sex = "which";
+                sex = Integer.toString(which);
             }
         });
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -204,7 +224,7 @@ public class PersonActivity extends BaseActivity {
      * @param map
      */
     private void updateUser(Map<String,Object> map){
-        RequestParam requestParam=new RequestParam(BASE_URL + BASIC + "/basic/householdInfo",HttpMethod.Put);
+        RequestParam requestParam=new RequestParam(BASE_URL + BASIC + "basic/householdInfo/specificField",HttpMethod.Put);
         map.put("id", userInfoEntity.getId());
         requestParam.setRequestMap(map);
         requestParam.setParamType(ParamType.Json);
@@ -234,9 +254,9 @@ public class PersonActivity extends BaseActivity {
 
     //获取用户信息
     private void getUserInfo(){
-        RequestParam requestParam=new RequestParam(BASE_URL + BASIC + "sys/user/",HttpMethod.Get);
+        RequestParam requestParam=new RequestParam(BASE_URL + BASIC + "basic/householdInfo/phone",HttpMethod.Get);
         Map<String, String> requestMap = new HashMap<>();
-        requestMap.put("phoneNumber", SharedPreferencesManage.getUserInfo().getId());
+        requestMap.put("phoneNumber", userInfoEntity.getMobile());
         requestParam.setRequestMap(requestMap);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
@@ -245,9 +265,10 @@ public class PersonActivity extends BaseActivity {
                 LogUtils.d("result",result);
                 BaseEntity<UserInfoEntity> baseEntity=JsonParse.parse(result,UserInfoEntity.class);
                 if(baseEntity.isSuccess()){
-                    SharedPreferencesManage.setUserInfo(baseEntity.getResult());
+                    FileManagement.setUserInfo(baseEntity.getResult());
                     init();
                     EventBus.getDefault().post(new EventBusMessage<>("refresh"));
+                    LogUtil.d(SharedPreferencesManage.getUserInfo().toString());
                 }else{
                     showToast(baseEntity.getMessage());
                 }

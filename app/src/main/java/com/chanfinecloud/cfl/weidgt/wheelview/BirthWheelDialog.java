@@ -1,4 +1,4 @@
-package com.chanfinecloud.cfl.view.wheelview;
+package com.chanfinecloud.cfl.weidgt.wheelview;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,18 +11,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chanfinecloud.cfl.R;
-import com.chanfinecloud.cfl.view.wheelview.adapter.NumericWheelAdapter;
+import com.chanfinecloud.cfl.weidgt.wheelview.adapter.NumericWheelAdapter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
 /**
- * 此类描述的是:选择日期dialog
- *
- * @author TanYong
- *         create at 2017/5/9 13:35
+ * Created by zengx on 2019/5/11.
+ * Describe:
  */
-public class WheelDialog extends Dialog implements View.OnClickListener {
+public class BirthWheelDialog extends Dialog implements View.OnClickListener {
 
     private Context context;
     private LayoutInflater inflater = null;
@@ -41,15 +41,15 @@ public class WheelDialog extends Dialog implements View.OnClickListener {
     private int lastday;
     private int lastitem;
     private Button button;
-    private Click click;
-    private OnDateTimeConfirm onDateTimeConfirm;
+    private BirthWheelDialog.Click click;
+    private BirthWheelDialog.OnDateTimeConfirm onDateTimeConfirm;
     private String dateValue;
     /**
      * 用于判断选择时间初始化位明天的时间
      */
     private boolean isTomorrow;
 
-    public WheelDialog(Context context) {
+    public BirthWheelDialog(Context context) {
         super(context);
         this.context = context;
     }
@@ -61,19 +61,19 @@ public class WheelDialog extends Dialog implements View.OnClickListener {
      * @Description:TODO
      */
 
-    public WheelDialog(Context context, int theme, Click click) {
+    public BirthWheelDialog(Context context, int theme, BirthWheelDialog.Click click) {
         super(context, theme);
         this.context = context;
         this.click = click;
     }
 
-    public WheelDialog(Context context, int theme, OnDateTimeConfirm onDateTimeConfirm){
+    public BirthWheelDialog(Context context, int theme, BirthWheelDialog.OnDateTimeConfirm onDateTimeConfirm){
         super(context,theme);
         this.context=context;
         this.onDateTimeConfirm=onDateTimeConfirm;
     }
 
-    public WheelDialog(Context context, int theme, Click click, boolean isTomorrow) {
+    public BirthWheelDialog(Context context, int theme, BirthWheelDialog.Click click, boolean isTomorrow) {
         super(context, theme);
         this.context = context;
         this.click = click;
@@ -110,16 +110,16 @@ public class WheelDialog extends Dialog implements View.OnClickListener {
         int norYear = c.get(Calendar.YEAR);
         int curMonth = c.get(Calendar.MONTH) + 1;// 通过Calendar算出的月数要+1
         int curDate = c.get(Calendar.DAY_OF_MONTH);
-        int curHour = c.get(Calendar.HOUR_OF_DAY);
-        int curMin = c.get(Calendar.MINUTE);
-        Log.e("DateTime",norYear+"-"+curMonth+"-"+curDate+" "+curHour+":"+curMin);
+//        int curHour = c.get(Calendar.HOUR_OF_DAY);
+//        int curMin = c.get(Calendar.MINUTE);
+//        Log.e("DateTime",norYear+"-"+curMonth+"-"+curDate+" "+curHour+":"+curMin);
         int curYear = norYear;
         // int curMonth = mMonth + 1;
         // int curDate = mDay;
         view = inflater.inflate(R.layout.wheel_date_picker, null);
 
         year = (WheelView) view.findViewById(R.id.year);
-        NumericWheelAdapter numericWheelAdapter1 = new NumericWheelAdapter(context, norYear - 10, norYear + 10);
+        NumericWheelAdapter numericWheelAdapter1 = new NumericWheelAdapter(context, norYear - 100, norYear);
         numericWheelAdapter1.setLabel("");
         year.setViewAdapter(numericWheelAdapter1);
         year.setCyclic(true);// 是否可循环滑动
@@ -145,32 +145,34 @@ public class WheelDialog extends Dialog implements View.OnClickListener {
         // time.addScrollingListener(scrollListener);
 
         min = (WheelView) view.findViewById(R.id.min);
-        NumericWheelAdapter numericWheelAdapter3 = new NumericWheelAdapter(context, 1, 24, "%02d", true);
-        numericWheelAdapter3.setLabel("");
-        min.setViewAdapter(numericWheelAdapter3);
-        min.setCyclic(true);
-        min.addScrollingListener(scrollListener);
-
+        min.setVisibility(View.GONE);
+//        NumericWheelAdapter numericWheelAdapter3 = new NumericWheelAdapter(context, 1, 24, "%02d", true);
+//        numericWheelAdapter3.setLabel("");
+//        min.setViewAdapter(numericWheelAdapter3);
+//        min.setCyclic(true);
+//        min.addScrollingListener(scrollListener);
+//
         sec = (WheelView) view.findViewById(R.id.sec);
-        NumericWheelAdapter numericWheelAdapter4 = new NumericWheelAdapter(context, 1, 60, "%02d");
-        numericWheelAdapter4.setLabel("");
-        sec.setViewAdapter(numericWheelAdapter4);
-        sec.setCyclic(true);
-        sec.addScrollingListener(scrollListener);
+        sec.setVisibility(View.GONE);
+//        NumericWheelAdapter numericWheelAdapter4 = new NumericWheelAdapter(context, 1, 60, "%02d");
+//        numericWheelAdapter4.setLabel("");
+//        sec.setViewAdapter(numericWheelAdapter4);
+//        sec.setCyclic(true);
+//        sec.addScrollingListener(scrollListener);
 //        sec.setCurrentItem(curMin);
 
         year.setVisibleItems(7);// 设置显示行数
         month.setVisibleItems(7);
         day.setVisibleItems(7);
         // time.setVisibleItems(7);
-        min.setVisibleItems(7);
-        sec.setVisibleItems(7);
+//        min.setVisibleItems(7);
+//        sec.setVisibleItems(7);
 
-        year.setCurrentItem(10);
+        year.setCurrentItem(curYear-90);
         month.setCurrentItem(curMonth - 1);
         day.setCurrentItem(curDate - 1);
-        min.setCurrentItem(curHour-1);
-        sec.setCurrentItem(curMin-1);
+//        min.setCurrentItem(curHour-1);
+//        sec.setCurrentItem(curMin-1);
         if (isTomorrow) {
             date.setText(norYear
                     + "-"
@@ -178,10 +180,6 @@ public class WheelDialog extends Dialog implements View.OnClickListener {
                     .getCurrentItem() + 1))
                     + "-"
                     + ((day.getCurrentItem() + 1 < 10 ? "0" + (day.getCurrentItem() + 1) : day.getCurrentItem() + 1))
-                    + " "
-                    +((min.getCurrentItem() + 1 < 10 ? "0" + (min.getCurrentItem() + 1) : (min.getCurrentItem() + 1==24?"00":min.getCurrentItem() + 1)))
-                    + ":"
-                    +((sec.getCurrentItem() + 1 < 10 ? "0" + (sec.getCurrentItem() + 1) : (sec.getCurrentItem() + 1==60?"00":sec.getCurrentItem() + 1)))
             );
         } else {
             date.setText(norYear
@@ -190,18 +188,31 @@ public class WheelDialog extends Dialog implements View.OnClickListener {
                     .getCurrentItem() + 1))
                     + "-"
                     + ((day.getCurrentItem() + 1 < 10 ? "0" + (day.getCurrentItem() + 1) : day.getCurrentItem() + 1))
-                    + " "
-                    +((min.getCurrentItem() + 1 < 10 ? "0" + (min.getCurrentItem() + 1) : (min.getCurrentItem() + 1==24?"00":min.getCurrentItem() + 1)))
-                    + ":"
-                    +((sec.getCurrentItem() + 1 < 10 ? "0" + (sec.getCurrentItem() + 1) : (sec.getCurrentItem() + 1==60?"00":sec.getCurrentItem() + 1)))
             );
         }
-        dateValue=""+(norYear-2000)+ ((month.getCurrentItem() + 1 < 10 ? "0" + (month.getCurrentItem() + 1) : month.getCurrentItem() + 1))
-                + ((day.getCurrentItem() + 1 < 10 ? "0" + (day.getCurrentItem() + 1) : day.getCurrentItem() + 1))
-                +((min.getCurrentItem() + 1 < 10 ? "0" + (min.getCurrentItem() + 1) : (min.getCurrentItem() + 1==24?"00":min.getCurrentItem() + 1)))
-                +((sec.getCurrentItem() + 1 < 10 ? "0" + (sec.getCurrentItem() + 1) : (sec.getCurrentItem() + 1==60?"00":sec.getCurrentItem() + 1)))
-                +"00";
         return view;
+    }
+
+    public void setBirth(String birth){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar=Calendar.getInstance();
+        Calendar nowCalendar=Calendar.getInstance();
+        try {
+            calendar.setTime(format.parse(birth));
+            year.setCurrentItem(calendar.get(Calendar.YEAR)+100-nowCalendar.get(Calendar.YEAR));
+            month.setCurrentItem(calendar.get(Calendar.MONTH));
+            day.setCurrentItem(calendar.get(Calendar.DAY_OF_MONTH) - 1);
+            date.setText(calendar.get(Calendar.YEAR)
+                    + "-"
+                    + ((month.getCurrentItem() + 1 < 10 ? "0" + (month.getCurrentItem() + 1) : month
+                    .getCurrentItem() + 1))
+                    + "-"
+                    + ((day.getCurrentItem() + 1 < 10 ? "0" + (day.getCurrentItem() + 1) : day.getCurrentItem() + 1))
+            );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -269,32 +280,30 @@ public class WheelDialog extends Dialog implements View.OnClickListener {
         public void onScrollingFinished(WheelView wheel) {
             Calendar c = Calendar.getInstance();
             int norYear = c.get(Calendar.YEAR);
-            int n_year = year.getCurrentItem() + norYear - 10;// 年
+            int n_year = year.getCurrentItem() + norYear - 100;// 年
             int n_month = month.getCurrentItem() + 1;// 月
             int nowDay = getDay(n_year, n_month);
             initDay(n_year, n_month);
             Log.e("lastday", lastday + "");
             Log.e("lastitem", lastitem + "");
             String birthday = new StringBuilder()
-                    .append((year.getCurrentItem() + norYear-10))
+                    .append((year.getCurrentItem() + norYear-100))
                     .append("-")
                     .append((month.getCurrentItem() + 1) < 10 ? "0" + (month.getCurrentItem() + 1) : (month
                             .getCurrentItem() + 1))
                     .append("-")
-                    .append(nowDay < lastday && lastday == (lastitem + 1) ? "0" + (lastday - nowDay) : ((day
-                            .getCurrentItem() + 1) < 10) ? "0" + (day.getCurrentItem() + 1)
-                            : (day.getCurrentItem() + 1)+"").toString();
+                    .append(nowDay < lastday && lastday == (lastitem + 1) ? "0" + (lastday - nowDay) : ((day.getCurrentItem() + 1) < 10) ? "0" + (day.getCurrentItem() + 1) : String.valueOf((day.getCurrentItem() + 1))).toString();
 //            int hour = min.getCurrentItem();
-            int hour = 0;
-            if (min.getCurrentItem() + 1 != 24)
-                hour = min.getCurrentItem() + 1;
-//            int minute = sec.getCurrentItem();
-            int minute = 0;
-            if (sec.getCurrentItem() + 1 != 60)
-                minute = sec.getCurrentItem() + 1;
-            birthday = birthday
-                    + new StringBuilder().append(" ").append(hour < 10 ? "0" + hour : hour).append(":")
-                    .append(minute < 10 ? "0" + minute : minute).toString();
+//            int hour = 0;
+//            if (min.getCurrentItem() + 1 != 24)
+//                hour = min.getCurrentItem() + 1;
+////            int minute = sec.getCurrentItem();
+//            int minute = 0;
+//            if (sec.getCurrentItem() + 1 != 60)
+//                minute = sec.getCurrentItem() + 1;
+//            birthday = birthday
+//                    + new StringBuilder().append(" ").append(hour < 10 ? "0" + hour : hour).append(":")
+//                    .append(minute < 10 ? "0" + minute : minute).toString();
 
             date.setText(birthday);
             lastday = nowDay;
@@ -304,11 +313,6 @@ public class WheelDialog extends Dialog implements View.OnClickListener {
             // tv2.setText("星座             " + getAstro(month.getCurrentItem() +
             // 1, day.getCurrentItem() + 1));
 
-            dateValue=""+(norYear-2000)+ ((month.getCurrentItem() + 1 < 10 ? "0" + (month.getCurrentItem() + 1) : month.getCurrentItem() + 1))
-                    + ((day.getCurrentItem() + 1 < 10 ? "0" + (day.getCurrentItem() + 1) : day.getCurrentItem() + 1))
-                    +((min.getCurrentItem() + 1 < 10 ? "0" + (min.getCurrentItem() + 1) : (min.getCurrentItem() + 1==24?"00":min.getCurrentItem() + 1)))
-                    +((sec.getCurrentItem() + 1 < 10 ? "0" + (sec.getCurrentItem() + 1) : (sec.getCurrentItem() + 1==60?"00":sec.getCurrentItem() + 1)))
-                    +"00";
         }
     };
 
@@ -332,5 +336,5 @@ public class WheelDialog extends Dialog implements View.OnClickListener {
     public interface OnDateTimeConfirm{
         void returnData(String dateText, String dateValue);
     }
-
 }
+

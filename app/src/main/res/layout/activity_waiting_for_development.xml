@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.activity.WaitingForDevelopmentActivity">
+
+    <include layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_width="@dimen/dp_210"
+        android:layout_height="@dimen/dp_210"
+        android:layout_marginTop="@dimen/dp_120"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:src="@drawable/creating" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="努力建设中，敬请期待..."
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="@color/creating_text"
+        android:textSize="34px" />
+
+</LinearLayout>

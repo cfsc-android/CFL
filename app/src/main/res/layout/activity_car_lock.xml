@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bgColor_alertview_alert_start"
+    tools:context=".ui.activity.homehead.CarLock">
+
+    <include layout="@layout/toolbar_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="车辆选择:"/>
+
+        <TextView
+            android:id="@+id/tv_car_code_select"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:drawableRight="@drawable/icon_spinner_drapdown"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_car_lock_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/dp_5">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="车锁状态："/>
+
+        <TextView
+            android:id="@+id/tv_car_lock_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_10"
+            android:textColor="@color/car_lock_theme"/>
+        <Switch
+            android:id="@+id/s_car_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:thumb="@drawable/thumb"
+            android:track="@drawable/track"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_car_lock_record"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="出入记录"
+            android:gravity="center"
+            android:background="@color/white"
+            android:padding="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"/>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/car_lock_srl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlEnableScrollContentWhenLoaded="true"
+            app:srlEnableFooterFollowWhenLoadFinished="true">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/car_lock_rlv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

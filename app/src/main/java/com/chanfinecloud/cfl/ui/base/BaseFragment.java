@@ -314,4 +314,10 @@ public abstract  class BaseFragment extends LazyFragment {
     protected void showToast(String content){
         Toast.makeText(context,content,Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onFragmentStartLazy() {
+        super.onFragmentStartLazy();
+
+    }
 }

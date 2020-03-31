@@ -23,6 +23,12 @@ import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.LifePaymentActivity;
+import com.chanfinecloud.cfl.ui.activity.homehead.CarLock;
+import com.chanfinecloud.cfl.ui.activity.NoticeActivity;
+import com.chanfinecloud.cfl.ui.activity.homehead.UnLock;
+import com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity;
+import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.weidgt.ADTextView;
@@ -181,6 +187,7 @@ public class HomeFragment extends BaseFragment {
         map.put("auditStatus","1");
         map.put("pageNo","1");
         map.put("pageSize","10");
+        requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -223,6 +230,7 @@ public class HomeFragment extends BaseFragment {
         map.put("auditStatus","1");
         map.put("pageNo","1");
         map.put("pageSize","10");
+        requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -291,8 +299,7 @@ public class HomeFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.tv_to_menjin:
                 if(bind){
-//                    todo  新建  UnLock  然后取消一下注释
-                    //startActivity(UnLock.class);
+                    startActivity(UnLock.class);
                 }else{
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }
@@ -303,7 +310,7 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.tv_to_visitor:
                 if(bind){
-                   //startActivity(VisitorActivity.class);
+                    startActivity(VisitorActivity.class);
                 }else{
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }
@@ -317,7 +324,7 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.iv_to_jiesuo:
                 if(bind){
-                    //startActivity(CarLock.class);
+                    startActivity(CarLock.class);
                 }else{
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }
@@ -335,30 +342,30 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.tv_project_progress:
                 Bundle projectBundle=new Bundle();
-                projectBundle.putString("notice_type",NoticeType.工程进程.getType());
-              //  startActivity(NoticeActivity.class,projectBundle);
+                projectBundle.putString("notice_type",NoticeType.工程进度.getType());
+                startActivity(NoticeActivity.class,projectBundle);
                 break;
             case R.id.tv_property_right:
                 Bundle bundle_b=new Bundle();
                 bundle_b.putString("title","产证查询");
                 bundle_b.putString("url","http://szjw.changsha.gov.cn/ywcx/");
                 bundle_b.putString("rightAction","share");
-               // startActivity(NewsInfoActivity.class,bundle_b);
+                startActivity(NewsInfoActivity.class,bundle_b);
                 break;
             case R.id.tv_to_more:
                 Bundle joinBundle=new Bundle();
                 joinBundle.putString("notice_type",NoticeType.入伙.getType());
-               // startActivity(NoticeActivity.class,joinBundle);
+                startActivity(NoticeActivity.class,joinBundle);
                 break;
             case R.id.tv_to_tongzhi:
                 Bundle noticeBundle=new Bundle();
                 noticeBundle.putString("notice_type",NoticeType.社区公告.getType());
-                //startActivity(NoticeActivity.class,noticeBundle);
+                startActivity(NoticeActivity.class,noticeBundle);
                 break;
             case R.id.tv_to_gonggao:
                 break;
             case R.id.tv_to_shjf:
-                //startActivity(LifePaymentActivity.class);
+                startActivity(LifePaymentActivity.class);
                 break;
             case R.id.tv_complaint:
                 if(bind){
@@ -383,7 +390,7 @@ public class HomeFragment extends BaseFragment {
                 Bundle a_bundle=new Bundle();
                 a_bundle.putString("title","周边服务");
                 a_bundle.putString("url","https://map.baidu.com/mobile/webapp/index/index");
-               // startActivity(NewsInfoActivity.class,a_bundle);
+                startActivity(NewsInfoActivity.class,a_bundle);
                 break;
         }
     }

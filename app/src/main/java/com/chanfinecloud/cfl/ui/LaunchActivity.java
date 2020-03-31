@@ -8,11 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.TokenEntity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.SharedPreferencesManage;
 import com.chanfinecloud.cfl.util.Utils;
@@ -26,6 +25,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -179,7 +179,7 @@ public class LaunchActivity extends BaseActivity {
      * 检查是否自动登录
      */
     private void checkAutoLogin() {
-        TokenEntity token = SharedPreferencesManage.getToken();
+        TokenEntity token = FileManagement.getTokenEntity();
         if (token != null) {
             LogUtils.d(token.getAccess_token());
             long time = new Date().getTime() / 1000 - token.getInit_time();
@@ -194,4 +194,9 @@ public class LaunchActivity extends BaseActivity {
     }
 
 
+    @OnClick(R.id.tv_loading_version)
+    public void onViewClicked() {
+
+        startActivity(LoginActivity.class);
+    }
 }

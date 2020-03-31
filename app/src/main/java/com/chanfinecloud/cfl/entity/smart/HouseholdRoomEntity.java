@@ -65,7 +65,7 @@ public class HouseholdRoomEntity implements Serializable {
     private String floorNo;
     private String roomNo;
     private double propertySpace;
-    private int usingArea;
+    private double usingArea;
     private String paymentMode;
     private String paymentModeDisplay;
     private String checkinStatus;
@@ -97,6 +97,15 @@ public class HouseholdRoomEntity implements Serializable {
     private String householdTypeDisplay;
     private String roomBoMap;
     private int approvalStatus;
+    private String approvalId;
+
+    public String getApprovalId() {
+        return approvalId;
+    }
+
+    public void setApprovalId(String approvalId) {
+        this.approvalId = approvalId;
+    }
 
     public int getApprovalStatus() {
         return approvalStatus;
@@ -186,11 +195,11 @@ public class HouseholdRoomEntity implements Serializable {
         this.propertySpace = propertySpace;
     }
 
-    public int getUsingArea() {
+    public double getUsingArea() {
         return usingArea;
     }
 
-    public void setUsingArea(int usingArea) {
+    public void setUsingArea(double usingArea) {
         this.usingArea = usingArea;
     }
 

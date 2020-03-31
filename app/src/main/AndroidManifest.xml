@@ -54,8 +54,10 @@
         <activity android:name=".ui.activity.NoticeActivity" />
         <activity android:name=".ui.activity.NoticeDetailActivity" />
         <activity android:name=".ui.activity.NoticeAttachmentActivity" />
-
-
+        <activity android:name=".ui.activity.LifePaymentActivity" />
+        <activity android:name=".ui.activity.CommentActivity" />
+        <activity android:name=".ui.activity.CommentDetailActivity" />
+        <activity android:name=".ui.activity.PersonActivity" />
 
         <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">

@@ -72,7 +72,7 @@ public class XHttp {
                 params.setBodyContent(gson.toJson(map));
             }else{
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    params.addParameter(entry.getKey(), entry.getValue());
+                    params.addBodyParameter(entry.getKey(), entry.getValue());
                 }
             }
         }

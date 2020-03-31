@@ -1,18 +1,15 @@
 package com.chanfinecloud.cfl.ui.activity;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -28,6 +25,7 @@ import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.SharedPreferencesManage;
@@ -96,12 +94,12 @@ public class PersonActivity extends BaseActivity {
         setContentView(R.layout.activity_person);
         ButterKnife.bind(this);
         toolbarTvTitle.setText("个人资料");
-
+        init();
     }
 
-    private void initView(){
-        userInfoEntity = SharedPreferencesManage.getUserInfo();
-        personTvNickName.setText(userInfoEntity.getNickName());
+    private void init(){
+        userInfoEntity = FileManagement.getUserInfoEntity();
+        personTvNickName.setText(userInfoEntity.getNickName()+"");
         personTvTel.setText(userInfoEntity.getMobile());
         sex = userInfoEntity.getGender();
         if (sex.equals("0")) {
@@ -248,7 +246,7 @@ public class PersonActivity extends BaseActivity {
                 BaseEntity<UserInfoEntity> baseEntity=JsonParse.parse(result,UserInfoEntity.class);
                 if(baseEntity.isSuccess()){
                     SharedPreferencesManage.setUserInfo(baseEntity.getResult());
-                    initView();
+                    init();
                     EventBus.getDefault().post(new EventBusMessage<>("refresh"));
                 }else{
                     showToast(baseEntity.getMessage());

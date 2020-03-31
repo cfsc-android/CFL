@@ -225,7 +225,7 @@ public class LoginActivity extends BaseActivity {
                     login();
                 }
 // TODO: 2020/3/28记得删除  直接进去
-                loginClick();
+               // loginClick();
                 break;
             case R.id.tv_register:
                 startActivity(RegisterActivity.class);

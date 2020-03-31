@@ -43,19 +43,20 @@ public class XHttp {
                 params.addQueryStringParameter(entry.getKey(), entry.getValue());
             }
         }
+
         return x.http().get(params, callback);
     }
 
     /**
      * 发送异步post请求
+     * @param <T> ResultType
      * @param url 请求地址
      * @param map 请求携带参数
      * @param callback 请求结果回调
      * @param authorization 请求头是否携带token
-     * @param <T> ResultType
      * @return Callback.Cancelable
      */
-    public static <T> Callback.Cancelable Post(String url, Map<String, Object> map, Map<String, String> header,Callback.CommonCallback<T> callback,ParamType paramType,boolean authorization) {
+    public static <T> Callback.Cancelable Post(String url, Map<String, Object> map, Map<String, String> header, Callback.CommonCallback<T> callback, ParamType paramType, boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
@@ -64,6 +65,11 @@ public class XHttp {
                 params.addHeader(entry.getKey(), entry.getValue());
             }
         }
+     /*   if (null != body){
+            for (Map.Entry<String, String> entry : body.entrySet()){
+                params.addBodyParameter(entry.getKey(), entry.getValue());
+            }
+        }*/
         if (null != map) {
             if(paramType==ParamType.Json){
                 Gson gson=new Gson();
@@ -72,7 +78,7 @@ public class XHttp {
                 params.setBodyContent(gson.toJson(map));
             }else{
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    params.addParameter(entry.getKey(), entry.getValue());
+                    params.addBodyParameter(entry.getKey(), entry.getValue());
                 }
             }
         }
@@ -105,7 +111,7 @@ public class XHttp {
                 params.setBodyContent(gson.toJson(map));
             }else{
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    params.addParameter(entry.getKey(), entry.getValue());
+                    params.addBodyParameter(entry.getKey(), entry.getValue());
                 }
             }
 
@@ -139,7 +145,7 @@ public class XHttp {
                 params.setBodyContent(gson.toJson(map));
             }else{
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    params.addParameter(entry.getKey(), entry.getValue());
+                    params.addBodyParameter(entry.getKey(), entry.getValue());
                 }
             }
 

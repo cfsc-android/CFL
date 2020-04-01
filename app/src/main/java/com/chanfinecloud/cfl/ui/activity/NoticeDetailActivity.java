@@ -46,6 +46,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.chanfinecloud.cfl.config.Config.ARTICLE;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
@@ -296,9 +297,9 @@ public class NoticeDetailActivity extends BaseActivity {
     }
 
 
-    @Event({R.id.toolbar_btn_back, R.id.notice_detail_iv_up, R.id.notice_detail_iv_share, R.id.notice_detail_tv_resource})
-    private void onClickEvent(View v) {
-        switch (v.getId()) {
+    @OnClick({R.id.toolbar_btn_back, R.id.notice_detail_iv_up, R.id.notice_detail_iv_share, R.id.notice_detail_tv_resource})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
             case R.id.toolbar_btn_back:
                 finish();
                 break;

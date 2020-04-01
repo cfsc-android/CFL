@@ -12,39 +12,5 @@ import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
  */
 public class SharedPreferencesManage {
 
-
-    /**
-     * 保存Token
-     * @param token TokenEntity对象
-     * @return boolean
-     */
-    public static boolean saveToken(TokenEntity token){
-        return SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","Token",token);
-    }
-
-    /**
-     * 获取Token
-     * @return TokenEntity
-     */
-    public static TokenEntity getToken(){
-        return (TokenEntity) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","Token");
-    }
-
-    /**
-     * 保存用户信息
-     * @param userInfo
-     */
-    public static void setUserInfo(UserInfoEntity userInfo){
-        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","UserInfo",userInfo);
-    }
-
-    /**
-     * 获取用户信息
-     * @return
-     */
-    public static UserInfoEntity getUserInfo(){
-        return (UserInfoEntity) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","UserInfo");
-    }
-
 }
 

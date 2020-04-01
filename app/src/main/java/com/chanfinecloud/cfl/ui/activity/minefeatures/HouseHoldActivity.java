@@ -95,12 +95,15 @@ public class HouseHoldActivity extends BaseActivity {
     public void Event(EventBusMessage message){
         if("householdAudit".equals(message.getMessage())){
             householdVpTab.setCurrentItem(1);
+        }else if ("houseRefresh".equals(message.getMessage())){
+            householdVpTab.setCurrentItem(0);
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
     }
 }

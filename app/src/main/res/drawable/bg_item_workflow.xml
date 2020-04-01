@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--阴影-->
+    <item
+        android:left="10px"
+        android:top="10px"
+        android:bottom="7px"
+        android:right="7px">
+
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:endColor="@color/view_line"
+                android:startColor="@color/body_background"/>
+
+            <corners
+                android:bottomLeftRadius="5px"
+                android:bottomRightRadius="5px"
+                android:topLeftRadius="5px"
+                android:topRightRadius="5px"/>
+        </shape>
+    </item>
+    <!--阴影-->
+
+    <!--白色背景-->
+    <item
+        android:left="12px"
+        android:top="12px"
+        android:bottom="12px"
+        android:right="12px">
+
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:endColor="#FFFFFF"
+                android:startColor="#FFFFFF"/>
+
+            <corners
+                android:bottomLeftRadius="5px"
+                android:bottomRightRadius="5px"
+                android:topLeftRadius="5px"
+                android:topRightRadius="5px"/>
+        </shape>
+    </item>
+
+</layer-list>

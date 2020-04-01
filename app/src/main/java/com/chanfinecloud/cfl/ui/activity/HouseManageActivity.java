@@ -86,7 +86,7 @@ public class HouseManageActivity extends BaseActivity {
     protected void initData() {
         setContentView(R.layout.activity_house_manage);
         ButterKnife.bind(this);
-        toolbarTvTitle.setText("11111");
+        toolbarTvTitle.setText("房屋管理");
         currentAdapter = new HouseManageAdapter(this,currentData,false);
         houseManageCurrentSmlvList.setAdapter(currentAdapter);
         houseManageCurrentSmlvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -372,6 +372,7 @@ public class HouseManageActivity extends BaseActivity {
                     if(finish){
                         LynActivityManager.getInstance().finishActivity(HouseHoldActivity.class);
                         EventBus.getDefault().post(new EventBusMessage<>("projectSelect"));
+                        //EventBus.getDefault().post(new EventBusMessage<>("houseRefresh"));
                         finish();
                     }else{
                         intRoomData();

@@ -1,5 +1,6 @@
 package com.chanfinecloud.cfl.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -9,6 +10,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.AbstractSpinerAdapter;
 import com.chanfinecloud.cfl.adapter.smart.CarEntity;
@@ -32,19 +37,19 @@ import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
-import com.chanfinecloud.cfl.ui.BaseTakePhotoActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
+import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.PhotoUtils;
 import com.chanfinecloud.cfl.util.XUtilsImageUtils;
 import com.chanfinecloud.cfl.weidgt.SpinerPopWindow;
-import com.chanfinecloud.cfl.weidgt.alertview.AlertView;
-import com.chanfinecloud.cfl.weidgt.alertview.OnItemClickListener;
+import com.chanfinecloud.cfl.weidgt.photopicker.PhotoPicker;
 import com.chanfinecloud.cfl.weidgt.platenumberview.CarPlateNumberEditView;
 import com.chanfinecloud.cfl.weidgt.platenumberview.PlateNumberKeyboardUtil;
 import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
+import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.util.LogUtil;
@@ -54,20 +59,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.BASIC;
+import static com.chanfinecloud.cfl.config.Config.PHOTO_DIR_NAME;
+import static com.chanfinecloud.cfl.config.Config.SD_APP_DIR_NAME;
 import static com.chanfinecloud.cfl.util.EnumUtils.getCarColorString;
 import static com.chanfinecloud.cfl.util.EnumUtils.getCarTypeString;
 import static com.chanfinecloud.cfl.util.EnumUtils.getPlateColorString;
 import static com.chanfinecloud.cfl.util.EnumUtils.getPlateTypeString;
 
-public class CarManageAddActivity extends BaseTakePhotoActivity{
+public class CarManageAddActivity extends BaseActivity{
 
     @BindView(R.id.toolbar_btn_back)
     ImageButton toolbarBtnBack;
@@ -98,7 +109,7 @@ public class CarManageAddActivity extends BaseTakePhotoActivity{
     @BindView(R.id.keyboard_view)
     KeyboardView keyboardView;
 
-    private ArrayList<TImage> tImages = new ArrayList<>();// 添加图片集合
+    //private ArrayList<TImage> tImages = new ArrayList<>();// 添加图片集合
     private String carImagePath="";
 
 
@@ -112,9 +123,18 @@ public class CarManageAddActivity extends BaseTakePhotoActivity{
     private String plateColor,plateType,carColor,carType;
     private CarEntity carEntity;
 
+    public static final int REQUEST_CODE_CHOOSE=0x001;
+    public static final int REQUEST_CODE_CAPTURE=0x002;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        checkAppPermission();
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    protected void initData() {
         setContentView(R.layout.activity_car_manage_add);
         ButterKnife.bind(this);
 
@@ -143,7 +163,6 @@ public class CarManageAddActivity extends BaseTakePhotoActivity{
         }
 
     }
-
 
 
     private void initEditData(){
@@ -207,31 +226,36 @@ public class CarManageAddActivity extends BaseTakePhotoActivity{
                 initPop(carTypeList,tvCarManageAddCarType,3);
                 break;
             case R.id.tv_car_manage_add_car_photo:
-                getTakePhoto();
-                File file = new File(Environment.getExternalStorageDirectory(), "/chanfl/" + System.currentTimeMillis() + ".jpg");
-                if (!file.getParentFile().exists()) {
-                    file.getParentFile().mkdirs();
-                }
-                final Uri imageUri = Uri.fromFile(file);
-                configCompress(takePhoto);
-                configTakePhotoOption(takePhoto);
 
-                new AlertView("选择获取图片方式", null, "取消", null,
+                if(permission){
+                    PhotoPicker.pick(CarManageAddActivity.this,1,true,REQUEST_CODE_CHOOSE);
+                }else{
+                    showToast("相机或读写手机存储的权限被禁止！");
+                }
+
+                /*new AlertView("选择获取图片方式", null, "取消", null,
                         new String[]{"拍照", "从相册中选择"}, CarManageAddActivity.this,
                         AlertView.Style.ActionSheet, new OnItemClickListener() {
                     @Override
                     public void onItemClick(Object o, int position) {
                         if (position == 0) {
-                            takePhoto.onPickFromCapture(imageUri);
+                            if(permission){
+                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(intent, REQUEST_CODE_CAPTURE);
+                            }else{
+                                showToast("相机或读写手机存储的权限被禁止！");
+                            }
                         } else if (position == 1) {
-                            takePhoto.onPickMultiple(1 - tImages.size());
+                            if(permission){
+                                PhotoPicker.pick(CarManageAddActivity.this,1,true,REQUEST_CODE_CHOOSE);
+                            }else{
+                                showToast("相机或读写手机存储的权限被禁止！");
+                            }
                         }
                     }
-                }).show();
+                }).show();*/
                 break;
             case R.id.btn_car_manage_submit:
-                saveCar();
-                break;
             case R.id.toolbar_tv_action:
                 saveCar();
                 break;
@@ -330,9 +354,13 @@ public class CarManageAddActivity extends BaseTakePhotoActivity{
         map.put("plateColor",plateColor);
         map.put("plateType",plateType);
         map.put("plateNO",cpnEdit.getPlateNumberText());
-        map.put("householdId",FileManagement.getUserInfoEntity().getId());
-        map.put("ownerPhone",FileManagement.getUserInfoEntity().getMobile());
-        map.put("roomId",FileManagement.getUserInfoEntity().getRoomList().get(0).getId());
+        if (FileManagement.getUserInfoEntity() != null){
+            map.put("householdId",FileManagement.getUserInfoEntity().getId()+"");
+            map.put("ownerPhone",FileManagement.getUserInfoEntity().getMobile()+"");
+            if (FileManagement.getUserInfoEntity().getRoomList() != null)
+                map.put("roomId",FileManagement.getUserInfoEntity().getRoomList().get(0).getId() +"");
+        }
+
 
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+action, HttpMethod.Post);
         requestParam.setParamType(ParamType.Json);
@@ -390,12 +418,11 @@ public class CarManageAddActivity extends BaseTakePhotoActivity{
         return super.dispatchTouchEvent(ev);
     }
 
-    @Override
     public void takeSuccess(TResult result) {
 
         TImage image = result.getImages().get(0);
         if (image != null) {
-            tImages.add(image);
+          //  tImages.add(image);
             String imagePath = image.getOriginalPath().replace("/external_storage_root", "");
             if (imagePath.indexOf(Environment.getExternalStorageDirectory() + "") == -1) {
                 imagePath = Environment.getExternalStorageDirectory() + imagePath;
@@ -411,6 +438,71 @@ public class CarManageAddActivity extends BaseTakePhotoActivity{
         }
 
     }
+
+    /**
+     * 拍照或者选取图片结果
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_CODE_CHOOSE&&resultCode==RESULT_OK){
+            //图片路径 同样视频地址也是这个 根据requestCode
+            List<Uri> pathList = Matisse.obtainResult(data);
+            List<String> _List = new ArrayList<>();
+            for (Uri _Uri : pathList)
+            {
+                String _Path = FilePathUtil.getPathByUri(this,_Uri);
+                File _File = new File(_Path);
+                LogUtil.d("压缩前图片大小->" + _File.length() / 1024 + "k");
+                _List.add(_Path);
+            }
+            compress(_List);
+        }
+
+    }
+
+    //压缩图片
+    private void compress(List<String> list){
+        String _Path = FilePathUtil.createPathIfNotExist("/" + SD_APP_DIR_NAME + "/" + PHOTO_DIR_NAME);
+        LogUtil.d("_Path->" + _Path);
+        Luban.with(this)
+                .load(list)
+                .ignoreBy(100)
+                .setTargetDir(_Path)
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        LogUtil.d(" 压缩开始前调用，可以在方法内启动 loading UI");
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        LogUtil.d(" 压缩成功后调用，返回压缩后的图片文件");
+                        LogUtil.d("压缩后图片大小->" + file.length() / 1024 + "k");
+                        LogUtil.d("getAbsolutePath->" + file.getAbsolutePath());
+                        // TODO: 2020/4/1 上传图片
+                      //  uploadPic(file.getAbsolutePath());
+                        carImagePath=file.getAbsolutePath();
+                        Glide.with(getApplicationContext()).load(new File(carImagePath)).into(tvCarManageAddCarPhoto);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+                }).launch();
+    }
+
+
     /** 从给定的路径加载图片，并指定是否自动旋转方向*/
     private void setRotateDegree(String imgpath, int orientation) {
         Bitmap bitmap= BitmapFactory.decodeFile(imgpath);

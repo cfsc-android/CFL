@@ -23,7 +23,9 @@ import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.ComplainActivity;
 import com.chanfinecloud.cfl.ui.activity.LifePaymentActivity;
+import com.chanfinecloud.cfl.ui.activity.RepairsActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.CarLock;
 import com.chanfinecloud.cfl.ui.activity.NoticeActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.UnLock;
@@ -368,23 +370,13 @@ public class HomeFragment extends BaseFragment {
                 startActivity(LifePaymentActivity.class);
                 break;
             case R.id.tv_complaint:
-                if(bind){
-                    // TODO: 2020/3/27  
-                    //startActivity(ComplainActivity.class);
-                }else{
-                    EventBus.getDefault().post(new EventBusMessage<>("unbind"));
-                }
+                startActivity(ComplainActivity.class);
                 break;
             case R.id.tv_shoping:
                 //startActivity(SecondHandActivity.class);
                 break;
             case R.id.tv_repair:
-                if(bind){
-                    // TODO: 2020/3/27  
-                    //startActivity(RepairsActivity.class);
-                }else{
-                    EventBus.getDefault().post(new EventBusMessage<>("unbind"));
-                }
+                startActivity(RepairsActivity.class);
                 break;
             case R.id.tv_to_zhoubian:
                 Bundle a_bundle=new Bundle();

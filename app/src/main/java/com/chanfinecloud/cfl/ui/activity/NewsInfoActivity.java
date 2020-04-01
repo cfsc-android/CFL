@@ -9,7 +9,9 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chanfinecloud.cfl.R;
@@ -32,9 +34,15 @@ public class NewsInfoActivity extends BaseActivity {
     @BindView(R.id.toolbar_btn_back)
     ImageView toolbarBtnBack;
     @BindView(R.id.wv_news_info)
-    WebView wv_news_info;
+    WebView wvNewsInfo;
+    @BindView(R.id.toolbar_tv_action)
+    TextView toolbarTvAction;
+    @BindView(R.id.toolbar_btn_action)
+    ImageButton toolbarBtnAction;
+    @BindView(R.id.toolbar_ll_view)
+    LinearLayout toolbarLlView;
 
-    private  String rightAction;
+    private String rightAction;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -42,24 +50,24 @@ public class NewsInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_news_info);
         ButterKnife.bind(this);
         toolbarTvTitle.setText(getIntent().getExtras().getString("title"));
-        rightAction=getIntent().getExtras().getString("rightAction");
-        if(rightAction!=null&&rightAction.equals("share")){
-            toolbarBtnBack.setImageResource(R.drawable.nav_btn_share);
-            toolbarBtnBack.setVisibility(View.VISIBLE);
+        rightAction = getIntent().getExtras().getString("rightAction");
+        if (rightAction != null && rightAction.equals("share")) {
+            toolbarBtnAction.setImageResource(R.mipmap.ic_action_share);
+            toolbarBtnAction.setVisibility(View.VISIBLE);
         }
         init();
     }
 
     private void init() {
-        WebSettings settings = wv_news_info.getSettings();
+        WebSettings settings = wvNewsInfo.getSettings();
         settings.setJavaScriptEnabled(true);
         // 设置可以支持缩放
-        if(rightAction!=null&&rightAction.equals("share")){
+        if (rightAction != null && rightAction.equals("share")) {
             settings.setSupportZoom(true);
             // 设置出现缩放工具
             settings.setBuiltInZoomControls(true);
             settings.setDisplayZoomControls(false);
-        }else{
+        } else {
             settings.setSupportZoom(false);
             // 设置出现缩放工具
             settings.setBuiltInZoomControls(false);
@@ -100,11 +108,18 @@ public class NewsInfoActivity extends BaseActivity {
 
 
     private void loadWeb(String url) {
-        wv_news_info.setHorizontalScrollBarEnabled(false);//水平不显示
-        wv_news_info.setVerticalScrollBarEnabled(false); //垂直不显示
+        wvNewsInfo.setHorizontalScrollBarEnabled(false);//水平不显示
+        wvNewsInfo.setVerticalScrollBarEnabled(false); //垂直不显示
 
-        wv_news_info.loadUrl(url);
-        wv_news_info.setWebViewClient(new NewsInfoActivity.webViewClient());
+        wvNewsInfo.loadUrl(url);
+        wvNewsInfo.setWebViewClient(new webViewClient());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
     //Web视图
@@ -123,7 +138,7 @@ public class NewsInfoActivity extends BaseActivity {
     }
 
     private void imgReset() {
-        wv_news_info.loadUrl("javascript:(function(){" +
+        wvNewsInfo.loadUrl("javascript:(function(){" +
                 "var objs = document.getElementsByTagName('img'); " +
                 "for(var i=0;i<objs.length;i++)  " +
                 "{"
@@ -133,13 +148,13 @@ public class NewsInfoActivity extends BaseActivity {
                 "})()");
     }
 
-    @OnClick({R.id.toolbar_btn_back,R.id.toolbar_tv_title})
+    @OnClick({R.id.toolbar_btn_back, R.id.toolbar_btn_action})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_btn_back:
                 finish();
                 break;
-            case R.id.toolbar_tv_title:
+            case R.id.toolbar_btn_action:
                 share();
                 break;
         }
@@ -148,8 +163,8 @@ public class NewsInfoActivity extends BaseActivity {
     /**
      * 分享
      */
-    private void share(){
-        UMImage thumb =  new UMImage(this, R.drawable.ic_launcher);
+    private void share() {
+        UMImage thumb = new UMImage(this, R.drawable.ic_launcher);
         UMWeb web = new UMWeb(getIntent().getExtras().getString("url"));
         web.setTitle("产证查询");//标题
         web.setThumb(thumb);  //缩略图
@@ -186,8 +201,8 @@ public class NewsInfoActivity extends BaseActivity {
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Log.d("错误日志",platform.toString());
-            Log.d("错误日志",t.toString());
+            Log.d("错误日志", platform.toString());
+            Log.d("错误日志", t.toString());
             showToast("失败了");
         }
 

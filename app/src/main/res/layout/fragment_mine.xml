@@ -14,11 +14,11 @@
 
         <ImageView
             android:id="@+id/iv_mine_head"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_80"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_30"
-            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
             android:scaleType="fitXY"
             android:src="@drawable/btn_my_user" />
 
@@ -29,26 +29,26 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_mine_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_30"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/dp_28" 
+                    android:textSize="@dimen/sp_16"
                     android:text="simian"/>
 
                 <TextView
                     android:id="@+id/tv_mine_address"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_30"
-                    android:layout_marginTop="@dimen/dp_1"
-                    android:textColor="@color/new_mine_user_name"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/text_white"
                     android:text="rrrr"
-                    android:textSize="@dimen/dp_24" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -56,14 +56,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_15"
             android:src="@drawable/btn_my_more" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_15"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -72,14 +72,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_20"
+            android:drawablePadding="@dimen/dp_10"
             android:drawableTop="@drawable/btn_my_work"
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_15"
             android:paddingTop="@dimen/dp_15"
             android:text="我的报修"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -91,14 +91,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_20"
+            android:drawablePadding="@dimen/dp_10"
             android:drawableTop="@drawable/btn_my_complain"
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_15"
             android:paddingTop="@dimen/dp_15"
             android:text="我的投诉"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -110,14 +110,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_20"
+            android:drawablePadding="@dimen/dp_10"
             android:drawableTop="@drawable/btn_my_car"
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_15"
             android:paddingTop="@dimen/dp_15"
             android:text="车辆管理"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -125,32 +125,18 @@
             android:background="@color/grey_200" />
 
         <TextView
-            android:id="@+id/tv_mine_bill"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_20"
-            android:drawableTop="@drawable/btn_my_bill"
-            android:gravity="center_horizontal"
-            android:paddingBottom="@dimen/dp_15"
-            android:paddingTop="@dimen/dp_15"
-            android:text="账单明细"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dp_28"
-            android:visibility="gone"/>
-        <TextView
             android:id="@+id/tv_mine_face"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_20"
+            android:drawablePadding="@dimen/dp_10"
             android:drawableTop="@drawable/btn_mine_face"
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_15"
             android:paddingTop="@dimen/dp_15"
             android:text="我的房屋"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
     <View
@@ -169,14 +155,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_20"
+            android:drawablePadding="@dimen/dp_10"
             android:drawableTop="@drawable/btn_home_notice"
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_15"
             android:paddingTop="@dimen/dp_15"
             android:text="包裹查询"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -188,14 +174,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_20"
+            android:drawablePadding="@dimen/dp_10"
             android:drawableTop="@drawable/btn_my_wallet"
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_15"
             android:paddingTop="@dimen/dp_15"
             android:text="评价"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -207,14 +193,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_20"
+            android:drawablePadding="@dimen/dp_10"
             android:drawableTop="@drawable/btn_my_datum"
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_15"
             android:paddingTop="@dimen/dp_15"
             android:text="个人资料"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -226,13 +212,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_20"
+            android:drawablePadding="@dimen/dp_10"
             android:drawableTop="@drawable/btn_my_intercalate"
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_15"
             android:paddingTop="@dimen/dp_15"
             android:text="设置"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 </LinearLayout>

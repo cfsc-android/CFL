@@ -15,6 +15,7 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.LoginUserEntity;
 import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 import com.chanfinecloud.cfl.entity.smart.WorkflowType;
 import com.chanfinecloud.cfl.ui.activity.CommentActivity;
 import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
@@ -60,8 +61,6 @@ public class MineFragment extends BaseFragment {
     TextView tvMineTousu;
     @BindView(R.id.tv_mine_car)
     TextView tvMineCar;
-    @BindView(R.id.tv_mine_bill)
-    TextView tvMineBill;
 
     @BindView(R.id.tv_mine_face)
     TextView tvMineFace;
@@ -75,62 +74,58 @@ public class MineFragment extends BaseFragment {
     TextView tvMineSetting;
     private Unbinder unbinder;
 
-    private LoginUserEntity userEntity;
-    private ArrayList<RoomInfoEntity> roomInfoEntity;
-
+    private UserInfoEntity userInfo;
     private boolean bind = true;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
 
     @Override
     protected void initView(LayoutInflater inflater) {
         View view = inflater.inflate(R.layout.fragment_mine, null);
         setContentView(view);
         unbinder = ButterKnife.bind(this, view);
-        if(FileManagement.getUserInfo().getCurrentDistrict()!=null&&!TextUtils.isEmpty(FileManagement.getUserInfo().getCurrentDistrict().getRoomId())){
+        userInfo=FileManagement.getUserInfo();
+        if(userInfo.getCurrentDistrict()!=null&&!TextUtils.isEmpty(userInfo.getCurrentDistrict().getRoomId())){
             bind=true;
         }else{
             bind=false;
         }
         EventBus.getDefault().register(this);
-
-        tvMineAddress.setTextColor(getResources().getColor(R.color.white));
-
-
     }
 
     @Override
     protected void initData() {
-
+        initView();
     }
 
     @Override
     protected void onFragmentStartLazy() {
         super.onFragmentStartLazy();
-        CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
-        if(currentDistrict!=null&&!TextUtils.isEmpty(currentDistrict.getRoomId())){
+        userInfo=FileManagement.getUserInfo();
+        if(userInfo.getCurrentDistrict()!=null&&!TextUtils.isEmpty(userInfo.getCurrentDistrict().getRoomId())){
             bind=true;
         }else{
             bind=false;
         }
-        if(TextUtils.isEmpty(currentDistrict.getRoomId())){
+        initView();
+    }
+
+    /**
+     * 初始化视图
+     */
+    private void initView(){
+        tvMineName.setText(userInfo.getNickName());
+        if(TextUtils.isEmpty(userInfo.getCurrentDistrict().getRoomId())){
             tvMineAddress.setText("游客");
         }else{
-            tvMineAddress.setText(currentDistrict.getBuildingName()+currentDistrict.getUnitName()+currentDistrict.getRoomName());
+            tvMineAddress.setText(userInfo.getCurrentDistrict().getBuildingName()+userInfo.getCurrentDistrict().getUnitName()+userInfo.getCurrentDistrict().getRoomName());
         }
-//        if(FileManagement.getUserInfo().getAvatarResource()!=null){
-//            Glide.with(this)
-//                    .load(FileManagement.getUserInfo().getAvatarResource().getUrl())
-//                    .error(R.drawable.ic_default_img)
-//                    .circleCrop()
-//                    .into(ivMineHead);
-//        }
-        tvMineName.setText(FileManagement.getUserInfo().getNickName());
+        if(userInfo.getAvatarResource()!=null){
+            Glide.with(this)
+                    .load(userInfo.getAvatarResource().getUrl())
+                    .error(R.drawable.ic_default_img)
+                    .circleCrop()
+                    .into(ivMineHead);
+
+        }
     }
 
     @Override
@@ -144,54 +139,18 @@ public class MineFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(EventBusMessage message){
-        if("headerImg".equals(message.getMessage())){
-            userEntity=FileManagement.getLoginUserEntity();
-            /*XUtilsImageUtils.display(ivMineHead,
-                    Constants.BASEHOST+userEntity.getHeadImageUrl(),
-                    true);*/
-//            Glide.with(this)
-//                    .load(Constants.BASEHOST+userEntity.getHeadImageUrl())
-//                    .error(R.drawable.ic_default_img)
-//                    .circleCrop()
-//                    .into(ivMineHead);
-        }else if("bind".equals(message.getMessage())){
-            Log.e("bind","Mine_bind");
-            bind=true;
-            initFaceData();
+        if("refresh".equals(message.getMessage())){
+            initView();
         }
     }
 
-    private void initFaceData() {
-        userEntity = FileManagement.getLoginUserEntity();
-        roomInfoEntity = FileManagement.getRoomInfo();
-        if (userEntity != null) {
-
-//            Glide.with(this).load(Constants.BASEHOST+userEntity.getHeadImageUrl())
-//                    .circleCrop()
-//                    .error(R.drawable.ic_default_img)
-//                    .into(ivMineHead);
-//            tvMineName.setText(userEntity.getNickName());
-        }
-        if (null != FileManagement.getUserInfo()){
-            tvMineAddress.setText(FileManagement.getUserInfo().getAncestor());
-            tvMineAddress.setTextColor(getResources().getColor(R.color.white));
-        }
-
-    }
-
-
-    @OnClick({R.id.ll_mine_head, R.id.tv_mine_gongdan, R.id.tv_mine_tousu, R.id.tv_mine_car, R.id.tv_mine_bill, R.id.tv_mine_face, R.id.tv_mine_express, R.id.tv_mine_evaluation, R.id.tv_mine_data, R.id.tv_mine_setting})
+    @OnClick({R.id.ll_mine_head, R.id.tv_mine_gongdan, R.id.tv_mine_tousu, R.id.tv_mine_car,
+            R.id.tv_mine_face, R.id.tv_mine_express, R.id.tv_mine_evaluation, R.id.tv_mine_data,
+            R.id.tv_mine_setting})
     public void onViewClicked(View view) {
 
         Bundle bundle=new Bundle();
         switch (view.getId()) {
-            case R.id.iv_mine_head:
-                //startActivity(PersonalInformationActivity.class);
-                break;
-            case R.id.tv_mine_name:
-                break;
-            case R.id.tv_mine_address:
-                break;
             case R.id.ll_mine_head:
                 startActivity(PersonActivity.class);
                 break;
@@ -204,15 +163,11 @@ public class MineFragment extends BaseFragment {
                 startActivity(WorkflowListActivity.class,bundle);
                 break;
             case R.id.tv_mine_car:
-
-               /* if(bind){
+                if(bind){
                     startActivity(CarManageActivity.class);
                 }else{
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
-                }*/
-                startActivity(CarManageActivity.class);
-                break;
-            case R.id.tv_mine_bill:
+                }
                 break;
             case R.id.tv_mine_face:
                 startActivity(HouseHoldActivity.class);
@@ -224,7 +179,6 @@ public class MineFragment extends BaseFragment {
                 startActivity(NewsInfoActivity.class,a_bundle);
                 break;
             case R.id.tv_mine_evaluation:
-                //startActivity(new Intent(getActivity(), WaitingForDevelopmentActivity.class).putExtra("title", "评价"));
                 startActivity(CommentActivity.class);
                 break;
             case R.id.tv_mine_data:
@@ -236,17 +190,4 @@ public class MineFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (100 == resultCode) {
-            userEntity = FileManagement.getLoginUserEntity();
-            tvMineName.setText(userEntity.getNickName());
-            Glide.with(this)
-                    .load(userEntity.getHeadImageUrl())
-                    .error(R.drawable.ic_default_img)
-                    .circleCrop()
-                    .into(ivMineHead);
-        }
-    }
 }

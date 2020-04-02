@@ -152,13 +152,13 @@ public class NewVisitorActivity extends BaseActivity {
     private void createNewVisitor(final String name, final int num, final String start, final String end) {
         RequestParam requestParam = new RequestParam(BASE_URL + IOT + "community/api/access/v1/qrcode/visitor", HttpMethod.Post);
         Map<String, Object> requestMap = new HashMap<>();
-        if (FileManagement.getUserInfoEntity() == null){
+        if (FileManagement.getUserInfo() == null){
             showToast("用户信息获取失败");
             return;
         }
-        requestMap.put("phaseId", FileManagement.getUserInfoEntity().getRoomList().get(0).getPhaseId());
+        requestMap.put("phaseId", FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());
         requestMap.put("visitorName", name);
-        requestMap.put("cardNo", FileManagement.getUserInfoEntity().getDefaultCardNo());
+        requestMap.put("cardNo", FileManagement.getUserInfo().getDefaultCardNo());
         requestMap.put("effectTime", valid_start);
         requestMap.put("expireTime", valid_end);
         requestMap.put("openTimes", num);

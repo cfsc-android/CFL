@@ -35,8 +35,6 @@ import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.weidgt.CameraPreview;
 
 import org.greenrobot.eventbus.EventBus;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -106,7 +104,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         id=bundle.getString("id");
         name=bundle.getString("name");
         update=bundle.getBoolean("update");
-        roomList = FileManagement.getUserInfoEntity().getRoomList();
+        roomList = FileManagement.getUserInfo().getRoomList();
         toolbarTvTitle.setVisibility(GONE);
         if(Build.VERSION.SDK_INT>=23){
             int hasPermission = checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);

@@ -2,13 +2,10 @@ package com.chanfinecloud.cfl.ui.activity.homehead;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -29,7 +26,6 @@ import com.chanfinecloud.cfl.entity.HikCarCrossRecord;
 import com.chanfinecloud.cfl.entity.HikCarCrossRecordList;
 import com.chanfinecloud.cfl.entity.HikUser;
 import com.chanfinecloud.cfl.entity.core.ListLoadingType;
-import com.chanfinecloud.cfl.entity.smart.VisitorEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
@@ -127,13 +123,13 @@ public class CarLock extends BaseActivity {
 
         hikUser= FileManagement.getHikUser();
 
-        if (FileManagement.getUserInfoEntity() != null
-                && FileManagement.getUserInfoEntity().getRoomList() != null
-                && FileManagement.getUserInfoEntity().getRoomList().get(0) != null
-                && FileManagement.getUserInfoEntity().getRoomList().size() > 0
+        if (FileManagement.getUserInfo() != null
+                && FileManagement.getUserInfo().getRoomList() != null
+                && FileManagement.getUserInfo().getRoomList().get(0) != null
+                && FileManagement.getUserInfo().getRoomList().size() > 0
                 ){
 
-            phaseId=FileManagement.getUserInfoEntity().getRoomList().get(0).getPhaseId();
+            phaseId=FileManagement.getUserInfo().getRoomList().get(0).getPhaseId();
         }
 
         toolbarTvTitle.setText("智能锁车");

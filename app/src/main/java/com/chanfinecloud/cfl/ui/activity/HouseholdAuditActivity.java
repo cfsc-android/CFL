@@ -101,7 +101,7 @@ public class HouseholdAuditActivity extends BaseActivity {
         map.put("remark", householdAuditRemark.getText().toString());
         map.put("roomId", roomId);
         map.put("type", type);
-        map.put("householdId", FileManagement.getUserInfoEntity().getId());
+        map.put("householdId", FileManagement.getUserInfo().getId());
         RequestParam requestParam = new RequestParam(BASE_URL + BASIC + "basic/verify", HttpMethod.Post);
         requestParam.setParamType(ParamType.Json);
         requestParam.setRequestMap(map);

@@ -243,7 +243,7 @@ public class FileManagement {
         SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","userInfo",userInfo);
     }
 
-    public static UserInfoEntity getUserInfoEntity(){
+    public static UserInfoEntity getUserInfo(){
         return (UserInfoEntity) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","userInfo");
     }
 

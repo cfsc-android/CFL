@@ -18,7 +18,6 @@ import com.chanfinecloud.cfl.ui.LoginActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LynActivityManager;
-import com.chanfinecloud.cfl.util.SharedPreferencesManage;
 import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.weidgt.NoUnderlineSpan;
 import com.pgyersdk.feedback.PgyerFeedbackManager;
@@ -240,8 +239,8 @@ public class SettingActivity extends BaseActivity {
                 .setBarBackgroundColor("#FF0000")      // 设置顶部按钮和底部背景色，默认颜色为 #2E2D2D
                 .setBarButtonPressedColor("#FF0000")        //设置顶部按钮和底部按钮按下时的反馈色 默认颜色为 #383737
                 .setColorPickerBackgroundColor("#FF0000")   //设置颜色选择器的背景色,默认颜色为 #272828
-                .setMoreParam("用户昵称", FileManagement.getUserInfoEntity().getName()) //自定义的反馈数据
-                .setMoreParam("用户手机",FileManagement.getUserInfoEntity().getMobile()) //自定义的反馈数据
+                .setMoreParam("用户昵称", FileManagement.getUserInfo().getName()) //自定义的反馈数据
+                .setMoreParam("用户手机",FileManagement.getUserInfo().getMobile()) //自定义的反馈数据
                 .builder()
                 .invoke();                  //激活直接显示的方式
     }

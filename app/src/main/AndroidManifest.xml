@@ -25,15 +25,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.ProjectListActivity"></activity>
-        <activity android:name=".ui.activity.IpSettingActivity" />
+        <activity android:name=".ui.activity.UnLockListActivity"></activity>
+        <activity android:name=".ui.activity.CarManageAddActivity" />
         <activity android:name=".ui.activity.ComplainActivity" />
         <activity android:name=".ui.activity.RepairsActivity" />
         <activity android:name=".ui.activity.WorkflowStepActivity" />
         <activity android:name=".ui.activity.ComplainDetailActivity" />
         <activity android:name=".ui.activity.RepairsDetailActivity" />
         <activity android:name=".ui.activity.minefeatures.WorkflowListActivity" />
-        <activity android:name=".ui.activity.CarManageAddActivity" />
         <activity android:name=".ui.activity.CarManageActivity" />
         <activity android:name=".ui.activity.OtherRoomDetailActivity" />
         <activity android:name=".ui.activity.HouseholdAuditListActivity" />
@@ -65,7 +64,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 网络状态监听服务 -->
+        </activity>
         <activity android:name=".ui.activity.SettingActivity" />
         <activity android:name=".ui.activity.SettingDetailActivity" />
         <activity android:name=".ui.activity.SettingAboutActivity" />

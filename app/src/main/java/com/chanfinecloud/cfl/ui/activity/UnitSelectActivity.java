@@ -122,7 +122,7 @@ public class UnitSelectActivity extends BaseActivity {
     }
 
     private void getUnitListData(List<ProjectTreeEntity> list){
-        CurrentDistrictEntity currentDistrict= FileManagement.getUserInfoEntity().getCurrentDistrict();
+        CurrentDistrictEntity currentDistrict= FileManagement.getUserInfo().getCurrentDistrict();
         ProjectTreeEntity projectTree=null;
         for (int i = 0; i < list.size(); i++) {
             if(currentDistrict.getProjectId().equals(list.get(i).getKey())){

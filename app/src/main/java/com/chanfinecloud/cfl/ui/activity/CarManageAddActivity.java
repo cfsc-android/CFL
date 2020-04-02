@@ -354,11 +354,11 @@ public class CarManageAddActivity extends BaseActivity{
         map.put("plateColor",plateColor);
         map.put("plateType",plateType);
         map.put("plateNO",cpnEdit.getPlateNumberText());
-        if (FileManagement.getUserInfoEntity() != null){
-            map.put("householdId",FileManagement.getUserInfoEntity().getId()+"");
-            map.put("ownerPhone",FileManagement.getUserInfoEntity().getMobile()+"");
-            if (FileManagement.getUserInfoEntity().getRoomList() != null)
-                map.put("roomId",FileManagement.getUserInfoEntity().getRoomList().get(0).getId() +"");
+        if (FileManagement.getUserInfo() != null){
+            map.put("householdId",FileManagement.getUserInfo().getId()+"");
+            map.put("ownerPhone",FileManagement.getUserInfo().getMobile()+"");
+            if (FileManagement.getUserInfo().getRoomList() != null)
+                map.put("roomId",FileManagement.getUserInfo().getRoomList().get(0).getId() +"");
         }
 
 

@@ -29,4 +29,6 @@ public class Config {
     public static final String BASIC=ENV.equals("debug")?"":"smart-basic-ms/";//小区信息
 
     public static final String[] PERMISSION={Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};//应用所需运行时权限
+
+    public static final int CODETIME = 60;//验证码失效，单位：秒
 }

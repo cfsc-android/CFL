@@ -137,11 +137,11 @@ public class VisitorActivity extends BaseActivity {
         Map<String,String> map=new HashMap<>();
         map.put("pageNo",page+"");
         map.put("pageSize",pageSize+"");
-        if (FileManagement.getUserInfoEntity() != null &&  FileManagement.getUserInfoEntity().getRoomList() != null
-                && FileManagement.getUserInfoEntity().getRoomList().size() > 0
-                && FileManagement.getUserInfoEntity().getRoomList().get(0) != null)
-            map.put("phaseId", FileManagement.getUserInfoEntity().getRoomList().get(0).getPhaseId());
-        //map.put("userId",FileManagement.getUserInfoEntity().getId());
+        if (FileManagement.getUserInfo() != null &&  FileManagement.getUserInfo().getRoomList() != null
+                && FileManagement.getUserInfo().getRoomList().size() > 0
+                && FileManagement.getUserInfo().getRoomList().get(0) != null)
+            map.put("phaseId", FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());
+        //map.put("userId",FileManagement.getUserInfo().getId());
         //map.put("userId","a75d45a015c44384a04449ee80dc3503");
 
         requestParam.setRequestMap(map);

@@ -158,8 +158,8 @@ public class HouseManageActivity extends BaseActivity {
     }
 
     private void intRoomData(){
-        CurrentDistrictEntity currentRoom= FileManagement.getUserInfoEntity().getCurrentDistrict();
-        List<HouseholdRoomEntity> roomList= FileManagement.getUserInfoEntity().getRoomList();
+        CurrentDistrictEntity currentRoom= FileManagement.getUserInfo().getCurrentDistrict();
+        List<HouseholdRoomEntity> roomList= FileManagement.getUserInfo().getRoomList();
         if(roomList!=null&&roomList.size()>0){
             for (int i = 0; i < roomList.size(); i++) {
                 roomList.get(i).setApprovalStatus(2);
@@ -178,7 +178,7 @@ public class HouseManageActivity extends BaseActivity {
     private void getRoomData(){
 
         Map<String,String> requestMap=new HashMap<>();
-        requestMap.put("householdId",FileManagement.getUserInfoEntity().getId());
+        requestMap.put("householdId",FileManagement.getUserInfo().getId());
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/verify/pendingList", HttpMethod.Get);
         requestParam.setRequestMap(requestMap);
         requestParam.setCallback(new MyCallBack<String>(){
@@ -217,7 +217,7 @@ public class HouseManageActivity extends BaseActivity {
     private void deleteCurrentRoom(){
 
         Map<String,String> map=new HashMap<>();
-        List<HouseholdRoomEntity> list=FileManagement.getUserInfoEntity().getRoomList();
+        List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
         String roomId=currentData.get(0).getId();
         for (int i = 0; i < list.size(); i++) {
             if(!roomId.equals(list.get(i).getId())){
@@ -225,7 +225,7 @@ public class HouseManageActivity extends BaseActivity {
             }
         }
         Map<String,Object> requestMap=new HashMap<>();
-        requestMap.put("id",FileManagement.getUserInfoEntity().getId());
+        requestMap.put("id",FileManagement.getUserInfo().getId());
         requestMap.put("roomMap",map);
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo", HttpMethod.Put);
         requestParam.setRequestMap(requestMap);
@@ -256,7 +256,7 @@ public class HouseManageActivity extends BaseActivity {
     private void unBindRoom(){
         Map<String,Object> map=new HashMap<>();
         map.put("projectId",currentData.get(0).getProjectId());
-        map.put("householdId", FileManagement.getUserInfoEntity().getId());
+        map.put("householdId", FileManagement.getUserInfo().getId());
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/current/bind", HttpMethod.Post);
         requestParam.setRequestMap(map);
         requestParam.setParamType(ParamType.Json);
@@ -287,14 +287,14 @@ public class HouseManageActivity extends BaseActivity {
 
     private void deleteOtherRoom(String roomId){
         Map<String,String> map=new HashMap<>();
-        List<HouseholdRoomEntity> list=FileManagement.getUserInfoEntity().getRoomList();
+        List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
         for (int i = 0; i < list.size(); i++) {
             if(!roomId.equals(list.get(i).getId())){
                 map.put(list.get(i).getId(),list.get(i).getHouseholdType());
             }
         }
         Map<String,Object> requestMap=new HashMap<>();
-        requestMap.put("id",FileManagement.getUserInfoEntity().getId());
+        requestMap.put("id",FileManagement.getUserInfo().getId());
         requestMap.put("roomMap",map);
 
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo", HttpMethod.Put);

@@ -35,9 +35,7 @@ import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +44,6 @@ import butterknife.Unbinder;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.BASIC;
-import static com.chanfinecloud.cfl.config.Config.WORKORDER;
 
 /**
  * damien
@@ -99,7 +96,7 @@ public class CurrentRoomFragment extends BaseFragment {
         setContentView(view);
         unbinder = ButterKnife.bind(this, view);
         context=getActivity();
-        userInfo= FileManagement.getUserInfoEntity();
+        userInfo= FileManagement.getUserInfo();
     }
 
     @Override
@@ -127,18 +124,18 @@ public class CurrentRoomFragment extends BaseFragment {
             currentRoomProjectLl.setVisibility(View.GONE);
             currentRoomLlAdd.setVisibility(View.VISIBLE);
             if(userInfo.getAvatarResource()!=null){
-                Glide.with(context)
-                        .load(userInfo.getAvatarResource().getUrl())
-                        .error(R.drawable.ic_default_img)
-                        .circleCrop()
-                        .into(currentRoomAvatar);
+//                Glide.with(context)
+//                        .load(userInfo.getAvatarResource().getUrl())
+//                        .error(R.drawable.ic_default_img)
+//                        .circleCrop()
+//                        .into(currentRoomAvatar);
             }
             currentRoomNickName.setText(TextUtils.isEmpty(userInfo.getNickName())?userInfo.getName():userInfo.getNickName());
         }
     }
 
     private void getRoomData() {
-        RequestParam requestParam=new RequestParam(BASE_URL+BASIC+"basic/room/"+FileManagement.getUserInfoEntity().getCurrentDistrict().getRoomId(), HttpMethod.Get);
+        RequestParam requestParam=new RequestParam(BASE_URL+BASIC+"basic/room/"+FileManagement.getUserInfo().getCurrentDistrict().getRoomId(), HttpMethod.Get);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -150,7 +147,7 @@ public class CurrentRoomFragment extends BaseFragment {
                     List<RoomHouseholdEntity> householdEntityList=roomEntity.getHouseholdBoList();
                     for (int i = 0; i <householdEntityList.size() ; i++) {
                         RoomHouseholdEntity household=householdEntityList.get(i);
-                        if(FileManagement.getUserInfoEntity().getId().equals(household.getId())){
+                        if(FileManagement.getUserInfo().getId().equals(household.getId())){
                             currentHousehold=household;
                             initCurrentRoomView();
                         }else{

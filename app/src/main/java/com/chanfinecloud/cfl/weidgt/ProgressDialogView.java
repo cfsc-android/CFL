@@ -69,6 +69,28 @@ public class ProgressDialogView {
     }
 
     /**
+     * 启动自定义加载框
+     * @param context Context
+     * @param v View自定义视图
+     * @param cancelable 是否可关闭
+     */
+    public void startCustomerLoad(Context context,View v,boolean cancelable){
+        if (progressDialog != null) {
+            stopLoad();
+        }
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(context, R.style.customer_dialog);
+
+            progressDialog.show();
+            progressDialog.setContentView(v, new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+            progressDialog.setCancelable(cancelable);
+        }
+    }
+
+
+    /**
      * 关闭通用加载框
      */
     public void stopLoad(){

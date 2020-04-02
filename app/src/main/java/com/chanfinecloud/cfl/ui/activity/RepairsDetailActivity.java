@@ -68,7 +68,6 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
-import static com.chanfinecloud.cfl.config.Config.BASIC;
 import static com.chanfinecloud.cfl.config.Config.FILE;
 import static com.chanfinecloud.cfl.config.Config.PHOTO_DIR_NAME;
 import static com.chanfinecloud.cfl.config.Config.SD_APP_DIR_NAME;
@@ -341,7 +340,7 @@ public class RepairsDetailActivity extends BaseActivity {
 
     private void initAction(WorkflowProcessesEntity lastWorkflow){
         FragmentTransaction transaction=fragmentManager.beginTransaction();
-        if(lastWorkflow.getAssigneeId().equals(FileManagement.getUserInfoEntity().getId())
+        if(lastWorkflow.getAssigneeId().equals(FileManagement.getUserInfo().getId())
                 &&(lastWorkflow.getOperationInfos()!=null&&lastWorkflow.getOperationInfos().size()>0)) {
             Bundle bundle = new Bundle();
             bundle.putString("businessId", orderId);

@@ -1,6 +1,5 @@
 package com.chanfinecloud.cfl.ui.activity.homehead;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
-import com.chanfinecloud.cfl.entity.HikUser;
 import com.chanfinecloud.cfl.entity.smart.QrCodeEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
@@ -33,7 +31,6 @@ import butterknife.OnClick;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.IOT;
-import static com.chanfinecloud.cfl.config.Config.WORKORDER;
 
 public class UnLock extends BaseActivity {
 
@@ -73,15 +70,15 @@ public class UnLock extends BaseActivity {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
         Map<String,Object> requestMap=new HashMap<>();
-        if (FileManagement.getUserInfoEntity() == null){
+        if (FileManagement.getUserInfo() == null){
             showToast("用戶信息获取失败");
             return;
         }
-        requestMap.put("cardNo",FileManagement.getUserInfoEntity().getDefaultCardNo());
+        requestMap.put("cardNo",FileManagement.getUserInfo().getDefaultCardNo());
         requestMap.put("effectTime",sdf.format(new Date()));
         requestMap.put("expireTime",sdf.format(new Date(new Date().getTime()+5*60*1000)));
         requestMap.put("openTimes",4);
-        requestMap.put("phaseId",FileManagement.getUserInfoEntity().getRoomList().get(0).getPhaseId());
+        requestMap.put("phaseId",FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());
         requestParam.setRequestMap(requestMap);
         requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){

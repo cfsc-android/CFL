@@ -12,25 +12,21 @@ public class UserInfoEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-
-
-
-
     /**
-     * id : 170d7d64b85a488d3f7a70644ca9919c
-     * name : 18975879956
-     * nickName :
+     * id : 1710656f0812ddd736f80ef40bcb53df
+     * name : 三年的风格和
+     * nickName : 211
      * avatarId :
      * avatarResource :
-     * type : ZH
-     * mobile : 18975879956
+     * type :
+     * mobile : 18073667575
      * backupPhone :
      * faceId :
-     * defaultCardNo : 900900065
-     * idcardType : 0
+     * defaultCardNo : 900900070
+     * idcardType :
      * idcardTypeDisplay :
-     * idcardNo : 111
-     * gender :
+     * idcardNo :
+     * gender : 1
      * genderDisplay :
      * birthday :
      * email :
@@ -51,7 +47,7 @@ public class UserInfoEntity implements Serializable {
      * workCompany :
      * companyAddr :
      * unitFax :
-     * ancestor : 8栋-三单元-1003;8栋-三单元-sjtrfdgj
+     * ancestor :
      * householdType :
      * householdTypeDisplay :
      */
@@ -60,7 +56,7 @@ public class UserInfoEntity implements Serializable {
     private String name;
     private String nickName;
     private String avatarId;
-    private ResourceEntity avatarResource;
+    private String avatarResource;
     private String type;
     private String mobile;
     private String backupPhone;
@@ -93,19 +89,13 @@ public class UserInfoEntity implements Serializable {
     private String ancestor;
     private String householdType;
     private String householdTypeDisplay;
-    private List<ResourceEntity> faceInfos;
+
+
     private CurrentDistrictEntity currentDistrict;
     private List<HouseholdRoomEntity> roomList;
     private List<EntranceCardBoEntity> entranceCardBoList;
     private List<EquipmentInfoBo> equipmentInfoBoList;
 
-    public List<ResourceEntity> getFaceInfos() {
-        return faceInfos;
-    }
-
-    public void setFaceInfos(List<ResourceEntity> faceInfos) {
-        this.faceInfos = faceInfos;
-    }
 
     public CurrentDistrictEntity getCurrentDistrict() {
         return currentDistrict;
@@ -171,11 +161,11 @@ public class UserInfoEntity implements Serializable {
         this.avatarId = avatarId;
     }
 
-    public ResourceEntity getAvatarResource() {
+    public String getAvatarResource() {
         return avatarResource;
     }
 
-    public void setAvatarResource(ResourceEntity avatarResource) {
+    public void setAvatarResource(String avatarResource) {
         this.avatarResource = avatarResource;
     }
 

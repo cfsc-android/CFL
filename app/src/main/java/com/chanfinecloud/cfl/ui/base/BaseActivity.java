@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -381,6 +382,13 @@ public abstract class BaseActivity extends FragmentActivity implements NetBroadc
             progressDialogView = new ProgressDialogView();
         }
         progressDialogView.startLoad(this, msg,cancelable);
+    }
+
+    protected void startCustomerDialog(View v, boolean cancelable){
+        if (progressDialogView == null) {
+            progressDialogView = new ProgressDialogView();
+        }
+        progressDialogView.startCustomerLoad(this, v,cancelable);
     }
 
     /**

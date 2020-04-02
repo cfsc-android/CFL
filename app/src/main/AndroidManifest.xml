@@ -25,7 +25,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.CarManageAddActivity"></activity>
+        <activity android:name=".ui.activity.UnLockListActivity"></activity>
+        <activity android:name=".ui.activity.CarManageAddActivity" />
         <activity android:name=".ui.activity.CarManageActivity" />
         <activity android:name=".ui.activity.OtherRoomDetailActivity" />
         <activity android:name=".ui.activity.HouseholdAuditListActivity" />
@@ -54,6 +55,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -68,9 +70,7 @@
         <activity android:name=".ui.activity.LifePaymentActivity" />
         <activity android:name=".ui.activity.CommentActivity" />
         <activity android:name=".ui.activity.CommentDetailActivity" />
-        <activity android:name=".ui.activity.PersonActivity" />
-
-        <!-- 网络状态监听服务 -->
+        <activity android:name=".ui.activity.PersonActivity" /> <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

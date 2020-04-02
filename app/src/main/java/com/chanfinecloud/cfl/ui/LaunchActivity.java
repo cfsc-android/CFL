@@ -196,7 +196,6 @@ public class LaunchActivity extends BaseActivity {
 
     @OnClick(R.id.tv_loading_version)
     public void onViewClicked() {
-
         startActivity(LoginActivity.class);
     }
 }

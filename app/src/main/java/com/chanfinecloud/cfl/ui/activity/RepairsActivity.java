@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -180,9 +179,9 @@ public class RepairsActivity extends BaseActivity {
         orderTypeEntityList= FileManagement.getOrderType();
         initProblemSpinner();
         resourceKey= UUID.randomUUID().toString().replaceAll("-","");
-        addOrderEtAddress.setText(FileManagement.getUserInfoEntity().getAncestor());
-        addOrderEtContact.setText(FileManagement.getUserInfoEntity().getName());
-        addOrderEtContactTel.setText(FileManagement.getUserInfoEntity().getMobile());
+        addOrderEtAddress.setText(FileManagement.getUserInfo().getAncestor());
+        addOrderEtContact.setText(FileManagement.getUserInfo().getName());
+        addOrderEtContactTel.setText(FileManagement.getUserInfo().getMobile());
 
     }
 
@@ -296,13 +295,13 @@ public class RepairsActivity extends BaseActivity {
         requestMap.put("address",addOrderEtAddress.getText().toString());
         requestMap.put("createType", UserType.Household.getType());
         requestMap.put("expectTime",addOrderEtPlainTime.getText().toString()+":00");
-        requestMap.put("householdId",FileManagement.getUserInfoEntity().getId());
+        requestMap.put("householdId",FileManagement.getUserInfo().getId());
         requestMap.put("linkMan",addOrderEtContact.getText().toString());
         requestMap.put("mobile",addOrderEtContactTel.getText().toString());
         requestMap.put("problemDesc",addOrderEtRemark.getText().toString());
-        requestMap.put("projectId",FileManagement.getUserInfoEntity().getRoomList().get(0).getProjectId());
+        requestMap.put("projectId",FileManagement.getUserInfo().getRoomList().get(0).getProjectId());
         requestMap.put("reportType", UserType.Household.getType());
-        requestMap.put("roomId",FileManagement.getUserInfoEntity().getRoomList().get(0).getId());
+        requestMap.put("roomId",FileManagement.getUserInfo().getRoomList().get(0).getId());
         requestMap.put("typeId",projectValue);
         if(dataList.size()>1)
             requestMap.put("problemResourceKey",resourceKey);

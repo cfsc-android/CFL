@@ -88,7 +88,7 @@ public class OtherRoomFragment extends BaseFragment {
     }
 
     private void initOtherRoom(){
-        UserInfoEntity userInfoEntity= FileManagement.getUserInfoEntity();
+        UserInfoEntity userInfoEntity= FileManagement.getUserInfo();
         List<HouseholdRoomEntity> householdRoomEntities= userInfoEntity.getRoomList();
         CurrentDistrictEntity currentDistrictEntity=userInfoEntity.getCurrentDistrict();
         if(householdRoomEntities!=null&&householdRoomEntities.size()>0){
@@ -112,7 +112,7 @@ public class OtherRoomFragment extends BaseFragment {
 
     private void getRoomData(){
         Map<String,String> map=new HashMap<>();
-        map.put("householdId",FileManagement.getUserInfoEntity().getId());
+        map.put("householdId",FileManagement.getUserInfo().getId());
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/verify/pendingList" , HttpMethod.Get);
         requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){

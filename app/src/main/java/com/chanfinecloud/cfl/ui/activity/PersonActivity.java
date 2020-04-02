@@ -30,7 +30,6 @@ import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
-import com.chanfinecloud.cfl.util.SharedPreferencesManage;
 import com.chanfinecloud.cfl.weidgt.photopicker.PhotoPicker;
 import com.chanfinecloud.cfl.weidgt.wheelview.BirthWheelDialog;
 import com.zhihu.matisse.Matisse;
@@ -107,7 +106,7 @@ public class PersonActivity extends BaseActivity {
     }
 
     private void init(){
-        userInfoEntity = FileManagement.getUserInfoEntity();
+        userInfoEntity = FileManagement.getUserInfo();
 
        if (!TextUtils.isEmpty(userInfoEntity.getNickName())) {
             personTvNickName.setText(userInfoEntity.getNickName());
@@ -130,14 +129,14 @@ public class PersonActivity extends BaseActivity {
         } else {
             personTvBirthday.setText("请填写出生日期");
         }
-
-        if (userInfoEntity.getAvatarResource() != null && !TextUtils.isEmpty(userInfoEntity.getAvatarResource().getUrl())) {
-            Glide.with(this)
-                    .load(userInfoEntity.getAvatarResource().getUrl())
-                    .circleCrop()
-                    .into(personIvAvatar);
-
-        }
+//
+//        if (userInfoEntity.getAvatarResource() != null && !TextUtils.isEmpty(userInfoEntity.getAvatarResource().getUrl())) {
+//            Glide.with(this)
+//                    .load(userInfoEntity.getAvatarResource().getUrl())
+//                    .circleCrop()
+//                    .into(personIvAvatar);
+//
+//        }
     }
 
     @OnClick({R.id.toolbar_btn_back, R.id.person_ll_birthday, R.id.person_ll_tel_bind, R.id.person_ll_sex, R.id.person_iv_avatar})
@@ -269,7 +268,7 @@ public class PersonActivity extends BaseActivity {
                     FileManagement.setUserInfo(baseEntity.getResult());
                     init();
                     EventBus.getDefault().post(new EventBusMessage<>("refresh"));
-                    LogUtil.d(FileManagement.getUserInfoEntity().toString());
+                    LogUtil.d(FileManagement.getUserInfo().toString());
                 }else{
                     showToast(baseEntity.getMessage());
                 }

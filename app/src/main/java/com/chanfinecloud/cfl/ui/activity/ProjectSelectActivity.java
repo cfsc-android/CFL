@@ -35,7 +35,6 @@ import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
-import org.xutils.common.util.LogUtil;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -112,7 +111,7 @@ public class ProjectSelectActivity extends BaseActivity {
 
         Map<String,String> map=new HashMap<>();
         map.put("projectId",projectId);
-        map.put("householdId", FileManagement.getUserInfoEntity().getId());
+        map.put("householdId", FileManagement.getUserInfo().getId());
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/current/bind", HttpMethod.Post);
         requestParam.setRequestMap(map);
         requestParam.setParamType(ParamType.Json);

@@ -22,13 +22,10 @@ import com.chanfinecloud.cfl.ui.activity.CarManageActivity;
 import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
 import com.chanfinecloud.cfl.ui.activity.PersonActivity;
 import com.chanfinecloud.cfl.ui.activity.SettingActivity;
-import com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity;
 import com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity;
 import com.chanfinecloud.cfl.ui.activity.minefeatures.WorkflowListActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
-import com.chanfinecloud.cfl.util.Constants;
 import com.chanfinecloud.cfl.util.FileManagement;
-import com.chanfinecloud.cfl.util.XUtilsImageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -95,7 +92,7 @@ public class MineFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_mine, null);
         setContentView(view);
         unbinder = ButterKnife.bind(this, view);
-        if(FileManagement.getUserInfoEntity().getCurrentDistrict()!=null&&!TextUtils.isEmpty(FileManagement.getUserInfoEntity().getCurrentDistrict().getRoomId())){
+        if(FileManagement.getUserInfo().getCurrentDistrict()!=null&&!TextUtils.isEmpty(FileManagement.getUserInfo().getCurrentDistrict().getRoomId())){
             bind=true;
         }else{
             bind=false;
@@ -115,7 +112,7 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void onFragmentStartLazy() {
         super.onFragmentStartLazy();
-        CurrentDistrictEntity currentDistrict=FileManagement.getUserInfoEntity().getCurrentDistrict();
+        CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
         if(currentDistrict!=null&&!TextUtils.isEmpty(currentDistrict.getRoomId())){
             bind=true;
         }else{
@@ -126,14 +123,14 @@ public class MineFragment extends BaseFragment {
         }else{
             tvMineAddress.setText(currentDistrict.getBuildingName()+currentDistrict.getUnitName()+currentDistrict.getRoomName());
         }
-        if(FileManagement.getUserInfoEntity().getAvatarResource()!=null){
-            Glide.with(this)
-                    .load(FileManagement.getUserInfoEntity().getAvatarResource().getUrl())
-                    .error(R.drawable.ic_default_img)
-                    .circleCrop()
-                    .into(ivMineHead);
-        }
-        tvMineName.setText(FileManagement.getUserInfoEntity().getNickName());
+//        if(FileManagement.getUserInfo().getAvatarResource()!=null){
+//            Glide.with(this)
+//                    .load(FileManagement.getUserInfo().getAvatarResource().getUrl())
+//                    .error(R.drawable.ic_default_img)
+//                    .circleCrop()
+//                    .into(ivMineHead);
+//        }
+        tvMineName.setText(FileManagement.getUserInfo().getNickName());
     }
 
     @Override
@@ -152,11 +149,11 @@ public class MineFragment extends BaseFragment {
             /*XUtilsImageUtils.display(ivMineHead,
                     Constants.BASEHOST+userEntity.getHeadImageUrl(),
                     true);*/
-            Glide.with(this)
-                    .load(Constants.BASEHOST+userEntity.getHeadImageUrl())
-                    .error(R.drawable.ic_default_img)
-                    .circleCrop()
-                    .into(ivMineHead);
+//            Glide.with(this)
+//                    .load(Constants.BASEHOST+userEntity.getHeadImageUrl())
+//                    .error(R.drawable.ic_default_img)
+//                    .circleCrop()
+//                    .into(ivMineHead);
         }else if("bind".equals(message.getMessage())){
             Log.e("bind","Mine_bind");
             bind=true;
@@ -169,14 +166,14 @@ public class MineFragment extends BaseFragment {
         roomInfoEntity = FileManagement.getRoomInfo();
         if (userEntity != null) {
 
-            Glide.with(this).load(Constants.BASEHOST+userEntity.getHeadImageUrl())
-                    .circleCrop()
-                    .error(R.drawable.ic_default_img)
-                    .into(ivMineHead);
-            tvMineName.setText(userEntity.getNickName());
+//            Glide.with(this).load(Constants.BASEHOST+userEntity.getHeadImageUrl())
+//                    .circleCrop()
+//                    .error(R.drawable.ic_default_img)
+//                    .into(ivMineHead);
+//            tvMineName.setText(userEntity.getNickName());
         }
-        if (null != FileManagement.getUserInfoEntity()){
-            tvMineAddress.setText(FileManagement.getUserInfoEntity().getAncestor());
+        if (null != FileManagement.getUserInfo()){
+            tvMineAddress.setText(FileManagement.getUserInfo().getAncestor());
             tvMineAddress.setTextColor(getResources().getColor(R.color.white));
         }
 

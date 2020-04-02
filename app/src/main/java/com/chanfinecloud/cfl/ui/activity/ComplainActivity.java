@@ -212,11 +212,11 @@ public class ComplainActivity extends BaseActivity {
         }
         Map<String,Object> map=new HashMap<>();
         map.put("createType", UserType.Household.getType());
-        map.put("householdId",FileManagement.getUserInfoEntity().getId());
+        map.put("householdId",FileManagement.getUserInfo().getId());
         map.put("problemDesc",addComplainEtRemark.getText().toString());
-        map.put("projectId",FileManagement.getUserInfoEntity().getRoomList().get(0).getProjectId());
+        map.put("projectId",FileManagement.getUserInfo().getRoomList().get(0).getProjectId());
         map.put("reportType", UserType.Household.getType());
-        map.put("roomId",FileManagement.getUserInfoEntity().getRoomList().get(0).getId());
+        map.put("roomId",FileManagement.getUserInfo().getRoomList().get(0).getId());
         map.put("typeId",complainTypeValue);
         if(dataList.size()>1)
             map.put("problemResourceKey",resourceKey);

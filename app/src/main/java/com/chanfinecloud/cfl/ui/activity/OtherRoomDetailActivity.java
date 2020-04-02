@@ -35,9 +35,6 @@ import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
 
 import org.greenrobot.eventbus.EventBus;
-import org.xutils.common.util.LogUtil;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -136,7 +133,7 @@ public class OtherRoomDetailActivity extends BaseActivity {
                     List<RoomHouseholdEntity> householdEntityList=roomEntity.getHouseholdBoList();
                     for (int i = 0; i <householdEntityList.size() ; i++) {
                         RoomHouseholdEntity household=householdEntityList.get(i);
-                        if(FileManagement.getUserInfoEntity().getId().equals(household.getId())){
+                        if(FileManagement.getUserInfo().getId().equals(household.getId())){
                             currentHousehold=household;
                             initCurrentRoomView();
                         }else{
@@ -207,7 +204,7 @@ public class OtherRoomDetailActivity extends BaseActivity {
         map.put("buildingId",roomEntity.getBuildingId());
         map.put("unitId",roomEntity.getUnitId());
         map.put("roomId",roomEntity.getId());
-        map.put("householdId", FileManagement.getUserInfoEntity().getId());
+        map.put("householdId", FileManagement.getUserInfo().getId());
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/current/bind", HttpMethod.Post);
         requestParam.setRequestMap(map);
         requestParam.setParamType(ParamType.Json);

@@ -194,8 +194,7 @@ public class RegisterActivity extends BaseActivity {
                 Bundle bundle=new Bundle();
                 bundle.putString("title","App使用协议");
                 bundle.putString("url","http://dev.chanfine.com:9082/privacy/135310.html");
-                // TODO: 2020/3/28
-                //startActivity(NewsInfoActivity.class,bundle);
+                startActivity(NewsInfoActivity.class,bundle);
                 break;
             case R.id.ll_umeng_login_weixin:
                 authorization(SHARE_MEDIA.WEIXIN);

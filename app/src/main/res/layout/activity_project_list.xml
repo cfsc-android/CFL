@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColor_alertview_alert_start"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ProjectListActivity">
+
+    <include layout="@layout/toolbar_layout" />
+    <ListView
+        android:id="@+id/lv_project_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:dividerHeight="@dimen/dp_1"
+        android:scrollbars="none">
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/ll_project_list_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_project_list_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_green_shape"
+            android:textColor="@color/white"
+            android:layout_margin="@dimen/dp_10"
+            android:text="自定义项目"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_project_list_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/btn_project_list_cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_green_shape"
+            android:textColor="@color/car_lock_theme"
+            android:layout_margin="@dimen/dp_10"
+            android:text="取  消"/>
+        <Button
+            android:id="@+id/btn_project_list_delete"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_green_shape"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:layout_margin="@dimen/dp_10"
+            android:text="删   除"/>
+    </LinearLayout>
+    
+</LinearLayout>

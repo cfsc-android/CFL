@@ -78,7 +78,8 @@ public class UnLock extends BaseActivity {
         requestMap.put("effectTime",sdf.format(new Date()));
         requestMap.put("expireTime",sdf.format(new Date(new Date().getTime()+5*60*1000)));
         requestMap.put("openTimes",4);
-        requestMap.put("phaseId",FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());
+        if (FileManagement.getUserInfo().getRoomList() != null)
+            requestMap.put("phaseId",FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());
         requestParam.setRequestMap(requestMap);
         requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){

@@ -27,6 +27,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.UnLockListActivity"></activity>
         <activity android:name=".ui.activity.CarManageAddActivity" />
+        <activity android:name=".ui.activity.ComplainActivity" />
+        <activity android:name=".ui.activity.RepairsActivity" />
+        <activity android:name=".ui.activity.WorkflowStepActivity" />
+        <activity android:name=".ui.activity.ComplainDetailActivity" />
+        <activity android:name=".ui.activity.RepairsDetailActivity" />
+        <activity android:name=".ui.activity.minefeatures.WorkflowListActivity" />
         <activity android:name=".ui.activity.CarManageActivity" />
         <activity android:name=".ui.activity.OtherRoomDetailActivity" />
         <activity android:name=".ui.activity.HouseholdAuditListActivity" />
@@ -70,7 +76,9 @@
         <activity android:name=".ui.activity.LifePaymentActivity" />
         <activity android:name=".ui.activity.CommentActivity" />
         <activity android:name=".ui.activity.CommentDetailActivity" />
-        <activity android:name=".ui.activity.PersonActivity" /> <!-- 网络状态监听服务 -->
+        <activity android:name=".ui.activity.PersonActivity" />
+
+        <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

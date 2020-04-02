@@ -54,10 +54,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 网络状态监听服务 -->
+        </activity>
         <activity android:name=".ui.activity.SettingActivity" />
         <activity android:name=".ui.activity.SettingDetailActivity" />
         <activity android:name=".ui.activity.SettingAboutActivity" />
@@ -72,7 +71,6 @@
         <activity android:name=".ui.activity.PersonActivity" />
 
         <!-- 网络状态监听服务 -->
-        <activity android:name=".ui.activity.NoticeAttachmentActivity" /> <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

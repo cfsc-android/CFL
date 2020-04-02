@@ -18,7 +18,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.AttachmentListAdapter;
 import com.chanfinecloud.cfl.config.Config;
-import com.chanfinecloud.cfl.entity.ResourceEntity;
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.MyProgressCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
@@ -33,7 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.chanfinecloud.cfl.config.Config.ARTICLE;
 import static com.chanfinecloud.cfl.config.Config.SD_APP_DIR_NAME;
 import static com.chanfinecloud.cfl.config.Config.File_DIR_NAME;
 

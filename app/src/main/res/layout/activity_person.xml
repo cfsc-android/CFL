@@ -27,6 +27,7 @@
             android:src="@drawable/icon_user_default"/>
     </FrameLayout>
     <LinearLayout
+        android:id="@+id/person_ll_nick_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -109,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_action_right"
-            android:visibility="visible"
+            android:visibility="invisible"
             />
     </LinearLayout>
     <LinearLayout
@@ -207,59 +208,6 @@
             android:textColor="@color/text_desc"
             android:textSize="@dimen/sp_14"
             android:gravity="right"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_action_right"
-            android:visibility="visible"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="1px"
-            android:background="@color/text_white"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_desc"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/person_ll_tel_bind"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/dp_15"
-        android:background="@color/text_white"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="绑定业主"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/sp_14"
-            android:layout_marginLeft="@dimen/dp_5"
-            />
-
-        <TextView
-            android:id="@+id/person_tv_tel_bind"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:text="绑定业主，获得所有功能"
-            android:textColor="@color/payment_btn"
             />
 
         <ImageView

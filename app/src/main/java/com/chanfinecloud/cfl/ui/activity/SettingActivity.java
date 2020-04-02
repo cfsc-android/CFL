@@ -200,7 +200,9 @@ public class SettingActivity extends BaseActivity {
         });
     }
 
-
+    /**
+     * 退出登录
+     */
     private void loginOut(){
 //        FileManagement.setLoginType("");
 //        FileManagement.setWXLogin(new WeiXinLoginEntity());
@@ -340,9 +342,10 @@ public class SettingActivity extends BaseActivity {
             showToast("没有发现可更新版本");
         }
     }
+
     /**
      * 下载最新版进度
-     * @param progress
+     * @param progress int 下载进度
      */
     private void initProgressDialog(int progress){
         if(progressDialog==null){
@@ -362,6 +365,10 @@ public class SettingActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 退出动画
+     * @return AlphaAnimation
+     */
     private AlphaAnimation alphaAnimation(){
         AlphaAnimation animation=new AlphaAnimation(0,1);
         animation.setDuration(300);

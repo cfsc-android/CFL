@@ -7,8 +7,9 @@ import java.io.FileInputStream;
 import java.text.DecimalFormat;
 
 /**
- * Created by zengx on 2019/5/14.
- * Describe:
+ * Created by Loong on 2020/3/31.
+ * Version: 1.0
+ * Describe: 文件夹/文件大小工具类
  */
 public class FileSizeUtil {
     public static final int SIZETYPE_B = 1;//获取文件大小单位为B的double值
@@ -36,7 +37,7 @@ public class FileSizeUtil {
             e.printStackTrace();
             Log.e("获取文件大小", "获取失败!");
         }
-        return FormetFileSize(blockSize, sizeType);
+        return FormatFileSize(blockSize, sizeType);
     }
 
     /**
@@ -58,20 +59,20 @@ public class FileSizeUtil {
             e.printStackTrace();
             Log.e("获取文件大小", "获取失败!");
         }
-        return FormetFileSize(blockSize);
+        return FormatFileSize(blockSize);
     }
 
     /**
      * 获取指定文件大小
      *
-     * @param file
-     * @return
-     * @throws Exception
+     * @param file 文件/文件夹
+     * @return long
+     * @throws Exception Exception
      */
     private static long getFileSize(File file) throws Exception {
         long size = 0;
         if (file.exists()) {
-            FileInputStream fis = null;
+            FileInputStream fis;
             fis = new FileInputStream(file);
             size = fis.available();
         } else {
@@ -84,18 +85,18 @@ public class FileSizeUtil {
     /**
      * 获取指定文件夹
      *
-     * @param f
-     * @return
-     * @throws Exception
+     * @param f 文件/文件夹
+     * @return long
+     * @throws Exception Exception
      */
     private static long getFileSizes(File f) throws Exception {
         long size = 0;
-        File flist[] = f.listFiles();
-        for (int i = 0; i < flist.length; i++) {
-            if (flist[i].isDirectory()) {
-                size = size + getFileSizes(flist[i]);
+        File files[] = f.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isDirectory()) {
+                size = size + getFileSizes(files[i]);
             } else {
-                size = size + getFileSize(flist[i]);
+                size = size + getFileSize(files[i]);
             }
         }
         return size;
@@ -104,10 +105,10 @@ public class FileSizeUtil {
     /**
      * 转换文件大小
      *
-     * @param fileS
-     * @return
+     * @param fileS 文件大小
+     * @return String
      */
-    private static String FormetFileSize(long fileS) {
+    private static String FormatFileSize(long fileS) {
         DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";
         String wrongSize = "0B";
@@ -129,11 +130,11 @@ public class FileSizeUtil {
     /**
      * 转换文件大小,指定转换的类型
      *
-     * @param fileS
-     * @param sizeType
-     * @return
+     * @param fileS 文件大小
+     * @param sizeType 指定转换的类型
+     * @return double
      */
-    private static double FormetFileSize(long fileS, int sizeType) {
+    private static double FormatFileSize(long fileS, int sizeType) {
         DecimalFormat df = new DecimalFormat("#.00");
         double fileSizeLong = 0;
         switch (sizeType) {

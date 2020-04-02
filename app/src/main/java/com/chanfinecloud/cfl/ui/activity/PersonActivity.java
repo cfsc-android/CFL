@@ -7,11 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -20,6 +22,7 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.FileEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
@@ -33,6 +36,7 @@ import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.SharedPreferencesManage;
 import com.chanfinecloud.cfl.weidgt.photopicker.PhotoPicker;
 import com.chanfinecloud.cfl.weidgt.wheelview.BirthWheelDialog;
+import com.google.gson.Gson;
 import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,6 +59,7 @@ import static com.chanfinecloud.cfl.config.Config.BASIC;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.PHOTO_DIR_NAME;
 import static com.chanfinecloud.cfl.config.Config.SD_APP_DIR_NAME;
+import static com.chanfinecloud.cfl.config.Config.FILE;
 
 public class PersonActivity extends BaseActivity {
 
@@ -82,15 +87,12 @@ public class PersonActivity extends BaseActivity {
     TextView personTvBirthday;
     @BindView(R.id.person_ll_birthday)
     LinearLayout personLlBirthday;
-    @BindView(R.id.person_tv_tel_bind)
-    TextView personTvTelBind;
-    @BindView(R.id.person_ll_tel_bind)
-    LinearLayout personLlTelBind;
     private BirthWheelDialog wheelDialog;
     private String sex;
     private String birthday;
     public static final int REQUEST_CODE_CHOOSE=0x001;
     private UserInfoEntity userInfoEntity;
+    private FileEntity fileEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +142,7 @@ public class PersonActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.toolbar_btn_back, R.id.person_ll_birthday, R.id.person_ll_tel_bind, R.id.person_ll_sex, R.id.person_iv_avatar})
+    @OnClick({R.id.toolbar_btn_back, R.id.person_ll_birthday, R.id.person_ll_sex, R.id.person_iv_avatar, R.id.person_ll_nick_name})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_btn_back:
@@ -163,9 +165,6 @@ public class PersonActivity extends BaseActivity {
                     wheelDialog.setBirth("2000-1-1");
                 }
                 break;
-            case R.id.person_ll_tel_bind:
-                showToast("待开发");
-                break;
             case R.id.person_ll_sex:
                 singleChoiceSex();
                 break;
@@ -176,7 +175,31 @@ public class PersonActivity extends BaseActivity {
                     showToast("相机或读写手机存储的权限被禁止！");
                 }
                 break;
+            case R.id.person_ll_nick_name:
+                editNickName();
+                break;
         }
+    }
+
+    /**
+     * 编辑性别
+     */
+    private void editNickName() {
+        final EditText et = new EditText(this);
+        et.setHint(FileManagement.getUserInfoEntity().getNickName());
+        new AlertDialog.Builder(this).setTitle("请修改昵称")
+                .setView(et)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //按下确定键后的事件
+                        Toast.makeText(getApplicationContext(), et.getText().toString(), Toast.LENGTH_LONG).show();
+                        Map<String,Object> map = new HashMap<>();
+                        map.put("nickName",et.getText().toString());
+                        updateUser(map);
+                    }
+                }).setNegativeButton("取消",null).show();
+
     }
 
     /**
@@ -252,8 +275,9 @@ public class PersonActivity extends BaseActivity {
         sendRequest(requestParam,true);
     }
 
-
-    //获取用户信息
+    /**
+     * 获取用户信息
+     */
     private void getUserInfo(){
         RequestParam requestParam=new RequestParam(BASE_URL + BASIC + "basic/householdInfo/phone",HttpMethod.Get);
         Map<String, String> requestMap = new HashMap<>();
@@ -264,15 +288,20 @@ public class PersonActivity extends BaseActivity {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d("result",result);
-                BaseEntity<UserInfoEntity> baseEntity=JsonParse.parse(result,UserInfoEntity.class);
-                if(baseEntity.isSuccess()){
+                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result,UserInfoEntity.class);
+                if(fileEntity!=null){
+                    ResourceEntity resourceEntity = new ResourceEntity();
+                    resourceEntity.setId(fileEntity.getId());
+                    resourceEntity.setContentType(fileEntity.getContentType());
+                    resourceEntity.setCreateTime(fileEntity.getCreateTime());
+                    resourceEntity.setName(fileEntity.getName());
+                    resourceEntity.setUrl(fileEntity.getDomain()+fileEntity.getUrl());
+                    baseEntity.getResult().setAvatarResource(resourceEntity);
+                }
                     FileManagement.setUserInfo(baseEntity.getResult());
                     init();
                     EventBus.getDefault().post(new EventBusMessage<>("refresh"));
                     LogUtil.d(FileManagement.getUserInfoEntity().toString());
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
             }
 
             @Override
@@ -309,7 +338,10 @@ public class PersonActivity extends BaseActivity {
         }
     }
 
-    //压缩图片
+    /**
+     * 压缩图片
+     * @param list 图片路径list
+     */
     private void compress(List<String> list){
         String _Path = FilePathUtil.createPathIfNotExist("/" + SD_APP_DIR_NAME + "/" + PHOTO_DIR_NAME);
         LogUtil.d("_Path->" + _Path);
@@ -345,9 +377,12 @@ public class PersonActivity extends BaseActivity {
                 }).launch();
     }
 
-    //上传照片
+    /**
+     * 上传照片
+     * @param path 图片路径
+     */
     private void uploadPic(final String path){
-        RequestParam requestParam=new RequestParam(BASE_URL+"file-manager-ms/files-anon",HttpMethod.Upload);
+        RequestParam requestParam=new RequestParam(BASE_URL+ FILE +"files-anon",HttpMethod.Upload);
         Map<String,Object> map=new HashMap<>();
         map.put("UploadFile",new File(path));
         requestParam.setRequestMap(map);
@@ -359,7 +394,7 @@ public class PersonActivity extends BaseActivity {
                 BaseEntity<FileEntity> baseEntity= JsonParse.parse(result,FileEntity.class);
                 if(baseEntity.isSuccess()){
                     Map<String,Object> map=new HashMap<>();
-                    map.put("faceId",baseEntity.getResult().getId());
+                    map.put("avatarId",baseEntity.getResult().getId());
                     updateUser(map);
                 }else{
                     showToast(baseEntity.getMessage());

@@ -106,9 +106,7 @@ public class SettingDetailActivity extends BaseActivity {
             case R.id.ll_setting_detail_cache_file:
                 new AlertDialog.Builder(SettingDetailActivity.this)
                         .setTitle("清理文件")
-                        .setMessage("发现可清理文件"
-                                + FileSizeUtil.getAutoFileOrFilesSize(LOCAL_PATH)
-                                )
+                        .setMessage("发现可清理文件"+ FileSizeUtil.getAutoFileOrFilesSize(LOCAL_PATH))
                         .setNegativeButton("确认清理",new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -126,6 +124,10 @@ public class SettingDetailActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 删除文件
+     * @param file 文件
+     */
     private void deleteFile(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();

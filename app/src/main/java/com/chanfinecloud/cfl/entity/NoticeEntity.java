@@ -1,5 +1,7 @@
 package com.chanfinecloud.cfl.entity;
 
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
+
 import java.io.Serializable;
 import java.util.List;
 

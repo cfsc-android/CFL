@@ -6,17 +6,16 @@ import android.os.Environment;
 import java.io.File;
 import java.math.BigDecimal;
 
-//import com.nostra13.universalimageloader.core.ImageLoader;
-
 /**
- * 文 件 名: DataCleanManager.java 描 述:
- * 主要功能有清除内/外缓存，清除数据库，清除sharedPreference，清除files和清除自定义目录
+ * Created by Loong on 2020/3/31.
+ * Version: 1.0
+ * Describe: 主要功能有清除内/外缓存，清除数据库，清除sharedPreference，清除files和清除自定义目录
  */
 public class DataCleanManager {
 	/**
 	 * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache)
-	 * 
-	 * @param context
+	 *
+	 * @param context Context
 	 */
 	public static void cleanInternalCache(Context context) {
 		deleteFilesByDirectory(context.getCacheDir());
@@ -24,8 +23,8 @@ public class DataCleanManager {
 
 	/**
 	 * 清除本应用所有数据库(/data/data/com.xxx.xxx/databases)
-	 * 
-	 * @param context
+	 *
+	 * @param context Context
 	 */
 	public static void cleanDatabases(Context context) {
 		deleteFilesByDirectory(new File("/data/data/"
@@ -34,8 +33,8 @@ public class DataCleanManager {
 
 	/**
 	 * 清除本应用SharedPreference(/data/data/com.xxx.xxx/shared_prefs)
-	 * 
-	 * @param context
+	 *
+	 * @param context Context
 	 */
 	public static void cleanSharedPreference(Context context) {
 		deleteFilesByDirectory(new File("/data/data/"
@@ -44,9 +43,9 @@ public class DataCleanManager {
 
 	/**
 	 * 按名字清除本应用数据库
-	 * 
-	 * @param context
-	 * @param dbName
+	 *
+	 * @param context Context
+	 * @param dbName 数据库名称
 	 */
 	public static void cleanDatabaseByName(Context context, String dbName) {
 		context.deleteDatabase(dbName);
@@ -54,8 +53,8 @@ public class DataCleanManager {
 
 	/**
 	 * 清除/data/data/com.xxx.xxx/files下的内容
-	 * 
-	 * @param context
+	 *
+	 * @param context Context
 	 */
 	public static void cleanFiles(Context context) {
 		deleteFilesByDirectory(context.getFilesDir());
@@ -63,8 +62,8 @@ public class DataCleanManager {
 
 	/**
 	 * 清除外部cache下的内容(/mnt/sdcard/android/data/com.xxx.xxx/cache)
-	 * 
-	 * @param context
+	 *
+	 * @param context Context
 	 */
 	public static void cleanExternalCache(Context context) {
 		if (Environment.getExternalStorageState().equals(
@@ -75,8 +74,8 @@ public class DataCleanManager {
 
 	/**
 	 * 清除自定义路径下的文件，使用需小心，请不要误删。而且只支持目录下的文件删除
-	 * 
-	 * @param filePath
+	 *
+	 * @param filePath 文件夹路径
 	 */
 	public static void cleanCustomCache(String filePath) {
 		deleteFilesByDirectory(new File(filePath));
@@ -84,9 +83,9 @@ public class DataCleanManager {
 
 	/**
 	 * 清除本应用所有的数据
-	 * 
-	 * @param context
-	 * @param filepath
+	 *
+	 * @param context Context
+	 * @param filepath 文件路径
 	 */
 	public static void cleanApplicationData(Context context, String... filepath) {
 		cleanInternalCache(context);
@@ -100,6 +99,13 @@ public class DataCleanManager {
 
 	}
 
+	/**
+	 * 总缓存大小
+	 * @param context Context
+	 * @param file 文件夹
+	 * @return String
+	 * @throws Exception  Exception
+	 */
 	public static String getTotalCacheSize(Context context, File file)
 			throws Exception {
 		long cacheSize = getFolderSize(context.getCacheDir());
@@ -112,6 +118,11 @@ public class DataCleanManager {
 		return getFormatSize(cacheSize);
 	}
 
+	/**
+	 * 清楚所有缓存
+	 * @param context Context
+	 * @param file 文件夹
+	 */
 	public static void clearAllCache(Context context, File file) {
 		deleteFilesByDirectory(context.getCacheDir());
 		deleteFilesByDirectory(file);
@@ -123,7 +134,8 @@ public class DataCleanManager {
 
 	/**
 	 * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理
-	 * 
+	 * @param dir 文件夹
+	 * @return boolean
 	 */
 	private static boolean deleteFilesByDirectory(File dir) {
 		if (dir != null && dir.isDirectory()) {
@@ -138,18 +150,14 @@ public class DataCleanManager {
 		}
 		return dir.delete();
 	}
-
-//	public static void onClearMemoryClick() {
-//		ImageLoader.getInstance().clearMemoryCache(); // 清除内存缓存
-//		ImageLoader.getInstance().clearDiskCache(); // 清除本地缓存
-//	}
-
-	// 获取文件
-	// Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/
-	// 目录，一般放一些长时间保存的数据
-	// Context.getExternalCacheDir() -->
-	// SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
-	public static long getFolderSize(File file) throws Exception {
+	/**
+	 *  获取文件
+	 *  Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/目录，一般放一些长时间保存的数据
+	 *  Context.getExternalCacheDir() -->SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
+	 * @param file 文件夹
+	 * @return long
+	 */
+	public static long getFolderSize(File file) {
 		long size = 0;
 		try {
 			File[] fileList = file.listFiles();
@@ -166,19 +174,11 @@ public class DataCleanManager {
 		}
 		return size;
 	}
-//	public static long getPhotoSize(File file)
-//	{
-//		long size = 0;
-//		if(file!=null&&file.exists())
-//		{
-//			size = file.get
-//		}
-//	}
 	/**
 	 * 格式化单位
-	 * 
-	 * @param size
-	 * @return
+	 *
+	 * @param size double 文件大小
+	 * @return String
 	 */
 	public static String getFormatSize(double size) {
 		double kiloByte = size / 1024;
@@ -211,7 +211,12 @@ public class DataCleanManager {
 				+ "TB";
 	}
 
-	public static String getCacheSize(File file) throws Exception {
+	/**
+	 * 获取缓存大小
+	 * @param file 文件夹
+	 * @return String
+	 */
+	public static String getCacheSize(File file){
 		return getFormatSize(getFolderSize(file));
 	}
 }

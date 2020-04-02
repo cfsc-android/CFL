@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chanfinecloud.cfl.R;
-import com.chanfinecloud.cfl.entity.ResourceEntity;
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 
 import java.util.List;
 

@@ -206,13 +206,14 @@ public class ProjectSelectActivity extends BaseActivity {
                 BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result,UserInfoEntity.class);
                 if(baseEntity.isSuccess()){
                     FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
+                    finish();
                     if(LynActivityManager.getInstance().getActivityByClass(HouseManageActivity.class)!=null){
                         LynActivityManager.getInstance().finishActivity(HouseManageActivity.class);
                         if (LynActivityManager.getInstance().getActivityByClass(HouseHoldActivity.class)!=null){
                             LynActivityManager.getInstance().finishActivity(HouseHoldActivity.class);
                         }
                         EventBus.getDefault().post(new EventBusMessage<>("projectSelect"));
-                        finish();
+
                     }else{
                         startActivity(MainActivity.class);
                     }
@@ -230,4 +231,9 @@ public class ProjectSelectActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }

@@ -192,6 +192,12 @@ public class CurrentRoomFragment extends BaseFragment {
     }
 
     @Override
+    protected void onResumeLazy() {
+        super.onResumeLazy();
+        getRoomData();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (unbinder != null) {

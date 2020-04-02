@@ -15,6 +15,7 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.LoginUserEntity;
 import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.WorkflowType;
 import com.chanfinecloud.cfl.ui.activity.CommentActivity;
 import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
 import com.chanfinecloud.cfl.ui.activity.CarManageActivity;
@@ -23,6 +24,7 @@ import com.chanfinecloud.cfl.ui.activity.PersonActivity;
 import com.chanfinecloud.cfl.ui.activity.SettingActivity;
 import com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity;
 import com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity;
+import com.chanfinecloud.cfl.ui.activity.minefeatures.WorkflowListActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.Constants;
 import com.chanfinecloud.cfl.util.FileManagement;
@@ -183,6 +185,8 @@ public class MineFragment extends BaseFragment {
 
     @OnClick({R.id.ll_mine_head, R.id.tv_mine_gongdan, R.id.tv_mine_tousu, R.id.tv_mine_car, R.id.tv_mine_bill, R.id.tv_mine_face, R.id.tv_mine_express, R.id.tv_mine_evaluation, R.id.tv_mine_data, R.id.tv_mine_setting})
     public void onViewClicked(View view) {
+
+        Bundle bundle=new Bundle();
         switch (view.getId()) {
             case R.id.iv_mine_head:
                 //startActivity(PersonalInformationActivity.class);
@@ -195,17 +199,21 @@ public class MineFragment extends BaseFragment {
                 startActivity(PersonActivity.class);
                 break;
             case R.id.tv_mine_gongdan:
+                bundle.putSerializable("workflowType", WorkflowType.Order);
+                startActivity(WorkflowListActivity.class,bundle);
                 break;
             case R.id.tv_mine_tousu:
+                bundle.putSerializable("workflowType", WorkflowType.Complain);
+                startActivity(WorkflowListActivity.class,bundle);
                 break;
             case R.id.tv_mine_car:
 
-                if(bind){
+               /* if(bind){
                     startActivity(CarManageActivity.class);
                 }else{
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
-                }
-                //startActivity(CarManageActivity.class);
+                }*/
+                startActivity(CarManageActivity.class);
                 break;
             case R.id.tv_mine_bill:
                 break;

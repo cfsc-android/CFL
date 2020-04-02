@@ -46,6 +46,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.chanfinecloud.cfl.config.Config.ARTICLE;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
@@ -56,9 +57,7 @@ import static com.chanfinecloud.cfl.config.Config.BASE_URL;
  * @author Shuaige
  * create at 2020/3/30
  */
-@ContentView(R.layout.activity_notice_detail)
 public class NoticeDetailActivity extends BaseActivity {
-
 
     @BindView(R.id.toolbar_btn_back)
     ImageButton toolbarBtnBack;
@@ -92,7 +91,6 @@ public class NoticeDetailActivity extends BaseActivity {
     ImageView noticeDetailIvShare;
     private String title, noticeId;
     private NoticeEntity noticeEntity;
-
 
     @Override
     protected void initData() {
@@ -176,12 +174,12 @@ public class NoticeDetailActivity extends BaseActivity {
                         noticeEntity.setIsThumbup("0");
                         noticeEntity.setPraiseNum(noticeEntity.getPraiseNum() - 1);
                         noticeDetailTvUp.setText(noticeEntity.getPraiseNum() + "");
-                        noticeDetailIvUp.setImageResource(R.drawable.ic_action_thumb_up_normal);
+                        noticeDetailIvUp.setImageResource(R.mipmap.ic_action_thumb_up_normal);
                     } else {
                         noticeEntity.setIsThumbup("1");
                         noticeEntity.setPraiseNum(noticeEntity.getPraiseNum() + 1);
                         noticeDetailTvUp.setText(noticeEntity.getPraiseNum() + "");
-                        noticeDetailIvUp.setImageResource(R.drawable.ic_action_thumb_up_press);
+                        noticeDetailIvUp.setImageResource(R.mipmap.ic_action_thumb_up_press);
                     }
                 } else {
                     showToast(baseEntity.getMessage());
@@ -296,9 +294,9 @@ public class NoticeDetailActivity extends BaseActivity {
     }
 
 
-    @Event({R.id.toolbar_btn_back, R.id.notice_detail_iv_up, R.id.notice_detail_iv_share, R.id.notice_detail_tv_resource})
-    private void onClickEvent(View v) {
-        switch (v.getId()) {
+    @OnClick({R.id.toolbar_btn_back, R.id.notice_detail_iv_up, R.id.notice_detail_iv_share, R.id.notice_detail_tv_resource})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
             case R.id.toolbar_btn_back:
                 finish();
                 break;

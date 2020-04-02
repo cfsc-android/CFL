@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -130,7 +131,7 @@ public class PersonActivity extends BaseActivity {
             personTvBirthday.setText("请填写出生日期");
         }
 
-        if (!TextUtils.isEmpty(userInfoEntity.getAvatarResource().getUrl())) {
+        if (userInfoEntity.getAvatarResource() != null && !TextUtils.isEmpty(userInfoEntity.getAvatarResource().getUrl())) {
             Glide.with(this)
                     .load(userInfoEntity.getAvatarResource().getUrl())
                     .circleCrop()
@@ -268,7 +269,7 @@ public class PersonActivity extends BaseActivity {
                     FileManagement.setUserInfo(baseEntity.getResult());
                     init();
                     EventBus.getDefault().post(new EventBusMessage<>("refresh"));
-                    LogUtil.d(SharedPreferencesManage.getUserInfo().toString());
+                    LogUtil.d(FileManagement.getUserInfoEntity().toString());
                 }else{
                     showToast(baseEntity.getMessage());
                 }

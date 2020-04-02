@@ -26,8 +26,10 @@ import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.x;
 
+import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -42,7 +44,7 @@ import static com.chanfinecloud.cfl.util.PermissionUtil.REQUEST_CODE;
 /**
  * Created by Loong on 2020/2/6.
  * Version: 1.0
- * Describe:  Activity基础类
+ * Describe:  Activity基础类 FragmentActivity
  */
 public abstract class BaseActivity extends FragmentActivity implements NetBroadcastReceiver.NetEvent {
     public NetBroadcastReceiver netBroadcastReceiver;

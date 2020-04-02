@@ -66,8 +66,13 @@ public class LazyBaseFragment extends Fragment {
         return null;
     }
 
+    // TODO: 2020/4/1  临时处理办法
+    /**
+     * 配合view pager的异常捕捉
+     * 但是加了销毁activity的时候会报或异常   https://blog.csdn.net/ccc920123/article/details/104356948
+     */
     // http://stackoverflow.com/questions/15207305/getting-the-error-java-lang-illegalstateexception-activity-has-been-destroyed
-    @Override
+/*    @Override
     public void onDetach() {
         super.onDetach();
         try {
@@ -80,7 +85,7 @@ public class LazyBaseFragment extends Fragment {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
 
 

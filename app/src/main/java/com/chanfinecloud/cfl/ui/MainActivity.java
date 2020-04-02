@@ -1,6 +1,9 @@
 package com.chanfinecloud.cfl.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.SimpleAdapter;
 import com.chanfinecloud.cfl.entity.core.ListLoadingType;
+import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
@@ -22,9 +26,13 @@ import com.chanfinecloud.cfl.http.XHttp;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment;
 import com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment;
+import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ViewInject;
 
@@ -46,6 +54,7 @@ import cn.jpush.android.api.JPushInterface;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.TagAliasCallback;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.WORKORDER;
@@ -84,16 +93,26 @@ public class MainActivity extends BaseActivity {
     private Fragment home, mine;
     private long time=0;
 
+    private boolean bind;
 
     @Override
     protected void initData() {
         setContentView(R.layout.activity_main);
-        setAliasAndTag();
+       // setAliasAndTag();
         //getData();
         ButterKnife.bind(this);
         context=this;
         fragmentManager = getSupportFragmentManager();
         setTabSelection(0);
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(EventBusMessage message){
+        if("projectSelect".equals(message.getMessage())){
+            setTabSelection(1);
+        }
     }
 
     private void setTabSelection(int index) {
@@ -268,5 +287,13 @@ public class MainActivity extends BaseActivity {
         tagSet.add("P_234ab909de");//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
         tagSet.add("D_5656ac65de5b");//部门（'D_'+员工的部门Id）
         JPushInterface.setTags(this,0x02,tagSet);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
     }
 }

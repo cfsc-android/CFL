@@ -218,7 +218,7 @@ public class SettingActivity extends BaseActivity {
 //        startActivity(LoginActivity.class);
 //        LynActivityManager.getInstance().removeAllActivity();
 
-        TokenEntity tokenEntity= SharedPreferencesManage.getToken();
+        TokenEntity tokenEntity= FileManagement.getTokenEntity();
         tokenEntity.setExpires_in(0);
         FileManagement.setTokenEntity(tokenEntity);
         LynActivityManager.getInstance().removeAllActivity();
@@ -238,8 +238,8 @@ public class SettingActivity extends BaseActivity {
                 .setBarBackgroundColor("#FF0000")      // 设置顶部按钮和底部背景色，默认颜色为 #2E2D2D
                 .setBarButtonPressedColor("#FF0000")        //设置顶部按钮和底部按钮按下时的反馈色 默认颜色为 #383737
                 .setColorPickerBackgroundColor("#FF0000")   //设置颜色选择器的背景色,默认颜色为 #272828
-                .setMoreParam("用户昵称", SharedPreferencesManage.getUserInfo().getName()) //自定义的反馈数据
-                .setMoreParam("用户手机",SharedPreferencesManage.getUserInfo().getMobile()) //自定义的反馈数据
+                .setMoreParam("用户昵称", FileManagement.getUserInfoEntity().getName()) //自定义的反馈数据
+                .setMoreParam("用户手机",FileManagement.getUserInfoEntity().getMobile()) //自定义的反馈数据
                 .builder()
                 .invoke();                  //激活直接显示的方式
     }

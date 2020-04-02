@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+    <Button
+        android:id="@+id/action_button_reject"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="@dimen/dp_20"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_box_night_shape"
+        android:textColor="@color/text_desc"
+        android:textSize="@dimen/sp_16" />
+    <Button
+        android:id="@+id/action_button_accept"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="@dimen/dp_20"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_solid_night_shape"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/sp_16" />
+</LinearLayout>

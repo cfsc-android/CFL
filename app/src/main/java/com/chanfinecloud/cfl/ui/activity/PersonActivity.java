@@ -109,7 +109,7 @@ public class PersonActivity extends BaseActivity {
     }
 
     private void init(){
-        userInfoEntity = FileManagement.getUserInfoEntity();
+        userInfoEntity = FileManagement.getUserInfo();
 
        if (!TextUtils.isEmpty(userInfoEntity.getNickName())) {
             personTvNickName.setText(userInfoEntity.getNickName());
@@ -186,7 +186,7 @@ public class PersonActivity extends BaseActivity {
      */
     private void editNickName() {
         final EditText et = new EditText(this);
-        et.setHint(FileManagement.getUserInfoEntity().getNickName());
+        et.setHint(FileManagement.getUserInfo().getNickName());
         new AlertDialog.Builder(this).setTitle("请修改昵称")
                 .setView(et)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -301,7 +301,7 @@ public class PersonActivity extends BaseActivity {
                     FileManagement.setUserInfo(baseEntity.getResult());
                     init();
                     EventBus.getDefault().post(new EventBusMessage<>("refresh"));
-                    LogUtil.d(FileManagement.getUserInfoEntity().toString());
+                    LogUtil.d(FileManagement.getUserInfo().toString());
             }
 
             @Override

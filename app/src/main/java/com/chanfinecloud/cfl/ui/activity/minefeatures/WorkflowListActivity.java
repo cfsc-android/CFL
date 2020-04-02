@@ -91,7 +91,8 @@ public class WorkflowListActivity extends BaseActivity {
         workflowType= (WorkflowType) getIntent().getExtras().getSerializable("workflowType");
         toolbarTvTitle.setText(workflowType.getTypeChs());
 
-        toolbarBtnAction.setBackgroundResource(R.drawable.icon_btn_add);
+        toolbarTvAction.setVisibility(View.GONE);
+        toolbarBtnAction.setImageResource(R.drawable.icon_btn_add);
         toolbarBtnAction.setVisibility(View.VISIBLE);
 
 

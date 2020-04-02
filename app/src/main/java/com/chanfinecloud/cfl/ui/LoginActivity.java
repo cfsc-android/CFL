@@ -27,6 +27,8 @@ import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.IpSettingActivity;
+import com.chanfinecloud.cfl.ui.activity.ProjectListActivity;
 import com.chanfinecloud.cfl.ui.activity.RegisterActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.Constants;
@@ -192,11 +194,11 @@ public class LoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_ip_setting:
-                // TODO: 2020/3/28
-                //startActivity(IpSettingActivity.class);
+
+                startActivity(IpSettingActivity.class);
                 break;
             case R.id.tv_login_project:
-                // TODO: 2020/3/31  startActivity(ProjectListActivity.class);
+                startActivity(ProjectListActivity.class);
                 break;
             case R.id.tv_get_code:
                 mobileNum = etdUserMobileNumber.getText().toString();
@@ -224,7 +226,6 @@ public class LoginActivity extends BaseActivity {
 //                    startProgressDialog("");
                     login();
                 }
-// TODO: 2020/3/28记得删除  直接进去
               //  loginClick();
                 break;
             case R.id.tv_register:

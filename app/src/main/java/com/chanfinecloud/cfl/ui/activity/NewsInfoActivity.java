@@ -115,12 +115,6 @@ public class NewsInfoActivity extends BaseActivity {
         wvNewsInfo.setWebViewClient(new webViewClient());
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     //Web视图
     private class webViewClient extends WebViewClient {

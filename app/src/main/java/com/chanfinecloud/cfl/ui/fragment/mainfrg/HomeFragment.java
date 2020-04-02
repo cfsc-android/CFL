@@ -25,6 +25,7 @@ import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.activity.ComplainActivity;
 import com.chanfinecloud.cfl.ui.activity.LifePaymentActivity;
+import com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity;
 import com.chanfinecloud.cfl.ui.activity.RepairsActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.CarLock;
 import com.chanfinecloud.cfl.ui.activity.NoticeActivity;
@@ -164,8 +165,8 @@ public class HomeFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("title","新闻动态");
                 bundle.putString("noticeId", bannerList.get(position).getId());
-                // TODO: 2020/3/27   z新闻详情页
-                //startActivity(NoticeDetailActivity.class, bundle);
+
+                startActivity(NoticeDetailActivity.class, bundle);
             }
         });
         bannerHomeAd.start();

@@ -277,8 +277,7 @@ public class HomeFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("title","热点关注");
                 bundle.putString("noticeId", selectNotice.getId());
-                // TODO: 2020/3/27  新建  NoticeDetailActivity  然后取消一下注释
-                //startActivity(NoticeDetailActivity.class, bundle);
+                startActivity(NoticeDetailActivity.class, bundle);
 
 
             }

@@ -507,6 +507,7 @@ public class LoginActivity extends BaseActivity {
         RequestParam requestParam=new RequestParam(BASE_URL+SMS+"sms-internal/codes", HttpMethod.Post);
         Map<String,Object> map=new HashMap<>();
         map.put("phone",mobileNum);
+        requestParam.setAuthorization(false);
         requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override

@@ -191,6 +191,8 @@ public class NewVisitorActivity extends BaseActivity {
                 showToast(ex.getMessage());
             }
         });
+
+        sendRequest(requestParam,false);
     }
 
     /**

@@ -93,7 +93,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        initView();
+        initViewDara();
     }
 
     @Override
@@ -105,13 +105,13 @@ public class MineFragment extends BaseFragment {
         }else{
             bind=false;
         }
-        initView();
+        initViewDara();
     }
 
     /**
      * 初始化视图
      */
-    private void initView(){
+    private void initViewDara(){
         tvMineName.setText(userInfo.getNickName());
         if(TextUtils.isEmpty(userInfo.getCurrentDistrict().getRoomId())){
             tvMineAddress.setText("游客");
@@ -140,7 +140,7 @@ public class MineFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(EventBusMessage message){
         if("refresh".equals(message.getMessage())){
-            initView();
+            initViewDara();
         }
     }
 
@@ -155,12 +155,22 @@ public class MineFragment extends BaseFragment {
                 startActivity(PersonActivity.class);
                 break;
             case R.id.tv_mine_gongdan:
-                bundle.putSerializable("workflowType", WorkflowType.Order);
-                startActivity(WorkflowListActivity.class,bundle);
+                if(bind){
+                    bundle.putSerializable("workflowType", WorkflowType.Order);
+                    startActivity(WorkflowListActivity.class,bundle);
+                }else{
+                    EventBus.getDefault().post(new EventBusMessage<>("unbind"));
+                }
+                
                 break;
             case R.id.tv_mine_tousu:
-                bundle.putSerializable("workflowType", WorkflowType.Complain);
-                startActivity(WorkflowListActivity.class,bundle);
+                if (bind){
+                    bundle.putSerializable("workflowType", WorkflowType.Complain);
+                    startActivity(WorkflowListActivity.class,bundle);
+                }else{
+                    EventBus.getDefault().post(new EventBusMessage<>("unbind"));
+                }
+                
                 break;
             case R.id.tv_mine_car:
                 if(bind){
@@ -170,7 +180,11 @@ public class MineFragment extends BaseFragment {
                 }
                 break;
             case R.id.tv_mine_face:
-                startActivity(HouseHoldActivity.class);
+                if(bind){
+                    startActivity(HouseHoldActivity.class);
+                }else{
+                    EventBus.getDefault().post(new EventBusMessage<>("unbind"));
+                }
                 break;
             case R.id.tv_mine_express:
                 Bundle a_bundle=new Bundle();

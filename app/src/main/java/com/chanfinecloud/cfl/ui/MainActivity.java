@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             showUnBindView();
         }
         EventBus.getDefault().register(this);
-        showUnBindView();
+        //showUnBindView();
     }
 
     private void initView() {

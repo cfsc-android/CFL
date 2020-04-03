@@ -135,37 +135,44 @@ public class CurrentRoomFragment extends BaseFragment {
     }
 
     private void getRoomData() {
-        RequestParam requestParam=new RequestParam(BASE_URL+BASIC+"basic/room/"+FileManagement.getUserInfo().getCurrentDistrict().getRoomId(), HttpMethod.Get);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d(result);
-                BaseEntity<RoomEntity> baseEntity= JsonParse.parse(result,RoomEntity.class);
-                if(baseEntity.isSuccess()){
-                    roomEntity=baseEntity.getResult();
-                    List<RoomHouseholdEntity> householdEntityList=roomEntity.getHouseholdBoList();
-                    for (int i = 0; i <householdEntityList.size() ; i++) {
-                        RoomHouseholdEntity household=householdEntityList.get(i);
-                        if(FileManagement.getUserInfo().getId().equals(household.getId())){
-                            currentHousehold=household;
-                            initCurrentRoomView();
-                        }else{
-                            data.add(household);
-                        }
-                    }
-                    adapter.notifyDataSetChanged();
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
-        });
+        if (FileManagement.getUserInfo() != null && FileManagement.getUserInfo().getCurrentDistrict() != null && !TextUtils.isEmpty(FileManagement.getUserInfo().getCurrentDistrict().getRoomId())) {
+
+            RequestParam requestParam = new RequestParam(BASE_URL + BASIC + "basic/room/" + FileManagement.getUserInfo().getCurrentDistrict().getRoomId(), HttpMethod.Get);
+            requestParam.setCallback(new MyCallBack<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    super.onSuccess(result);
+                    LogUtils.d(result);
+                    BaseEntity<RoomEntity> baseEntity = JsonParse.parse(result, RoomEntity.class);
+                    if (baseEntity.isSuccess()) {
+                        roomEntity = baseEntity.getResult();
+                        List<RoomHouseholdEntity> householdEntityList = roomEntity.getHouseholdBoList();
+                        for (int i = 0; i < householdEntityList.size(); i++) {
+                            RoomHouseholdEntity household = householdEntityList.get(i);
+                            if (FileManagement.getUserInfo().getId().equals(household.getId())) {
+                                currentHousehold = household;
+                                initCurrentRoomView();
+                            } else {
+                                data.add(household);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        showToast(baseEntity.getMessage());
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    super.onError(ex, isOnCallback);
+                    showToast(ex.getMessage());
+                }
+            });
+
+            sendRequest(requestParam, false);
+
+        }
     }
 
     private void initCurrentRoomView(){

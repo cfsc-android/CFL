@@ -2,6 +2,7 @@ package com.chanfinecloud.cfl.ui.activity.homehead;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -145,13 +147,22 @@ public class CarLock extends BaseActivity {
         carLockRlv.setLayoutManager(new LinearLayoutManager(this));
         carLockRlv.addItemDecoration(new RecyclerViewDivider(this, LinearLayoutManager.VERTICAL));
         carLockRlv.setAdapter(carRecordListAdapter);
-        carLockRlv.addOnItemTouchListener(new OnItemClickListener() {
+        carLockRlv.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
             }
         });
-
         carLockSrl.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
@@ -184,7 +195,7 @@ public class CarLock extends BaseActivity {
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/vehicleInfo/vehiclePage", HttpMethod.Get);
         Map<String,String> requestMap=new HashMap<>();
         requestMap.put("pageNo","1");
-        requestMap.put("pageSize","10");
+        requestMap.put("pageSize","100");
         requestParam.setRequestMap(requestMap);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
@@ -257,8 +268,9 @@ public class CarLock extends BaseActivity {
         requestMap.put("searchKey",currentPlateNo);
         requestMap.put("pageNo",1);
         requestMap.put("pageSize",100);
-        RequestParam requestParam = new RequestParam(BASE_URL+IOT+"community/api/car/v1/alarm/list/"+phaseId,  HttpMethod.Get);
+        RequestParam requestParam = new RequestParam(BASE_URL+IOT+"community/api/car/v1/alarm/list/"+phaseId,  HttpMethod.Post);
         requestParam.setRequestMap(requestMap);
+        requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

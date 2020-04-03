@@ -21,6 +21,7 @@ import com.chanfinecloud.cfl.entity.smart.AuditListEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
+import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.LogUtils;
@@ -97,9 +98,11 @@ public class HouseholdAuditListActivity extends BaseActivity {
 
     private void getData(){
 
-        Map<String,String> map=new HashMap<>();
+        Map<String,Object> map=new HashMap<>();
 //        map.put("householdId", FileManagement.getUserInfo().getId());
         map.put("roomId", roomId);
+        map.put("pageNo", 1);
+        map.put("pageSize",100);
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/verify/page", HttpMethod.Get);
         requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){
@@ -169,6 +172,7 @@ public class HouseholdAuditListActivity extends BaseActivity {
         map.put("id",audit.getId());
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/verify", HttpMethod.Put);
         requestParam.setRequestMap(map);
+        requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

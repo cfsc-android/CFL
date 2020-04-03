@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,6 +86,7 @@ public class OtherRoomFragment extends BaseFragment {
                 startActivity(OtherRoomDetailActivity.class,bundle);
             }
         });
+
         initOtherRoom();
     }
 

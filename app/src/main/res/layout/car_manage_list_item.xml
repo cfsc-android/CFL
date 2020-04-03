@@ -18,7 +18,7 @@
     <ImageView
         android:id="@+id/iv_car_manage_car_photo"
         android:layout_width="@dimen/dp_150"
-        android:layout_height="@dimen/dp_22"
+        android:layout_height="@dimen/dp_122"
         android:layout_margin="10dp"
         android:scaleType="centerCrop"/>
     <FrameLayout

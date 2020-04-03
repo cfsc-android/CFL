@@ -98,11 +98,10 @@ public class UnitSelectActivity extends BaseActivity {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtil.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
+                Type type = new TypeToken<List<ProjectTreeEntity>>() {}.getType();
+                BaseEntity<List<ProjectTreeEntity>> baseEntity= JsonParse.parse(result,type);
                 if(baseEntity.isSuccess()){
-                    Type type = new TypeToken<List<ProjectTreeEntity>>() {}.getType();
-                    List<ProjectTreeEntity> list= (List<ProjectTreeEntity>) JsonParse.parseList(result,type);
-                    getUnitListData(list);
+                    getUnitListData(baseEntity.getResult());
                 }else{
                     showToast(baseEntity.getMessage());
                 }

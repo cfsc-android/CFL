@@ -29,6 +29,7 @@ import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.MainActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.FilePathUtil;
@@ -132,10 +133,10 @@ public class PersonActivity extends BaseActivity {
         } else {
             personTvBirthday.setText("请填写出生日期");
         }
-
-        if (userInfoEntity.getAvatarResource() != null && !TextUtils.isEmpty(userInfoEntity.getAvatarResource().getUrl())) {
+        ResourceEntity avatar=FileManagement.getAvatarResource();
+        if (avatar != null && !TextUtils.isEmpty(avatar.getUrl())) {
             Glide.with(this)
-                    .load(userInfoEntity.getAvatarResource().getUrl())
+                    .load(avatar.getUrl())
                     .circleCrop()
                     .into(personIvAvatar);
 
@@ -285,20 +286,19 @@ public class PersonActivity extends BaseActivity {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d("result",result);
-                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result,UserInfoEntity.class);
-                if(fileEntity!=null){
-                    ResourceEntity resourceEntity = new ResourceEntity();
-                    resourceEntity.setId(fileEntity.getId());
-                    resourceEntity.setContentType(fileEntity.getContentType());
-                    resourceEntity.setCreateTime(fileEntity.getCreateTime());
-                    resourceEntity.setName(fileEntity.getName());
-                    resourceEntity.setUrl(fileEntity.getDomain()+fileEntity.getUrl());
-                    baseEntity.getResult().setAvatarResource(resourceEntity);
+                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result, UserInfoEntity.class);
+                if(baseEntity.isSuccess()){
+                    FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
+
+                    if(!TextUtils.isEmpty(baseEntity.getResult().getAvatarId())){
+                        initAvatarResource(baseEntity.getResult().getAvatarId());
+                    }else{
+                        init();
+                        EventBus.getDefault().post(new EventBusMessage<>("refresh"));
+                    }
+                }else{
+                    showToast(baseEntity.getMessage());
                 }
-                    FileManagement.setUserInfo(baseEntity.getResult());
-                    init();
-                    EventBus.getDefault().post(new EventBusMessage<>("refresh"));
-                    LogUtil.d(FileManagement.getUserInfo().toString());
             }
 
             @Override
@@ -315,6 +315,44 @@ public class PersonActivity extends BaseActivity {
         });
         sendRequest(requestParam,false);
     }
+
+
+    /**
+     * 缓存用户头像信息
+     */
+    private void initAvatarResource(String avatarId){
+        RequestParam requestParam=new RequestParam(BASE_URL+FILE+"files/byid/"+avatarId, HttpMethod.Get);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d("result",result);
+                BaseEntity<com.chanfinecloud.cfl.entity.smart.FileEntity> baseEntity= JsonParse.parse(result, com.chanfinecloud.cfl.entity.smart.FileEntity.class);
+                if(baseEntity.isSuccess()){
+                    ResourceEntity resourceEntity=new ResourceEntity();
+                    resourceEntity.setId(baseEntity.getResult().getId());
+                    resourceEntity.setContentType(baseEntity.getResult().getContentType());
+                    resourceEntity.setCreateTime(baseEntity.getResult().getCreateTime());
+                    resourceEntity.setName(baseEntity.getResult().getName());
+                    resourceEntity.setUrl(baseEntity.getResult().getDomain()+baseEntity.getResult().getUrl());
+                    FileManagement.setAvatarReseource(resourceEntity);//缓存用户头像信息
+                    init();
+                    EventBus.getDefault().post(new EventBusMessage<>("refresh"));
+                }else{
+                    showToast(baseEntity.getMessage());
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                stopProgressDialog();
+                startActivity(MainActivity.class);
+            }
+        });
+        sendRequest(requestParam,false);
+    }
+
 
 
     @Override

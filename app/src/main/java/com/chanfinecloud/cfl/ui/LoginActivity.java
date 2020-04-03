@@ -1,6 +1,7 @@
 package com.chanfinecloud.cfl.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.TokenEntity;
+import com.chanfinecloud.cfl.entity.smart.FileEntity;
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.SmsKeyEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
@@ -42,6 +45,7 @@ import static com.chanfinecloud.cfl.config.Config.AUTH;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.BASIC;
 import static com.chanfinecloud.cfl.config.Config.CODETIME;
+import static com.chanfinecloud.cfl.config.Config.FILE;
 import static com.chanfinecloud.cfl.config.Config.SMS;
 
 
@@ -220,9 +224,14 @@ public class LoginActivity extends BaseActivity {
                 BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result, UserInfoEntity.class);
                 if(baseEntity.isSuccess()){
                     FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
-                    startActivity(MainActivity.class);
-                    finish();
+                    if(!TextUtils.isEmpty(baseEntity.getResult().getAvatarId())){
+                        initAvatarResource(baseEntity.getResult().getAvatarId());
+                    }else{
+                        stopProgressDialog();
+                        startActivity(MainActivity.class);
+                    }
                 }else{
+                    stopProgressDialog();
                     showToast(baseEntity.getMessage());
                 }
             }
@@ -231,16 +240,47 @@ public class LoginActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
+                stopProgressDialog();
+            }
+        });
+        sendRequest(requestParam,false);
+    }
+
+
+    /**
+     * 缓存用户头像信息
+     */
+    private void initAvatarResource(String avatarId){
+        RequestParam requestParam=new RequestParam(BASE_URL+FILE+"files/byid/"+avatarId, HttpMethod.Get);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d("result",result);
+                BaseEntity<FileEntity> baseEntity= JsonParse.parse(result,FileEntity.class);
+                if(baseEntity.isSuccess()){
+                    ResourceEntity resourceEntity=new ResourceEntity();
+                    resourceEntity.setId(baseEntity.getResult().getId());
+                    resourceEntity.setContentType(baseEntity.getResult().getContentType());
+                    resourceEntity.setCreateTime(baseEntity.getResult().getCreateTime());
+                    resourceEntity.setName(baseEntity.getResult().getName());
+                    resourceEntity.setUrl(baseEntity.getResult().getDomain()+baseEntity.getResult().getUrl());
+                    FileManagement.setAvatarReseource(resourceEntity);//缓存用户头像信息
+                }else{
+                    showToast(baseEntity.getMessage());
+                }
             }
 
             @Override
             public void onFinished() {
                 super.onFinished();
                 stopProgressDialog();
+                startActivity(MainActivity.class);
             }
         });
         sendRequest(requestParam,false);
     }
+
 
     /**
      * 获取手机验证码

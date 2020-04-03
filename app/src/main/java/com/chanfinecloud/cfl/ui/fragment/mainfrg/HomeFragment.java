@@ -128,11 +128,15 @@ public class HomeFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(EventBusMessage message) {
         LogUtils.d(message.getMessage());
-        if ("bind".equals(message.getMessage())) {
-            bind = true;
-        } else if ("unBind".equals(message.getMessage())) {
-            bind = false;
-        }
+//        if ("bind".equals(message.getMessage())) {
+//            bind = true;
+//        } else if ("unBind".equals(message.getMessage())) {
+//            bind = false;
+//        }else if("projectSelect".equals(message.getMessage())){
+//            tvProjectLogoName.setText(userInfo.getCurrentDistrict().getProjectName());
+//            getHotTips();
+//            getWheelPlanting();
+//        }
     }
 
     @Override

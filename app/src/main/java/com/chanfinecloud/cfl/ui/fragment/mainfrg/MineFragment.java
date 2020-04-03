@@ -15,6 +15,7 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.LoginUserEntity;
 import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 import com.chanfinecloud.cfl.entity.smart.WorkflowType;
 import com.chanfinecloud.cfl.ui.activity.CommentActivity;
@@ -118,10 +119,10 @@ public class MineFragment extends BaseFragment {
         }else{
             tvMineAddress.setText(userInfo.getCurrentDistrict().getBuildingName()+userInfo.getCurrentDistrict().getUnitName()+userInfo.getCurrentDistrict().getRoomName());
         }
-        if(userInfo.getAvatarResource()!=null){
+        ResourceEntity avatar=FileManagement.getAvatarResource();
+        if (avatar != null && !TextUtils.isEmpty(avatar.getUrl())) {
             Glide.with(this)
-                    .load(userInfo.getAvatarResource().getUrl())
-                    .error(R.drawable.ic_default_img)
+                    .load(avatar.getUrl())
                     .circleCrop()
                     .into(ivMineHead);
 

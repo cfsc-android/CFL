@@ -142,7 +142,9 @@ public class ProjectSelectActivity extends BaseActivity {
 
     }
 
-    //获取项目树结构
+    /**
+     * 获取项目树结构
+     */
     private void getProjectTree(){
 
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/project/tree", HttpMethod.Get);

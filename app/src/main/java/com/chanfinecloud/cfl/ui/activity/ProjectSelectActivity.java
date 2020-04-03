@@ -133,15 +133,18 @@ public class ProjectSelectActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
+                stopProgressDialog();
             }
 
         });
-        sendRequest(requestParam, false);
+        sendRequest(requestParam, true);
 
 
     }
 
-    //获取项目树结构
+    /**
+     * 获取项目树结构
+     */
     private void getProjectTree(){
 
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/project/tree", HttpMethod.Get);
@@ -193,11 +196,12 @@ public class ProjectSelectActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    //获取用户信息
+    /**
+     * 获取用户信息
+     */
     private void getUserInfo(){
-        RequestParams params=new RequestParams(BASE_URL+BASIC+"basic/householdInfo/phone");
-        params.addParameter("phoneNumber",FileManagement.getPhone());
-        x.http().get(params,new MyCallBack<String>(){
+        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
+        requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -227,7 +231,13 @@ public class ProjectSelectActivity extends BaseActivity {
                 showToast(ex.getMessage());
             }
 
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                stopProgressDialog();
+            }
         });
+        sendRequest(requestParam,false);
     }
 
     @Override

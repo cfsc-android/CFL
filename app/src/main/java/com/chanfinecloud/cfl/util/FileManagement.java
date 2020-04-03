@@ -12,6 +12,7 @@ import com.chanfinecloud.cfl.entity.TokenEntity;
 import com.chanfinecloud.cfl.entity.WeiXinLoginEntity;
 import com.chanfinecloud.cfl.entity.smart.OrderStatusEntity;
 import com.chanfinecloud.cfl.entity.smart.OrderTypeEntity;
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 
 import java.util.ArrayList;
@@ -305,6 +306,14 @@ public class FileManagement {
 
     public static List<OrderStatusEntity> getOrderStatus(){
         return (List<OrderStatusEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","orderStatus");
+    }
+
+    public static void setAvatarReseource(ResourceEntity resource){
+        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","avatar",resource);
+    }
+
+    public static ResourceEntity getAvatarResource(){
+        return (ResourceEntity) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","avatar");
     }
 
 }

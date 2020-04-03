@@ -358,11 +358,7 @@ public class HouseManageActivity extends BaseActivity {
     }
 
     private void getUserInfo(final boolean finish){
-
-        Map<String,String> requestMap=new HashMap<>();
-        requestMap.put("phoneNumber",FileManagement.getPhone());
-        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/phone", HttpMethod.Get);
-        requestParam.setRequestMap(requestMap);
+        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

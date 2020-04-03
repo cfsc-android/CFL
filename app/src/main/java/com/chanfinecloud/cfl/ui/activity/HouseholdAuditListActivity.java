@@ -97,9 +97,11 @@ public class HouseholdAuditListActivity extends BaseActivity {
 
     private void getData(){
 
-        Map<String,String> map=new HashMap<>();
+        Map<String,Object> map=new HashMap<>();
 //        map.put("householdId", FileManagement.getUserInfo().getId());
         map.put("roomId", roomId);
+        map.put("pageNo", 1);
+        map.put("pageSize", 100);
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/verify/page", HttpMethod.Get);
         requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){

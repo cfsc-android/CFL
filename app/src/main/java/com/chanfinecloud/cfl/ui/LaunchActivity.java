@@ -9,10 +9,20 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.chanfinecloud.cfl.R;
+import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.TokenEntity;
+import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
+import com.chanfinecloud.cfl.http.HttpMethod;
+import com.chanfinecloud.cfl.http.JsonParse;
+import com.chanfinecloud.cfl.http.MyCallBack;
+import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.activity.HouseManageActivity;
+import com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
+import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.util.SharedPreferencesManage;
 import com.chanfinecloud.cfl.util.Utils;
 import com.pgyersdk.update.DownloadFileListener;
@@ -20,12 +30,17 @@ import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 import com.pgyersdk.update.javabean.AppBean;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.config.Config.BASIC;
 
 
 /**
@@ -184,7 +199,7 @@ public class LaunchActivity extends BaseActivity {
             LogUtils.d(token.getAccess_token());
             long time = new Date().getTime() / 1000 - token.getInit_time();
             if (token.getExpires_in() - time > 3) {
-                startActivity(MainActivity.class);
+                getUserInfo();
             } else {
                 startActivity(LoginActivity.class);
             }
@@ -192,6 +207,38 @@ public class LaunchActivity extends BaseActivity {
             startActivity(LoginActivity.class);
         }
     }
+
+    /**
+     * 获取用户信息
+     */
+    private void getUserInfo(){
+        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d(result);
+                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result,UserInfoEntity.class);
+                if(baseEntity.isSuccess()){
+                    FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
+                    startActivity(MainActivity.class);
+                }else{
+                    showToast(baseEntity.getMessage());
+                    startActivity(LoginActivity.class);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+                startActivity(LoginActivity.class);
+            }
+        });
+        sendRequest(requestParam,false);
+    }
+
+
 
 
     @OnClick(R.id.tv_loading_version)

@@ -18,8 +18,10 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
+import com.chanfinecloud.cfl.entity.smart.HouseholdRoomEntity;
 import com.chanfinecloud.cfl.entity.smart.OrderStatusEntity;
 import com.chanfinecloud.cfl.entity.smart.OrderTypeListEntity;
+import com.chanfinecloud.cfl.entity.smart.RoomEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
@@ -80,8 +82,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private boolean bind;
-    private Context context;
-    private FragmentManager fragmentManager;
     private List<Fragment> fragmentList = new ArrayList<>();
     private Fragment home, mine;
     private long time = 0;
@@ -92,7 +92,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         setAliasAndTag();
         ButterKnife.bind(this);
-        context = this;
         initView();
         initFileData();
         CurrentDistrictEntity currentDistrict = FileManagement.getUserInfo().getCurrentDistrict();
@@ -103,11 +102,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             showUnBindView();
         }
         EventBus.getDefault().register(this);
-        showUnBindView();
     }
 
     private void initView() {
-        fragmentManager = getSupportFragmentManager();
         home = new HomeFragment();
         mine = new MineFragment();
         fragmentList.add(home);
@@ -270,6 +267,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void Event(EventBusMessage message) {
         if ("projectSelect".equals(message.getMessage())) {
             changeView(0);
+            resetTag();
         } else if ("unbind".equals(message.getMessage())) {
             LogUtils.d("=============================" + "unbind" + "==========================");
             showUnBindView();
@@ -334,12 +332,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * 设置极光推送的alias（别名）和tag(标签)
      */
     private void setAliasAndTag() {
-        JPushInterface.setAlias(this, 0x01, "ZXL");//别名（userId）
-
+        JPushInterface.setAlias(this, 0x01, FileManagement.getUserInfo().getId());//别名（userId）
         Set<String> tagSet = new LinkedHashSet<>();
-        tagSet.add("YZ");//身份（YG,YK，YZ，ZK，JS...员工端直接写死YG，业主则用当前项目身份）
-        tagSet.add("P_234ab909de");//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
-        tagSet.add("D_5656ac65de5b");//部门（'D_'+员工的部门Id）
+        CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
+        tagSet.add("P_"+currentDistrict.getProjectId());//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
+        List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getId().equals(currentDistrict.getRoomId())){
+                tagSet.add(list.get(i).getHouseholdType());
+            }
+        }
+        JPushInterface.setTags(this, 0x02, tagSet);
+    }
+
+    /**
+     * 重置极光推送的tag（标签）
+     */
+    private void resetTag(){
+        JPushInterface.cleanTags(this,0x003);
+        Set<String> tagSet = new LinkedHashSet<>();
+        CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
+        tagSet.add("P_"+currentDistrict.getProjectId());//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
+        List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getId().equals(currentDistrict.getRoomId())){
+                tagSet.add(list.get(i).getHouseholdType());
+            }
+        }
         JPushInterface.setTags(this, 0x02, tagSet);
     }
 

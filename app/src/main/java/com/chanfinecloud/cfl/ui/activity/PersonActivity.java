@@ -279,10 +279,7 @@ public class PersonActivity extends BaseActivity {
      * 获取用户信息
      */
     private void getUserInfo(){
-        RequestParam requestParam=new RequestParam(BASE_URL + BASIC + "basic/householdInfo/phone",HttpMethod.Get);
-        Map<String, String> requestMap = new HashMap<>();
-        requestMap.put("phoneNumber", userInfoEntity.getMobile());
-        requestParam.setRequestMap(requestMap);
+        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

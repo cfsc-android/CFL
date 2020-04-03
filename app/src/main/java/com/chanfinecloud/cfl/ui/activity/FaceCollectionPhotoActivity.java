@@ -368,11 +368,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
     }
 
     private void getUserInfo(){
-
-        Map<String,Object> map=new HashMap<>();
-        map.put("phoneNumber",FileManagement.getPhone());
-        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/phone", HttpMethod.Get);
-        requestParam.setRequestMap(map);
+        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

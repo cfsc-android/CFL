@@ -15,7 +15,7 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy;
  * Describe: 照片选取
  */
 public class PhotoPicker {
-    public static final String authority="com.chanfinecloud.cflforemployee.fileprovider";
+    public static final String authority="com.chanfinecloud.cfl.fileprovider";
 
     public static void pick(Activity context, int request_code){
         Matisse.from(context)

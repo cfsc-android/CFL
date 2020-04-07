@@ -128,44 +128,41 @@ public class CarManageActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("car",carManageList.get(position));
-                startActivity(CarManageAddActivity.class,bundle);
+                startActivity(CarManageEditActivity.class,bundle);
             }
         });
         getCarManageList();
     }
 
-    // TODO: 2020/4/3   暂时没接口 
     private void deleteCar(int position){
-//        Map<String,Object> requestMap=new HashMap<>();
-//        requestMap.put("id",carManageList.get(position).getId());
-//        XUtils.Post(Constants.HOST+"/vehicleinfo/delete.action",requestMap,new MyCallBack<String>(){
-//            @Override
-//            public void onSuccess(String result) {
-//                super.onSuccess(result);
-//                Log.e("result",result);
-//                try {
-//                    JSONObject jsonObject = new JSONObject(result);
-//                    if(jsonObject.getInt("resultCode")==200) {
-//                        getCarManageList();
-//                    }else{
-//                        showShortToast(jsonObject.getString("msg"));
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//                super.onError(ex, isOnCallback);
-//                showShortToast(ex.getMessage());
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//                super.onFinished();
-//            }
-//        });
+
+
+        String ids = carManageList.get(position).getId();
+        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"/basic/vehicleInfo/audit/"+ ids, HttpMethod.Get);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtils.d(result);
+                BaseEntity baseEntity= JsonParse.parse(result);
+                if(baseEntity.isSuccess()){
+                    getCarManageList();
+                }else{
+                    showToast(baseEntity.getMessage());
+                }
+            }
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+            }
+        });
+        sendRequest(requestParam, false);
     }
 
     private int dp2px(int dp) {

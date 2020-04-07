@@ -167,6 +167,7 @@ public class OtherRoomDetailActivity extends BaseActivity {
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("household",currentHousehold);
                 bundle.putBoolean("edit",true);
+                // TODO: 2020/4/3  此处传入得faceInfo  为空  照理说应该是有数据的  是不是两个表的数据没同步  登录进来是有的
                 startActivity(HouseholdFaceActivity.class,bundle);
                 break;
             case R.id.other_room_btn_trans:

@@ -1,5 +1,7 @@
 package com.chanfinecloud.cfl.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -47,6 +49,7 @@ import static com.chanfinecloud.cfl.config.Config.BASIC;
 import static com.chanfinecloud.cfl.config.Config.CODETIME;
 import static com.chanfinecloud.cfl.config.Config.FILE;
 import static com.chanfinecloud.cfl.config.Config.SMS;
+import static com.chanfinecloud.cfl.config.Config.USER;
 
 
 public class LoginActivity extends BaseActivity {
@@ -135,8 +138,7 @@ public class LoginActivity extends BaseActivity {
                 if (mobileNum.trim().equals("")) {
                     Utils.showPrompt("请输入手机号码");
                 } else {
-                    //调用绑定手机短信接口
-                    sendSMS();
+                    checkUnique();//检查用户是否存在
                 }
                 break;
             case R.id.btn_login:
@@ -171,6 +173,57 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
+
+    /**
+     * 检查用户是否存在
+     */
+    private void checkUnique(){
+        RequestParam requestParam=new RequestParam(BASE_URL+USER+"sys/check/unique",HttpMethod.Get);
+        Map<String,Object> map=new HashMap<>();
+        map.put("fieldName","mobile");
+        map.put("fieldValue",mobileNum);
+        map.put("tableName","`smart-basic`.cfc_household_info");
+        requestParam.setRequestMap(map);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtil.d(result);
+                BaseEntity baseEntity= JsonParse.parse(result);
+                if(baseEntity.isSuccess()){
+                    stopProgressDialog();
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle("提示")
+                            .setMessage("该号码不存在，去注册")
+                            .setCancelable(false)
+                            .setNegativeButton("确认",new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(RegisterActivity.class);
+                                }
+                            }).
+                            setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+
+                }else{
+                    sendSMS();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+                stopProgressDialog();
+            }
+        });
+        sendRequest(requestParam,true);
+    }
+
 
     /**
      * 登录
@@ -320,6 +373,12 @@ public class LoginActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                stopProgressDialog();
             }
         });
         sendRequest(requestParam,false);

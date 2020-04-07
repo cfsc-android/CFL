@@ -1,6 +1,8 @@
 package com.chanfinecloud.cfl.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,6 +56,7 @@ import static com.chanfinecloud.cfl.config.Config.AUTH;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.BASIC;
 import static com.chanfinecloud.cfl.config.Config.SMS;
+import static com.chanfinecloud.cfl.config.Config.USER;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -176,7 +179,7 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.tv_tel_get_ver:
                 if(verFlag){
-                    sendSMS();
+                    checkUnique();
                 }
                 break;
             case R.id.btn_register:
@@ -206,7 +209,7 @@ public class RegisterActivity extends BaseActivity {
 
     /**
      * 微信注册
-     * @param weiXinLoginEntity
+     * @param weiXinLoginEntity WeiXinLoginEntity
      */
     private void weiXinRegister(WeiXinLoginEntity weiXinLoginEntity){
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/register", HttpMethod.Post);
@@ -241,7 +244,10 @@ public class RegisterActivity extends BaseActivity {
 
     }
 
-    //QQ注册
+    /**
+     * QQ注册
+     * @param qqLoginEntity QQLoginEntity
+     */
     private void qqRegister(QQLoginEntity qqLoginEntity){
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/register", HttpMethod.Post);
         Map<String,Object> requestMap=new HashMap<>();
@@ -273,7 +279,6 @@ public class RegisterActivity extends BaseActivity {
         sendRequest(requestParam, false);
 
     }
-
 
 
     /**
@@ -330,6 +335,55 @@ public class RegisterActivity extends BaseActivity {
     }
 
     /**
+     * 检查用户是否存在
+     */
+    private void checkUnique(){
+        RequestParam requestParam=new RequestParam(BASE_URL+USER+"sys/check/unique",HttpMethod.Get);
+        Map<String,Object> map=new HashMap<>();
+        map.put("fieldName","mobile");
+        map.put("fieldValue",etTelNo.getText().toString());
+        map.put("tableName","`smart-basic`.cfc_household_info");
+        requestParam.setRequestMap(map);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                LogUtil.d(result);
+                BaseEntity baseEntity= JsonParse.parse(result);
+                if(baseEntity.isSuccess()){
+                    sendSMS();
+                }else{
+                    stopProgressDialog();
+                    new AlertDialog.Builder(RegisterActivity.this)
+                            .setTitle("提示")
+                            .setMessage("该号码已使用，去登录")
+                            .setCancelable(false)
+                            .setNegativeButton("确认",new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            }).
+                            setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+                stopProgressDialog();
+            }
+        });
+        sendRequest(requestParam,true);
+    }
+
+    /**
      * 手机号注册
      */
     private void telRegister(){
@@ -348,12 +402,11 @@ public class RegisterActivity extends BaseActivity {
                 LogUtil.d(result);
                 BaseEntity<String> baseEntity= JsonParse.parse(result,String.class);
                 if(baseEntity.isSuccess()){
-                    String userId= baseEntity.getResult();
-                    login(userId);
-
+//                    String userId= baseEntity.getResult();
+                    login();
                 }else{
                     showToast(baseEntity.getMessage());
-
+                    stopProgressDialog();
                 }
             }
 
@@ -361,14 +414,19 @@ public class RegisterActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
+                stopProgressDialog();
             }
         });
-        sendRequest(requestParam,false);
+        sendRequest(requestParam,true);
 
     }
-    //获取用户信息
-    private void getUserInfo(String userId){
-        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/"+userId, HttpMethod.Get);
+
+
+    /**
+     * 获取用户信息
+     */
+    private void getUserInfo(){
+        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -377,9 +435,8 @@ public class RegisterActivity extends BaseActivity {
                 BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result, UserInfoEntity.class);
                 if(baseEntity.isSuccess()){
                     FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
-                    LynActivityManager.getInstance().finishActivity(LoginActivity.class);//杀掉登录界面
-                    startActivity(MainActivity.class);//跳转到主界面
-                    finish();//关闭当前页面
+                    startActivity(MainActivity.class);
+                    finish();
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -388,32 +445,33 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                stopProgressDialog();
             }
         });
-
-        sendRequest(requestParam, false);
-
+        sendRequest(requestParam,false);
     }
 
 
     /**
      * 注册完成直接登录
-     * @param userId
      */
-    private void login(final String userId) {
+    private void login() {
         RequestParam requestParam=new RequestParam(BASE_URL+AUTH+"oauth/user/household/login", HttpMethod.Post);
         Map<String,Object> headerMap=new HashMap<>();
         headerMap.put("client_id","mobile");
         headerMap.put("client_secret","mobile");
         requestParam.setParamHeader(headerMap);
-        
         Map<String,Object> map=new HashMap<>();
         map.put("mobile",etTelNo.getText().toString());
         map.put("key",validKey);
         map.put("validCode",etTelCode.getText().toString());
         requestParam.setRequestMap(map);
-
-        
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -422,18 +480,16 @@ public class RegisterActivity extends BaseActivity {
                 Gson gson = new Gson();
                 TokenEntity token=gson.fromJson(result, TokenEntity.class);
                 FileManagement.setTokenEntity(token);
-                getUserInfo(userId);
+                getUserInfo();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
+                stopProgressDialog();
             }
         });
-
         sendRequest(requestParam,false);
-
-
     }
 
     /**
@@ -462,6 +518,12 @@ public class RegisterActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                stopProgressDialog();
             }
         });
         sendRequest(requestParam, false);

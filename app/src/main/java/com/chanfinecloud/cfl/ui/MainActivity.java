@@ -175,12 +175,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                BaseEntity baseEntity = JsonParse.parse(result);
+                Type type = new TypeToken<List<OrderStatusEntity>>() {}.getType();
+                BaseEntity<List<OrderStatusEntity>> baseEntity = JsonParse.parse(result,type);
                 if (baseEntity.isSuccess()) {
-                    Type type = new TypeToken<List<OrderStatusEntity>>() {
-                    }.getType();
-                    List<OrderStatusEntity> list = (List<OrderStatusEntity>) JsonParse.parseList(result, type);
-                    FileManagement.setOrderStatus(list);
+                    FileManagement.setOrderStatus(baseEntity.getResult());
                 } else {
                     showToast(baseEntity.getMessage());
                 }
@@ -242,12 +240,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                BaseEntity baseEntity = JsonParse.parse(result);
+                Type type = new TypeToken<List<OrderStatusEntity>>() {}.getType();
+                BaseEntity<List<OrderStatusEntity>> baseEntity = JsonParse.parse(result,type);
                 if (baseEntity.isSuccess()) {
-                    Type type = new TypeToken<List<OrderStatusEntity>>() {
-                    }.getType();
-                    List<OrderStatusEntity> list = (List<OrderStatusEntity>) JsonParse.parseList(result, type);
-                    FileManagement.setComplainStatus(list);
+                    FileManagement.setComplainStatus(baseEntity.getResult());
                 } else {
                     showToast(baseEntity.getMessage());
                 }
@@ -266,11 +262,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(EventBusMessage message) {
+        LogUtils.d(message);
         if ("projectSelect".equals(message.getMessage())) {
-            changeView(0);
-            resetTag();
-        } else if ("unbind".equals(message.getMessage())) {
-            LogUtils.d("=============================" + "unbind" + "==========================");
+            changeView(0);//切换到首页
+            JPushInterface.cleanTags(this,0x03);//清空推送的tag
+        } else if ("ClearTag".equals(message.getMessage())) {
+            resetTag();//重新设置推送tag
+        }else if ("unbind".equals(message.getMessage())) {
             showUnBindView();
         }
     }
@@ -336,31 +334,48 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         JPushInterface.setAlias(this, 0x01, FileManagement.getUserInfo().getId());//别名（userId）
         Set<String> tagSet = new LinkedHashSet<>();
         CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
-        tagSet.add("P_"+currentDistrict.getProjectId());//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
-        List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
-        for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getId().equals(currentDistrict.getRoomId())){
-                tagSet.add(list.get(i).getHouseholdType());
-            }
+        if(!TextUtils.isEmpty(currentDistrict.getProjectId())){
+            tagSet.add("P_"+currentDistrict.getProjectId());//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
         }
-        JPushInterface.setTags(this, 0x02, tagSet);
+        if(!TextUtils.isEmpty(currentDistrict.getRoomId())){
+            List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i).getId().equals(currentDistrict.getRoomId())){
+                    tagSet.add(list.get(i).getHouseholdType());
+                }
+            }
+
+        }else{
+            tagSet.add("YK");
+        }
+        if(tagSet.size()>0){
+            JPushInterface.setTags(this, 0x02, tagSet);
+        }
     }
 
     /**
      * 重置极光推送的tag（标签）
      */
     private void resetTag(){
-        JPushInterface.cleanTags(this,0x003);
         Set<String> tagSet = new LinkedHashSet<>();
         CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
-        tagSet.add("P_"+currentDistrict.getProjectId());//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
-        List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
-        for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getId().equals(currentDistrict.getRoomId())){
-                tagSet.add(list.get(i).getHouseholdType());
-            }
+        if(!TextUtils.isEmpty(currentDistrict.getProjectId())){
+            tagSet.add("P_"+currentDistrict.getProjectId());//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
         }
-        JPushInterface.setTags(this, 0x02, tagSet);
+        if(!TextUtils.isEmpty(currentDistrict.getRoomId())){
+            List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i).getId().equals(currentDistrict.getRoomId())){
+                    tagSet.add(list.get(i).getHouseholdType());
+                }
+            }
+
+        }else{
+            tagSet.add("YK");
+        }
+        if(tagSet.size()>0){
+            JPushInterface.setTags(this, 0x02, tagSet);
+        }
     }
 
     @Override
@@ -376,15 +391,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.btn_select_room:
                 startActivity(HouseHoldActivity.class);
-                stopProgressDialog();
                 break;
-            case R.id.btn_un_select_room:
-                stopProgressDialog();
-                break;
-            case R.id.iv_un_select_room:
-                stopProgressDialog();
-                break;
+//            case R.id.btn_un_select_room:
+//                stopProgressDialog();
+//                break;
+//            case R.id.iv_un_select_room:
+//                stopProgressDialog();
+//                break;
         }
+        stopProgressDialog();
     }
 
 

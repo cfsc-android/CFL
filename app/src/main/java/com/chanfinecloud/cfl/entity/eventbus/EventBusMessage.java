@@ -27,4 +27,12 @@ public class EventBusMessage<T> {
     public void setData(T data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "EventBusMessage{" +
+                "message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

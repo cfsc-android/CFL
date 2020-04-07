@@ -123,11 +123,10 @@ public class OtherRoomFragment extends BaseFragment {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
+                Type type = new TypeToken<List<HouseholdRoomEntity>>() {}.getType();
+                BaseEntity<List<HouseholdRoomEntity>> baseEntity= JsonParse.parse(result,type);
                 if(baseEntity.isSuccess()){
-                    Type type = new TypeToken<List<HouseholdRoomEntity>>() {}.getType();
-                    List<HouseholdRoomEntity> list= (List<HouseholdRoomEntity>) JsonParse.parseList(result,type);
-                    data.addAll(list);
+                    data.addAll(baseEntity.getResult());
                     adapter.notifyDataSetChanged();
                 }else{
                     showToast(baseEntity.getMessage());

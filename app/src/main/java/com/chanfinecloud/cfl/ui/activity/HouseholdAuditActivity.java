@@ -34,7 +34,8 @@ import butterknife.OnClick;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.BASIC;
 
-public class HouseholdAuditActivity extends BaseActivity {
+public class
+HouseholdAuditActivity extends BaseActivity {
 
     @BindView(R.id.toolbar_btn_back)
     ImageButton toolbarBtnBack;

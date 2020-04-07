@@ -455,7 +455,7 @@
     <color name="bg_login_input_border">#D2C477</color>
 
     <color name="text_forget_password">#5B9976</color>
-
+    <color name="current_room">#EF7C79</color>
 
     <!-- EasyIndicato r-->
     <color name="blue_color">#1B9AF7</color>

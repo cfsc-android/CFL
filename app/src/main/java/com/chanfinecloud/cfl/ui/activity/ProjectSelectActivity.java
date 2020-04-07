@@ -122,7 +122,7 @@ public class ProjectSelectActivity extends BaseActivity {
                 LogUtils.d(result);
                 BaseEntity baseEntity= JsonParse.parse(result);
                 if(baseEntity.isSuccess()){
-                    getUserInfo();
+                    refreshServerCache();
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -153,11 +153,10 @@ public class ProjectSelectActivity extends BaseActivity {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
+                Type type = new TypeToken<List<ProjectTreeEntity>>() {}.getType();
+                BaseEntity<List<ProjectTreeEntity>> baseEntity= JsonParse.parse(result,type);
                 if(baseEntity.isSuccess()){
-                    Type type = new TypeToken<List<ProjectTreeEntity>>() {}.getType();
-                    List<ProjectTreeEntity> list= (List<ProjectTreeEntity>) JsonParse.parseList(result,type);
-                    getProjectListData(list);
+                    getProjectListData(baseEntity.getResult());
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -194,6 +193,30 @@ public class ProjectSelectActivity extends BaseActivity {
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void refreshServerCache(){
+        RequestParam requestParam=new RequestParam(BASE_URL+BASIC+"basic/householdInfo/household-anon/refresh",HttpMethod.Get);
+        requestParam.setCallback(new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                BaseEntity baseEntity=JsonParse.parse(result);
+                if(baseEntity.isSuccess()){
+                    getUserInfo();
+                }else{
+                    showToast(baseEntity.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                showToast(ex.getMessage());
+            }
+
+        });
+        sendRequest(requestParam,false);
     }
 
     /**

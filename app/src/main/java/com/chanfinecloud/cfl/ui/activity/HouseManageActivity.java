@@ -186,10 +186,10 @@ public class HouseManageActivity extends BaseActivity {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
+                Type type = new TypeToken<List<HouseholdRoomEntity>>() {}.getType();
+                BaseEntity<List<HouseholdRoomEntity>> baseEntity= JsonParse.parse(result,type);
                 if(baseEntity.isSuccess()){
-                    Type type = new TypeToken<List<HouseholdRoomEntity>>() {}.getType();
-                    List<HouseholdRoomEntity> list= (List<HouseholdRoomEntity>) JsonParse.parseList(result,type);
+                    List<HouseholdRoomEntity> list= baseEntity.getResult();
                     for (int i = 0; i < list.size(); i++) {
                         if(list.get(i).getApprovalStatus()== ApprovalStatusType.Refuse.getType()){
                             otherData.add(list.get(i));

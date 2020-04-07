@@ -20,6 +20,7 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.smart.RoomHouseholdListAdapter;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.RoomEntity;
 import com.chanfinecloud.cfl.entity.smart.RoomHouseholdEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
@@ -123,14 +124,17 @@ public class CurrentRoomFragment extends BaseFragment {
             currentRoomProjectLine.setVisibility(View.GONE);
             currentRoomProjectLl.setVisibility(View.GONE);
             currentRoomLlAdd.setVisibility(View.VISIBLE);
-            if(userInfo.getAvatarResource()!=null){
-//                Glide.with(context)
-//                        .load(userInfo.getAvatarResource().getUrl())
-//                        .error(R.drawable.ic_default_img)
-//                        .circleCrop()
-//                        .into(currentRoomAvatar);
+            ResourceEntity avatarResource=FileManagement.getAvatarResource();
+            if(avatarResource!=null){
+                Glide.with(context)
+                        .load(avatarResource.getUrl())
+                        .error(R.drawable.ic_default_img)
+                        .circleCrop()
+                        .into(currentRoomAvatar);
             }
             currentRoomNickName.setText(TextUtils.isEmpty(userInfo.getNickName())?userInfo.getName():userInfo.getNickName());
+            currentRoomProjectName.setText(currentDistrictEntity.getProjectName());
+            currentRoomRoomName.setText("物业中心");
         }
     }
 
@@ -198,7 +202,7 @@ public class CurrentRoomFragment extends BaseFragment {
     @Override
     protected void onResumeLazy() {
         super.onResumeLazy();
-        getRoomData();
+//        getRoomData();
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.TokenEntity;
+import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
 import com.chanfinecloud.cfl.entity.smart.FileEntity;
 import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.SmsKeyEntity;
@@ -22,6 +23,7 @@ import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
+import com.chanfinecloud.cfl.ui.activity.ProjectSelectActivity;
 import com.chanfinecloud.cfl.ui.activity.RegisterActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
@@ -277,12 +279,20 @@ public class LoginActivity extends BaseActivity {
                 BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result, UserInfoEntity.class);
                 if(baseEntity.isSuccess()){
                     FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
-                    if(!TextUtils.isEmpty(baseEntity.getResult().getAvatarId())){
-                        initAvatarResource(baseEntity.getResult().getAvatarId());
-                    }else{
-                        stopProgressDialog();
+                    CurrentDistrictEntity currentDistrict = baseEntity.getResult().getCurrentDistrict();
+                    if(currentDistrict!=null && !TextUtils.isEmpty(currentDistrict.getProjectId())){
                         startActivity(MainActivity.class);
+                    }else{
+                        Bundle bundle=new Bundle();
+                        bundle.putString("openFrom","Login");
+                        startActivity(ProjectSelectActivity.class,bundle);
                     }
+//                    if(!TextUtils.isEmpty(baseEntity.getResult().getAvatarId())){
+//                        initAvatarResource(baseEntity.getResult().getAvatarId());
+//                    }else{
+//                        stopProgressDialog();
+//                        startActivity(MainActivity.class);
+//                    }
                 }else{
                     stopProgressDialog();
                     showToast(baseEntity.getMessage());

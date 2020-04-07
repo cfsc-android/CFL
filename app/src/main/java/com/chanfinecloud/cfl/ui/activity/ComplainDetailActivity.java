@@ -34,11 +34,14 @@ import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.MainActivity;
+import com.chanfinecloud.cfl.ui.activity.minefeatures.WorkflowListActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
+import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.weidgt.NoUnderlineSpan;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImageViewInfo;
@@ -438,6 +441,15 @@ public class ComplainDetailActivity extends BaseActivity {
         });
         sendRequest(requestParam, false);
 
+    }
+
+    @Override
+    public void finish() {
+        LogUtils.d(LynActivityManager.getInstance().getActivityByClass(WorkflowListActivity.class)==null?"null":LynActivityManager.getInstance().getActivityByClass(WorkflowListActivity.class).getClass());
+        if(LynActivityManager.getInstance().getActivityByClass(WorkflowListActivity.class)==null){
+            startActivity(MainActivity.class);
+        }
+        super.finish();
     }
 
 }

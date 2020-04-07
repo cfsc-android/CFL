@@ -3,9 +3,19 @@ package com.chanfinecloud.cfl.receiver;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.chanfinecloud.cfl.CFLApplication;
+import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.NoticePushEntity;
+import com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity;
+import com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity;
+import com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity;
+import com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity;
 import com.chanfinecloud.cfl.util.LogUtils;
+import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
 
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
@@ -43,6 +53,35 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
 //        super.onNotifyMessageOpened(context, notificationMessage);
         //点击推送通知
         LogUtils.d("onNotifyMessageOpened:"+notificationMessage.toString());
+        Gson gson=new Gson();
+        NoticePushEntity noticePush=gson.fromJson(notificationMessage.notificationExtras,NoticePushEntity.class);
+        if("1".equals(noticePush.getType())){
+            Intent intent=new Intent(context, NoticeDetailActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Bundle bundle=new Bundle();
+            bundle.putString("noticeId",noticePush.getBusinessId());
+            bundle.putString("title",notificationMessage.notificationTitle);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+        }else if("2".equals(noticePush.getType())){
+            Intent intent=new Intent(context, RepairsDetailActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Bundle bundle=new Bundle();
+            bundle.putString("order_id",noticePush.getBusinessId());
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+        }else if("3".equals(noticePush.getType())){
+            Intent intent=new Intent(context, ComplainDetailActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Bundle bundle=new Bundle();
+            bundle.putString("complain_id",noticePush.getBusinessId());
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+        }else if("4".equals(noticePush.getType())){
+            Intent intent=new Intent(context, HouseHoldActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
     }
 
 
@@ -92,7 +131,12 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         //设置不成功就继续设置
         if(jPushMessage.getErrorCode()!=0){
             JPushInterface.setTags(CFLApplication.getAppContext(),jPushMessage.getSequence(),jPushMessage.getTags());
+        }else{
+            if(jPushMessage.getSequence()==0x03){
+                EventBus.getDefault().post(new EventBusMessage<>("ClearTag"));
+            }
         }
+
     }
 
     @Override

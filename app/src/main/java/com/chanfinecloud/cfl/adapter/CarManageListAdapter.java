@@ -11,9 +11,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.smart.CarEntity;
+import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.util.XUtilsImageUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.chanfinecloud.cfl.util.EnumUtils.getCarColorString;
 import static com.chanfinecloud.cfl.util.EnumUtils.getCarTypeString;
@@ -121,7 +123,23 @@ public class CarManageListAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });
-        carManageHolder.payMode.setText("未包期");
+        if (!Utils.isEmpty(carManage.getParkEnddate()) && !Utils.isEmpty(carManage.getParkStartdate())){
+            long nTime = new Date().getTime();
+            if (Utils.getDateTimeByStringAndFormat(carManage.getParkStartdate(), "yyyy-MM-dd") > nTime){
+                carManageHolder.payMode.setText("包期-未开始");
+            }else if (Utils.getDateTimeByStringAndFormat(carManage.getParkStartdate(), "yyyy-MM-dd") <= nTime
+            && Utils.getDateTimeByStringAndFormat(carManage.getParkEnddate(), "yyyy-MM-dd") >= nTime){
+                carManageHolder.payMode.setText("包期");
+            }else if (Utils.getDateTimeByStringAndFormat(carManage.getParkEnddate(), "yyyy-MM-dd") < nTime){
+                carManageHolder.payMode.setText("包期-已过期");
+            }else{
+                carManageHolder.payMode.setText("包期-日期错误");
+            }
+        }else{
+            carManageHolder.payMode.setText("未包期");
+        }
+
+
         return convertView;
     }
 

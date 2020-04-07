@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/bgColor_alertview_alert_start"
     android:orientation="vertical"
-    tools:context=".ui.activity.CarManageAddActivity">
+    tools:context=".ui.activity.CarManageEditActivity">
 
     <include layout="@layout/toolbar_layout" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -21,27 +22,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingTop="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_10"
+                android:padding="@dimen/dp_10"
                 android:gravity="center"
-                android:background="@color/white">
-                <TextView
-                    android:layout_width="@dimen/dp_10"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/follow_background"
-                    android:text="*"/>
+                android:background="@color/white"
+                android:visibility="gone">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
                     android:textColor="@color/get_code_text_color"
-                    android:text="车牌号码"/>
-                <com.chanfinecloud.cfl.weidgt.platenumberview.CarPlateNumberEditView
-                    android:id="@+id/cpn_edit"
+                    android:text="车辆图片"/>
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_parking"/>
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/tv_car_manage_add_car_photo"
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/tousu_btn_zj"
+                        />
+                </RelativeLayout>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
@@ -151,80 +153,138 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:background="@drawable/list_view_white_selector"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp_20"
                 android:padding="@dimen/dp_10"
                 android:gravity="center"
-                android:visibility="gone"
                 android:background="@color/white">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_10"
                     android:textColor="@color/get_code_text_color"
-                    android:text="车辆图片"/>
-                <RelativeLayout
+                    android:text="缴费模式"/>
+                <TextView
+                    android:id="@+id/tv_car_manage_edit_pay_mode"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/tv_car_manage_add_car_photo"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/tousu_btn_zj"
-                        />
-                </RelativeLayout>
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text="临时车"/>
+                <TextView
+                    android:id="@+id/tv_car_manage_edit_charge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textColor="@color/car_lock_theme"
+                    android:text="包期"
+                    />
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:background="@drawable/list_view_white_selector"/>
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/ll_car_manage_charge_pay_list"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:visibility="gone">
-                <FrameLayout
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <TextView
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true">
-                    <Button
-                        android:id="@+id/btn_car_manage_submit"
-                        android:layout_width="match_parent"
+                    android:padding="@dimen/dp_5"
+                    android:gravity="center"
+                    android:text="选择包期"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_5"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:id="@+id/ll_car_manage_charge_pay_1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp_10"
-                        android:background="@drawable/btn_green_shape"
-                        android:text="确认"
-                        android:textColor="@color/white"/>
-                    <TextView
-                        android:id="@+id/btn_parking_payment_search_mask"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/dp_10"
-                        android:elevation="@dimen/dp_10"
-                        android:translationZ="@dimen/dp_10"
-                        android:background="@drawable/btn_mask_shape"/>
-                </FrameLayout>
-            </RelativeLayout>
+                        android:padding="@dimen/dp_10"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/dp_5"
+                        android:background="@drawable/bg_car_charge_mode">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/payment_btn"
+                            android:textSize="@dimen/sp_24"
+                            android:textStyle="bold"
+                            android:text="1个月"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:textColor="@color/payment_btn"
+                            android:textSize="@dimen/sp_12"
+                            android:text="售价 218.00元"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_car_manage_charge_pay_3"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_10"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/dp_5"
+                        android:background="@drawable/bg_car_charge_mode">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/payment_btn"
+                            android:textSize="@dimen/sp_24"
+                            android:textStyle="bold"
+                            android:text="3个月"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:textColor="@color/payment_btn"
+                            android:textSize="@dimen/sp_12"
+                            android:text="售价 618.00元"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_car_manage_charge_pay_6"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_10"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/dp_5"
+                        android:background="@drawable/bg_car_charge_mode">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/payment_btn"
+                            android:textSize="@dimen/sp_24"
+                            android:textStyle="bold"
+                            android:text="6个月"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:textColor="@color/payment_btn"
+                            android:textSize="@dimen/sp_12"
+                            android:text="售价 1118.00元"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-        <android.inputmethodservice.KeyboardView
-            android:id="@+id/keyboard_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#DCDCDC"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:keyBackground="@drawable/selector_key"
-            android:keyTextColor="#000"
-            android:keyTextSize="@dimen/sp_18"
-            android:paddingBottom="@dimen/dp_8"
-            android:paddingTop="@dimen/dp_8"
-            android:shadowColor="#FFFFFF"
-            android:shadowRadius="0.0"
-            android:visibility="gone"/>
     </FrameLayout>
+    
 </LinearLayout>

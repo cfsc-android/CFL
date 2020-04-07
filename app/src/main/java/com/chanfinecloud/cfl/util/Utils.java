@@ -20,6 +20,10 @@ import com.chanfinecloud.cfl.ui.base.BaseActivity;
 
 import org.xutils.image.ImageOptions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Loong on 2020/3/25.
  * Version: 1.0
@@ -219,6 +223,24 @@ public class Utils {
         drawable.draw(canvas);
         return bitmap;
 
+    }
+
+    public static long getDateTimeByStringAndFormat(String dateString, String formatString)
+    {
+
+        long ntime = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat(formatString);
+        Date end_date = null;
+        try {
+            end_date = sdf.parse(dateString);
+            ntime = end_date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return ntime;
     }
 
 }

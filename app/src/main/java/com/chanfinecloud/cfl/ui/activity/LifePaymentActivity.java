@@ -70,7 +70,7 @@ public class LifePaymentActivity extends BaseActivity {
                     a_bundle.putString("url", "https://billcloud.unionpay.com/ccfront/loc/CH5512/search?category=D1");
                     startActivity(NewsInfoActivity.class, a_bundle);
                 } else if ("停车缴费".equals(data_list.get(position).get("text").toString())) {
-                   //startActivity(ParkingPaymentActivity.class);
+                   startActivity(ParkingPaymentActivity.class);
                 } else {
                     showToast("暂未集成，敬请期待");
                 }

@@ -141,7 +141,7 @@ public class ComplainActivity extends BaseActivity {
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if(position==dataList.size()-1){
                     if(permissionFlag){
-                        PhotoPicker.pick(ComplainActivity.this,10,true,REQUEST_CODE_CHOOSE);
+                        PhotoPicker.pick(ComplainActivity.this,6,true,REQUEST_CODE_CHOOSE);
                     }else{
                         showToast("相机或读写手机存储的权限被禁止！");
                     }
@@ -297,6 +297,7 @@ public class ComplainActivity extends BaseActivity {
                 .setCompressListener(new OnCompressListener() {
                     @Override
                     public void onStart() {
+
                         LogUtil.d(" 压缩开始前调用，可以在方法内启动 loading UI");
                     }
 
@@ -311,6 +312,7 @@ public class ComplainActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
+
                         e.printStackTrace();
                     }
                 }).launch();

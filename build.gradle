@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         google()
+
         jcenter()
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven {
@@ -22,6 +23,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+
         jcenter()
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven {
@@ -36,7 +38,6 @@ allprojects {
         maven {
             url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/"
         }
-
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
 
 

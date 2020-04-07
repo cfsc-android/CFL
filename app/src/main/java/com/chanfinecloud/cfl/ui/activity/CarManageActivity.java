@@ -134,6 +134,7 @@ public class CarManageActivity extends BaseActivity {
         getCarManageList();
     }
 
+    // TODO: 2020/4/3   暂时没接口 
     private void deleteCar(int position){
 //        Map<String,Object> requestMap=new HashMap<>();
 //        requestMap.put("id",carManageList.get(position).getId());

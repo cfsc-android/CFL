@@ -66,7 +66,7 @@ public class UnLock extends BaseActivity {
      */
     private void getOpenDoorQrCode() {
 
-        RequestParam requestParam=new RequestParam(BASE_URL+IOT+"community/api/access/v1/qrcode/owner", HttpMethod.Get);
+        RequestParam requestParam=new RequestParam(BASE_URL+IOT+"community/api/access/v1/qrcode/owner", HttpMethod.Post);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
         Map<String,Object> requestMap=new HashMap<>();

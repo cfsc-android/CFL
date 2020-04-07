@@ -69,8 +69,9 @@ public class HouseholdFaceActivity extends BaseActivity {
             householdFaceBtnCollection.setVisibility(View.GONE);
         }
         householdEntity= (RoomHouseholdEntity) getIntent().getExtras().getSerializable("household");
-        toolbarTvTitle.setText(TextUtils.isEmpty(householdEntity.getNickName())?"人脸信息":householdEntity.getNickName());
-        if(householdEntity.getFaceInfos()!=null&&householdEntity.getFaceInfos().size()>0){
+        if (householdEntity != null)
+            toolbarTvTitle.setText(TextUtils.isEmpty(householdEntity.getNickName())?"人脸信息":householdEntity.getNickName());
+        if(householdEntity != null && householdEntity.getFaceInfos()!=null&&householdEntity.getFaceInfos().size()>0){
             Glide.with(this)
                     .load(householdEntity.getFaceInfos().get(0).getUrl())
                     .circleCrop()
@@ -136,10 +137,16 @@ public class HouseholdFaceActivity extends BaseActivity {
             case R.id.household_face_btn_collection:
                 if(permissionFlag){
                     Bundle bundle=new Bundle();
-                    bundle.putString("id",householdEntity.getId());
-                    bundle.putString("name",householdEntity.getName());
-                    bundle.putBoolean("update",householdEntity.getFaceInfos()!=null&&householdEntity.getFaceInfos().size()>0);
-                    startActivity(FaceCollectionPhotoActivity.class,bundle);
+                    if (householdEntity != null){
+                        bundle.putString("id",householdEntity.getId());
+                        bundle.putString("name",householdEntity.getName());
+                        bundle.putBoolean("update",householdEntity.getFaceInfos()!=null&&householdEntity.getFaceInfos().size()>0);
+                        startActivity(FaceCollectionPhotoActivity.class,bundle);
+                    }
+                    else{
+                        showToast("房屋信息为空！");
+                    }
+
                 }else{
                     showToast("相机或读写手机存储的权限被禁止！");
                 }

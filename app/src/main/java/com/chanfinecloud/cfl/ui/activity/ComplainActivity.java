@@ -318,11 +318,12 @@ public class ComplainActivity extends BaseActivity {
 
     //上传照片
     private void uploadPic(final String path){
-        Map<String,String> requestMap=new HashMap<>();
+        Map<String,Object> requestMap=new HashMap<>();
         requestMap.put("resourceKey",resourceKey);
+        requestMap.put("UploadFile",new File(path));
         RequestParam requestParam = new RequestParam(BASE_URL+FILE+"files-anon", HttpMethod.Upload);
         requestParam.setRequestMap(requestMap);
-        requestParam.setFilepath(path);
+
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

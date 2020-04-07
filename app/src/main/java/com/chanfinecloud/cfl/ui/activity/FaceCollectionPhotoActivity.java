@@ -246,18 +246,17 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             requestMap.put("phaseId",roomList.get(i).getPhaseId());
             requestMap.put("unitIds",roomList.get(i).getUnitId());
             RequestParam requestParam = new RequestParam(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId(), HttpMethod.Put);
-            requestParam.setRequestMap(requestMap);
+
             if(update){
                // requestParam.setMethod(HttpMethod.Put);
-                requestParam.setParamType(ParamType.Urlencoded);
                // requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
 
             }else{
                 requestParam.setMethod(HttpMethod.Post);
-                requestParam.setParamType(ParamType.Json);
                 requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
             }
-
+            requestParam.setParamType(ParamType.Json);
+            requestParam.setRequestMap(requestMap);
             requestParam.setCallback(faceAccessBack);
 
             sendRequest(requestParam,false);
@@ -300,11 +299,10 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
      */
     private void uploadFace(){
 
-        Map<String,String> requestMap=new HashMap<>();
-        /*Map<String,File> fileMap=new HashMap<>();
-        fileMap.put("UploadFile",photoFile);*/
+        Map<String,Object> requestMap=new HashMap<>();
+
+        requestMap.put("UploadFile",photoFile);
         RequestParam requestParam = new RequestParam(BASE_URL+FILE+"files-anon", HttpMethod.Upload);
-        requestParam.setFilepath(photoFile.getAbsolutePath());
         requestParam.setRequestMap(requestMap);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
@@ -342,6 +340,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         map.put("faceId",fileId);
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/specificField", HttpMethod.Put);
         requestParam.setRequestMap(map);
+        requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -367,6 +366,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
 
     }
 
+    // TODO: 2020/4/3 这个地方通多手机号更新了一下user数据  注意下 
     private void getUserInfo(){
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
         requestParam.setCallback(new MyCallBack<String>(){

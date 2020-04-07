@@ -229,6 +229,7 @@ public class HouseManageActivity extends BaseActivity {
         requestMap.put("roomMap",map);
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo", HttpMethod.Put);
         requestParam.setRequestMap(requestMap);
+        requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -299,6 +300,7 @@ public class HouseManageActivity extends BaseActivity {
 
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo", HttpMethod.Put);
         requestParam.setRequestMap(map);
+        requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

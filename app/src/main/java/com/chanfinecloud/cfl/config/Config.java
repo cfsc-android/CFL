@@ -1,8 +1,11 @@
 package com.chanfinecloud.cfl.config;
 
 import android.Manifest;
+import android.os.Environment;
 
 import com.chanfinecloud.cfl.BuildConfig;
+
+import java.io.File;
 
 /**
  * Created by Loong on 2020/3/25.
@@ -27,6 +30,8 @@ public class Config {
     public static final String IOT=ENV.equals("debug")?"":"smart-iot-ms/";//物联
     public static final String WORKORDER=ENV.equals("debug")?"":"smart-workorder-ms/";//流程
     public static final String BASIC=ENV.equals("debug")?"":"smart-basic-ms/";//小区信息
+
+    public static final String LOCAL_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + SD_APP_DIR_NAME;//项目本地文件路径
 
     public static final String[] PERMISSION={Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};//应用所需运行时权限
 

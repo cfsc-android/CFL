@@ -2,7 +2,6 @@ package com.chanfinecloud.cfl.ui.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Environment;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -13,15 +12,13 @@ import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.DataCleanManager;
 import com.chanfinecloud.cfl.util.FileSizeUtil;
 
-import org.xutils.view.annotation.Event;
-
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 import static android.view.View.VISIBLE;
+import static com.chanfinecloud.cfl.config.Config.LOCAL_PATH;
 
 /**
  * Created by Shuaige on 2020/3/28.
@@ -37,8 +34,6 @@ public class SettingDetailActivity extends BaseActivity {
     LinearLayout llsettingDetailCache;
     @BindView(R.id.s_setting_detail_notice)
     Switch SSettingDetailNotice;
-
-    private static final String LOCAL_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "xiandao";
 
     @Override
     protected void initData() {
@@ -90,36 +85,18 @@ public class SettingDetailActivity extends BaseActivity {
                 new AlertDialog.Builder(SettingDetailActivity.this)
                         .setTitle("清理缓存")
                         .setMessage("发现可清理缓存"+fileSize)
-                        .setNegativeButton("确认清理",new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                DataCleanManager.cleanExternalCache(getApplicationContext());
-                            }
-                        }).
-                        setNeutralButton("暂不清理", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                        .setNegativeButton("确认清理", (dialog, which) -> DataCleanManager.cleanExternalCache(getApplicationContext()))
+                        .setNeutralButton("暂不清理", (dialog, which) -> dialog.dismiss()).show();
                 break;
             case R.id.ll_setting_detail_cache_file:
                 new AlertDialog.Builder(SettingDetailActivity.this)
                         .setTitle("清理文件")
                         .setMessage("发现可清理文件"+ FileSizeUtil.getAutoFileOrFilesSize(LOCAL_PATH))
-                        .setNegativeButton("确认清理",new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteFile(new File(LOCAL_PATH));
-                                showToast("完成文件清理");
-                            }
+                        .setNegativeButton("确认清理", (dialog, which) -> {
+                            deleteFile(new File(LOCAL_PATH));
+                            showToast("完成文件清理");
                         }).
-                        setNeutralButton("暂不清理", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                        setNeutralButton("暂不清理", (dialog, which) -> dialog.dismiss()).show();
                 break;
         }
     }

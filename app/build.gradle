@@ -107,7 +107,7 @@ dependencies {
     //事件总线
     implementation 'org.greenrobot:eventbus:3.1.1'
     //知乎照片picker
-    implementation 'com.zhihu.android:matisse:0.5.2-beta3'
+    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
     //glide图片处理
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'

@@ -140,6 +140,8 @@ public class CarManageEditActivity extends BaseActivity {
         toolbarTvAction.setText("确定");
         toolbarTvAction.setVisibility(View.VISIBLE);
         toolbarBtnAction.setVisibility(View.GONE);
+        tvCarManageEditCharge.setVisibility(View.VISIBLE);
+        tvCarManageEditCharge.setText("包期");
         initViewData();
         Bundle bundle=getIntent().getExtras();
         carManageEntity= (CarEntity) bundle.getSerializable("car");
@@ -148,7 +150,7 @@ public class CarManageEditActivity extends BaseActivity {
         toolbarTvTitle.setText(sb);
         initEditData();
         if(carManageEntity.getAuditStatus()==0){
-//            getCarChargeInfo();
+        //    getCarChargeInfo();
         }else{
             tvCarManageEditCharge.setVisibility(View.GONE);
         }
@@ -238,8 +240,8 @@ public class CarManageEditActivity extends BaseActivity {
                 Bundle bundle_1=new Bundle();
                 bundle_1.putString("no","NCL"+new Date().getTime());
                 bundle_1.putString("count","218.00");
-                // TODO: 2020/4/7   取消注释
-               // startActivity(PaymentTestActivity.class,bundle_1);
+
+                startActivity(PaymentTestActivity.class,bundle_1);
                 break;
             case R.id.ll_car_manage_charge_pay_3:
                 addMonth=3;
@@ -247,8 +249,8 @@ public class CarManageEditActivity extends BaseActivity {
                 Bundle bundle_3=new Bundle();
                 bundle_3.putString("no","NCL"+new Date().getTime());
                 bundle_3.putString("count","618.00");
-                // TODO: 2020/4/7   取消注释
-               // startActivity(PaymentTestActivity.class,bundle_3);
+
+                startActivity(PaymentTestActivity.class,bundle_3);
                 break;
             case R.id.ll_car_manage_charge_pay_6:
                 addMonth=6;
@@ -256,8 +258,7 @@ public class CarManageEditActivity extends BaseActivity {
                 Bundle bundle_6=new Bundle();
                 bundle_6.putString("no","NCL"+new Date().getTime());
                 bundle_6.putString("count","1118.00");
-                // TODO: 2020/4/7   取消注释
-               // startActivity(PaymentTestActivity.class,bundle_6);
+                startActivity(PaymentTestActivity.class,bundle_6);
                 break;
         }
     }
@@ -382,7 +383,6 @@ public class CarManageEditActivity extends BaseActivity {
     }
 
     private void saveCar(){
-        // TODO: 2020/4/7   跟更新车辆信息
 
         startProgressDialog("保存中...");
         Map<String,Object> map=new HashMap<>();
@@ -483,7 +483,7 @@ public class CarManageEditActivity extends BaseActivity {
 
     private void getParkList(){
 
-        RequestParam requestParam =  new RequestParam(BASE_URL+BASIC+"/isc/park/parklist.action", HttpMethod.Post);
+        RequestParam requestParam =  new RequestParam(BASE_URL+BASIC+"isc/park/parklist.action", HttpMethod.Post);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -556,7 +556,7 @@ public class CarManageEditActivity extends BaseActivity {
         requestDataMap.put("fee",feeStr);
         requestDataMap.put("startTime",startTime);
         requestDataMap.put("endTime",endTime);
-        RequestParam requestParam =  new RequestParam(BASE_URL+BASIC+"/isc/car/charge.action", HttpMethod.Post);
+        RequestParam requestParam =  new RequestParam(BASE_URL+BASIC+"isc/car/charge.action", HttpMethod.Post);
         requestParam.setRequestMap(requestDataMap);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
@@ -662,7 +662,7 @@ public class CarManageEditActivity extends BaseActivity {
         requestDataMap.put("pageNo",1);
         requestDataMap.put("pageSize",1000);
 
-        RequestParam requestParam =  new RequestParam(BASE_URL+BASIC+"/isc/car/charge/page.action", HttpMethod.Post);
+        RequestParam requestParam =  new RequestParam(BASE_URL+BASIC+"isc/car/charge/page.action", HttpMethod.Post);
         requestParam.setRequestMap(requestDataMap);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
@@ -730,7 +730,7 @@ public class CarManageEditActivity extends BaseActivity {
             Date startDate=new Date();
             boolean flag=false;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            if(info.getValidity()!=null&&info.getValidity().size()>0){
+            if(info!= null && info.getValidity()!=null&&info.getValidity().size()>0){
                 try {
                     Date end_date= sdf.parse(info.getValidity().get(0).getFunctionTime().get(0).getEndTime());
                     if(end_date.getTime()>new Date().getTime()){

@@ -129,7 +129,7 @@ public class CarManageListAdapter extends BaseAdapter {
                 carManageHolder.payMode.setText("包期-未开始");
             }else if (Utils.getDateTimeByStringAndFormat(carManage.getParkStartdate(), "yyyy-MM-dd") <= nTime
             && Utils.getDateTimeByStringAndFormat(carManage.getParkEnddate(), "yyyy-MM-dd") >= nTime){
-                carManageHolder.payMode.setText("包期");
+                carManageHolder.payMode.setText("已包期");
             }else if (Utils.getDateTimeByStringAndFormat(carManage.getParkEnddate(), "yyyy-MM-dd") < nTime){
                 carManageHolder.payMode.setText("包期-已过期");
             }else{

@@ -175,14 +175,15 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:text="临时车"/>
+
                 <TextView
                     android:id="@+id/tv_car_manage_edit_charge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:textColor="@color/car_lock_theme"
                     android:text="包期"
-                    />
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/car_lock_theme" />
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"

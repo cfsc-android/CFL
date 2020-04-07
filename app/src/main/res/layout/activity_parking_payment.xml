@@ -25,7 +25,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="请输入车牌"/>
-                <com.chanfinecloud.cfl.view.platenumberview.CarPlateNumberEditView
+                <com.chanfinecloud.cfl.weidgt.platenumberview.CarPlateNumberEditView
                     android:id="@+id/cpn_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

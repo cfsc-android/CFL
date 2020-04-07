@@ -82,7 +82,6 @@
         <activity android:name=".ui.activity.PaymentTestActivity" />
 
         <!-- 网络状态监听服务 -->
-        <activity android:name=".ui.activity.PersonActivity" /> <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

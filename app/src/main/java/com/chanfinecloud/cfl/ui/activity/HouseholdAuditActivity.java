@@ -34,7 +34,8 @@ import butterknife.OnClick;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.BASIC;
 
-public class HouseholdAuditActivity extends BaseActivity {
+public class
+HouseholdAuditActivity extends BaseActivity {
 
     @BindView(R.id.toolbar_btn_back)
     ImageButton toolbarBtnBack;
@@ -115,7 +116,7 @@ public class HouseholdAuditActivity extends BaseActivity {
                     LynActivityManager.getInstance().finishActivity(HouseholdTypeSelectActivity.class);
                     LynActivityManager.getInstance().finishActivity(RoomSelectActivity.class);
                     LynActivityManager.getInstance().finishActivity(UnitSelectActivity.class);
-                    EventBus.getDefault().post(new EventBusMessage<>("householdAudit"));
+                    EventBus.getDefault().post(new EventBusMessage<>("HouseholdRefresh"));
                     finish();
                 } else {
                     showToast(baseEntity.getMessage());

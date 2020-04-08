@@ -181,11 +181,7 @@ public class MineFragment extends BaseFragment {
                 }
                 break;
             case R.id.tv_mine_face:
-                if(bind){
-                    startActivity(HouseHoldActivity.class);
-                }else{
-                    EventBus.getDefault().post(new EventBusMessage<>("unbind"));
-                }
+                startActivity(HouseHoldActivity.class);
                 break;
             case R.id.tv_mine_express:
                 Bundle a_bundle=new Bundle();

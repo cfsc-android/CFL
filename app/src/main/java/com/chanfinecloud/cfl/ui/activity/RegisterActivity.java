@@ -395,6 +395,7 @@ public class RegisterActivity extends BaseActivity {
         map.put("validCode",etTelCode.getText().toString());
         requestParam.setRequestMap(map);
         requestParam.setParamType(ParamType.Json);
+        requestParam.setAuthorization(false);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -480,7 +481,10 @@ public class RegisterActivity extends BaseActivity {
                 Gson gson = new Gson();
                 TokenEntity token=gson.fromJson(result, TokenEntity.class);
                 FileManagement.setTokenEntity(token);
-                getUserInfo();
+                Bundle bundle=new Bundle();
+                bundle.putString("openFrom","Register");
+                startActivity(ProjectSelectActivity.class,bundle);
+//                getUserInfo();
             }
 
             @Override
@@ -500,6 +504,7 @@ public class RegisterActivity extends BaseActivity {
         Map<String,Object> requestMap=new HashMap<>();
         requestMap.put("phone",etTelNo.getText().toString());
         requestParam.setRequestMap(requestMap);
+        requestParam.setAuthorization(false);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

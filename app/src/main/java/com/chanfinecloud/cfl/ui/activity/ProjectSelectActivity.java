@@ -31,6 +31,7 @@ import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
+import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
 import com.google.gson.reflect.TypeToken;
 
@@ -122,7 +123,27 @@ public class ProjectSelectActivity extends BaseActivity {
                 LogUtils.d(result);
                 BaseEntity baseEntity= JsonParse.parse(result);
                 if(baseEntity.isSuccess()){
-                    getUserInfo();
+                    UserInfoUtil.refreshUserInfoByServerCache(new UserInfoUtil.OnRefreshListener() {
+                        @Override
+                        public void onSuccess() {
+                            finish();
+                            if(LynActivityManager.getInstance().getActivityByClass(HouseManageActivity.class)!=null){
+                                LynActivityManager.getInstance().finishActivity(HouseManageActivity.class);
+                                if (LynActivityManager.getInstance().getActivityByClass(HouseHoldActivity.class)!=null){
+                                    LynActivityManager.getInstance().finishActivity(HouseHoldActivity.class);
+                                }
+                                EventBus.getDefault().post(new EventBusMessage<>("projectSelect"));
+
+                            }else{
+                                startActivity(MainActivity.class);
+                            }
+                        }
+
+                        @Override
+                        public void onFail(String msg) {
+                            showToast(msg);
+                        }
+                    });
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -153,11 +174,10 @@ public class ProjectSelectActivity extends BaseActivity {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
+                Type type = new TypeToken<List<ProjectTreeEntity>>() {}.getType();
+                BaseEntity<List<ProjectTreeEntity>> baseEntity= JsonParse.parse(result,type);
                 if(baseEntity.isSuccess()){
-                    Type type = new TypeToken<List<ProjectTreeEntity>>() {}.getType();
-                    List<ProjectTreeEntity> list= (List<ProjectTreeEntity>) JsonParse.parseList(result,type);
-                    getProjectListData(list);
+                    getProjectListData(baseEntity.getResult());
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -195,51 +215,6 @@ public class ProjectSelectActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-    /**
-     * 获取用户信息
-     */
-    private void getUserInfo(){
-        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d(result);
-                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result,UserInfoEntity.class);
-                if(baseEntity.isSuccess()){
-                    FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
-                    finish();
-                    if(LynActivityManager.getInstance().getActivityByClass(HouseManageActivity.class)!=null){
-                        LynActivityManager.getInstance().finishActivity(HouseManageActivity.class);
-                        if (LynActivityManager.getInstance().getActivityByClass(HouseHoldActivity.class)!=null){
-                            LynActivityManager.getInstance().finishActivity(HouseHoldActivity.class);
-                        }
-                        EventBus.getDefault().post(new EventBusMessage<>("projectSelect"));
-
-                    }else{
-                        startActivity(MainActivity.class);
-                    }
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
-
-            @Override
-            public void onFinished() {
-                super.onFinished();
-                stopProgressDialog();
-            }
-        });
-        sendRequest(requestParam,false);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

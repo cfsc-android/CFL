@@ -1,5 +1,6 @@
 package com.chanfinecloud.cfl.ui.activity.minefeatures;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,10 +13,13 @@ import androidx.viewpager.widget.ViewPager;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.smart.HouseholdPagerAdapter;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.ui.MainActivity;
 import com.chanfinecloud.cfl.ui.activity.HouseManageActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment;
 import com.chanfinecloud.cfl.ui.fragment.minefragment.OtherRoomFragment;
+import com.chanfinecloud.cfl.util.LogUtils;
+import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.weidgt.easyindicator.EasyIndicator;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,6 +57,14 @@ public class HouseHoldActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogUtils.d("onNewIntent:"+intent.toString());
+        householdVpTab.setCurrentItem(0);
+        EventBus.getDefault().post(new EventBusMessage<>("HouseholdRefresh"));
     }
 
     @Override
@@ -105,5 +117,14 @@ public class HouseHoldActivity extends BaseActivity {
         super.onDestroy();
         if (EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void finish() {
+        LogUtils.d(LynActivityManager.getInstance().getActivityByClass(MainActivity.class)==null?"null":LynActivityManager.getInstance().getActivityByClass(MainActivity.class).getClass());
+        if(LynActivityManager.getInstance().getActivityByClass(MainActivity.class)==null){
+            startActivity(MainActivity.class);
+        }
+        super.finish();
     }
 }

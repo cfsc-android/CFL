@@ -34,6 +34,8 @@ import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
+import com.chanfinecloud.cfl.util.UserInfoUtil;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
@@ -92,9 +94,12 @@ public class HouseManageActivity extends BaseActivity {
         houseManageCurrentSmlvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle=new Bundle();
-                bundle.putString("roomId",currentData.get(position).getId());
-                startActivity(HouseholdAuditListActivity.class,bundle);
+                HouseholdRoomEntity householdRoom=currentData.get(position);
+                if(householdRoom.getHouseholdType().equals("YZ")){
+                    Bundle bundle=new Bundle();
+                    bundle.putString("roomId",householdRoom.getId());
+                    startActivity(HouseholdAuditListActivity.class,bundle);
+                }
             }
         });
         // 为ListView设置创建器
@@ -123,9 +128,12 @@ public class HouseManageActivity extends BaseActivity {
         houseManageSmlvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle=new Bundle();
-                bundle.putString("roomId",otherData.get(position).getId());
-                startActivity(HouseholdAuditListActivity.class,bundle);
+                HouseholdRoomEntity householdRoom=otherData.get(position);
+                if(householdRoom.getHouseholdType().equals("YZ")){
+                    Bundle bundle=new Bundle();
+                    bundle.putString("roomId",householdRoom.getId());
+                    startActivity(HouseholdAuditListActivity.class,bundle);
+                }
             }
         });
         // 为ListView设置创建器
@@ -157,7 +165,13 @@ public class HouseManageActivity extends BaseActivity {
         intRoomData();
     }
 
+    /**
+     * 加载房屋信息
+     */
     private void intRoomData(){
+        currentData.clear();
+        otherData.clear();
+
         CurrentDistrictEntity currentRoom= FileManagement.getUserInfo().getCurrentDistrict();
         List<HouseholdRoomEntity> roomList= FileManagement.getUserInfo().getRoomList();
         if(roomList!=null&&roomList.size()>0){
@@ -175,8 +189,10 @@ public class HouseManageActivity extends BaseActivity {
         getRoomData();
     }
 
+    /**
+     * 获取房屋审核数据
+     */
     private void getRoomData(){
-
         Map<String,String> requestMap=new HashMap<>();
         requestMap.put("householdId",FileManagement.getUserInfo().getId());
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/verify/pendingList", HttpMethod.Get);
@@ -186,10 +202,10 @@ public class HouseManageActivity extends BaseActivity {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
+                Type type = new TypeToken<List<HouseholdRoomEntity>>() {}.getType();
+                BaseEntity<List<HouseholdRoomEntity>> baseEntity= JsonParse.parse(result,type);
                 if(baseEntity.isSuccess()){
-                    Type type = new TypeToken<List<HouseholdRoomEntity>>() {}.getType();
-                    List<HouseholdRoomEntity> list= (List<HouseholdRoomEntity>) JsonParse.parseList(result,type);
+                    List<HouseholdRoomEntity> list= baseEntity.getResult();
                     for (int i = 0; i < list.size(); i++) {
                         if(list.get(i).getApprovalStatus()== ApprovalStatusType.Refuse.getType()){
                             otherData.add(list.get(i));
@@ -209,11 +225,11 @@ public class HouseManageActivity extends BaseActivity {
 
         });
         sendRequest(requestParam, false);
-
-
-
     }
 
+    /**
+     * 删除当前房屋
+     */
     private void deleteCurrentRoom(){
 
         Map<String,String> map=new HashMap<>();
@@ -227,6 +243,10 @@ public class HouseManageActivity extends BaseActivity {
         Map<String,Object> requestMap=new HashMap<>();
         requestMap.put("id",FileManagement.getUserInfo().getId());
         requestMap.put("roomMap",map);
+
+        Gson gson=new Gson();
+        LogUtils.d(gson.toJson(requestMap));
+
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo", HttpMethod.Put);
         requestParam.setRequestMap(requestMap);
         requestParam.setParamType(ParamType.Json);
@@ -251,9 +271,11 @@ public class HouseManageActivity extends BaseActivity {
 
         });
         sendRequest(requestParam, false);
-
     }
 
+    /**
+     * 解除当前房屋绑定
+     */
     private void unBindRoom(){
         Map<String,Object> map=new HashMap<>();
         map.put("projectId",currentData.get(0).getProjectId());
@@ -268,7 +290,21 @@ public class HouseManageActivity extends BaseActivity {
                 LogUtils.d(result);
                 BaseEntity baseEntity= JsonParse.parse(result);
                 if(baseEntity.isSuccess()){
-                    getUserInfo(true);
+                    //刷新用户缓存
+                    UserInfoUtil.refreshUserInfoByServerCache(new UserInfoUtil.OnRefreshListener() {
+                        @Override
+                        public void onSuccess() {
+                            LynActivityManager.getInstance().finishActivity(HouseHoldActivity.class);
+                            EventBus.getDefault().post(new EventBusMessage<>("projectSelect"));
+                            //EventBus.getDefault().post(new EventBusMessage<>("houseRefresh"));
+                            finish();
+                        }
+
+                        @Override
+                        public void onFail(String msg) {
+                            showToast(msg);
+                        }
+                    });
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -285,7 +321,10 @@ public class HouseManageActivity extends BaseActivity {
 
     }
 
-
+    /**
+     * 刪除其他房屋
+     * @param roomId 房屋ID
+     */
     private void deleteOtherRoom(String roomId){
         Map<String,String> map=new HashMap<>();
         List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
@@ -297,9 +336,8 @@ public class HouseManageActivity extends BaseActivity {
         Map<String,Object> requestMap=new HashMap<>();
         requestMap.put("id",FileManagement.getUserInfo().getId());
         requestMap.put("roomMap",map);
-
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo", HttpMethod.Put);
-        requestParam.setRequestMap(map);
+        requestParam.setRequestMap(requestMap);
         requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
@@ -308,7 +346,18 @@ public class HouseManageActivity extends BaseActivity {
                 LogUtils.d(result);
                 BaseEntity baseEntity= JsonParse.parse(result);
                 if(baseEntity.isSuccess()){
-                    getUserInfo(false);
+                    //刷新用户缓存
+                    UserInfoUtil.refreshUserInfoByServerCache(new UserInfoUtil.OnRefreshListener() {
+                        @Override
+                        public void onSuccess() {
+                            intRoomData();
+                        }
+
+                        @Override
+                        public void onFail(String msg) {
+                            showToast(msg);
+                        }
+                    });
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -322,9 +371,12 @@ public class HouseManageActivity extends BaseActivity {
 
         });
         sendRequest(requestParam, false);
-
     }
 
+    /**
+     * 刪除审核被拒的房屋
+     * @param approvalId 审核ID
+     */
     private void deleteRefuseRoom(String approvalId){
 
         Map<String,Object> map=new HashMap<>();
@@ -356,41 +408,6 @@ public class HouseManageActivity extends BaseActivity {
         sendRequest(requestParam, false);
 
     }
-
-    private void getUserInfo(final boolean finish){
-        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d(result);
-                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result, UserInfoEntity.class);
-                if(baseEntity.isSuccess()){
-                    FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
-                    if(finish){
-                        LynActivityManager.getInstance().finishActivity(HouseHoldActivity.class);
-                        EventBus.getDefault().post(new EventBusMessage<>("projectSelect"));
-                        //EventBus.getDefault().post(new EventBusMessage<>("houseRefresh"));
-                        finish();
-                    }else{
-                        intRoomData();
-                    }
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
-
-        });
-        sendRequest(requestParam, false);
-
-    }
-
 
     private SwipeMenuCreator creator = new SwipeMenuCreator() {
 

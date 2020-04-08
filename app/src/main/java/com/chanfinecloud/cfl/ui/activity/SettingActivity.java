@@ -222,7 +222,12 @@ public class SettingActivity extends BaseActivity {
         TokenEntity tokenEntity= FileManagement.getTokenEntity();
         tokenEntity.setExpires_in(0);
         FileManagement.setTokenEntity(tokenEntity);
-        LynActivityManager.getInstance().popAllActivityExceptOne(LoginActivity.class);
+        if(LynActivityManager.getInstance().getActivityByClass(LoginActivity.class)!=null){
+            LynActivityManager.getInstance().popAllActivityExceptOne(LoginActivity.class);
+        }else{
+            LynActivityManager.getInstance().removeAllActivity();
+            startActivity(LoginActivity.class);
+        }
     }
 
     /**

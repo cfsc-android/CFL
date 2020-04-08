@@ -92,11 +92,12 @@ public class HouseholdAuditListAdapter extends BaseSwipListAdapter {
 
     @Override
     public boolean getSwipEnableByPosition(int position) {
-        AuditEntity auditEntity=data.get(position);
-        if(auditEntity.getStatus()==ApprovalStatusType.Audit.getType()){
-            return true;
-        }
         return false;
+//        AuditEntity auditEntity=data.get(position);
+//        if(auditEntity.getStatus()==ApprovalStatusType.Audit.getType()){
+//            return false;
+//        }
+//        return true;
 
     }
 }

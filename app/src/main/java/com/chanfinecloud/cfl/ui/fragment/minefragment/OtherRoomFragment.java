@@ -66,9 +66,7 @@ public class OtherRoomFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_other_room, null);
         setContentView(view);
         unbinder = ButterKnife.bind(this, view);
-
         context=getActivity();
-        getRoomData();
         EventBus.getDefault().register(this);
     }
 
@@ -86,7 +84,7 @@ public class OtherRoomFragment extends BaseFragment {
                 startActivity(OtherRoomDetailActivity.class,bundle);
             }
         });
-
+        getRoomData();
         initOtherRoom();
     }
 
@@ -123,11 +121,10 @@ public class OtherRoomFragment extends BaseFragment {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
+                Type type = new TypeToken<List<HouseholdRoomEntity>>() {}.getType();
+                BaseEntity<List<HouseholdRoomEntity>> baseEntity= JsonParse.parse(result,type);
                 if(baseEntity.isSuccess()){
-                    Type type = new TypeToken<List<HouseholdRoomEntity>>() {}.getType();
-                    List<HouseholdRoomEntity> list= (List<HouseholdRoomEntity>) JsonParse.parseList(result,type);
-                    data.addAll(list);
+                    data.addAll(baseEntity.getResult());
                     adapter.notifyDataSetChanged();
                 }else{
                     showToast(baseEntity.getMessage());
@@ -147,7 +144,9 @@ public class OtherRoomFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(EventBusMessage message){
-        if("householdAudit".equals(message.getMessage())){
+        if("HouseholdRefresh".equals(message.getMessage())){
+            data.clear();
+            initOtherRoom();
             getRoomData();
         }
     }

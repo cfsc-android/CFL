@@ -3,6 +3,6 @@
     android:shape="rectangle">
     <corners android:radius="@dimen/dp_20" />
     <padding android:top="@dimen/dp_5" android:bottom="@dimen/dp_5" android:left="@dimen/dp_40" android:right="@dimen/dp_40" />
-    <stroke android:color="@color/text_warn" android:width="@dimen/dp_1" />
+    <stroke android:color="@color/current_room" android:width="@dimen/dp_1" />
     <solid android:color="@color/text_white"/>
 </shape>

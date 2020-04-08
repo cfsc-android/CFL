@@ -24,7 +24,6 @@
                 android:id="@+id/current_room_project_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="长房时代城"
                 android:textColor="@color/text_white"
                 android:textSize="18sp"/>
             <TextView
@@ -32,7 +31,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="8栋-三单元-1003"
                 android:textColor="@color/text_white"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -58,7 +56,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="123123"
                 android:textColor="@color/text_white"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -102,7 +99,7 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:text="添加房屋"
                 android:textSize="16sp"
-                android:textColor="@color/text_warn"
+                android:textColor="@color/current_room"
                 android:background="@drawable/btn_warn_border_shape"/>
         </LinearLayout>
 

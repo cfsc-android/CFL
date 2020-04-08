@@ -17,6 +17,8 @@ public class NetworkUtils {
 
     private static final int NETWORK_WIFI = 1;//无线网络
 
+    private static final int NETWORK_BLUETOOTH = 2;//蓝牙
+
     /**
      * 获取网络状态
      * @param context Context上下文
@@ -35,6 +37,8 @@ public class NetworkUtils {
                 return NETWORK_WIFI;
             } else if (activeNetworkInfo.getType() == (ConnectivityManager.TYPE_MOBILE)) {
                 return NETWORK_MOBILE;
+            }else if(activeNetworkInfo.getType() == (ConnectivityManager.TYPE_BLUETOOTH)){
+                return NETWORK_BLUETOOTH;
             }
         } else {
             return NETWORK_NONE;
@@ -47,11 +51,13 @@ public class NetworkUtils {
      * @return boolean
      */
     public static boolean isNetConnect(int netMobile) {
-        if (netMobile == 1) {
+        if (netMobile == 0) {
             return true;
-        } else if (netMobile == 0) {
+        } else if (netMobile == 1) {
             return true;
-        } else if (netMobile == -1) {
+        } else if (netMobile == 2) {
+            return true;
+        }else if (netMobile == -1) {
             return false;
         }
         return false;

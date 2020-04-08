@@ -211,22 +211,31 @@ public class HouseholdAuditListActivity extends BaseActivity {
 
         @Override
         public void create(SwipeMenu menu) {
-            SwipeMenuItem refuseItem = new SwipeMenuItem(
-                    getApplicationContext());
-            refuseItem.setBackground(new ColorDrawable(Color.rgb(0xF9,0x3F, 0x25)));
-            refuseItem.setWidth(dp2px(90));
-            refuseItem.setTitle("拒绝");
-            refuseItem.setTitleSize(18);
-            refuseItem.setTitleColor(Color.WHITE);
-            menu.addMenuItem(refuseItem);
-            SwipeMenuItem passItem = new SwipeMenuItem(
-                    getApplicationContext());
-            passItem.setBackground(new ColorDrawable(Color.rgb(19,173, 87)));
-            passItem.setWidth(dp2px(90));
-            passItem.setTitle("通过");
-            passItem.setTitleSize(18);
-            passItem.setTitleColor(Color.WHITE);
-            menu.addMenuItem(passItem);
+
+            switch (menu.getViewType()){
+                case 1:
+                    SwipeMenuItem refuseItem = new SwipeMenuItem(
+                            getApplicationContext());
+                    refuseItem.setBackground(new ColorDrawable(Color.rgb(0xF9,0x3F, 0x25)));
+                    refuseItem.setWidth(dp2px(90));
+                    refuseItem.setTitle("拒绝");
+                    refuseItem.setTitleSize(18);
+                    refuseItem.setTitleColor(Color.WHITE);
+                    menu.addMenuItem(refuseItem);
+                    SwipeMenuItem passItem = new SwipeMenuItem(
+                            getApplicationContext());
+                    passItem.setBackground(new ColorDrawable(Color.rgb(19,173, 87)));
+                    passItem.setWidth(dp2px(90));
+                    passItem.setTitle("通过");
+                    passItem.setTitleSize(18);
+                    passItem.setTitleColor(Color.WHITE);
+                    menu.addMenuItem(passItem);
+                    break;
+                case 2:
+
+                    break;
+            }
+
         }
     };
 

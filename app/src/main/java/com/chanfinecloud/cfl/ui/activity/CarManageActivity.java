@@ -98,6 +98,7 @@ public class CarManageActivity extends BaseActivity {
                 openItem.setTitleSize(18);
                 openItem.setTitleColor(Color.WHITE);
                 menu.addMenuItem(openItem);
+
             }
         };
         // 为ListView设置创建器
@@ -138,7 +139,7 @@ public class CarManageActivity extends BaseActivity {
 
 
         String ids = carManageList.get(position).getId();
-        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"/basic/vehicleInfo/audit/"+ ids, HttpMethod.Get);
+        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/vehicleInfo/delete/"+ ids, HttpMethod.Delete);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

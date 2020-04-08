@@ -4,10 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.chanfinecloud.cfl.R;
-import com.chanfinecloud.cfl.adapter.BaseSwipListAdapter;
 import com.chanfinecloud.cfl.entity.smart.ApprovalStatusType;
 import com.chanfinecloud.cfl.entity.smart.AuditEntity;
 import com.chanfinecloud.cfl.entity.smart.HouseholdType;
@@ -19,7 +19,7 @@ import java.util.List;
  * Version: 1.0
  * Describe:
  */
-public class HouseholdAuditListAdapter extends BaseSwipListAdapter {
+public class HouseholdAuditListAdapter extends BaseAdapter {
     private Context context;
     private List<AuditEntity> data;
 
@@ -91,13 +91,13 @@ public class HouseholdAuditListAdapter extends BaseSwipListAdapter {
 
 
     @Override
-    public boolean getSwipEnableByPosition(int position) {
-        return false;
-//        AuditEntity auditEntity=data.get(position);
-//        if(auditEntity.getStatus()==ApprovalStatusType.Audit.getType()){
-//            return false;
-//        }
-//        return true;
-
+    public int getItemViewType(int position) {
+         super.getItemViewType(position);
+         AuditEntity auditEntity=data.get(position);
+         int nType = 1;
+         if(auditEntity.getStatus()==ApprovalStatusType.Audit.getType()){
+             nType = 2;
+         }
+         return nType;
     }
 }

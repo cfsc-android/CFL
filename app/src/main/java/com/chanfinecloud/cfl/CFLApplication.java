@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.multidex.MultiDex;
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -101,5 +102,15 @@ public class CFLApplication extends Application {
 
     public static Context getAppContext() {
         return CFLApplication.getInstance.mContext;
+    }
+
+    /**
+     * 超过64K，需要采用分包
+     * @param base Context
+     */
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this); // 初始化
     }
 }

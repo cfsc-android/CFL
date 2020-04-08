@@ -31,6 +31,7 @@ import com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity;
 import com.chanfinecloud.cfl.ui.activity.RepairsActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.CarLock;
 import com.chanfinecloud.cfl.ui.activity.homehead.UnLock;
+import com.chanfinecloud.cfl.ui.activity.homehead.VideoCallActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
@@ -311,7 +312,7 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.tv_to_video_call:
                 if (bind) {
-                    //startActivity(VideoCallActivity.class);
+                    startActivity(VideoCallActivity.class);
                 } else {
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }

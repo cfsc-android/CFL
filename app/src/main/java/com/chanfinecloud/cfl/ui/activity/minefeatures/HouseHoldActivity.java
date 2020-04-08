@@ -63,15 +63,8 @@ public class HouseHoldActivity extends BaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogUtils.d("onNewIntent:"+intent.toString());
-        data.clear();
-        data.add(new CurrentRoomFragment());
-        data.add(new OtherRoomFragment());
-        adapter=new HouseholdPagerAdapter(getSupportFragmentManager(),data);
-
-        householdEiTab.setTabTitles(new String[]{"当前房屋","其他房屋","",""});
-        householdEiTab.setViewPager(householdVpTab, adapter);
-        householdVpTab.setOffscreenPageLimit(1);
         householdVpTab.setCurrentItem(0);
+        EventBus.getDefault().post(new EventBusMessage<>("HouseholdRefresh"));
     }
 
     @Override

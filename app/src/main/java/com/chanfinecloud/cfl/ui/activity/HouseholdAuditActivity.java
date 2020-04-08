@@ -116,7 +116,7 @@ HouseholdAuditActivity extends BaseActivity {
                     LynActivityManager.getInstance().finishActivity(HouseholdTypeSelectActivity.class);
                     LynActivityManager.getInstance().finishActivity(RoomSelectActivity.class);
                     LynActivityManager.getInstance().finishActivity(UnitSelectActivity.class);
-                    EventBus.getDefault().post(new EventBusMessage<>("householdAudit"));
+                    EventBus.getDefault().post(new EventBusMessage<>("HouseholdRefresh"));
                     finish();
                 } else {
                     showToast(baseEntity.getMessage());

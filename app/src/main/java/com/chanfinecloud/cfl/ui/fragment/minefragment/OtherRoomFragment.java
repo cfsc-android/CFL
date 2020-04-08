@@ -66,9 +66,7 @@ public class OtherRoomFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_other_room, null);
         setContentView(view);
         unbinder = ButterKnife.bind(this, view);
-
         context=getActivity();
-        getRoomData();
         EventBus.getDefault().register(this);
     }
 
@@ -86,7 +84,7 @@ public class OtherRoomFragment extends BaseFragment {
                 startActivity(OtherRoomDetailActivity.class,bundle);
             }
         });
-
+        getRoomData();
         initOtherRoom();
     }
 
@@ -146,7 +144,9 @@ public class OtherRoomFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(EventBusMessage message){
-        if("householdAudit".equals(message.getMessage())){
+        if("HouseholdRefresh".equals(message.getMessage())){
+            data.clear();
+            initOtherRoom();
             getRoomData();
         }
     }

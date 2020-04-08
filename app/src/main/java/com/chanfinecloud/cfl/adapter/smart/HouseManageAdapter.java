@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chanfinecloud.cfl.R;
@@ -61,6 +62,7 @@ public class HouseManageAdapter extends BaseSwipListAdapter {
             holder.room_name=convertView.findViewById(R.id.item_room_name);
             holder.room_status=convertView.findViewById(R.id.item_room_status);
             holder.room_list_line=convertView.findViewById(R.id.room_list_line);
+            holder.room_nav_next=convertView.findViewById(R.id.item_room_nav_next);
             convertView.setTag(holder);
         }else{
             holder= (HouseManageHolder) convertView.getTag();
@@ -83,6 +85,12 @@ public class HouseManageAdapter extends BaseSwipListAdapter {
         }else{
             holder.room_list_line.setVisibility(View.INVISIBLE);
         }
+        if(householdRoomEntity.getHouseholdType().equals("YZ")){
+            holder.room_nav_next.setVisibility(View.VISIBLE);
+        }else{
+            holder.room_nav_next.setVisibility(View.INVISIBLE);
+        }
+
         return convertView;
     }
 
@@ -92,6 +100,7 @@ public class HouseManageAdapter extends BaseSwipListAdapter {
         TextView project_name;//项目名称
         TextView room_name;//房间名称
         TextView room_list_line;
+        ImageView room_nav_next;
     }
 
     @Override

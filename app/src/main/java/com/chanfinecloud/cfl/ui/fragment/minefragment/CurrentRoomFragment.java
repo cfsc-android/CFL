@@ -19,6 +19,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.smart.RoomHouseholdListAdapter;
 import com.chanfinecloud.cfl.entity.BaseEntity;
+import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
 import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.RoomEntity;
@@ -34,6 +35,10 @@ import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,12 +102,12 @@ public class CurrentRoomFragment extends BaseFragment {
         setContentView(view);
         unbinder = ButterKnife.bind(this, view);
         context=getActivity();
-        userInfo= FileManagement.getUserInfo();
+        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void initData() {
-
+        userInfo= FileManagement.getUserInfo();
         CurrentDistrictEntity currentDistrictEntity = userInfo.getCurrentDistrict();
         if(!TextUtils.isEmpty(currentDistrictEntity.getRoomId())){
             getRoomData();
@@ -199,10 +204,13 @@ public class CurrentRoomFragment extends BaseFragment {
         currentRoomUserType.setText(currentHousehold.getHouseholdTypeDisplay());
     }
 
-    @Override
-    protected void onResumeLazy() {
-        super.onResumeLazy();
-//        getRoomData();
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(EventBusMessage message){
+        if("HouseholdRefresh".equals(message.getMessage())){
+            data.clear();
+            initData();
+        }
     }
 
     @Override
@@ -211,6 +219,7 @@ public class CurrentRoomFragment extends BaseFragment {
         if (unbinder != null) {
             unbinder.unbind();
         }
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick({R.id.current_room_btn_add, R.id.current_room_ll})

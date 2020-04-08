@@ -244,8 +244,5 @@ public class OtherRoomDetailActivity extends BaseActivity {
 
         });
         sendRequest(requestParam, false);
-
-
     }
-
 }

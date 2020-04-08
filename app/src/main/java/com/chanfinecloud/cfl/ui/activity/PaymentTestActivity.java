@@ -76,7 +76,7 @@ public class PaymentTestActivity extends BaseActivity {
                 break;
             case R.id.btn_payment_test_pay:
                 startProgressDialog("正在支付...");
-                handler.sendEmptyMessageDelayed(1, 1000);
+                handler1.sendEmptyMessageDelayed(1, 1000);
                 break;
             case R.id.ll_payment_test_wx:
                 ivPaymentTestWxCheck.setImageResource(R.drawable.payment_list_select);
@@ -97,7 +97,7 @@ public class PaymentTestActivity extends BaseActivity {
     }
 
     @SuppressLint("HandlerLeak")
-    Handler handler = new Handler() {
+    Handler handler1 = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -108,4 +108,12 @@ public class PaymentTestActivity extends BaseActivity {
             }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (handler1 != null){
+            handler1.removeCallbacksAndMessages(null);
+        }
+    }
 }

@@ -6,13 +6,25 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.chanfinecloud.cfl.CFLApplication;
+import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.entity.smart.NoticePushEntity;
+import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
+import com.chanfinecloud.cfl.http.HttpMethod;
+import com.chanfinecloud.cfl.http.JsonParse;
+import com.chanfinecloud.cfl.http.MyCallBack;
+import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.http.XHttp;
+import com.chanfinecloud.cfl.ui.MainActivity;
 import com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity;
+import com.chanfinecloud.cfl.ui.activity.HouseManageActivity;
 import com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity;
 import com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity;
 import com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
+import com.chanfinecloud.cfl.util.LynActivityManager;
+import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -23,6 +35,9 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
+
+import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.config.Config.BASIC;
 
 /**
  * Created by Loong on 2020/3/26.
@@ -90,6 +105,11 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         super.onNotifyMessageArrived(context, notificationMessage);
         //收到通知消息
         LogUtils.d("onNotifyMessageArrived:"+notificationMessage.toString());
+        Gson gson=new Gson();
+        NoticePushEntity noticePush=gson.fromJson(notificationMessage.notificationExtras,NoticePushEntity.class);
+        if("4".equals(noticePush.getType())){
+            UserInfoUtil.refreshUserInfoByServerCache(null);
+        }
     }
 
     @Override
@@ -168,4 +188,9 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         //注册是否成功
         LogUtils.d("onNotificationSettingsCheck:"+b+","+i);
     }
+
+
+
+
+
 }

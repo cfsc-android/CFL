@@ -27,11 +27,13 @@ import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.ui.MainActivity;
 import com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
+import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
 
 import org.greenrobot.eventbus.EventBus;
@@ -216,7 +218,19 @@ public class OtherRoomDetailActivity extends BaseActivity {
                 LogUtils.d(result);
                 BaseEntity baseEntity= JsonParse.parse(result);
                 if(baseEntity.isSuccess()){
-                    getUserInfo();
+                    UserInfoUtil.refreshUserInfoByServerCache(new UserInfoUtil.OnRefreshListener() {
+                        @Override
+                        public void onSuccess() {
+                            LynActivityManager.getInstance().finishActivity(HouseHoldActivity.class);
+                            EventBus.getDefault().post(new EventBusMessage<>("projectSelect"));
+                            finish();
+                        }
+
+                        @Override
+                        public void onFail(String msg) {
+                            showToast(msg);
+                        }
+                    });
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -231,36 +245,6 @@ public class OtherRoomDetailActivity extends BaseActivity {
         });
         sendRequest(requestParam, false);
 
-
-    }
-
-    private void getUserInfo(){
-        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d(result);
-                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result, UserInfoEntity.class);
-                if(baseEntity.isSuccess()){
-                    FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
-                    LynActivityManager.getInstance().finishActivity(HouseHoldActivity.class);
-                    EventBus.getDefault().post(new EventBusMessage<>("projectSelect"));
-                    finish();
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
-
-        });
-
-        sendRequest(requestParam, false);
 
     }
 

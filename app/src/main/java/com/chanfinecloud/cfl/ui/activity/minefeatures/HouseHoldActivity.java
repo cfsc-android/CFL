@@ -62,6 +62,7 @@ public class HouseHoldActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        LogUtils.d("onNewIntent:"+intent.toString());
         data.clear();
         data.add(new CurrentRoomFragment());
         data.add(new OtherRoomFragment());

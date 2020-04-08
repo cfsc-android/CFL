@@ -32,10 +32,8 @@
         <activity android:name=".ui.activity.ComplainActivity" />
         <activity android:name=".ui.activity.RepairsActivity" />
         <activity android:name=".ui.activity.WorkflowStepActivity" />
-        <activity android:name=".ui.activity.ComplainDetailActivity"
-            android:launchMode="singleInstance"/>
-        <activity android:name=".ui.activity.RepairsDetailActivity"
-            android:launchMode="singleInstance"/>
+        <activity android:name=".ui.activity.ComplainDetailActivity" android:launchMode="singleTask"/>
+        <activity android:name=".ui.activity.RepairsDetailActivity" android:launchMode="singleTask"/>
         <activity android:name=".ui.activity.minefeatures.WorkflowListActivity" />
         <activity android:name=".ui.activity.CarManageActivity" />
         <activity android:name=".ui.activity.OtherRoomDetailActivity" />
@@ -48,8 +46,7 @@
         <activity android:name=".ui.activity.UnitSelectActivity" />
         <activity android:name=".ui.activity.FaceCollectionPhotoActivity" />
         <activity android:name=".ui.activity.HouseholdFaceActivity" />
-        <activity android:name=".ui.activity.minefeatures.HouseHoldActivity"
-            android:launchMode="singleInstance"/>
+        <activity android:name=".ui.activity.minefeatures.HouseHoldActivity" android:launchMode="singleTask"/>
         <activity android:name=".ui.activity.homehead.CarLock" />
         <activity android:name=".ui.activity.NewVisitorActivity" />
         <activity android:name=".ui.activity.VisitorQrCodeActivity" />
@@ -57,8 +54,7 @@
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.homehead.UnLock" />
         <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.MainActivity"
-            android:launchMode="singleTask"/>
+        <activity android:name=".ui.MainActivity"/>
         <activity
             android:name=".ui.LaunchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|keyboard"

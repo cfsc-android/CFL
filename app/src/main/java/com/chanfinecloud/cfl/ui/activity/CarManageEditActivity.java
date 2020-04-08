@@ -32,6 +32,7 @@ import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
+import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.weidgt.SpinerPopWindow;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -552,7 +553,11 @@ public class CarManageEditActivity extends BaseActivity {
     private void carCharge(final String startTime, final String endTime){
         Map<String, Object> requestDataMap=new HashMap<>();
         requestDataMap.put("parkSyscode",FileManagement.getParkIndexCode());
-        requestDataMap.put("plateNo",carManageEntity.getParkingNO());
+        if (Utils.isEmpty(carManageEntity.getParkingNO())){
+            requestDataMap.put("plateNo","123456");
+        }else{
+            requestDataMap.put("plateNo",carManageEntity.getParkingNO());
+        }
         requestDataMap.put("fee",feeStr);
         requestDataMap.put("startTime",startTime);
         requestDataMap.put("endTime",endTime);

@@ -2,13 +2,18 @@
 
 buildscript {
     repositories {
-        google()
+        //google()
 
-        jcenter()
+       // jcenter()
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven {
             url 'https://maven.aliyun.com/repository/releases'
         }
+
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
 
     }
@@ -22,9 +27,14 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
+       // google()
 
-        jcenter()
+       // jcenter()
+
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven {
             url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master"

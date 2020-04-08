@@ -98,6 +98,7 @@ public class CarManageActivity extends BaseActivity {
                 openItem.setTitleSize(18);
                 openItem.setTitleColor(Color.WHITE);
                 menu.addMenuItem(openItem);
+
             }
         };
         // 为ListView设置创建器

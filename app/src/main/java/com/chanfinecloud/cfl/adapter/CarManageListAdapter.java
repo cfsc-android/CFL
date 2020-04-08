@@ -167,4 +167,16 @@ public class CarManageListAdapter extends BaseAdapter {
         ImageView check;//编辑选择
         TextView payMode;//缴费模式
     }
+
+   /* @Override
+    public int getItemViewType(int position) {
+        super.getItemViewType(position);
+        int ntype = 1;
+        if (position%2 == 0){
+            ntype = 2;
+        }
+
+        return  ntype;
+
+    }*/
 }

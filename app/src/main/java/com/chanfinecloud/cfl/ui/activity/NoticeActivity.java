@@ -24,6 +24,7 @@ import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.view.RecyclerViewDivider;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -114,7 +115,7 @@ public class NoticeActivity extends BaseActivity {
     private void getData() {
         RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE +"smart/content/pages", HttpMethod.Get);
         Map<String, String> requestMap = new HashMap<>();
-        requestMap.put("projectId", "ec93bb06f5be4c1f19522ca78180e2i9");//ToDO :需修改动态获取
+        requestMap.put("projectId", FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
         requestMap.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());
         requestMap.put("announcementTypeId", getIntent().getExtras().getString("notice_type"));
         requestMap.put("auditStatus", "1");

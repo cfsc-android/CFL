@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.inputmethodservice.KeyboardView;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -13,17 +14,25 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import com.chanfinecloud.cfl.R;
+import com.chanfinecloud.cfl.entity.BaseEntity;
+import com.chanfinecloud.cfl.entity.HikParkingPayment;
 import com.chanfinecloud.cfl.entity.core.Transition;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.HikIscEntity;
+import com.chanfinecloud.cfl.http.HikJsonParse;
 import com.chanfinecloud.cfl.http.HttpMethod;
+import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
+import com.chanfinecloud.cfl.util.IOSTimeTrans;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.weidgt.platenumberview.CarPlateNumberEditView;
 import com.chanfinecloud.cfl.weidgt.platenumberview.PlateNumberKeyboardUtil;
@@ -43,7 +52,6 @@ import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.IOT;
 
 public class ParkingPaymentActivity extends BaseActivity {
-
 
     @BindView(R.id.toolbar_btn_back)
     ImageButton toolbarBtnBack;
@@ -76,6 +84,7 @@ public class ParkingPaymentActivity extends BaseActivity {
     private String billSyscode;
     private String supposeCost;
     private PlateNumberKeyboardUtil plateNumberKeyboardUtil;
+    private String phaseId = FileManagement.getUserInfo().getCurrentDistrict().getPhaseId();
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -84,123 +93,62 @@ public class ParkingPaymentActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         toolbarTvTitle.setText("停车交费");
-        cpnEdit.setOnPlateNumberValid(new CarPlateNumberEditView.OnPlateNumberValid() {
-            @Override
-            public void plateNumberValid(boolean valid) {
-                if (valid) {
-                    btnParkingPaymentSearchMask.setVisibility(View.GONE);
-                } else {
-                    btnParkingPaymentSearchMask.setVisibility(View.VISIBLE);
-                }
+        cpnEdit.setOnPlateNumberValid(valid -> {
+            if (valid) {
+                btnParkingPaymentSearchMask.setVisibility(View.GONE);
+            } else {
+                btnParkingPaymentSearchMask.setVisibility(View.VISIBLE);
             }
         });
+
         EventBus.getDefault().register(this);
     }
 
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        cpnEdit.setOnPlateNumberValid(new CarPlateNumberEditView.OnPlateNumberValid() {
-//            @Override
-//            public void plateNumberValid(boolean valid) {
-//                if (valid) {
-//                    btn_parking_payment_search_mask.setVisibility(View.GONE);
-//                } else {
-//                    btn_parking_payment_search_mask.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
-//        EventBus.getDefault().register(this);
-//        getFaceGroup();
-//        addFace();
-//        queryFace();
-//        updateFace();
-//        deleteFace();
-
-    }
-
-//
-//    private void getParkingPayment_bak(String plateNo) {
-//        Map<String, Object> requestDataMap = new HashMap<>();
-//        requestDataMap.put("plateNo", plateNo);
-//        ApiHttpResult.hikParkingPayment(this, requestDataMap, new HttpUtils.DataCallBack() {
-//            @Override
-//            public void callBack(Object o) {
-//                HikBaseEntity hikBaseEntity = (HikBaseEntity) o;
-//                if (hikBaseEntity.getCode().equals("0")) {
-//                    btn_parking_payment.setVisibility(View.VISIBLE);
-//                    HikParkingPayment hikParkingPayment = (HikParkingPayment) hikBaseEntity.getData();
-//                    tv_parking_car_in_time.setText(IOSTimeTrans.trans(hikParkingPayment.getEnterTime()));
-//                    tv_parking_car_park_time.setText(hikParkingPayment.getParkTime() + "分钟");
-//                    tv_parking_car_payment.setText(hikParkingPayment.getSupposeCost() + "元");
-//                    supposeCost = hikParkingPayment.getSupposeCost();
-//                    tv_parking_car_pay_amount.setText(hikParkingPayment.getPaidCost() + "元");
-//                    billSyscode = hikParkingPayment.getBillSyscode();
-//                } else {
-//                    btn_parking_payment.setVisibility(View.GONE);
-//                    showShortToast("没有查到该车牌下账单信息");
-//                }
-//            }
-//        });
-//    }
-
+    /**
+     * 查询停车待付账单
+     * @param plateNo
+     */
     private void getParkingPayment(String plateNo) {
-        Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("plateNo", plateNo);
-        RequestParam requestParam = new RequestParam(BASE_URL+ IOT +"community/api/car/v1/pay/bill/", HttpMethod.Post);
-        requestParam.setRequestMap(requestMap);
-        requestParam.setParamType(ParamType.Json);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d(result);
-//                HikIscEntity<HikParkingPayment> hikIscEntity = HikJsonParse.parse(result, HikParkingPayment.class);
-//                if (hikIscEntity.getCode().equals("0")) {
-//                    btnParkingPayment.setVisibility(View.VISIBLE);
-//                    tvParkingCarInTime.setText(IOSTimeTrans.trans(hikIscEntity.getData().getEnterTime()));
-//                    tvParkingCarParkTime.setText(hikIscEntity.getData().getParkTime() + "分钟");
-//                    tvParkingCarPayment.setText(hikIscEntity.getData().getSupposeCost() + "元");
-//                    supposeCost = hikIscEntity.getData().getSupposeCost();
-//                    tvParkingCarPayAmount.setText(hikIscEntity.getData().getPaidCost() + "元");
-//                    billSyscode = hikIscEntity.getData().getBillSyscode();
-//                } else {
-//                    btnParkingPayment.setVisibility(View.GONE);
-//                    showToast("没有查到该车牌下账单信息");
-//                }
-            }
+        if(TextUtils.isEmpty(phaseId)){
+            showToast("请先绑定房间！");
+        }else {
+            Map<String, Object> requestMap = new HashMap<>();
+            requestMap.put("plateNo", plateNo);
+            RequestParam requestParam = new RequestParam(BASE_URL+ IOT +"community/api/car/v1/pay/bill/" + phaseId, HttpMethod.Post);
+            requestParam.setRequestMap(requestMap);
+            requestParam.setParamType(ParamType.Json);
+            requestParam.setCallback(new MyCallBack<String>(){
+                @Override
+                public void onSuccess(String result) {
+                    super.onSuccess(result);
+                    LogUtils.d(result);
+                    BaseEntity<HikParkingPayment> baseEntity = JsonParse.parse(result, HikParkingPayment.class);
+                    if(baseEntity.isSuccess()){
+                        btnParkingPayment.setVisibility(View.VISIBLE);
+                        tvParkingCarInTime.setText(IOSTimeTrans.trans(baseEntity.getResult().getEnterTime()));
+                        tvParkingCarParkTime.setText(baseEntity.getResult().getParkTime() + "分钟");
+                        tvParkingCarPayment.setText(baseEntity.getResult().getSupposeCost() + "元");
+                        supposeCost = baseEntity.getResult().getSupposeCost();
+                        tvParkingCarPayAmount.setText(baseEntity.getResult().getPaidCost() + "元");
+                        billSyscode = baseEntity.getResult().getBillSyscode();
+                    } else {
+                        btnParkingPayment.setVisibility(View.GONE);
+                        showToast("没有查到该车牌下账单信息");
+                    }
+                }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    super.onError(ex, isOnCallback);
+                    showToast(ex.getMessage());
+                }
 
-        });
-        sendRequest(requestParam, false);
+            });
+            sendRequest(requestParam, false);
+        }
+
 
     }
-
-//    private void finishPayment_bak(final String actualCost) {
-//        Map<String, Object> requestDataMap = new HashMap<>();
-//        requestDataMap.put("billSyscode", billSyscode);
-//        requestDataMap.put("actualCost", actualCost);
-//        ApiHttpResult.hikFinishPayment(this, requestDataMap, new HttpUtils.DataCallBack() {
-//            @Override
-//            public void callBack(Object o) {
-//                HikBaseEntity hikBaseEntity = (HikBaseEntity) o;
-//                if (hikBaseEntity.getCode().equals("0")) {
-//                    showShortToast("支付成功");
-//                    tv_parking_car_pay_amount.setText(actualCost + "元");
-//                    btn_parking_payment.setVisibility(View.GONE);
-//                } else {
-//                    showShortToast("支付失败");
-//                }
-//            }
-//        });
-//    }
 
     /**
      * 完成收费
@@ -211,8 +159,7 @@ public class ParkingPaymentActivity extends BaseActivity {
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("billSyscode", billSyscode);
         requestMap.put("actualCost", actualCost);
-
-        RequestParam requestParam = new RequestParam(BASE_URL+ IOT +"community/api/car/v1/pay/receipt", HttpMethod.Post);
+        RequestParam requestParam = new RequestParam(BASE_URL+ IOT + "community/api/car/v1/pay/receipt/" + phaseId, HttpMethod.Post);
         requestParam.setRequestMap(requestMap);
         requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
@@ -220,13 +167,16 @@ public class ParkingPaymentActivity extends BaseActivity {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-//                if (result.getCode().equals("0")) {
-//                    showToast("支付成功");
-//                    tvParkingCarPayAmount.setText(actualCost + "元");
-//                    btnParkingPayment.setVisibility(View.GONE);
-//                } else {
-//                    showToast("支付失败");
-//                }
+                BaseEntity baseEntity= JsonParse.parse(result);
+                if(baseEntity.isSuccess()){
+
+                    tvParkingCarPayAmount.setText(actualCost + "元");
+                    btnParkingPayment.setVisibility(View.GONE);
+                    //showToast("支付成功");
+                    Toast.makeText(getApplicationContext(),"支付成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    showToast("支付失败");
+                }
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {

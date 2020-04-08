@@ -9,6 +9,7 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -76,7 +77,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
     @BindView(R.id.btn_take_photo_sure)
     ImageButton btnTakePhotoSure;
 
-    private static final String PATH_IMAGES = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "xiandao";
+    private static final String PATH_IMAGES = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "chainfl";
     @BindView(R.id.cp_face_collection_photo)
     CameraPreview cpFaceCollectionPhoto;
 
@@ -257,6 +258,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             }
             requestParam.setParamType(ParamType.Json);
             requestParam.setRequestMap(requestMap);
+            Log.d( "faceAccess: ", requestMap.toString() );
             requestParam.setCallback(faceAccessBack);
 
             sendRequest(requestParam,false);

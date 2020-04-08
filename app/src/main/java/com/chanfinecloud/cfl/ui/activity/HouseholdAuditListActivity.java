@@ -1,5 +1,6 @@
 package com.chanfinecloud.cfl.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -131,6 +132,10 @@ public class HouseholdAuditListActivity extends BaseActivity {
 
     }
 
+    /**
+     * 通过审核
+     * @param position
+     */
     private void passAudit(int position){
         AuditEntity audit=data.get(position);
         Map<String,String> map=new HashMap<>();
@@ -166,6 +171,10 @@ public class HouseholdAuditListActivity extends BaseActivity {
 
     }
 
+    /**
+     * 审核拒绝
+     * @param position
+     */
     private void refuseAudit(int position){
         AuditEntity audit=data.get(position);
         Map<String,String> map=new HashMap<>();

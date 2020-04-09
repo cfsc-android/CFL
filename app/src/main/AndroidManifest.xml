@@ -26,10 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-
-        <activity android:name=".ui.activity.homehead.VideoCallActivity"></activity>
+        <activity android:name=".ui.activity.homehead.VideoCallActivity" />
         <activity android:name=".ui.activity.CarManageEditActivity" />
         <activity android:name=".ui.activity.UnLockListActivity" />
         <activity android:name=".ui.activity.CarManageAddActivity" />
@@ -90,18 +87,12 @@
         <activity android:name=".ui.activity.CommentDetailActivity" />
         <activity android:name=".ui.activity.PersonActivity" />
         <activity android:name=".ui.activity.ParkingPaymentActivity" />
-        <activity android:name=".ui.activity.PaymentTestActivity" />
-
-
-        <!-- 网络状态监听服务 -->
+        <activity android:name=".ui.activity.PaymentTestActivity" /> <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-        </receiver>
-
-
-        <!-- 友盟 -->
+        </receiver> <!-- 友盟 -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5e7d64e2dbc2ec080a6d05ba" />
@@ -130,18 +121,10 @@
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-
-        <!-- 蒲公英APPKEY 必填 -->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 蒲公英APPKEY 必填 -->
         <meta-data
             android:name="PGYER_APPID"
-            android:value="d67cceb544c6f7d61bbcf11b53b3c1a6" />
-
-
-
-
-        <!-- Since JCore2.0.0 Required SDK核心功能 -->
+            android:value="d67cceb544c6f7d61bbcf11b53b3c1a6" /> <!-- Since JCore2.0.0 Required SDK核心功能 -->
         <!-- 可配置android:process参数将Service放在其他进程中；android:enabled属性不能是false -->
         <!-- 这个是自定义Service，要继承极光JCommonService，可以在更多手机平台上使得推送通道保持的更稳定 -->
         <service
@@ -152,9 +135,7 @@
             <intent-filter>
                 <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>
-        </service>
-
-        <!-- Required since 3.0.7 -->
+        </service> <!-- Required since 3.0.7 -->
         <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定的广播 -->
         <!-- 3.3.0开始所有事件将通过该类回调 -->
         <!-- 该广播需要继承 JPush 提供的 JPushMessageReceiver 类, 并如下新增一个 Intent-Filter -->
@@ -167,10 +148,7 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </receiver>
-
-
-        <!-- provider -->
+        </receiver> <!-- provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.chanfinecloud.cfl.fileprovider"
@@ -181,10 +159,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"
                 tools:replace="android:resource" />
-        </provider>
-
-        <!--报错Failed resolution of: Lorg/apache/http/impl/client/DefaultHttpClient 加上这个就好了 问题原因还不太清楚-->
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        </provider> <!-- 报错Failed resolution of: Lorg/apache/http/impl/client/DefaultHttpClient 加上这个就好了 问题原因还不太清楚 -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

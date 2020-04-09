@@ -754,7 +754,10 @@ public class CarManageEditActivity extends BaseActivity {
             if(flag){
                 startDateStr=info.getValidity().get(0).getFunctionTime().get(0).getStartTime();
             }
-            carCharge(startDateStr,endDateStr);
+            // TODO: 2020/4/9   取消注释
+            //carCharge(startDateStr,endDateStr);
+        }else if ("carCharge".equals(message.getMessage())){
+            showToast("车辆充值成功");
         }
     }
 

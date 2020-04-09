@@ -28,6 +28,11 @@ public class HouseholdAuditListAdapter extends BaseAdapter {
         this.data = data;
     }
 
+    public void setData(List<AuditEntity> data){
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return data.size();
@@ -94,9 +99,9 @@ public class HouseholdAuditListAdapter extends BaseAdapter {
     public int getItemViewType(int position) {
          super.getItemViewType(position);
          AuditEntity auditEntity=data.get(position);
-         int nType = 1;
+         int nType = 2;
          if(auditEntity.getStatus()==ApprovalStatusType.Audit.getType()){
-             nType = 2;
+             nType = 1;
          }
          return nType;
     }

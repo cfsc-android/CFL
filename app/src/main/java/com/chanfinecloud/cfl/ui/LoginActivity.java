@@ -186,6 +186,7 @@ public class LoginActivity extends BaseActivity {
         map.put("fieldValue",mobileNum);
         map.put("tableName","`smart-basic`.cfc_household_info");
         requestParam.setRequestMap(map);
+        requestParam.setAuthorization(false);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

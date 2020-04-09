@@ -30,6 +30,7 @@ import com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity;
 import com.chanfinecloud.cfl.ui.activity.RepairsActivity;
 import com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -174,6 +175,7 @@ public class WorkflowListActivity extends BaseActivity {
         map.put("isFinish", FinishStatusType.UnFinish.getType());
         map.put("type",workflowType.getType());
         map.put("userType", UserType.Household.getType()+"");
+        map.put("userId", FileManagement.getUserInfo().getId() +"");
 
         RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"workflow/api/page", HttpMethod.Get);
         requestParam.setRequestMap(map);

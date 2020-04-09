@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.smart.CarEntity;
+import com.chanfinecloud.cfl.entity.smart.ApprovalStatusType;
 import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.util.XUtilsImageUtils;
 
@@ -42,6 +43,11 @@ public class CarManageListAdapter extends BaseAdapter {
             checkList.add(0);
         }
         this.edit=false;
+    }
+
+    public void  setData(ArrayList<CarEntity> carManageList){
+        this.carManageList = carManageList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -168,15 +174,17 @@ public class CarManageListAdapter extends BaseAdapter {
         TextView payMode;//缴费模式
     }
 
-   /* @Override
+    @Override
     public int getItemViewType(int position) {
         super.getItemViewType(position);
+
+        CarEntity carEntity = carManageList.get(position);
         int ntype = 1;
-        if (position%2 == 0){
+        if (carEntity != null && carEntity.getAuditStatus() == 0){
             ntype = 2;
         }
 
         return  ntype;
 
-    }*/
+    }
 }

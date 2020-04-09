@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -84,42 +85,63 @@ public class CarManageActivity extends BaseActivity {
     }
 
     private void initListView(){
-        carManageListAdapter = new CarManageListAdapter(this,carManageList);
+        if (carManageListAdapter == null){
+            carManageListAdapter = new CarManageListAdapter(this,carManageList);
+        }else{
+            carManageListAdapter.setData(carManageList);
+        }
+
         lvCarManageList.setAdapter(carManageListAdapter);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
             public void create(SwipeMenu menu) {
-                SwipeMenuItem openItem = new SwipeMenuItem(
-                        getApplicationContext());
-                openItem.setBackground(new ColorDrawable(Color.rgb(0xF9,0x3F, 0x25)));
-                openItem.setWidth(dp2px(90));
-                openItem.setTitle("删除");
-                openItem.setTitleSize(18);
-                openItem.setTitleColor(Color.WHITE);
-                menu.addMenuItem(openItem);
+
+                switch(menu.getViewType()){
+                    case 1:
+                        SwipeMenuItem openItem = new SwipeMenuItem(
+                                getApplicationContext());
+
+                        openItem.setBackground(new ColorDrawable(Color.rgb(0xF9,0x3F, 0x25)));
+                        openItem.setWidth(dp2px(90));
+                        openItem.setTitle("删除");
+                        openItem.setTitleSize(18);
+                        openItem.setTitleColor(Color.WHITE);
+                        menu.addMenuItem(openItem);
+                        break;
+
+                }
+
 
             }
         };
         // 为ListView设置创建器
+        lvCarManageList.setMenuCreator(null);
         lvCarManageList.setMenuCreator(creator);
 
         // 第2步：为ListView设置菜单项点击监听器，来监听菜单项的点击事件
         lvCarManageList.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
-                new AlertDialog.Builder(CarManageActivity.this)
-                        .setTitle("删除车辆")
-                        .setMessage("确认要删除车辆？")
-                        .setCancelable(true)
-                        .setNegativeButton(
-                                "确认删除",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        deleteCar(position);
-                                    }
-                                }).show();
+                CarEntity carEntity = carManageList.get(position);
+                if (carEntity != null && carEntity.getAuditStatus() == 0){
+                    showToast("审核中，不能删除");
+                }else{
+                    new AlertDialog.Builder(CarManageActivity.this)
+                            .setTitle("删除车辆")
+                            .setMessage("确认要删除车辆？")
+                            .setCancelable(true)
+                            .setNegativeButton(
+                                    "确认删除",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            deleteCar(position);
+                                        }
+                                    }).show();
+                }
+
                 return false;
             }
         });
@@ -187,7 +209,10 @@ public class CarManageActivity extends BaseActivity {
                 if(baseEntity.isSuccess()){
                     carManageList.clear();
                     carManageList.addAll(baseEntity.getResult().getData());
-                    carManageListAdapter.notifyDataSetChanged();
+                    carManageListAdapter.setData(carManageList);
+
+                    lvCarManageList.setAdapter(carManageListAdapter);
+
                 }else{
                     showToast(baseEntity.getMessage());
                 }

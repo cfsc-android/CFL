@@ -22,6 +22,7 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.FileEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.eventbus.NickNameEventBusData;
 import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
@@ -41,6 +42,8 @@ import com.google.gson.Gson;
 import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.util.LogUtil;
 
 import java.io.File;
@@ -107,6 +110,7 @@ public class PersonActivity extends BaseActivity {
         ButterKnife.bind(this);
         toolbarTvTitle.setText("个人资料");
         init();
+        EventBus.getDefault().register(this);
     }
 
     private void init(){
@@ -177,7 +181,7 @@ public class PersonActivity extends BaseActivity {
                 }
                 break;
             case R.id.person_ll_nick_name:
-                editNickName();
+                startActivity(PersonNickNameActivity.class);
                 break;
         }
     }
@@ -443,6 +447,15 @@ public class PersonActivity extends BaseActivity {
             }
         });
         sendRequest(requestParam,false);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(final EventBusMessage message){
+        if("nickName".equals(message.getMessage())){
+            final Map<String,Object> map=new HashMap<>();
+            map.put("nickName",((NickNameEventBusData)message.getData()).getNickName());
+            updateUser(map);
+        }
     }
 
 }

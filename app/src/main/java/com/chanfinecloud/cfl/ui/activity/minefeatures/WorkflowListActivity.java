@@ -172,9 +172,9 @@ public class WorkflowListActivity extends BaseActivity {
         Map<String,String> map=new HashMap<>();
         map.put("pageNo",page+"");
         map.put("pageSize",pageSize+"");
-        map.put("isFinish", FinishStatusType.UnFinish.getType());
         map.put("type",workflowType.getType());
         map.put("userType", UserType.Household.getType()+"");
+        map.put("userId", FileManagement.getUserInfo().getId() +"");
         map.put("userId", FileManagement.getUserInfo().getId() +"");
 
         RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"workflow/api/page", HttpMethod.Get);

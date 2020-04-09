@@ -39,6 +39,8 @@ import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
 import com.chanfinecloud.cfl.weidgt.SpinerPopWindow;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -163,6 +165,8 @@ public class CarLock extends BaseActivity {
 
             }
         });
+        carLockSrl.setPrimaryColorsId(R.color.view_background,R.color.text_primary);
+        carLockSrl.setRefreshHeader(new ClassicsHeader(this).setSpinnerStyle(SpinnerStyle.Translate));
         carLockSrl.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {

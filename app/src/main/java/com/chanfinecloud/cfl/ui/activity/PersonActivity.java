@@ -215,9 +215,9 @@ public class PersonActivity extends BaseActivity {
         builder.setTitle("请选择性别：");
         final String[] cities = {"男", "女"};
         int checkedItem;
-        if ( sex.equals("0") ){
+        if ( !TextUtils.isEmpty(sex) && sex.equals("0") ){
             checkedItem = 0;
-        }else if (sex.equals("1")){
+        }else if (!TextUtils.isEmpty(sex) && sex.equals("1")){
             checkedItem = 1;
         }else{
             checkedItem = -1;

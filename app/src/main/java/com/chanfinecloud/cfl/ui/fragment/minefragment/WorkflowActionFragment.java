@@ -158,6 +158,10 @@ public class WorkflowActionFragment extends BaseFragment {
                         public void onAnimationStart(Animator animation, boolean isReverse) {
                             super.onAnimationStart(animation, isReverse);
                             AnimationUtil.startRotateAnimation(workflowActionToggle,180,0,200);
+
+                            AnimationUtil.startRotateAnimation(workflowActionName,180,0,200);
+
+
                         }
                     });
                 }else{
@@ -167,6 +171,7 @@ public class WorkflowActionFragment extends BaseFragment {
                             super.onAnimationStart(animation, isReverse);
                             AnimationUtil.startRotateAnimation(workflowActionToggle,0,180,200);
 
+                            AnimationUtil.startRotateAnimation(workflowActionName,0,180,200);
                         }
 
                         @Override
@@ -463,6 +468,7 @@ public class WorkflowActionFragment extends BaseFragment {
     private void workflowAction(Map<String,Object> map){
 
         RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"workflow/api/push/"+workflowType.getType(), HttpMethod.Post);
+        requestParam.setRequestMap(map);
         requestParam.setParamType(ParamType.Json);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override

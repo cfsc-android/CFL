@@ -17,6 +17,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.smart.HouseholdAuditListAdapter;
 import com.chanfinecloud.cfl.entity.BaseEntity;
+import com.chanfinecloud.cfl.entity.smart.ApprovalStatusType;
 import com.chanfinecloud.cfl.entity.smart.AuditEntity;
 import com.chanfinecloud.cfl.entity.smart.AuditListEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
@@ -83,11 +84,18 @@ public class HouseholdAuditListActivity extends BaseActivity {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 LogUtil.d("position:"+position+" index:"+index);
-                if(index==0){
-                    refuseAudit(position);
+                AuditEntity auditEntity=data.get(position);
+
+                if(auditEntity.getStatus() != ApprovalStatusType.Audit.getType()){
+                    if(index==0){
+                        refuseAudit(position);
+                    }else{
+                        passAudit(position);
+                    }
                 }else{
-                    passAudit(position);
+                    showToast("已经处理过了，需要重新申请");
                 }
+
                 return false;
             }
         });
@@ -115,7 +123,8 @@ public class HouseholdAuditListActivity extends BaseActivity {
                 if(baseEntity.isSuccess()){
                     data.clear();
                     data.addAll(baseEntity.getResult().getData());
-                    adapter.notifyDataSetChanged();
+                    adapter.setData(data);
+                    householdAuditList.setAdapter(adapter);
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -231,9 +240,7 @@ public class HouseholdAuditListActivity extends BaseActivity {
                     passItem.setTitleColor(Color.WHITE);
                     menu.addMenuItem(passItem);
                     break;
-                case 2:
 
-                    break;
             }
 
         }

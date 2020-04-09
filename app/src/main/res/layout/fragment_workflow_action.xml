@@ -32,7 +32,8 @@
     <FrameLayout
         android:id="@+id/workflow_action_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_10">
         <LinearLayout
             android:id="@+id/workflow_action_content_ll"
             android:layout_width="match_parent"

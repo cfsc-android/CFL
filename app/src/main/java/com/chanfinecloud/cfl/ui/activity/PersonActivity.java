@@ -408,7 +408,7 @@ public class PersonActivity extends BaseActivity {
         if("nickName".equals(message.getMessage())){
             final Map<String,Object> map=new HashMap<>();
             map.put("nickName",((NickNameEventBusData)message.getData()).getNickName());
-            updateUser(map);
+            updateUser(map, "nickName");
         }
     }
 

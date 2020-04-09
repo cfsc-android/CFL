@@ -36,4 +36,9 @@ public class Config {
     public static final String[] PERMISSION={Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};//应用所需运行时权限
 
     public static final int CODETIME = 60;//验证码失效，单位：秒
+
+    public static final int SET_JPUSH_ALIAS_SEQUENCE=0x01;//极光推送设置别名操作序列号
+    public static final int SET_JPUSH_TAGS_SEQUENCE=0x02;//极光推送设置标签操作序列号
+    public static final int CLEAR_JPUSH_TAGS_SEQUENCE=0x03;//极光推送清空标签操作序列号
+    public static final int DELETE_JPUSH_ALIAS_SEQUENCE=0x04;//极光推送删除别名操作序列号
 }

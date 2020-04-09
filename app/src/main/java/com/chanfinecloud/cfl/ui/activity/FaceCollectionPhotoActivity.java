@@ -33,6 +33,7 @@ import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
+import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.chanfinecloud.cfl.weidgt.CameraPreview;
 
 import org.greenrobot.eventbus.EventBus;
@@ -106,7 +107,6 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         name=bundle.getString("name");
         update=bundle.getBoolean("update");
         roomList = FileManagement.getUserInfo().getRoomList();
-        toolbarTvTitle.setVisibility(GONE);
         if(Build.VERSION.SDK_INT>=23){
             int hasPermission = checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
             if(hasPermission!= PackageManager.PERMISSION_GRANTED){
@@ -238,6 +238,9 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         return super.isClickable();
     }
 
+    /**
+     * 下发人脸
+     */
     private void faceAccess(){
         flag=0;
         for (int i = 0; i < roomList.size(); i++) {
@@ -249,8 +252,8 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             RequestParam requestParam = new RequestParam(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId(), HttpMethod.Put);
 
             if(update){
-               // requestParam.setMethod(HttpMethod.Put);
-               // requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
+                requestParam.setMethod(HttpMethod.Put);
+                requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
 
             }else{
                 requestParam.setMethod(HttpMethod.Post);
@@ -265,6 +268,9 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 下发人脸接口回调处理
+     */
     private MyCallBack faceAccessBack=new MyCallBack<String>(){
         @Override
         public void onSuccess(String result) {
@@ -274,6 +280,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             BaseEntity baseEntity= JsonParse.parse(result);
             if(!baseEntity.isSuccess()){
                 showToast(baseEntity.getMessage());
+                stopProgressDialog();
             }
         }
 
@@ -282,6 +289,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             super.onError(ex, isOnCallback);
             flag++;
             showToast(ex.getMessage());
+            stopProgressDialog();
         }
 
         @Override
@@ -289,7 +297,10 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             super.onFinished();
             if(flag==roomList.size()){
                 EventBusMessage<FaceCollectionEventBusData> eventBusMessage=new EventBusMessage<>("faceCollection");
-                eventBusMessage.setData(new FaceCollectionEventBusData(file.getCreateTime(),file.getDomain()+file.getUrl()));
+                String createTime = file.getCreateTime();
+                createTime=createTime.replace("T"," ");
+                createTime=createTime.substring(0,19);
+                eventBusMessage.setData(new FaceCollectionEventBusData(createTime,file.getDomain()+file.getUrl()));
                 EventBus.getDefault().post(eventBusMessage);
                 updateHouseholdFace(file.getId());
             }
@@ -297,7 +308,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
     };
 
     /**
-     * 上传
+     * 上传照片
      */
     private void uploadFace(){
 
@@ -317,6 +328,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
                     faceAccess();
                 }else{
                     showToast(baseEntity.getMessage());
+                    stopProgressDialog();
                 }
             }
 
@@ -324,17 +336,18 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
+                stopProgressDialog();
             }
 
         });
-        sendRequest(requestParam, false);
+        sendRequest(requestParam, true);
 
 
     }
 
     /**
-     * 回显刷新人脸信息
-     * @param fileId
+     * 更新用户人脸信息
+     * @param fileId 人脸ID
      */
     private void updateHouseholdFace(String fileId){
         Map<String,Object> map=new HashMap<>();
@@ -350,7 +363,18 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
                 LogUtils.d(result);
                 BaseEntity baseEntity= JsonParse.parse(result);
                 if(baseEntity.isSuccess()){
-                    getUserInfo();
+                    UserInfoUtil.refreshUserInfoByServerCache(new UserInfoUtil.OnRefreshListener() {
+                        @Override
+                        public void onSuccess() {
+                            finish();
+                        }
+
+                        @Override
+                        public void onFail(String msg) {
+                            showToast(msg);
+                        }
+                    });
+
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -362,36 +386,15 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
                 showToast(ex.getMessage());
             }
 
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                stopProgressDialog();
+            }
         });
         sendRequest(requestParam, false);
 
 
     }
 
-    // TODO: 2020/4/3 这个地方通多手机号更新了一下user数据  注意下 
-    private void getUserInfo(){
-        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d(result);
-                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result,UserInfoEntity.class);
-                if(baseEntity.isSuccess()){
-                    FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
-                    finish();
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
-
-        });
-        sendRequest(requestParam, false);
-    }
 }

@@ -316,4 +316,20 @@ public class FileManagement {
         return (ResourceEntity) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","avatar");
     }
 
+    public static void setPushFlag(boolean flag){
+        SharedPreferencesUtil.getInstance().saveBooleanValue(CFLApplication.getAppContext(),"cfl","PushFlag",flag);
+    }
+
+    public static boolean getPushFlag(){
+        return SharedPreferencesUtil.getInstance().getBooleanValue(CFLApplication.getAppContext(),"cfl","PushFlag",true);
+    }
+
+
+    public static void setNotificationFlag(boolean flag){
+        SharedPreferencesUtil.getInstance().saveBooleanValue(CFLApplication.getAppContext(),"cfl","NotificationFlag",flag);
+    }
+
+    public static boolean getNotificationFlag(){
+        return SharedPreferencesUtil.getInstance().getBooleanValue(CFLApplication.getAppContext(),"cfl","NotificationFlag",true);
+    }
 }

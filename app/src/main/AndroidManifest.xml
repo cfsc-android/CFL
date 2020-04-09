@@ -86,6 +86,7 @@
         <activity android:name=".ui.activity.CommentActivity" />
         <activity android:name=".ui.activity.CommentDetailActivity" />
         <activity android:name=".ui.activity.PersonActivity" />
+        <activity android:name=".ui.activity.PersonNickNameActivity" />
         <activity android:name=".ui.activity.ParkingPaymentActivity" />
         <activity android:name=".ui.activity.PaymentTestActivity" /> <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">

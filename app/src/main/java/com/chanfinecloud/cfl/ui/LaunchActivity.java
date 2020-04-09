@@ -252,41 +252,6 @@ public class LaunchActivity extends BaseActivity {
     }
 
 
-    /**
-     * 缓存用户头像信息
-     */
-    private void initAvatarResource(String avatarId){
-        RequestParam requestParam=new RequestParam(BASE_URL+FILE+"files/byid/"+avatarId, HttpMethod.Get);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d("result",result);
-                BaseEntity<FileEntity> baseEntity= JsonParse.parse(result,FileEntity.class);
-                if(baseEntity.isSuccess()){
-                    ResourceEntity resourceEntity=new ResourceEntity();
-                    resourceEntity.setId(baseEntity.getResult().getId());
-                    resourceEntity.setContentType(baseEntity.getResult().getContentType());
-                    resourceEntity.setCreateTime(baseEntity.getResult().getCreateTime());
-                    resourceEntity.setName(baseEntity.getResult().getName());
-                    resourceEntity.setUrl(baseEntity.getResult().getDomain()+baseEntity.getResult().getUrl());
-                    FileManagement.setAvatarReseource(resourceEntity);//缓存用户头像信息
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
-
-            @Override
-            public void onFinished() {
-                super.onFinished();
-                startActivity(MainActivity.class);
-            }
-        });
-        sendRequest(requestParam,false);
-    }
-
-
-
     @OnClick(R.id.tv_loading_version)
     public void onViewClicked() {
         startActivity(LoginActivity.class);

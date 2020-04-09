@@ -13,6 +13,7 @@ import com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity;
 import com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity;
 import com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity;
 import com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.google.gson.Gson;
@@ -25,6 +26,8 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
+
+import static com.chanfinecloud.cfl.config.Config.CLEAR_JPUSH_TAGS_SEQUENCE;
 
 /**
  * Created by Loong on 2020/3/26.
@@ -145,10 +148,6 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         //设置不成功就继续设置
         if(jPushMessage.getErrorCode()!=0){
             JPushInterface.setTags(CFLApplication.getAppContext(),jPushMessage.getSequence(),jPushMessage.getTags());
-        }else{
-            if(jPushMessage.getSequence()==0x03){
-                EventBus.getDefault().post(new EventBusMessage<>("ClearTag"));
-            }
         }
 
     }
@@ -181,10 +180,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         super.onNotificationSettingsCheck(context, b, i);
         //注册是否成功
         LogUtils.d("onNotificationSettingsCheck:"+b+","+i);
+        FileManagement.setNotificationFlag(b);
     }
-
-
-
-
 
 }

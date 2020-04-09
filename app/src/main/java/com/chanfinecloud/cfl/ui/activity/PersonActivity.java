@@ -22,6 +22,7 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.FileEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.eventbus.NickNameEventBusData;
 import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
@@ -35,12 +36,15 @@ import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.SharedPreferencesManage;
+import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.chanfinecloud.cfl.weidgt.photopicker.PhotoPicker;
 import com.chanfinecloud.cfl.weidgt.wheelview.BirthWheelDialog;
 import com.google.gson.Gson;
 import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.util.LogUtil;
 
 import java.io.File;
@@ -107,6 +111,7 @@ public class PersonActivity extends BaseActivity {
         ButterKnife.bind(this);
         toolbarTvTitle.setText("个人资料");
         init();
+        EventBus.getDefault().register(this);
     }
 
     private void init(){
@@ -155,7 +160,7 @@ public class PersonActivity extends BaseActivity {
                     public void returnData(String dateText, String dateValue) {
                         Map<String,Object> map=new HashMap<>();
                         map.put("birthday",dateText+" 00:00:00");
-                        updateUser(map);
+                        updateUser(map,"birthday");
                         wheelDialog.cancel();
                     }
                 });
@@ -177,7 +182,7 @@ public class PersonActivity extends BaseActivity {
                 }
                 break;
             case R.id.person_ll_nick_name:
-                editNickName();
+                startActivity(PersonNickNameActivity.class);
                 break;
         }
     }
@@ -193,11 +198,9 @@ public class PersonActivity extends BaseActivity {
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //按下确定键后的事件
-                        Toast.makeText(getApplicationContext(), et.getText().toString(), Toast.LENGTH_LONG).show();
                         Map<String,Object> map = new HashMap<>();
                         map.put("nickName",et.getText().toString());
-                        updateUser(map);
+                        updateUser(map,"nickName");
                     }
                 }).setNegativeButton("取消",null).show();
 
@@ -211,9 +214,9 @@ public class PersonActivity extends BaseActivity {
         builder.setTitle("请选择性别：");
         final String[] cities = {"男", "女"};
         int checkedItem;
-        if ( sex.equals("0") ){
+        if ( !TextUtils.isEmpty(sex) && sex.equals("0") ){
             checkedItem = 0;
-        }else if (sex.equals("1")){
+        }else if (!TextUtils.isEmpty(sex) && sex.equals("1")){
             checkedItem = 1;
         }else{
             checkedItem = -1;
@@ -230,7 +233,7 @@ public class PersonActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 Map<String,Object> map=new HashMap<>();
                 map.put("gender",sex);
-                updateUser(map);
+                updateUser(map,"gender");
                 dialog.dismiss();
             }
         });
@@ -248,7 +251,7 @@ public class PersonActivity extends BaseActivity {
      * 更新用户信息
      * @param map
      */
-    private void updateUser(Map<String,Object> map){
+    private void updateUser(Map<String,Object> map,String type){
         RequestParam requestParam=new RequestParam(BASE_URL + BASIC + "basic/householdInfo/specificField",HttpMethod.Put);
         map.put("id", userInfoEntity.getId());
         requestParam.setRequestMap(map);
@@ -260,7 +263,35 @@ public class PersonActivity extends BaseActivity {
                 LogUtils.d("result",result);
                 BaseEntity baseEntity= JsonParse.parse(result);
                 if(baseEntity.isSuccess()){
-                    getUserInfo();
+                    UserInfoUtil.refreshUserInfo(new UserInfoUtil.OnRefreshListener() {
+                        @Override
+                        public void onSuccess() {
+                            if(type.equals("avatar")){
+                                UserInfoUtil.initAvatarResource(new UserInfoUtil.OnRefreshListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        init();
+                                        EventBus.getDefault().post(new EventBusMessage<>("refresh"));
+                                    }
+
+                                    @Override
+                                    public void onFail(String msg) {
+                                        showToast(msg);
+                                    }
+                                });
+                            }else{
+                                init();
+                                EventBus.getDefault().post(new EventBusMessage<>("refresh"));
+                            }
+
+                        }
+
+                        @Override
+                        public void onFail(String msg) {
+                            showToast(msg);
+                        }
+                    });
+
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -270,90 +301,17 @@ public class PersonActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
+
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
                 stopProgressDialog();
             }
         });
         sendRequest(requestParam,true);
     }
-
-    /**
-     * 获取用户信息
-     */
-    private void getUserInfo(){
-        RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/householdInfo/currentHousehold", HttpMethod.Get);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d("result",result);
-                BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result, UserInfoEntity.class);
-                if(baseEntity.isSuccess()){
-                    FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
-
-                    if(!TextUtils.isEmpty(baseEntity.getResult().getAvatarId())){
-                        initAvatarResource(baseEntity.getResult().getAvatarId());
-                    }else{
-                        init();
-                        EventBus.getDefault().post(new EventBusMessage<>("refresh"));
-                    }
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
-
-            @Override
-            public void onFinished() {
-                super.onFinished();
-                stopProgressDialog();
-            }
-        });
-        sendRequest(requestParam,false);
-    }
-
-
-    /**
-     * 缓存用户头像信息
-     */
-    private void initAvatarResource(String avatarId){
-        RequestParam requestParam=new RequestParam(BASE_URL+FILE+"files/byid/"+avatarId, HttpMethod.Get);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d("result",result);
-                BaseEntity<com.chanfinecloud.cfl.entity.smart.FileEntity> baseEntity= JsonParse.parse(result, com.chanfinecloud.cfl.entity.smart.FileEntity.class);
-                if(baseEntity.isSuccess()){
-                    ResourceEntity resourceEntity=new ResourceEntity();
-                    resourceEntity.setId(baseEntity.getResult().getId());
-                    resourceEntity.setContentType(baseEntity.getResult().getContentType());
-                    resourceEntity.setCreateTime(baseEntity.getResult().getCreateTime());
-                    resourceEntity.setName(baseEntity.getResult().getName());
-                    resourceEntity.setUrl(baseEntity.getResult().getDomain()+baseEntity.getResult().getUrl());
-                    FileManagement.setAvatarReseource(resourceEntity);//缓存用户头像信息
-                    init();
-                    EventBus.getDefault().post(new EventBusMessage<>("refresh"));
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
-
-            @Override
-            public void onFinished() {
-                super.onFinished();
-                stopProgressDialog();
-                startActivity(MainActivity.class);
-            }
-        });
-        sendRequest(requestParam,false);
-    }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -416,7 +374,7 @@ public class PersonActivity extends BaseActivity {
      * 上传照片
      * @param path 图片路径
      */
-    private void uploadPic(final String path){
+    private void uploadPic(String path){
         RequestParam requestParam=new RequestParam(BASE_URL+ FILE +"files-anon",HttpMethod.Upload);
         Map<String,Object> map=new HashMap<>();
         map.put("UploadFile",new File(path));
@@ -430,7 +388,7 @@ public class PersonActivity extends BaseActivity {
                 if(baseEntity.isSuccess()){
                     Map<String,Object> map=new HashMap<>();
                     map.put("avatarId",baseEntity.getResult().getId());
-                    updateUser(map);
+                    updateUser(map,"avatar");
                 }else{
                     showToast(baseEntity.getMessage());
                 }
@@ -443,6 +401,15 @@ public class PersonActivity extends BaseActivity {
             }
         });
         sendRequest(requestParam,false);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(final EventBusMessage message){
+        if("nickName".equals(message.getMessage())){
+            final Map<String,Object> map=new HashMap<>();
+            map.put("nickName",((NickNameEventBusData)message.getData()).getNickName());
+            updateUser(map);
+        }
     }
 
 }

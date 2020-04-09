@@ -344,6 +344,7 @@ public class RegisterActivity extends BaseActivity {
         map.put("fieldValue",etTelNo.getText().toString());
         map.put("tableName","`smart-basic`.cfc_household_info");
         requestParam.setRequestMap(map);
+        requestParam.setAuthorization(false);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

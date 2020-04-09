@@ -14,10 +14,20 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.chanfinecloud.cfl.R;
+import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.entity.eventbus.FaceCollectionEventBusData;
+import com.chanfinecloud.cfl.entity.smart.FileEntity;
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.RoomHouseholdEntity;
+import com.chanfinecloud.cfl.http.HttpMethod;
+import com.chanfinecloud.cfl.http.JsonParse;
+import com.chanfinecloud.cfl.http.MyCallBack;
+import com.chanfinecloud.cfl.http.RequestParam;
+import com.chanfinecloud.cfl.http.XHttp;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
+import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.PermissionsUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,6 +38,9 @@ import org.xutils.common.util.LogUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.config.Config.FILE;
 
 public class HouseholdFaceActivity extends BaseActivity {
 
@@ -71,22 +84,7 @@ public class HouseholdFaceActivity extends BaseActivity {
         householdEntity= (RoomHouseholdEntity) getIntent().getExtras().getSerializable("household");
         if (householdEntity != null)
             toolbarTvTitle.setText(TextUtils.isEmpty(householdEntity.getNickName())?"人脸信息":householdEntity.getNickName());
-        if(householdEntity != null && householdEntity.getFaceInfos()!=null&&householdEntity.getFaceInfos().size()>0){
-            Glide.with(this)
-                    .load(householdEntity.getFaceInfos().get(0).getUrl())
-                    .circleCrop()
-                    .error(R.drawable.ic_default_img)
-                    .into(householdFaceIvPic);
-            householdFaceTvText.setText(householdEntity.getFaceInfos().get(0).getCreateTime());
-        }else{
-            Glide.with(this)
-                    .load(R.drawable.icon_user_default)
-                    .circleCrop()
-                    .into(householdFaceIvPic);
-            householdFaceTvText.setText("人脸照片尚未上传");
-        }
-
-
+        initFaceResource();
         PermissionsUtils.getInstance().checkPermissions(this, permission, new PermissionsUtils.IPermissionsResult() {
             @Override
             public void success() {
@@ -101,6 +99,68 @@ public class HouseholdFaceActivity extends BaseActivity {
             }
         });
         EventBus.getDefault().register(this);
+    }
+
+    /**
+     * 加载人脸
+     */
+    private void initFaceResource(){
+        if(householdEntity!=null&&householdEntity.getFaceId()!=null){
+            RequestParam requestParam=new RequestParam(BASE_URL+FILE+"files/byid/"+householdEntity.getFaceId(), HttpMethod.Get);
+            requestParam.setCallback(new MyCallBack<String>(){
+                @Override
+                public void onSuccess(String result) {
+                    super.onSuccess(result);
+                    LogUtils.d(result);
+                    BaseEntity<FileEntity> baseEntity= JsonParse.parse(result,FileEntity.class);
+                    if(baseEntity.isSuccess()){
+                        initFaceView(baseEntity.getResult());
+                    }else{
+                        showToast(baseEntity.getMessage());
+                        initFaceView(null);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    super.onError(ex, isOnCallback);
+                    showToast(ex.getMessage());
+                    initFaceView(null);
+                }
+
+                @Override
+                public void onFinished() {
+                    super.onFinished();
+                    stopProgressDialog();
+                }
+            });
+            sendRequest(requestParam,true);
+        }
+    }
+
+    /**
+     * 加载人脸图片
+     * @param fileEntity FileEntity
+     */
+    private void initFaceView(FileEntity fileEntity){
+        if(fileEntity!=null){
+            Glide.with(HouseholdFaceActivity.this)
+                    .load(fileEntity.getDomain()+fileEntity.getUrl())
+                    .circleCrop()
+                    .error(R.drawable.ic_default_img)
+                    .into(householdFaceIvPic);
+            String createTime = fileEntity.getCreateTime();
+            createTime=createTime.replace("T"," ");
+            createTime=createTime.substring(0,19);
+            householdFaceTvText.setText("上传时间:"+createTime);
+            householdFaceBtnCollection.setText("重新上传");
+        }else{
+            Glide.with(HouseholdFaceActivity.this)
+                    .load(R.drawable.icon_user_default)
+                    .circleCrop()
+                    .into(householdFaceIvPic);
+            householdFaceTvText.setText("人脸照片尚未上传");
+        }
     }
 
     @Override

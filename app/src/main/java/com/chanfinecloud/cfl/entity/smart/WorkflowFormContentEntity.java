@@ -18,7 +18,9 @@ public class WorkflowFormContentEntity implements Serializable {
      */
 
     private String formItemType;
+    private String formKey;
     private String formItemLabel;
+    private String fieldName;
     private int sort;
 
     public String getFormItemType() {
@@ -35,6 +37,22 @@ public class WorkflowFormContentEntity implements Serializable {
 
     public void setFormItemLabel(String formItemLabel) {
         this.formItemLabel = formItemLabel;
+    }
+
+    public String getFormKey() {
+        return formKey;
+    }
+
+    public void setFormKey(String formKey) {
+        this.formKey = formKey;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
     }
 
     public int getSort() {

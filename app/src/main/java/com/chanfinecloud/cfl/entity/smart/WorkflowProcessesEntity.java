@@ -46,7 +46,15 @@ public class WorkflowProcessesEntity implements Serializable {
     private String processResult;
     private List<ResourceEntity> resourceValues;
     private List<OperationInfoEntity> operationInfos;
+    private List<WorkflowFormContentEntity> formContent;
 
+    public List<WorkflowFormContentEntity> getFormContent() {
+        return formContent;
+    }
+
+    public void setFormContent(List<WorkflowFormContentEntity> formContent) {
+        this.formContent = formContent;
+    }
     public List<ResourceEntity> getResourceValues() {
         return resourceValues;
     }

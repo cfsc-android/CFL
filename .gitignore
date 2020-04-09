@@ -10,3 +10,5 @@
 /UMLibrary/build/
 /app/_default/
 /.idea/
+/UMLibrary/build/intermediates/
+/UMLibrary/build/generated/

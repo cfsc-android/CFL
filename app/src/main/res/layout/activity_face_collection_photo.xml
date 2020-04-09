@@ -29,9 +29,9 @@
         <ImageView
             android:id="@+id/iv_face_collection_photo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_300"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/dp_240"
+            android:layout_marginBottom="@dimen/dp_200"
             android:scaleType="fitCenter"
             android:src="@drawable/bg_face_collection_photo"/>
 

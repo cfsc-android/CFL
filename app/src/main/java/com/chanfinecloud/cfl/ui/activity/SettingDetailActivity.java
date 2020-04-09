@@ -3,13 +3,16 @@ package com.chanfinecloud.cfl.ui.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.DataCleanManager;
+import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.FileSizeUtil;
 
 import java.io.File;
@@ -17,6 +20,8 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+
 import static android.view.View.VISIBLE;
 import static com.chanfinecloud.cfl.config.Config.LOCAL_PATH;
 
@@ -42,30 +47,46 @@ public class SettingDetailActivity extends BaseActivity {
         String type=getIntent().getExtras().getString("type");
         if("0".equals(type)){
             llSettingDetailNotice.setVisibility(VISIBLE);
+            if(!FileManagement.getNotificationFlag()){
+                new AlertDialog.Builder(SettingDetailActivity.this)
+                        .setTitle("通知权限")
+                        .setMessage("应用通知权限关闭，去开启")
+                        .setCancelable(false)
+                        .setNegativeButton("去开启",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                JPushInterface.goToAppNotificationSettings(CFLApplication.getAppContext());
+                            }
+                        }).
+                        setNeutralButton("下次再说", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+            }
         }else if("1".equals(type)){
             llsettingDetailCache.setVisibility(VISIBLE);
         }
         toolbarTvTitle.setText(getIntent().getExtras().getString("title"));
         //暂时未接入极光推送，所以暂时未设置=================================
-//        if("0".equals(u.getNoticeFlag())){
-//            s_setting_detail_notice.setChecked(false);
-//        }else{
-//            s_setting_detail_notice.setChecked(true);
-//        }
-//        s_setting_detail_notice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                Log.e("isChecked",isChecked+"");
-//                if(isChecked){
-//                   FileManagement.setNoticeFlag("1");
-//                    JPushInterface.resumePush(getApplicationContext());
-//                }else{
-//                    //FileManagement.setNoticeFlag("0");
-//                    //JPushInterface.stopPush(getApplicationContext());
-//
-//                }
-//            }
-//        });
+        if(FileManagement.getPushFlag()){
+            SSettingDetailNotice.setChecked(true);
+        }else{
+            SSettingDetailNotice.setChecked(false);
+        }
+        SSettingDetailNotice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    FileManagement.setPushFlag(true);
+                    JPushInterface.resumePush(getApplicationContext());
+                }else{
+                    FileManagement.setPushFlag(false);
+                    JPushInterface.stopPush(getApplicationContext());
+                }
+            }
+        });
 
     }
 

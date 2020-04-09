@@ -1,6 +1,8 @@
 package com.chanfinecloud.cfl.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -34,6 +36,7 @@ import com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
+import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.chanfinecloud.cfl.weidgt.NoScrollViewPager;
 import com.google.gson.reflect.TypeToken;
 
@@ -59,7 +62,10 @@ import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.config.Config.SET_JPUSH_ALIAS_SEQUENCE;
+import static com.chanfinecloud.cfl.config.Config.SET_JPUSH_TAGS_SEQUENCE;
 import static com.chanfinecloud.cfl.config.Config.WORKORDER;
+import static com.chanfinecloud.cfl.util.FileManagement.getUserInfo;
 
 /**
  * Created by damien on 2020/3/26.
@@ -94,7 +100,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ButterKnife.bind(this);
         initView();
         initFileData();
-        CurrentDistrictEntity currentDistrict = FileManagement.getUserInfo().getCurrentDistrict();
+        CurrentDistrictEntity currentDistrict = getUserInfo().getCurrentDistrict();
         if (currentDistrict != null && !TextUtils.isEmpty(currentDistrict.getRoomId())) {
             bind = true;
         } else {
@@ -130,6 +136,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initOrderStatus();
         initComplainType();
         initComplainStatus();
+        UserInfoUtil.initAvatarResource(null);//缓存用户头像
     }
 
     /**
@@ -265,9 +272,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         LogUtils.d(message);
         if ("projectSelect".equals(message.getMessage())) {
             changeView(0);//切换到首页
-            JPushInterface.cleanTags(this,0x03);//清空推送的tag
-        } else if ("ClearTag".equals(message.getMessage())) {
-            resetTag();//重新设置推送tag
+            resetTag();
         }else if ("unbind".equals(message.getMessage())) {
             showUnBindView();
         }
@@ -331,25 +336,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * 设置极光推送的alias（别名）和tag(标签)
      */
     private void setAliasAndTag() {
-        JPushInterface.setAlias(this, 0x01, FileManagement.getUserInfo().getId());//别名（userId）
-        Set<String> tagSet = new LinkedHashSet<>();
-        CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
-        if(!TextUtils.isEmpty(currentDistrict.getProjectId())){
-            tagSet.add("P_"+currentDistrict.getProjectId());//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
-        }
-        if(!TextUtils.isEmpty(currentDistrict.getRoomId())){
-            List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
-            for (int i = 0; i < list.size(); i++) {
-                if(list.get(i).getId().equals(currentDistrict.getRoomId())){
-                    tagSet.add(list.get(i).getHouseholdType());
-                }
+        if(FileManagement.getPushFlag()){
+            JPushInterface.setAlias(this,SET_JPUSH_ALIAS_SEQUENCE, getUserInfo().getId());
+            Set<String> tagSet = new LinkedHashSet<>();
+            CurrentDistrictEntity currentDistrict= getUserInfo().getCurrentDistrict();
+            if(!TextUtils.isEmpty(currentDistrict.getProjectId())){
+                tagSet.add("P_"+currentDistrict.getProjectId());//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
             }
+            if(!TextUtils.isEmpty(currentDistrict.getRoomId())){
+                List<HouseholdRoomEntity> list= getUserInfo().getRoomList();
+                for (int i = 0; i < list.size(); i++) {
+                    if(list.get(i).getId().equals(currentDistrict.getRoomId())){
+                        tagSet.add(list.get(i).getHouseholdType());
+                    }
+                }
 
-        }else{
-            tagSet.add("YK");
-        }
-        if(tagSet.size()>0){
-            JPushInterface.setTags(this, 0x02, tagSet);
+            }else{
+                tagSet.add("YK");
+            }
+            if(tagSet.size()>0){
+                JPushInterface.setTags(this, SET_JPUSH_TAGS_SEQUENCE, tagSet);
+            }
         }
     }
 
@@ -358,12 +365,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      */
     private void resetTag(){
         Set<String> tagSet = new LinkedHashSet<>();
-        CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
+        CurrentDistrictEntity currentDistrict= getUserInfo().getCurrentDistrict();
         if(!TextUtils.isEmpty(currentDistrict.getProjectId())){
             tagSet.add("P_"+currentDistrict.getProjectId());//项目（'P_'+业主当前项目Id,员工端多个项目Id则加多个）
         }
         if(!TextUtils.isEmpty(currentDistrict.getRoomId())){
-            List<HouseholdRoomEntity> list=FileManagement.getUserInfo().getRoomList();
+            List<HouseholdRoomEntity> list= getUserInfo().getRoomList();
             for (int i = 0; i < list.size(); i++) {
                 if(list.get(i).getId().equals(currentDistrict.getRoomId())){
                     tagSet.add(list.get(i).getHouseholdType());
@@ -374,7 +381,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             tagSet.add("YK");
         }
         if(tagSet.size()>0){
-            JPushInterface.setTags(this, 0x02, tagSet);
+            JPushInterface.setTags(this, SET_JPUSH_TAGS_SEQUENCE, tagSet);
         }
     }
 

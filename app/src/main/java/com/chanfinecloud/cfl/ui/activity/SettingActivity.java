@@ -35,9 +35,12 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.chanfinecloud.cfl.config.Config.CLEAR_JPUSH_TAGS_SEQUENCE;
+import static com.chanfinecloud.cfl.config.Config.DELETE_JPUSH_ALIAS_SEQUENCE;
 
 /**
  * Created by Shuaige on 2020/3/28.
@@ -218,7 +221,8 @@ public class SettingActivity extends BaseActivity {
 //        SharedPreferencesManage.saveToken(tokenEntity);
 //        startActivity(LoginActivity.class);
 //        LynActivityManager.getInstance().removeAllActivity();
-
+        JPushInterface.deleteAlias(this,DELETE_JPUSH_ALIAS_SEQUENCE);
+        JPushInterface.cleanTags(this,CLEAR_JPUSH_TAGS_SEQUENCE);
         TokenEntity tokenEntity= FileManagement.getTokenEntity();
         tokenEntity.setExpires_in(0);
         FileManagement.setTokenEntity(tokenEntity);

@@ -157,9 +157,16 @@ public class WorkflowActionFragment extends BaseFragment {
                         @Override
                         public void onAnimationStart(Animator animation, boolean isReverse) {
                             super.onAnimationStart(animation, isReverse);
-                            AnimationUtil.startRotateAnimation(workflowActionToggle,180,0,200);
+                            AnimationUtil.startRotateAnimation(workflowActionToggleIcon,180,0,200);
 
-                            AnimationUtil.startRotateAnimation(workflowActionName,180,0,200);
+
+
+                        }
+
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationStart(animation);
+                            AnimationUtil.startRotateAnimation(workflowActionToggleIcon,180,0,200);
 
 
                         }
@@ -169,14 +176,26 @@ public class WorkflowActionFragment extends BaseFragment {
                         @Override
                         public void onAnimationStart(Animator animation, boolean isReverse) {
                             super.onAnimationStart(animation, isReverse);
-                            AnimationUtil.startRotateAnimation(workflowActionToggle,0,180,200);
+                            AnimationUtil.startRotateAnimation(workflowActionToggleIcon,0,180,200);
 
-                            AnimationUtil.startRotateAnimation(workflowActionName,0,180,200);
-                        }
+                              }
 
                         @Override
                         public void onAnimationEnd(Animator animation, boolean isReverse) {
                             super.onAnimationEnd(animation, isReverse);
+                            workflowActionContent.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationStart(animation);
+                            AnimationUtil.startRotateAnimation(workflowActionToggleIcon,0,180,200);
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
                             workflowActionContent.setVisibility(View.GONE);
                         }
                     });

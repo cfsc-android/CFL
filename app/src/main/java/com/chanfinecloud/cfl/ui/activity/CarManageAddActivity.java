@@ -342,7 +342,7 @@ public class CarManageAddActivity extends BaseActivity{
 
     private void saveCar(){
 
-        startProgressDialog("保存中...");
+        startProgressDialog("保存中...", true);
         Map<String,Object> map=new HashMap<>();
         String action="basic/vehicleInfo/add";
         if(carEntity!=null){

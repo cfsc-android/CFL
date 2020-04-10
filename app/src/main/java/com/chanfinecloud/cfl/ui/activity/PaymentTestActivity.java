@@ -75,7 +75,7 @@ public class PaymentTestActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_payment_test_pay:
-                startProgressDialog("正在支付...");
+                startProgressDialog("正在支付...", true);
                 handler1.sendEmptyMessageDelayed(1, 1000);
                 break;
             case R.id.ll_payment_test_wx:

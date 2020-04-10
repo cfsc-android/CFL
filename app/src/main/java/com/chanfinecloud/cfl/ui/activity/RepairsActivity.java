@@ -278,7 +278,7 @@ public class RepairsActivity extends BaseActivity {
     private void addOrderSubmit(){
 
         if (!canSubmit){
-            showToast("提交中...");
+            showToast("不能重复，提交中...");
             return;
         }
         canSubmit = false;

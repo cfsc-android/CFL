@@ -210,7 +210,7 @@ public class ComplainActivity extends BaseActivity {
 
     private void addComplainSubmit(){
         if (!canSubmit){
-            showToast("提交中...");
+            showToast("不能重复，提交中...");
             return;
         }
         canSubmit = false;

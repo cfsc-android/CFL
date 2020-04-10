@@ -129,15 +129,15 @@ public class HomeFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(EventBusMessage message) {
         LogUtils.d(message.getMessage());
-//        if ("bind".equals(message.getMessage())) {
-//            bind = true;
-//        } else if ("unBind".equals(message.getMessage())) {
-//            bind = false;
-//        }else if("projectSelect".equals(message.getMessage())){
-//            tvProjectLogoName.setText(userInfo.getCurrentDistrict().getProjectName());
-//            getHotTips();
-//            getWheelPlanting();
-//        }
+        if ("bind".equals(message.getMessage())) {
+            bind = true;
+        } else if ("unBind".equals(message.getMessage())) {
+            bind = false;
+        }else if("projectSelect".equals(message.getMessage())){
+            tvProjectLogoName.setText(userInfo.getCurrentDistrict().getProjectName());
+            getHotTips();
+            getWheelPlanting();
+        }
     }
 
     @Override
@@ -225,6 +225,7 @@ public class HomeFragment extends BaseFragment {
     private void getWheelPlanting() {
         RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE + "smart/content/pages", HttpMethod.Get);
         Map<String, String> map = new HashMap<>();
+        // TODO: 2020/4/10  动态获取 
         map.put("projectId", "ec93bb06f5be4c1f19522ca78180e2i9");
         map.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());
         map.put("announcementTypeId", NoticeType.轮播动态.getType());

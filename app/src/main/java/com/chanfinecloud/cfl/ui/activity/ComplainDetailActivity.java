@@ -62,6 +62,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -139,7 +140,6 @@ public class ComplainDetailActivity extends BaseActivity {
 
         fragmentManager=getSupportFragmentManager();
         complainId=getIntent().getExtras().getString("complain_id");
-        getData();
         mNoUnderlineSpan = new NoUnderlineSpan();
         EventBus.getDefault().register(this);
 
@@ -151,6 +151,23 @@ public class ComplainDetailActivity extends BaseActivity {
         });
 
 
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogUtils.d("onNewIntent:"+intent.getExtras().getString("complain_id"));
+        complainId=intent.getExtras().getString("complain_id");
+        getData();
+        resourceKey= UUID.randomUUID().toString().replaceAll("-","");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LogUtils.d("onStart");
+        getData();
     }
 
     @OnClick({R.id.toolbar_btn_back, R.id.toolbar_tv_action})

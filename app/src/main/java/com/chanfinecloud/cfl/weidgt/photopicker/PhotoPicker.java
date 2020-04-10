@@ -9,13 +9,14 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
+import static com.chanfinecloud.cfl.config.Config.PROVIDER_AUTHORITY;
+
 /**
  * Created by Loong on 2019/12/31.
  * Version: 1.0
  * Describe: 照片选取
  */
 public class PhotoPicker {
-    public static final String authority="com.chanfinecloud.cfl.fileprovider";
 
     public static void pick(Activity context, int request_code){
         Matisse.from(context)
@@ -46,7 +47,7 @@ public class PhotoPicker {
                 .choose(MimeType.ofAll())
                 .theme(R.style.Matisse_Customer)
                 .capture(capture)
-                .captureStrategy(new CaptureStrategy(true, authority))
+                .captureStrategy(new CaptureStrategy(true, PROVIDER_AUTHORITY))
                 .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                 .gridExpectedSize(context.getResources().getDimensionPixelSize(R.dimen.dp_120))
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -59,7 +60,7 @@ public class PhotoPicker {
                 .choose(MimeType.ofImage())
                 .theme(R.style.Matisse_Customer)
                 .capture(capture)
-                .captureStrategy(new CaptureStrategy(true, authority))
+                .captureStrategy(new CaptureStrategy(true, PROVIDER_AUTHORITY))
                 .countable(true)
                 .maxSelectable(maxSelectable)
                 .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))

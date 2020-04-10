@@ -62,6 +62,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -140,7 +141,6 @@ public class RepairsDetailActivity extends BaseActivity {
         toolbarTvAction.setVisibility(View.VISIBLE);
         fragmentManager=getSupportFragmentManager();
         orderId=getIntent().getExtras().getString("order_id");
-        getData();
         mNoUnderlineSpan = new NoUnderlineSpan();
         EventBus.getDefault().register(this);
 
@@ -150,6 +150,22 @@ public class RepairsDetailActivity extends BaseActivity {
                 getData();
             }
         });
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogUtils.d("onNewIntent:"+intent.getExtras().getString("order_id"));
+        orderId=intent.getExtras().getString("order_id");
+        getData();
+        resourceKey= UUID.randomUUID().toString().replaceAll("-","");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LogUtils.d("onStart");
+        getData();
     }
 
     @OnClick({R.id.toolbar_btn_back, R.id.toolbar_tv_action, R.id.toolbar_btn_action})

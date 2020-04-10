@@ -348,7 +348,8 @@ public class ComplainDetailActivity extends BaseActivity {
             bundle.putString("businessId", complainId);
             bundle.putString("action", lastWorkflow.getNodeName());
             bundle.putSerializable("workflowType", WorkflowType.Complain);
-            bundle.putSerializable("operationInfos", (Serializable) lastWorkflow.getOperationInfos());
+            bundle.putSerializable("workflowProcesses", lastWorkflow);
+            bundle.putSerializable("complainDetail", complainDetailsEntity);
             if(workflowActionFragment !=null){
                 workflowActionFragment =new WorkflowActionFragment().newInstance(bundle);
                 transaction.replace(R.id.order_detail_workflow_action_fl, workflowActionFragment).commit();

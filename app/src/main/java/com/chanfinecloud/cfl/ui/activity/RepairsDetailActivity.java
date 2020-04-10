@@ -351,7 +351,8 @@ public class RepairsDetailActivity extends BaseActivity {
             bundle.putString("businessId", orderId);
             bundle.putString("action", lastWorkflow.getNodeName());
             bundle.putSerializable("workflowType", WorkflowType.Order);
-            bundle.putSerializable("operationInfos", (Serializable) lastWorkflow.getOperationInfos());
+            bundle.putSerializable("workflowProcesses", lastWorkflow);
+            bundle.putSerializable("orderDetail", orderDetailsEntity);
             if(workflowActionFragment !=null){
                 workflowActionFragment =new WorkflowActionFragment().newInstance(bundle);
                 transaction.replace(R.id.order_detail_workflow_action_fl, workflowActionFragment).commit();

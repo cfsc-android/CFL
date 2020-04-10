@@ -122,11 +122,11 @@
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 蒲公英APPKEY 必填 -->
-        <provider
-            android:name="com.pgyersdk.PgyerProvider"
-            android:authorities="${applicationId}.com.pgyer.provider"
-            android:exported="false"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+
+
+        <!-- 蒲公英APPKEY 必填 -->
         <meta-data
             android:name="PGYER_APPID"
             android:value="d67cceb544c6f7d61bbcf11b53b3c1a6" /> <!-- Since JCore2.0.0 Required SDK核心功能 -->
@@ -156,7 +156,7 @@
         </receiver> <!-- provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.chanfinecloud.cfl.fileprovider"
+            android:authorities="com.chanfinecloud.cfl.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="android:authorities">

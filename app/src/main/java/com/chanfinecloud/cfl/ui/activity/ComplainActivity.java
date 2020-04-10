@@ -101,6 +101,7 @@ public class ComplainActivity extends BaseActivity {
     private List<String> complainTypeData=new ArrayList<>();
     private int complainTypeValue;
     private String resourceKey;
+    private boolean canSubmit;
 
 
     @Override
@@ -113,6 +114,8 @@ public class ComplainActivity extends BaseActivity {
     protected void initData() {
         setContentView(R.layout.activity_complain);
         ButterKnife.bind(this);
+
+        canSubmit = true;
 
         toolbarTvTitle.setText("创建投诉");
         //默认不弹出软键盘
@@ -206,6 +209,12 @@ public class ComplainActivity extends BaseActivity {
     }
 
     private void addComplainSubmit(){
+        if (!canSubmit){
+            showToast("提交中...");
+            return;
+        }
+        canSubmit = false;
+
         if(TextUtils.isEmpty(addComplainEtRemark.getText())){
             showToast("请输入投诉内容");
             return;
@@ -251,6 +260,17 @@ public class ComplainActivity extends BaseActivity {
                 showToast(ex.getMessage());
             }
 
+            @Override
+            public void onCancelled(CancelledException cex) {
+                super.onCancelled(cex);
+                canSubmit = true;
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                canSubmit = true;
+            }
         });
         sendRequest(requestParam, false);
 

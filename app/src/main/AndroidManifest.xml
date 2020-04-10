@@ -123,6 +123,10 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 蒲公英APPKEY 必填 -->
+        <provider
+            android:name="com.pgyersdk.PgyerProvider"
+            android:authorities="${applicationId}.com.pgyer.provider"
+            android:exported="false"/>
         <meta-data
             android:name="PGYER_APPID"
             android:value="d67cceb544c6f7d61bbcf11b53b3c1a6" /> <!-- Since JCore2.0.0 Required SDK核心功能 -->

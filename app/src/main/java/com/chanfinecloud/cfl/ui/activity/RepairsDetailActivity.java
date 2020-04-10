@@ -197,9 +197,9 @@ public class RepairsDetailActivity extends BaseActivity {
                 BaseEntity<OrderDetailsEntity> baseEntity= JsonParse.parse(result, OrderDetailsEntity.class);
                 if(baseEntity.isSuccess()){
                     initView(baseEntity.getResult());
+                    initAction(baseEntity.getResult());
                     List<WorkflowProcessesEntity> workflowList=baseEntity.getResult().getProcesses();
                     WorkflowProcessesEntity lastWorkflow=workflowList.get(workflowList.size()-1);
-                    initAction(lastWorkflow);
                     if(lastWorkflow.getOperationInfos()!=null&&lastWorkflow.getOperationInfos().size()>0){
                         workflowList.remove(workflowList.size()-1);
                     }
@@ -341,7 +341,9 @@ public class RepairsDetailActivity extends BaseActivity {
         orderDetailRemarkTime.setText(workOrder.getCreateTime());
     }
 
-    private void initAction(WorkflowProcessesEntity lastWorkflow){
+    private void initAction(OrderDetailsEntity orderDetailsEntity){
+        List<WorkflowProcessesEntity> workflowList=orderDetailsEntity.getProcesses();
+        WorkflowProcessesEntity lastWorkflow=workflowList.get(workflowList.size()-1);
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         if(lastWorkflow.getAssigneeId().equals(FileManagement.getUserInfo().getId())
                 &&(lastWorkflow.getOperationInfos()!=null&&lastWorkflow.getOperationInfos().size()>0)) {
@@ -349,7 +351,8 @@ public class RepairsDetailActivity extends BaseActivity {
             bundle.putString("businessId", orderId);
             bundle.putString("action", lastWorkflow.getNodeName());
             bundle.putSerializable("workflowType", WorkflowType.Order);
-            bundle.putSerializable("operationInfos", (Serializable) lastWorkflow.getOperationInfos());
+            bundle.putSerializable("workflowProcesses", lastWorkflow);
+            bundle.putSerializable("orderDetail", orderDetailsEntity);
             if(workflowActionFragment !=null){
                 workflowActionFragment =new WorkflowActionFragment().newInstance(bundle);
                 transaction.replace(R.id.order_detail_workflow_action_fl, workflowActionFragment).commit();

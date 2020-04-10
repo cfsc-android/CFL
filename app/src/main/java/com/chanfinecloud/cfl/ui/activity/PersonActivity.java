@@ -280,8 +280,10 @@ public class PersonActivity extends BaseActivity {
                                     }
                                 });
                             }else{
+                                if(type.equals("nickName")){
+                                    EventBus.getDefault().post(new EventBusMessage<>("refresh"));
+                                }
                                 init();
-                                EventBus.getDefault().post(new EventBusMessage<>("refresh"));
                             }
 
                         }
@@ -408,7 +410,7 @@ public class PersonActivity extends BaseActivity {
         if("nickName".equals(message.getMessage())){
             final Map<String,Object> map=new HashMap<>();
             map.put("nickName",((NickNameEventBusData)message.getData()).getNickName());
-            updateUser(map, "nickName");
+            updateUser(map,"nickName");
         }
     }
 

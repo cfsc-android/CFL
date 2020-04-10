@@ -195,9 +195,9 @@ public class ComplainDetailActivity extends BaseActivity {
                 BaseEntity<ComplainDetailsEntity> baseEntity= JsonParse.parse(result, ComplainDetailsEntity.class);
                 if(baseEntity.isSuccess()){
                     initView(baseEntity.getResult());
+                    initAction(baseEntity.getResult());
                     List<WorkflowProcessesEntity> workflowList=baseEntity.getResult().getProcesses();
                     WorkflowProcessesEntity lastWorkflow=workflowList.get(workflowList.size()-1);
-                    initAction(lastWorkflow);
                     if(lastWorkflow.getOperationInfos()!=null&&lastWorkflow.getOperationInfos().size()>0){
                         workflowList.remove(workflowList.size()-1);
                     }
@@ -337,18 +337,19 @@ public class ComplainDetailActivity extends BaseActivity {
         complainDetailRemarkTime.setText(complainEntity.getCreateTime());
     }
 
-    private void initAction(WorkflowProcessesEntity lastWorkflow){
+    private void initAction(ComplainDetailsEntity complainDetailsEntity){
+        List<WorkflowProcessesEntity> workflowList=complainDetailsEntity.getProcesses();
+        WorkflowProcessesEntity lastWorkflow=workflowList.get(workflowList.size()-1);
         FragmentTransaction transaction=fragmentManager.beginTransaction();
-        if((lastWorkflow.getAssigneeId().equals(FileManagement.getUserInfo().getId())
-                ||"客服中心确认工单".equals(lastWorkflow.getNodeName())
-                ||"回访".equals(lastWorkflow.getNodeName()))
+        if(lastWorkflow.getAssigneeId().equals(FileManagement.getUserInfo().getId())
                 &&(lastWorkflow.getOperationInfos()!=null&&lastWorkflow.getOperationInfos().size()>0)) {
             Bundle bundle = new Bundle();
             bundle.putBoolean("permission", permission);
             bundle.putString("businessId", complainId);
             bundle.putString("action", lastWorkflow.getNodeName());
             bundle.putSerializable("workflowType", WorkflowType.Complain);
-            bundle.putSerializable("operationInfos", (Serializable) lastWorkflow.getOperationInfos());
+            bundle.putSerializable("workflowProcesses", lastWorkflow);
+            bundle.putSerializable("complainDetail", complainDetailsEntity);
             if(workflowActionFragment !=null){
                 workflowActionFragment =new WorkflowActionFragment().newInstance(bundle);
                 transaction.replace(R.id.order_detail_workflow_action_fl, workflowActionFragment).commit();

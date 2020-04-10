@@ -13,22 +13,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
-import com.chanfinecloud.cfl.entity.UserEntity;
 import com.chanfinecloud.cfl.entity.WorkflowViewEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity;
 import com.chanfinecloud.cfl.entity.smart.EmergencyLevelType;
 import com.chanfinecloud.cfl.entity.smart.OperationInfoEntity;
+import com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity;
 import com.chanfinecloud.cfl.entity.smart.WorkflowFormContentEntity;
-import com.chanfinecloud.cfl.entity.smart.WorkflowFormEntity;
-import com.chanfinecloud.cfl.entity.smart.WorkflowOrderActionType;
+import com.chanfinecloud.cfl.entity.smart.WorkflowProcessesEntity;
 import com.chanfinecloud.cfl.entity.smart.WorkflowType;
+import com.chanfinecloud.cfl.entity.smart.WorkflowViewTagEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
@@ -39,7 +37,6 @@ import com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.AnimationUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
-import com.chanfinecloud.cfl.util.SharedPreferencesManage;
 import com.chanfinecloud.cfl.weidgt.WheelDialog;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImageViewInfo;
@@ -51,20 +48,20 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.util.LogUtil;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
-import static com.chanfinecloud.cfl.config.Config.BASIC;
 import static com.chanfinecloud.cfl.config.Config.WORKORDER;
 
 /**
@@ -95,15 +92,20 @@ public class WorkflowActionFragment extends BaseFragment {
     private Activity context;
     private String action,businessId;
     private boolean permission;
-    private List<OperationInfoEntity> operationInfoEntities;
+    private WorkflowProcessesEntity workflowProcesses;
+    private List<OperationInfoEntity> operationInfo;
+    private ComplainDetailsEntity complainDetail;
+    private OrderDetailsEntity orderDetail;
     private boolean toggle=true;
+
 
     private List<ImageViewInfo> picList=new ArrayList<>();
     private ImagePreviewListAdapter adapter;
 
     private WorkflowType workflowType;
-    private String fromJson;
-    private Map<String, WorkflowViewEntity> workflowViewEntityMap=new HashMap<>();
+    private List<WorkflowViewTagEntity> workflowViewTagList =new ArrayList<>();
+
+
     private WheelDialog wheeldialog;
 
     @Override
@@ -113,17 +115,18 @@ public class WorkflowActionFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
 
         context = getActivity();
-        action = getArguments().getString("action");
         permission=getArguments().getBoolean("permission");
+        action = getArguments().getString("action");
         businessId = getArguments().getString("businessId");
         workflowType= (WorkflowType) getArguments().getSerializable("workflowType");
-        operationInfoEntities = (List<OperationInfoEntity>) getArguments().getSerializable("operationInfos");
-        WorkflowOrderActionType[] types=WorkflowOrderActionType.values();
-        for (int i = 0; i < types.length; i++) {
-            if(action.equals(types[i].name())){
-                fromJson=types[i].getForm();
-            }
+        if(workflowType==WorkflowType.Complain){
+            complainDetail= (ComplainDetailsEntity) getArguments().getSerializable("complainDetail");
+        }else{
+            orderDetail= (OrderDetailsEntity) getArguments().getSerializable("orderDetail");
         }
+        workflowProcesses = (WorkflowProcessesEntity) getArguments().getSerializable("workflowProcesses");
+        operationInfo=workflowProcesses.getOperationInfos();
+
     }
 
     @Override
@@ -139,11 +142,9 @@ public class WorkflowActionFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.workflow_action_toggle_icon, R.id.workflow_action_toggle})
+    @OnClick({ R.id.workflow_action_toggle})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.workflow_action_toggle_icon:
-                break;
             case R.id.workflow_action_toggle:
                 toggle=!toggle;
                 int width = View.MeasureSpec.makeMeasureSpec(0,
@@ -158,17 +159,12 @@ public class WorkflowActionFragment extends BaseFragment {
                         public void onAnimationStart(Animator animation, boolean isReverse) {
                             super.onAnimationStart(animation, isReverse);
                             AnimationUtil.startRotateAnimation(workflowActionToggleIcon,180,0,200);
-
-
-
                         }
 
                         @Override
                         public void onAnimationStart(Animator animation) {
                             super.onAnimationStart(animation);
                             AnimationUtil.startRotateAnimation(workflowActionToggleIcon,180,0,200);
-
-
                         }
                     });
                 }else{
@@ -178,19 +174,18 @@ public class WorkflowActionFragment extends BaseFragment {
                             super.onAnimationStart(animation, isReverse);
                             AnimationUtil.startRotateAnimation(workflowActionToggleIcon,0,180,200);
 
-                              }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation, boolean isReverse) {
-                            super.onAnimationEnd(animation, isReverse);
-                            workflowActionContent.setVisibility(View.GONE);
                         }
 
                         @Override
                         public void onAnimationStart(Animator animation) {
                             super.onAnimationStart(animation);
                             AnimationUtil.startRotateAnimation(workflowActionToggleIcon,0,180,200);
+                        }
 
+                        @Override
+                        public void onAnimationEnd(Animator animation, boolean isReverse) {
+                            super.onAnimationEnd(animation, isReverse);
+                            workflowActionContent.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -204,35 +199,48 @@ public class WorkflowActionFragment extends BaseFragment {
         }
     }
 
-    //照片选择回填
+    /**
+     * 照片选择回填
+     * @param imageViewInfo 图片实体
+     */
     public void setPicData(ImageViewInfo imageViewInfo){
         picList.add(picList.size()-1,imageViewInfo);
         adapter.notifyDataSetChanged();
     }
-    //初始化流程表单视图-assign(人员指派)
-    private WorkflowViewEntity initAssignView(String label){
-        return null;
-    }
-    //初始化流程表单视图-emergencyLevel(紧急程度)
-    private WorkflowViewEntity initEmergencyLevelView(String label){
+
+    /**
+     * 初始化流程表单视图-spinner
+     * @param label 表单item名称
+     * @param type 下拉类型(主管、员工、紧急程度)
+     * @return WorkflowViewEntity
+     */
+    private WorkflowViewEntity initSpinner(String label,String type){
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_spinner,null);
         TextView labelView=v.findViewById(R.id.action_spinner_label);
         labelView.setText(label);
         MaterialSpinner spinner=v.findViewById(R.id.action_spinner_spinner);
-        spinner.setItems(EmergencyLevelType.getEmergencyLevelTypeList());
-        spinner.setTag(EmergencyLevelType.getEmergencyLevelTypeValue(0));
-        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                view.setTag(EmergencyLevelType.getEmergencyLevelTypeValue(position));
-            }
-        });
+        List<String> adapterData=new ArrayList<>();
+        if(type.equals("emergency")){
+            spinner.setItems(EmergencyLevelType.getEmergencyLevelTypeList());
+            spinner.setTag(EmergencyLevelType.getEmergencyLevelTypeValue(0));
+            spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                    view.setTag(EmergencyLevelType.getEmergencyLevelTypeValue(position));
+                }
+            });
+        }
         WorkflowViewEntity<MaterialSpinner> workflowView=new WorkflowViewEntity<>(v);
         workflowView.setLabel(labelView);
         workflowView.setContent(spinner);
         return workflowView;
     }
-    //初始化流程表单视图-date
+
+    /**
+     * 初始化流程表单视图-date
+     * @param label 表单item名称
+     * @return WorkflowViewEntity
+     */
     private WorkflowViewEntity initDateView(String label){
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_date,null);
         TextView labelView=v.findViewById(R.id.action_date_label);
@@ -256,7 +264,12 @@ public class WorkflowActionFragment extends BaseFragment {
         workflowView.setContent(date);
         return workflowView;
     }
-    //初始化流程表单视图-photo
+
+    /**
+     * 初始化流程表单视图-photo
+     * @param label 表单item名称
+     * @return WorkflowViewEntity
+     */
     private WorkflowViewEntity initPhotoView(String label){
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_photo,null);
         TextView labelView=v.findViewById(R.id.action_photo_label);
@@ -274,13 +287,13 @@ public class WorkflowActionFragment extends BaseFragment {
                         int request_code=0;
                         switch (workflowType){
                             case Order:
-                                request_code= RepairsDetailActivity.REQUEST_CODE_CHOOSE;
+                                request_code=RepairsDetailActivity.REQUEST_CODE_CHOOSE;
                                 break;
                             case Complain:
                                 request_code= ComplainDetailActivity.REQUEST_CODE_CHOOSE;
                                 break;
                         }
-                        PhotoPicker.pick(context,10,true,request_code );
+                        PhotoPicker.pick(context,10,true, request_code);
                     }else{
                         showToast("相机或读写手机存储的权限被禁止！");
                     }
@@ -293,7 +306,12 @@ public class WorkflowActionFragment extends BaseFragment {
         workflowView.setContent(photo);
         return workflowView;
     }
-    //初始化流程表单视图-remark
+
+    /**
+     * 初始化流程表单视图-remark
+     * @param label 表单item名称
+     * @return WorkflowViewEntity
+     */
     private WorkflowViewEntity initRemarkView(String label){
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_remark,null);
         TextView labelView=v.findViewById(R.id.action_remark_label);
@@ -304,7 +322,12 @@ public class WorkflowActionFragment extends BaseFragment {
         workflowView.setContent(remark);
         return workflowView;
     }
-    //初始化流程表单视图-input
+
+    /**
+     * 初始化流程表单视图-input
+     * @param label 表单item名称
+     * @return WorkflowViewEntity
+     */
     private WorkflowViewEntity initInputView(String label){
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_input,null);
         TextView labelView=v.findViewById(R.id.action_text_label);
@@ -315,7 +338,12 @@ public class WorkflowActionFragment extends BaseFragment {
         workflowView.setContent(text);
         return workflowView;
     }
-    //初始化流程表单视图-rate
+
+    /**
+     * 初始化流程表单视图-rate
+     * @param label 表单item名称
+     * @return WorkflowViewEntity
+     */
     private WorkflowViewEntity initRateView(String label){
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_rate,null);
         TextView labelView=v.findViewById(R.id.action_rate_label);
@@ -326,7 +354,12 @@ public class WorkflowActionFragment extends BaseFragment {
         workflowView.setContent(rateView);
         return workflowView;
     }
-    //初始化流程表单视图-submit
+
+    /**
+     * 初始化流程表单视图-rate
+     * @param btnText 提交按钮文字
+     * @return WorkflowViewEntity
+     */
     private WorkflowViewEntity initSubmitButtonView(String btnText){
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_submit,null);
         Button submitView=v.findViewById(R.id.action_button_submit);
@@ -335,7 +368,13 @@ public class WorkflowActionFragment extends BaseFragment {
         workflowView.setSubmit(submitView);
         return workflowView;
     }
-    //初始化流程表单视图-choose
+
+    /**
+     * 初始化流程表单视图-choose
+     * @param acceptText accept按钮文字
+     * @param rejectText reject按钮文字
+     * @return WorkflowViewEntity
+     */
     private WorkflowViewEntity initChooseButtonView(String acceptText,String rejectText){
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_button,null);
         Button acceptView=v.findViewById(R.id.action_button_accept);
@@ -348,24 +387,27 @@ public class WorkflowActionFragment extends BaseFragment {
         return workflowView;
     }
 
-
-    private List<WorkflowFormContentEntity> initFormContent(){
-        Gson gson=new Gson();
-        WorkflowFormEntity formEntity=gson.fromJson(fromJson, WorkflowFormEntity.class);
-        List<WorkflowFormContentEntity> formContent= formEntity.getFormContent();
-        Collections.sort(formContent,new Comparator<WorkflowFormContentEntity>() {
-            @Override
-            public int compare(WorkflowFormContentEntity o1, WorkflowFormContentEntity o2) {
-                return o1.getSort()-o2.getSort();
-            }
-        });
-        return formContent;
+    /**
+     * 初始化流程表单视图-text
+     * @param label 表单item名称
+     * @return WorkflowViewEntity
+     */
+    private WorkflowViewEntity initTextView(String label){
+        View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_text,null);
+        TextView labelView=v.findViewById(R.id.action_text_label);
+        labelView.setText(label);
+        TextView text=v.findViewById(R.id.action_text_content);
+        WorkflowViewEntity<TextView> workflowView=new WorkflowViewEntity<>(v);
+        workflowView.setLabel(labelView);
+        workflowView.setContent(text);
+        return workflowView;
     }
 
-
-    //初始化流程表单
+    /**
+     * 初始化流程表单
+     */
     private void initActionView(){
-        List<WorkflowFormContentEntity> formContent= initFormContent();
+        List<WorkflowFormContentEntity> formContent= workflowProcesses.getFormContent();
         for (int i = 0; i < formContent.size(); i++) {
             WorkflowViewEntity workflowViewEntity=null;
             if("choose".equals(formContent.get(i).getFormItemType())){
@@ -379,8 +421,8 @@ public class WorkflowActionFragment extends BaseFragment {
                 workflowViewEntity.getAccept().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        for (int j = 0; j < operationInfoEntities.size(); j++) {
-                            if(operationInfoEntities.get(j).getChoose()==1){
+                        for (int j = 0; j < operationInfo.size(); j++) {
+                            if(operationInfo.get(j).getChoose()==1){
                                 initHandleMap(j);
                             }
                         }
@@ -389,29 +431,41 @@ public class WorkflowActionFragment extends BaseFragment {
                 workflowViewEntity.getReject().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        for (int j = 0; j < operationInfoEntities.size(); j++) {
-                            if(operationInfoEntities.get(j).getChoose()==0){
+                        for (int j = 0; j < operationInfo.size(); j++) {
+                            if(operationInfo.get(j).getChoose()==0){
                                 initHandleMap(j);
                             }
                         }
                     }
                 });
-            }else if("assignId".equals(formContent.get(i).getFormItemType())){
-                workflowViewEntity=initAssignView(formContent.get(i).getFormItemLabel());
-            }else if("resourceKey".equals(formContent.get(i).getFormItemType())){
+            }else if("director".equals(formContent.get(i).getFormItemType())){
+                workflowViewEntity=initSpinner(formContent.get(i).getFormItemLabel(),"director");
+            }else if("employee".equals(formContent.get(i).getFormItemType())){
+                workflowViewEntity=initSpinner(formContent.get(i).getFormItemLabel(),"employee");
+            }else if("emergency".equals(formContent.get(i).getFormItemType())){
+                workflowViewEntity=initSpinner(formContent.get(i).getFormItemLabel(),"emergency");
+            }else if("pick_photo".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initPhotoView(formContent.get(i).getFormItemLabel());
-            }else if("remark".equals(formContent.get(i).getFormItemType())||"content".equals(formContent.get(i).getFormItemType())){
+            }else if("textarea".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initRemarkView(formContent.get(i).getFormItemLabel());
-            }else if("emergencyLevel".equals(formContent.get(i).getFormItemType())){
-                workflowViewEntity=initEmergencyLevelView(formContent.get(i).getFormItemLabel());
-            }else if("date".equals(formContent.get(i).getFormItemType())){
+            }else if("pick_date".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initDateView(formContent.get(i).getFormItemLabel());
             }else if("rate".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initRateView(formContent.get(i).getFormItemLabel());
-            }else if("manualCost".equals(formContent.get(i).getFormItemType())||"materialCost".equals(formContent.get(i).getFormItemType())||"fee".equals(formContent.get(i).getFormItemType())){
+            }else if("input_number".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initInputView(formContent.get(i).getFormItemLabel());
                 EditText et= (EditText) workflowViewEntity.getContent();
                 et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            }else if("text".equals(formContent.get(i).getFormItemType())){
+                workflowViewEntity=initTextView(formContent.get(i).getFormItemLabel());
+                TextView textView= (TextView) workflowViewEntity.getContent();
+                String textValue;
+                if(workflowType==WorkflowType.Complain){
+                    textValue= (String) getFieldValueByName(formContent.get(i).getFieldName(),complainDetail);
+                }else{
+                    textValue= (String) getFieldValueByName(formContent.get(i).getFieldName(),orderDetail);
+                }
+                textView.setText(textValue);
             }else if("submit".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initSubmitButtonView(formContent.get(i).getFormItemLabel());
                 workflowViewEntity.getSubmit().setOnClickListener(new View.OnClickListener() {
@@ -423,94 +477,112 @@ public class WorkflowActionFragment extends BaseFragment {
             }
             if(workflowViewEntity!=null){
                 workflowActionContentLl.addView(workflowViewEntity.getView());
-                workflowViewEntityMap.put(formContent.get(i).getFormItemType(),workflowViewEntity);
+                workflowViewTagList.add(new WorkflowViewTagEntity(formContent.get(i).getFormItemType(),formContent.get(i).getFormKey(),workflowViewEntity));
             }
         }
     }
 
+    /**
+     * 根据属性名获取属性值
+     * */
+    private Object getFieldValueByName(String fieldName, Object o) {
+        try {
+            String firstLetter = fieldName.substring(0, 1).toUpperCase();
+            String getter = "get" + firstLetter + fieldName.substring(1);
+            Method method = o.getClass().getMethod(getter, new Class[] {});
+            Object value = method.invoke(o, new Object[] {});
+            return value;
+        } catch (Exception e) {
+            LogUtils.d(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * 初始化表单参数处理
+     * @param operationIndex choose index
+     */
     private void initHandleMap(int operationIndex){
         Map<String,Object> map=new HashMap<>();
-        for (Map.Entry<String,WorkflowViewEntity> entry:workflowViewEntityMap.entrySet()) {
-            WorkflowViewEntity workflowViewEntity=entry.getValue();
-            if("resourceKey".equals(entry.getKey())){
+
+        for (int i = 0; i < workflowViewTagList.size(); i++) {
+            WorkflowViewTagEntity workflowViewTag=workflowViewTagList.get(i);
+            if("pick_photo".equals(workflowViewTag.getFormType())){
                 switch (workflowType){
                     case Order:
-                        map.put("resourceKey",((RepairsDetailActivity)context).resourceKey);
+                        map.put(workflowViewTag.getFormKey(),((RepairsDetailActivity)context).resourceKey);
                         break;
                     case Complain:
-                        map.put("resourceKey",((ComplainDetailActivity)context).resourceKey);
+                        map.put(workflowViewTag.getFormKey(),((ComplainDetailActivity)context).resourceKey);
                         break;
                 }
-            }else if("remark".equals(entry.getKey())){
-                EditText remark= (EditText) workflowViewEntity.getContent();
-                map.put("remark",remark.getText().toString());
-            }else if("input_number".equals(entry.getKey())){
-                EditText remark= (EditText) workflowViewEntity.getContent();
-                map.put("remark",remark.getText().toString());
-            }else if("fee".equals(entry.getKey())){
-                EditText fee= (EditText) workflowViewEntity.getContent();
-                map.put("fee",Double.parseDouble(fee.getText().toString()));
-            }else if("manualCost".equals(entry.getKey())){
-                EditText manualCost= (EditText) workflowViewEntity.getContent();
-                map.put("manualCost",Double.parseDouble(manualCost.getText().toString()));
-            }else if("materialCost".equals(entry.getKey())){
-                EditText materialCost= (EditText) workflowViewEntity.getContent();
-                map.put("materialCost",Double.parseDouble(materialCost.getText().toString()));
-            }else if("assignId".equals(entry.getKey())){
-                MaterialSpinner assignId= (MaterialSpinner) workflowViewEntity.getContent();
-                map.put("assignId",assignId.getTag().toString());
-            }else if("content".equals(entry.getKey())){
-                EditText content= (EditText) workflowViewEntity.getContent();
-                map.put("content",content.getTag().toString());
-            }else if("date".equals(entry.getKey())){
-                TextView date= (TextView) workflowViewEntity.getContent();
-                map.put("date",date.getTag().toString());
-            }else if("emergencyLevel".equals(entry.getKey())){
-                MaterialSpinner emergencyLevel= (MaterialSpinner) workflowViewEntity.getContent();
-                map.put("emergencyLevel",emergencyLevel.getTag().toString());
-            }else if("fee".equals(entry.getKey())){
-                EditText fee= (EditText) workflowViewEntity.getContent();
-                map.put("fee",Double.parseDouble(fee.getText().toString()));
+            }else if("textarea".equals(workflowViewTag.getFormType())){
+                EditText remark= (EditText) workflowViewTag.getWorkflowView().getContent();
+                map.put(workflowViewTag.getFormKey(),remark.getText().toString());
+            }else if("director".equals(workflowViewTag.getFormType())||"employee".equals(workflowViewTag.getFormType())||"emergency".equals(workflowViewTag.getFormType())){
+                MaterialSpinner assignId= (MaterialSpinner) workflowViewTag.getWorkflowView().getContent();
+                map.put(workflowViewTag.getFormKey(),assignId.getTag().toString());
+            }else if("pick_date".equals(workflowViewTag.getFormType())){
+                TextView date= (TextView) workflowViewTag.getWorkflowView().getContent();
+                map.put(workflowViewTag.getFormKey(),date.getTag().toString());
+            }else if("rate".equals(workflowViewTag.getFormType())){
+                RatingStarView rate= (RatingStarView) workflowViewTag.getWorkflowView().getContent();
+                map.put(workflowViewTag.getFormKey(),rate.getRating());
+            }else if("input_number".equals(workflowViewTag.getFormType())){
+                EditText manualCost= (EditText) workflowViewTag.getWorkflowView().getContent();
+                map.put(workflowViewTag.getFormKey(),Double.parseDouble(manualCost.getText().toString()));
             }
         }
         map.put("businessId",businessId);
-        map.put("choose",operationInfoEntities.get(operationIndex).getChoose());
-        map.put("operationDesc",operationInfoEntities.get(operationIndex).getDesc());
-        map.put("operationId",operationInfoEntities.get(operationIndex).getId());
-        map.put("operationName",operationInfoEntities.get(operationIndex).getName());
+        map.put("choose",operationInfo.get(operationIndex).getChoose());
+        map.put("operationDesc",operationInfo.get(operationIndex).getDesc());
+        map.put("operationId",operationInfo.get(operationIndex).getId());
+        map.put("operationName",operationInfo.get(operationIndex).getName());
 
         Gson gson=new Gson();
         LogUtil.d(gson.toJson(map));
         workflowAction(map);
     }
-
+    /**
+     * 初始化流程处理请求参数
+     * @param map
+     */
     private void workflowAction(Map<String,Object> map){
-
-        RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"workflow/api/push/"+workflowType.getType(), HttpMethod.Post);
+        RequestParam requestParam=new RequestParam(BASE_URL+WORKORDER+"workflow/api/push/"+workflowType.getType(),HttpMethod.Post);
         requestParam.setRequestMap(map);
         requestParam.setParamType(ParamType.Json);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtils.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
-                if(baseEntity.isSuccess()){
-                    EventBus.getDefault().post(new EventBusMessage<>("WorkflowActionRefresh"));
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
-
-        });
-        sendRequest(requestParam, false);
+        requestParam.setCallback(myCallBack);
+        sendRequest(requestParam,true);
     }
 
+    /**
+     * 请求回调
+     */
+    private MyCallBack myCallBack=new MyCallBack<String>(){
+        @Override
+        public void onSuccess(String result) {
+            super.onSuccess(result);
+            LogUtils.d("result",result);
+            BaseEntity baseEntity= JsonParse.parse(result);
+            if(baseEntity.isSuccess()){
+                EventBus.getDefault().post(new EventBusMessage<>("WorkflowActionRefresh"));
+            }else{
+                showToast(baseEntity.getMessage());
+            }
+
+        }
+
+        @Override
+        public void onError(Throwable ex, boolean isOnCallback) {
+            super.onError(ex, isOnCallback);
+            showToast(ex.getMessage());
+        }
+
+        @Override
+        public void onFinished() {
+            super.onFinished();
+            stopProgressDialog();
+        }
+    };
 
 }

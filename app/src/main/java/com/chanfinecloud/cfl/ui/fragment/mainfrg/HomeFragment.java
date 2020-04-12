@@ -179,7 +179,7 @@ public class HomeFragment extends BaseFragment {
     private void getHotTips() {
         RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE + "smart/content/pages", HttpMethod.Get);
         Map<String, String> map = new HashMap<>();
-        map.put("projectId", "ec93bb06f5be4c1f19522ca78180e2i9");
+        map.put("projectId", FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
         map.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());
         map.put("announcementTypeId", NoticeType.热点关注.getType());
         map.put("auditStatus", "1");
@@ -225,7 +225,8 @@ public class HomeFragment extends BaseFragment {
     private void getWheelPlanting() {
         RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE + "smart/content/pages", HttpMethod.Get);
         Map<String, String> map = new HashMap<>();
-        map.put("projectId", "ec93bb06f5be4c1f19522ca78180e2i9");
+        // TODO: 2020/4/10  动态获取
+        map.put("projectId",FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
         map.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());
         map.put("announcementTypeId", NoticeType.轮播动态.getType());
         map.put("auditStatus", "1");

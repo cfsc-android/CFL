@@ -288,7 +288,7 @@ public class RegisterActivity extends BaseActivity {
      * @param share_media
      */
     private void authorization(SHARE_MEDIA share_media){
-        startProgressDialog("授权中...");
+        startProgressDialog("授权中...", true);
         UMShareAPI.get(RegisterActivity.this).getPlatformInfo(RegisterActivity.this, share_media, new UMAuthListener(){
             @Override
             public void onStart(SHARE_MEDIA share_media) {

@@ -6,6 +6,7 @@ def Release_Url = "\"http://10.88.0.58:9200/\""//开发环境
 def Debug_Url = "\"http://10.222.5.49:8888/\""//本地调试环境
 
 
+
 android {
     compileSdkVersion 29
     defaultConfig {

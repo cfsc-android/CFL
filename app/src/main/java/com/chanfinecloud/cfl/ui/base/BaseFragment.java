@@ -145,7 +145,7 @@ public abstract  class BaseFragment extends LazyFragment {
     protected void sendRequest(RequestParam requestParam, boolean showProgressDialog){
         if(((BaseActivity)getActivity()).isNetConnect){
             if(showProgressDialog){
-                startProgressDialog();
+                startProgressDialog(true);
             }
             Message message=new Message();
             message.what=HTTP_REQUEST;

@@ -167,7 +167,7 @@ public abstract class BaseActivity extends FragmentActivity implements NetBroadc
     protected void sendRequest(RequestParam requestParam, boolean showProgressDialog){
         if(isNetConnect){
             if(showProgressDialog){
-                startProgressDialog();
+                startProgressDialog(true);
             }
             Message message=new Message();
             message.what=HTTP_REQUEST;

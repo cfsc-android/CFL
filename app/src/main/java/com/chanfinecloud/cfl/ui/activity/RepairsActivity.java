@@ -116,6 +116,7 @@ public class RepairsActivity extends BaseActivity {
     private String resourceKey;
     private MaterialSpinnerAdapter projectDataAdapter;
     private WheelDialog wheeldialog;
+    private boolean canSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,7 @@ public class RepairsActivity extends BaseActivity {
         setContentView(R.layout.activity_repairs);
         ButterKnife.bind(this);
 
+        canSubmit = true;
         toolbarTvTitle.setText("创建工单");
         //默认不弹出软键盘
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -274,6 +276,13 @@ public class RepairsActivity extends BaseActivity {
 
 
     private void addOrderSubmit(){
+
+        if (!canSubmit){
+            showToast("不能重复，提交中...");
+            return;
+        }
+        canSubmit = false;
+
         if(TextUtils.isEmpty(addOrderEtAddress.getText())){
             showToast("请输入维修地点");
             return;
@@ -336,6 +345,17 @@ public class RepairsActivity extends BaseActivity {
                 showToast(ex.getMessage());
             }
 
+            @Override
+            public void onCancelled(CancelledException cex) {
+                super.onCancelled(cex);
+                canSubmit = true;
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                canSubmit = true;
+            }
         });
         sendRequest(requestParam, false);
 

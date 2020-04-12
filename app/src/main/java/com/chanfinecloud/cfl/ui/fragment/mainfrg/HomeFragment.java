@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.ImageBanner;
@@ -109,35 +110,30 @@ public class HomeFragment extends BaseFragment {
     private List<NoticeEntity> bannerList = new ArrayList<>();
     private List<ImageBanner> imageUrls = new ArrayList<>();
     private UserInfoEntity userInfo;
-    private boolean bind;
+
+
 
 
     @Override
     protected void onFragmentStartLazy() {
         super.onFragmentStartLazy();
-        userInfo = FileManagement.getUserInfo();
-        if (userInfo.getCurrentDistrict() != null && !TextUtils.isEmpty(userInfo.getCurrentDistrict().getRoomId())) {
-            bind = true;
-        } else {
-            bind = false;
-        }
-        tvProjectLogoName.setText(userInfo.getCurrentDistrict().getProjectName());
-        getHotTips();
-        getWheelPlanting();
+//        userInfo = FileManagement.getUserInfo();
+//        tvProjectLogoName.setText(userInfo.getCurrentDistrict().getProjectName());
+//        getHotTips();
+//        getWheelPlanting();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(EventBusMessage message) {
         LogUtils.d(message.getMessage());
-//        if ("bind".equals(message.getMessage())) {
-//            bind = true;
-//        } else if ("unBind".equals(message.getMessage())) {
-//            bind = false;
-//        }else if("projectSelect".equals(message.getMessage())){
-//            tvProjectLogoName.setText(userInfo.getCurrentDistrict().getProjectName());
-//            getHotTips();
-//            getWheelPlanting();
-//        }
+        if("projectSelect".equals(message.getMessage())){
+            tvProjectLogoName.setText(userInfo.getCurrentDistrict().getProjectName());
+            getHotTips();
+            getWheelPlanting();
+        }else if("NoticeRefresh".equals(message.getMessage())){
+            getHotTips();
+            getWheelPlanting();
+        }
     }
 
     @Override
@@ -149,6 +145,10 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        userInfo = FileManagement.getUserInfo();
+        tvProjectLogoName.setText(userInfo.getCurrentDistrict().getProjectName());
+        getHotTips();
+        getWheelPlanting();
         bannerHomeAd.setOffscreenPageLimit(5);
         bannerHomeAd.setImageLoader(new ImageLoaderInterface() {
             @Override
@@ -297,28 +297,28 @@ public class HomeFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_to_menjin:
-                if (bind) {
+                if (CFLApplication.bind) {
                     startActivity(UnLock.class);
                 } else {
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }
                 break;
             case R.id.tv_to_visitor:
-                if (bind) {
+                if (CFLApplication.bind) {
                     startActivity(VisitorActivity.class);
                 } else {
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }
                 break;
             case R.id.tv_to_video_call:
-                if (bind) {
+                if (CFLApplication.bind) {
                     startActivity(VideoCallActivity.class);
                 } else {
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }
                 break;
             case R.id.iv_to_jiesuo:
-                if (bind) {
+                if (CFLApplication.bind) {
                     startActivity(CarLock.class);
                 } else {
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));

@@ -41,6 +41,8 @@ public class CFLApplication extends Application {
 
     public static Map<Class, Transition> activityTrans=new HashMap<>();
 
+    public static boolean bind;
+
     private RefWatcher refWatcher;
 
     public static RefWatcher getRefWatcher(Context context) {

@@ -76,7 +76,7 @@ public class UnLock extends BaseActivity {
         }
         requestMap.put("cardNo",FileManagement.getUserInfo().getDefaultCardNo());
         requestMap.put("effectTime",sdf.format(new Date()));
-        requestMap.put("expireTime",sdf.format(new Date(new Date().getTime()+5*60*1000)));
+        requestMap.put("expireTime",sdf.format(new Date(new Date().getTime()+24*60*60*1000)));
         requestMap.put("openTimes",4);
         if (FileManagement.getUserInfo().getRoomList() != null)
             requestMap.put("phaseId",FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());

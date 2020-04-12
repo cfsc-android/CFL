@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
@@ -87,7 +88,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     TextView mainBtnUnlock;
 
 
-    private boolean bind;
     private List<Fragment> fragmentList = new ArrayList<>();
     private Fragment home, mine;
     private long time = 0;
@@ -102,9 +102,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initFileData();
         CurrentDistrictEntity currentDistrict = getUserInfo().getCurrentDistrict();
         if (currentDistrict != null && !TextUtils.isEmpty(currentDistrict.getRoomId())) {
-            bind = true;
+            CFLApplication.bind = true;
         } else {
-            bind = false;
+            CFLApplication.bind = false;
             showUnBindView();
         }
         EventBus.getDefault().register(this);
@@ -271,8 +271,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void Event(EventBusMessage message) {
         LogUtils.d(message);
         if ("projectSelect".equals(message.getMessage())) {
+            CurrentDistrictEntity currentDistrict = getUserInfo().getCurrentDistrict();
+            if (currentDistrict != null && !TextUtils.isEmpty(currentDistrict.getRoomId())) {
+                CFLApplication.bind = true;
+            } else {
+                CFLApplication.bind = false;
+            }
             changeView(0);//切换到首页
             resetTag();
+        }else if("AuditPass".equals(message.getMessage())){
+            CurrentDistrictEntity currentDistrict = getUserInfo().getCurrentDistrict();
+            if (currentDistrict != null && !TextUtils.isEmpty(currentDistrict.getRoomId())) {
+                CFLApplication.bind = true;
+            } else {
+                CFLApplication.bind = false;
+            }
         }else if ("unbind".equals(message.getMessage())) {
             showUnBindView();
         }
@@ -315,10 +328,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_btn_unlock:
-                if (bind) {
+                if (CFLApplication.bind) {
                     startActivity(UnLockListActivity.class);
                 } else {
-                    EventBus.getDefault().post(new EventBusMessage<>("unbind"));
+                    showUnBindView();
                 }
                 break;
             case R.id.rb_home:

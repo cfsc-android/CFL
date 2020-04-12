@@ -175,8 +175,7 @@ public class WorkflowListActivity extends BaseActivity {
         map.put("type",workflowType.getType());
         map.put("userType", UserType.Household.getType()+"");
         map.put("userId", FileManagement.getUserInfo().getId() +"");
-        map.put("userId", FileManagement.getUserInfo().getId() +"");
-
+        map.put("projectId",FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
         RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"workflow/api/page", HttpMethod.Get);
         requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){

@@ -35,6 +35,7 @@ import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
+import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.chanfinecloud.cfl.util.Utils;
 import com.google.gson.Gson;
 import com.umeng.socialize.UMAuthListener;
@@ -45,6 +46,7 @@ import org.xutils.common.util.LogUtil;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -474,18 +476,30 @@ public class RegisterActivity extends BaseActivity {
         map.put("key",validKey);
         map.put("validCode",etTelCode.getText().toString());
         requestParam.setRequestMap(map);
+        requestParam.setAuthorization(false);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
                 Gson gson = new Gson();
-                TokenEntity token=gson.fromJson(result, TokenEntity.class);
+                TokenEntity token=gson.fromJson(result,TokenEntity.class);
+                token.setInit_time(new Date().getTime()/1000);
                 FileManagement.setTokenEntity(token);
-                Bundle bundle=new Bundle();
-                bundle.putString("openFrom","Register");
-                startActivity(ProjectSelectActivity.class,bundle);
-//                getUserInfo();
+                FileManagement.setPhone(etTelNo.getText().toString());
+                UserInfoUtil.refreshUserInfo(new UserInfoUtil.OnRefreshListener() {
+                    @Override
+                    public void onSuccess() {
+                        Bundle bundle=new Bundle();
+                        bundle.putString("openFrom","Register");
+                        startActivity(ProjectSelectActivity.class,bundle);
+                    }
+
+                    @Override
+                    public void onFail(String msg) {
+                        showToast(msg);
+                    }
+                });
             }
 
             @Override

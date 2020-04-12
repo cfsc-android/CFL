@@ -105,7 +105,19 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         Gson gson=new Gson();
         NoticePushEntity noticePush=gson.fromJson(notificationMessage.notificationExtras,NoticePushEntity.class);
         if("4".equals(noticePush.getType())){
-            UserInfoUtil.refreshUserInfoByServerCache(null);
+            UserInfoUtil.refreshUserInfoByServerCache(new UserInfoUtil.OnRefreshListener() {
+                @Override
+                public void onSuccess() {
+                    EventBus.getDefault().post(new EventBusMessage<>("AuditPass"));
+                }
+
+                @Override
+                public void onFail(String msg) {
+
+                }
+            });
+        }else if("1".equals(noticePush.getType())){
+            EventBus.getDefault().post(new EventBusMessage<>("NoticeRefresh"));
         }
     }
 

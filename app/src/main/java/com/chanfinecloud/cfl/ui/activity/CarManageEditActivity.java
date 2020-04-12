@@ -1,11 +1,6 @@
 package com.chanfinecloud.cfl.ui.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -36,19 +31,14 @@ import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.weidgt.SpinerPopWindow;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jph.takephoto.model.TImage;
-import com.jph.takephoto.model.TResult;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.http.RequestParams;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -319,70 +309,6 @@ public class CarManageEditActivity extends BaseActivity {
         plateColorPop.showAsDropDown(view);
     }
 
-  /*  @Override
-    public void takeSuccess(TResult result) {
-        TImage image = result.getImages().get(0);
-        if (image != null) {
-            tImages.add(image);
-            String imagePath = image.getOriginalPath().replace("/external_storage_root", "");
-            if (imagePath.indexOf(Environment.getExternalStorageDirectory() + "") == -1) {
-                imagePath = Environment.getExternalStorageDirectory() + imagePath;
-            }
-            int old_orientation = getRotateDegree(imagePath);
-            PhotoUtils.compressPicture(imagePath, imagePath);
-            int new_orientation = getRotateDegree(imagePath);
-            if(new_orientation!=old_orientation){
-                setRotateDegree(imagePath,old_orientation);
-            }
-            carImagePath=imagePath;
-            XUtilsImageUtils.display(tv_car_manage_add_car_photo,imagePath,ImageView.ScaleType.CENTER_INSIDE);
-        }
-
-    }*/
-
-    /** 从给定的路径加载图片，并指定是否自动旋转方向*/
-    private void setRotateDegree(String imgpath, int orientation) {
-        Bitmap bitmap= BitmapFactory.decodeFile(imgpath);
-        // 旋转图片
-        Matrix m = new Matrix();
-        m.postRotate(orientation);
-        Bitmap return_bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
-        FileOutputStream out;
-        try {
-            out = new FileOutputStream(imgpath);
-            return_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-    /** 获取照片旋转方向*/
-    private static int getRotateDegree(String path) {
-        int result = 0;
-        try {
-            ExifInterface exif = new ExifInterface(path);
-            int orientation = exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL);
-            switch (orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    result = 90;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    result = 180;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    result = 270;
-                    break;
-            }
-        } catch (IOException ignore) {
-            return 0;
-        }
-        return result;
-    }
-
     private void saveCar(){
 
         startProgressDialog("保存中...");
@@ -461,27 +387,6 @@ public class CarManageEditActivity extends BaseActivity {
 
     }
 
-    private void getParkList_bak(){
-        /*Map<String, Object> requestDataMap=new HashMap<>();
-        ApiHttpResult.parkList(this,requestDataMap,new HttpUtils.DataCallBack(){
-            @Override
-            public void callBack(Object o) {
-                HikBaseEntity hikBaseEntity= (HikBaseEntity) o;
-                if(hikBaseEntity.getCode().equals("0")){
-                    List<HikParkInfo> list= (List<HikParkInfo>) hikBaseEntity.getData();
-                    if(list!=null&&list.size()>0){
-                        FileManagement.setParkIndexCode(list.get(0).getParkIndexCode());
-                        if(reCharge){
-                            carCharge(tempStartTime,tempEndTime);
-                        }
-                    }
-                }else{
-                    showShortToast(hikBaseEntity.getMsg());
-                }
-            }
-        });*/
-    }
-
     private void getParkList(){
 
         RequestParam requestParam =  new RequestParam(BASE_URL+BASIC+"isc/park/parklist.action", HttpMethod.Post);
@@ -520,34 +425,6 @@ public class CarManageEditActivity extends BaseActivity {
 
         sendRequest(requestParam,false);
 
-    }
-
-    private void carCharge_bak(final String startTime, final String endTime){
-        /*Map<String, Object> requestDataMap=new HashMap<>();
-        requestDataMap.put("parkSyscode",FileManagement.getParkIndexCode());
-        requestDataMap.put("plateNo",carManageEntity.getPlateNO());
-        requestDataMap.put("fee",feeStr);
-        requestDataMap.put("startTime",startTime);
-        requestDataMap.put("endTime",endTime);
-        ApiHttpResult.carCharge(this,requestDataMap,new HttpUtils.DataCallBack(){
-            @Override
-            public void callBack(Object o) {
-                HikBaseEntity hikBaseEntity= (HikBaseEntity) o;
-                if(hikBaseEntity.getCode().equals("0")){
-                    getCarChargeInfo();
-                    Log.e("carCharge","车辆充值成功！");
-                }else{
-                    if(hikBaseEntity.getCode().equals("0x00072202")){
-                        tempStartTime=startTime;
-                        tempEndTime=endTime;
-                        reCharge=true;
-                        getParkList();
-                    }else{
-                        showShortToast(hikBaseEntity.getMsg());
-                    }
-                }
-            }
-        });*/
     }
 
     private void carCharge(final String startTime, final String endTime){
@@ -598,67 +475,6 @@ public class CarManageEditActivity extends BaseActivity {
         });
 
         sendRequest(requestParam,false);
-    }
-
-    private void carChargeDeletion(){
-       /* Map<String, Object> requestDataMap=new HashMap<>();
-        requestDataMap.put("parkSyscode","1223399961e4475c81ae6ba4038341f7");
-        requestDataMap.put("plateNo",carManageEntity.getPlateNO());
-        ApiHttpResult.carChargeDeletion(this,requestDataMap,new HttpUtils.DataCallBack(){
-            @Override
-            public void callBack(Object o) {
-                HikBaseEntity hikBaseEntity= (HikBaseEntity) o;
-                if(hikBaseEntity.getCode().equals("0")){
-                    Log.e("carChargeDeletion","取消车辆包期成功！");
-                }else{
-                    showShortToast(hikBaseEntity.getMsg());
-                }
-            }
-        });*/
-
-    }
-
-    private void getCarChargeInfo_bak(){
-       /* Map<String, Object> requestDataMap=new HashMap<>();
-        requestDataMap.put("plateNo",carManageEntity.getPlateNO());
-        requestDataMap.put("pageNo",1);
-        requestDataMap.put("pageSize",100);
-        ApiHttpResult.carChargeInfo(this,requestDataMap,new HttpUtils.DataCallBack(){
-            @Override
-            public void callBack(Object o) {
-                HikBaseEntity hikBaseEntity= (HikBaseEntity) o;
-                if(hikBaseEntity.getCode().equals("0")){
-                    info = ((List<CarChargeInfo>) hikBaseEntity.getData()).get(0);
-                    if(info.getGroupName()!=null&&!"".equals(info.getGroupName())){
-                        tv_car_manage_edit_pay_mode.setText(info.getGroupName());
-                        tv_car_manage_edit_charge.setVisibility(View.GONE);
-                    }else{
-                        if(info.getValidity()!=null&&info.getValidity().size()>0){
-                            tv_car_manage_edit_pay_mode.setText("固定车包期\r\n"+info.getValidity().get(0).getFunctionTime().get(0).getStartTime()+
-                                    "至"+info.getValidity().get(0).getFunctionTime().get(0).getEndTime());
-                            try {
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                Date end_date= sdf.parse(info.getValidity().get(0).getFunctionTime().get(0).getEndTime());
-                                if(end_date.getTime()<=new Date().getTime()){
-                                    tv_car_manage_edit_pay_mode.setText("固定车包期-包期已过期\r\n"+info.getValidity().get(0).getFunctionTime().get(0).getStartTime()+
-                                            "至"+info.getValidity().get(0).getFunctionTime().get(0).getEndTime());
-                                }else if(end_date.getTime()>new Date().getTime()&&end_date.getTime()<new Date().getTime()+7*24*60*60*1000){
-                                    tv_car_manage_edit_charge.setText("即将到期，续费");
-                                }else{
-                                    tv_car_manage_edit_charge.setVisibility(View.GONE);
-                                }
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                        }else{
-                            tv_car_manage_edit_pay_mode.setText("临时车缴费");
-                        }
-                    }
-                }else{
-                    showShortToast(hikBaseEntity.getMsg());
-                }
-            }
-        });*/
     }
 
     private void getCarChargeInfo(){

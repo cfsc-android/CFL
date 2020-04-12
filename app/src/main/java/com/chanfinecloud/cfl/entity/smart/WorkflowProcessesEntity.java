@@ -44,7 +44,7 @@ public class WorkflowProcessesEntity implements Serializable {
     private String briefDesc;
     private String createTime;
     private String processResult;
-    private List<ResourceEntity> resourceValues;
+    private List<ResourceEntity> resourceValue;
     private List<OperationInfoEntity> operationInfos;
     private List<WorkflowFormContentEntity> formContent;
 
@@ -55,12 +55,12 @@ public class WorkflowProcessesEntity implements Serializable {
     public void setFormContent(List<WorkflowFormContentEntity> formContent) {
         this.formContent = formContent;
     }
-    public List<ResourceEntity> getResourceValues() {
-        return resourceValues;
+    public List<ResourceEntity> getResourceValue() {
+        return resourceValue;
     }
 
-    public void setResourceValues(List<ResourceEntity> resourceValues) {
-        this.resourceValues = resourceValues;
+    public void setResourceValue(List<ResourceEntity> resourceValue) {
+        this.resourceValue = resourceValue;
     }
 
     public List<OperationInfoEntity> getOperationInfos() {

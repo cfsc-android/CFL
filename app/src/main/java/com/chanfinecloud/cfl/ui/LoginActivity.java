@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import com.chanfinecloud.cfl.ui.activity.RegisterActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
+import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.weidgt.EditTextDelView;
 import com.chanfinecloud.cfl.weidgt.alertview.AlertView;
@@ -352,4 +354,25 @@ public class LoginActivity extends BaseActivity {
         sendRequest(requestParam,false);
     }
 
+    private long time = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // 判断按返回键时
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (new Date().getTime() - time < 2000 && time != 0) {
+                /*Intent home = new Intent(Intent.ACTION_MAIN);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                home.addCategory(Intent.CATEGORY_HOME);
+                startActivity(home);*/
+                LynActivityManager.getInstance().removeAllActivity();
+                System.exit(0);
+
+            } else {
+                showToast("再按一次退出");
+                time = new Date().getTime();
+                return false;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

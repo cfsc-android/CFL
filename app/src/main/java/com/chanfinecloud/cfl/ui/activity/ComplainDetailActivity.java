@@ -409,10 +409,10 @@ public class ComplainDetailActivity extends BaseActivity {
             bundle.putSerializable("complainDetail", complainDetailsEntity);
             if(workflowActionFragment !=null){
                 workflowActionFragment =new WorkflowActionFragment().newInstance(bundle);
-                transaction.replace(R.id.order_detail_workflow_action_fl, workflowActionFragment).commit();
+                transaction.replace(R.id.complain_detail_workflow_ll, workflowActionFragment).commit();
             }else{
                 workflowActionFragment =new WorkflowActionFragment().newInstance(bundle);
-                transaction.add(R.id.order_detail_workflow_action_fl, workflowActionFragment).commit();
+                transaction.add(R.id.complain_detail_workflow_ll, workflowActionFragment).commit();
             }
         }else{
             if(workflowActionFragment !=null){

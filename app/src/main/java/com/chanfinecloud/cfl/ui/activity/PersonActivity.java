@@ -159,7 +159,7 @@ public class PersonActivity extends BaseActivity {
                     @Override
                     public void returnData(String dateText, String dateValue) {
                         Map<String,Object> map=new HashMap<>();
-                        map.put("birthday",dateText+" 00:00:00");
+                        map.put("birthday",dateText+" 08:00:00");
                         updateUser(map,"birthday");
                         wheelDialog.cancel();
                     }

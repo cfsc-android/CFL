@@ -127,7 +127,7 @@ public class UnLockListActivity extends BaseActivity {
      * @param position 列表索引
      */
     private void openDoor(final int position){
-        RequestParam requestParam=new RequestParam(BASE_URL+IOT+"community/api/access/v1/devices/user", HttpMethod.Post);
+        RequestParam requestParam=new RequestParam(BASE_URL+IOT+"community/api/access/v1/remote/open", HttpMethod.Post);
         Map<String,Object> map=new HashMap<>();
         map.put("cmd","open");
         map.put("deviceSerial",data.get(position).getDeviceSerial());

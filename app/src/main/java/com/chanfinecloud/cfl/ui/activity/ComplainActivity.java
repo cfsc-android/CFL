@@ -144,7 +144,7 @@ public class ComplainActivity extends BaseActivity {
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if(position==dataList.size()-1){
                     if(permissionFlag){
-                        PhotoPicker.pick(ComplainActivity.this,6,true,REQUEST_CODE_CHOOSE);
+                        PhotoPicker.pick(ComplainActivity.this,1,true,REQUEST_CODE_CHOOSE);
                     }else{
                         showToast("相机或读写手机存储的权限被禁止！");
                     }

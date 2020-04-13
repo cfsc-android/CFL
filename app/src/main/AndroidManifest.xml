@@ -26,6 +26,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".weidgt.imagepreview.ui.PreviewActivity"/>
+        <activity android:name=".weidgt.imagepreview.ui.VideoPlayerActivity"/>
         <activity android:name=".ui.activity.homehead.VideoCallActivity" />
         <activity android:name=".ui.activity.CarManageEditActivity" />
         <activity android:name=".ui.activity.UnLockListActivity" />

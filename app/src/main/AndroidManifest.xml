@@ -91,7 +91,6 @@
         <activity android:name=".ui.activity.PersonNickNameActivity" />
         <activity android:name=".ui.activity.ParkingPaymentActivity" />
         <activity android:name=".ui.activity.PaymentTestActivity" />
-        <activity android:name=".weidgt.imagepreview.ui.PreviewActivity" />
 
         <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">

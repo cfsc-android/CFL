@@ -137,16 +137,15 @@ public class OrderDetailsEntity implements Serializable {
     private String creatorAvatarUrl;
     private String customerServiceName;
     private String departmentLeaderName;
-    private List<ResourceEntity> resourceValue;
+    private List<ResourceEntity> problemResourceValue;
     private List<WorkflowProcessesEntity> processes;
 
-
-    public List<ResourceEntity> getResourceValue() {
-        return resourceValue;
+    public List<ResourceEntity> getProblemResourceValue() {
+        return problemResourceValue;
     }
 
-    public void setResourceValue(List<ResourceEntity> resourceValue) {
-        this.resourceValue = resourceValue;
+    public void setProblemResourceValue(List<ResourceEntity> problemResourceValue) {
+        this.problemResourceValue = problemResourceValue;
     }
 
     public List<WorkflowProcessesEntity> getProcesses() {

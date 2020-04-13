@@ -1,15 +1,10 @@
 package com.chanfinecloud.cfl.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.inputmethodservice.KeyboardView;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -19,8 +14,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.chanfinecloud.cfl.R;
@@ -41,27 +34,22 @@ import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
-import com.chanfinecloud.cfl.util.PhotoUtils;
-import com.chanfinecloud.cfl.util.XUtilsImageUtils;
 import com.chanfinecloud.cfl.weidgt.SpinerPopWindow;
 import com.chanfinecloud.cfl.weidgt.photopicker.PhotoPicker;
 import com.chanfinecloud.cfl.weidgt.platenumberview.CarPlateNumberEditView;
 import com.chanfinecloud.cfl.weidgt.platenumberview.PlateNumberKeyboardUtil;
-import com.jph.takephoto.model.TImage;
-import com.jph.takephoto.model.TResult;
 import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.util.LogUtil;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -418,27 +406,6 @@ public class CarManageAddActivity extends BaseActivity{
         return super.dispatchTouchEvent(ev);
     }
 
-    public void takeSuccess(TResult result) {
-
-        TImage image = result.getImages().get(0);
-        if (image != null) {
-          //  tImages.add(image);
-            String imagePath = image.getOriginalPath().replace("/external_storage_root", "");
-            if (imagePath.indexOf(Environment.getExternalStorageDirectory() + "") == -1) {
-                imagePath = Environment.getExternalStorageDirectory() + imagePath;
-            }
-            int old_orientation = getRotateDegree(imagePath);
-            PhotoUtils.compressPicture(imagePath, imagePath);
-            int new_orientation = getRotateDegree(imagePath);
-            if(new_orientation!=old_orientation){
-                setRotateDegree(imagePath,old_orientation);
-            }
-            carImagePath=imagePath;
-            XUtilsImageUtils.display(tvCarManageAddCarPhoto,imagePath,ImageView.ScaleType.CENTER_INSIDE);
-        }
-
-    }
-
     /**
      * 拍照或者选取图片结果
      * @param requestCode
@@ -500,50 +467,6 @@ public class CarManageAddActivity extends BaseActivity{
                         e.printStackTrace();
                     }
                 }).launch();
-    }
-
-
-    /** 从给定的路径加载图片，并指定是否自动旋转方向*/
-    private void setRotateDegree(String imgpath, int orientation) {
-        Bitmap bitmap= BitmapFactory.decodeFile(imgpath);
-        // 旋转图片
-        Matrix m = new Matrix();
-        m.postRotate(orientation);
-        Bitmap return_bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
-        FileOutputStream out;
-        try {
-            out = new FileOutputStream(imgpath);
-            return_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-    /** 获取照片旋转方向*/
-    private static int getRotateDegree(String path) {
-        int result = 0;
-        try {
-            ExifInterface exif = new ExifInterface(path);
-            int orientation = exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL);
-            switch (orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    result = 90;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    result = 180;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    result = 270;
-                    break;
-            }
-        } catch (IOException ignore) {
-            return 0;
-        }
-        return result;
     }
 
 }

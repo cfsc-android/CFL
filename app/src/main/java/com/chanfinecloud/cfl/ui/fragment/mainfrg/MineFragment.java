@@ -1,9 +1,7 @@
 package com.chanfinecloud.cfl.ui.fragment.mainfrg;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,16 +9,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.R;
-import com.chanfinecloud.cfl.entity.LoginUserEntity;
-import com.chanfinecloud.cfl.entity.RoomInfoEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 import com.chanfinecloud.cfl.entity.smart.WorkflowType;
-import com.chanfinecloud.cfl.ui.activity.CommentActivity;
-import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
+import com.chanfinecloud.cfl.ui.MainActivity;
 import com.chanfinecloud.cfl.ui.activity.CarManageActivity;
+import com.chanfinecloud.cfl.ui.activity.CommentActivity;
 import com.chanfinecloud.cfl.ui.activity.NewsInfoActivity;
 import com.chanfinecloud.cfl.ui.activity.PersonActivity;
 import com.chanfinecloud.cfl.ui.activity.SettingActivity;
@@ -33,12 +30,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+
 
 /**
  * Damien
@@ -76,7 +73,6 @@ public class MineFragment extends BaseFragment {
     private Unbinder unbinder;
 
     private UserInfoEntity userInfo;
-    private boolean bind = true;
 
     @Override
     protected void initView(LayoutInflater inflater) {
@@ -84,11 +80,6 @@ public class MineFragment extends BaseFragment {
         setContentView(view);
         unbinder = ButterKnife.bind(this, view);
         userInfo=FileManagement.getUserInfo();
-        if(userInfo.getCurrentDistrict()!=null&&!TextUtils.isEmpty(userInfo.getCurrentDistrict().getRoomId())){
-            bind=true;
-        }else{
-            bind=false;
-        }
         EventBus.getDefault().register(this);
     }
 
@@ -101,11 +92,6 @@ public class MineFragment extends BaseFragment {
     protected void onFragmentStartLazy() {
         super.onFragmentStartLazy();
         userInfo=FileManagement.getUserInfo();
-        if(userInfo.getCurrentDistrict()!=null&&!TextUtils.isEmpty(userInfo.getCurrentDistrict().getRoomId())){
-            bind=true;
-        }else{
-            bind=false;
-        }
         initViewDara();
     }
 
@@ -156,7 +142,7 @@ public class MineFragment extends BaseFragment {
                 startActivity(PersonActivity.class);
                 break;
             case R.id.tv_mine_gongdan:
-                if(bind){
+                if(CFLApplication.bind){
                     bundle.putSerializable("workflowType", WorkflowType.Order);
                     startActivity(WorkflowListActivity.class,bundle);
                 }else{
@@ -165,7 +151,7 @@ public class MineFragment extends BaseFragment {
                 
                 break;
             case R.id.tv_mine_tousu:
-                if (bind){
+                if (CFLApplication.bind){
                     bundle.putSerializable("workflowType", WorkflowType.Complain);
                     startActivity(WorkflowListActivity.class,bundle);
                 }else{
@@ -174,7 +160,7 @@ public class MineFragment extends BaseFragment {
                 
                 break;
             case R.id.tv_mine_car:
-                if(bind){
+                if(CFLApplication.bind){
                     startActivity(CarManageActivity.class);
                 }else{
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));

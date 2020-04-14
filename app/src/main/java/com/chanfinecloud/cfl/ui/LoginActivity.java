@@ -281,6 +281,8 @@ public class LoginActivity extends BaseActivity {
                 LogUtils.d(result);
                 BaseEntity<UserInfoEntity> baseEntity= JsonParse.parse(result, UserInfoEntity.class);
                 if(baseEntity.isSuccess()){
+                    etdUserMobileNumber.setText("");
+                    etUserMobileCode.setText("");
                     FileManagement.setUserInfo(baseEntity.getResult());//缓存用户信息
                     CurrentDistrictEntity currentDistrict = baseEntity.getResult().getCurrentDistrict();
                     if(currentDistrict!=null && !TextUtils.isEmpty(currentDistrict.getProjectId())){
@@ -291,7 +293,6 @@ public class LoginActivity extends BaseActivity {
                         startActivity(ProjectSelectActivity.class,bundle);
                     }
                 }else{
-                    stopProgressDialog();
                     showToast(baseEntity.getMessage());
                 }
             }
@@ -300,6 +301,11 @@ public class LoginActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
                 stopProgressDialog();
             }
         });

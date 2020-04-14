@@ -30,6 +30,35 @@
 -dontwarn androidx.**
 
 
+-keepattributes *Annotation*
+-keepclassmembers class * {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# And if you use AsyncExecutor:
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
+#极光推送
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+-keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
+
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }
+
+# 友盟统计
+-keep class com.umeng.** {*;}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-dontwarn com.tencent.weibo.sdk.**
+
+
+
+
 #-----------基本配置--------------
 # 代码混淆压缩比，在0~7之间，默认为5，一般不需要改
 -optimizationpasses 5
@@ -49,7 +78,7 @@
 -dontpreverify
 
 # 不优化输入的类文件
-#-dontoptimize
+-dontoptimize
 
 # 混淆时生成日志文件，即映射文件
 -verbose
@@ -61,7 +90,7 @@
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
 # 保护代码中的Annotation不被混淆
--keepattributes *Annotation*
+#-keepattributes *Annotation*
 
 # 忽略警告
 #-ignorewarning
@@ -234,10 +263,15 @@
 }
 
 # AndroidEventBus
--keep class org.simple.** { *; }
--keep interface org.simple.** { *; }
+-keepattributes *Annotation*
 -keepclassmembers class * {
- @org.simple.eventbus.Subscriber <methods>;
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# And if you use AsyncExecutor:
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
 }
 
 

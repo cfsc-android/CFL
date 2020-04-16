@@ -235,7 +235,7 @@ public class RepairsDetailActivity extends BaseActivity {
 
         Map<String,String> map=new HashMap<>();
         map.put("type", WorkflowType.Order.getType());
-        RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"/workflow/api/detail/"+orderId, HttpMethod.Get);
+        RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"workflow/api/detail/"+orderId, HttpMethod.Get);
         requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){
             @Override

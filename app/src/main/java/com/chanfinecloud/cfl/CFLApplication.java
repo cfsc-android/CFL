@@ -1,9 +1,16 @@
 package com.chanfinecloud.cfl;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+import android.util.Log;
 
 import com.chanfinecloud.cfl.entity.core.Transition;
+import com.chanfinecloud.cfl.util.Utils;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -20,6 +27,7 @@ import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
 import org.xutils.BuildConfig;
+import org.xutils.common.Callback;
 import org.xutils.x;
 
 import java.util.HashMap;
@@ -44,6 +52,7 @@ public class CFLApplication extends Application {
     public static boolean bind;
 
     private RefWatcher refWatcher;
+    private String TAG = "CFLApplication";
 
     public static RefWatcher getRefWatcher(Context context) {
         CFLApplication application = (CFLApplication) context.getApplicationContext();
@@ -70,6 +79,7 @@ public class CFLApplication extends Application {
         //极光推送初始化
         JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);            // 初始化 JPush
+
     }
 
     static {
@@ -115,4 +125,7 @@ public class CFLApplication extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this); // 初始化
     }
+
+
+
 }

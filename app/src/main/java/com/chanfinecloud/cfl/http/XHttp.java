@@ -33,6 +33,7 @@ public class XHttp {
     public static <T> Callback.Cancelable Get(String url, Map<String, Object> map,Map<String, String> header,Callback.CommonCallback<T> callback,boolean authorization){
         LogUtil.d(url);
         RequestParams params=new RequestParams(url);
+        params.setConnectTimeout(120*1000);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
         if(null!=header){
             for(Map.Entry<String, String> entry : header.entrySet()){
@@ -61,6 +62,7 @@ public class XHttp {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
+        params.setConnectTimeout(120*1000);
         if(null!=header){
             for(Map.Entry<String, String> entry : header.entrySet()){
                 params.addHeader(entry.getKey(), entry.getValue());
@@ -98,6 +100,7 @@ public class XHttp {
     public static <T> Callback.Cancelable Put(String url, Map<String, Object> map, Map<String, String> header,Callback.CommonCallback<T> callback,ParamType paramType,boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
+        params.setConnectTimeout(120*1000);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
         if(null!=header){
             for(Map.Entry<String, String> entry : header.entrySet()){
@@ -132,6 +135,7 @@ public class XHttp {
     public static <T> Callback.Cancelable Delete(String url, Map<String, Object> map, Map<String, String> header,Callback.CommonCallback<T> callback,ParamType paramType,boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
+        params.setConnectTimeout(120*1000);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
         if(null!=header){
             for(Map.Entry<String, String> entry : header.entrySet()){
@@ -166,6 +170,7 @@ public class XHttp {
     public static <T> Callback.Cancelable UpLoadFile(String url, Map<String, Object> map,Map<String, String> header, Callback.CommonCallback<T> callback,boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
+        params.setConnectTimeout(120*1000);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
         if(null!=header){
             for(Map.Entry<String, String> entry : header.entrySet()){
@@ -195,6 +200,7 @@ public class XHttp {
     public static <T> Callback.Cancelable DownLoadFile(String url, String filepath, Map<String, String> header,Callback.ProgressCallback<T> callback,boolean authorization) {
         LogUtil.d(url);
         RequestParams params = new RequestParams(url);
+        params.setConnectTimeout(120*1000);
         params.addHeader(authorization?"Authorization":"",getAuthorization());
         if(null!=header){
             for(Map.Entry<String, String> entry : header.entrySet()){

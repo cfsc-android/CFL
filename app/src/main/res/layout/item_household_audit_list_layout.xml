@@ -39,7 +39,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="18073667958"
+                    android:text="18000000001"
                     android:textSize="@dimen/sp_16"
                     android:textColor="@color/text_primary"/>
                 <TextView

@@ -17,6 +17,7 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.smart.OtherRoomListAdapter;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.ApprovalStatusType;
 import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
 import com.chanfinecloud.cfl.entity.smart.HouseholdRoomEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
@@ -79,9 +80,23 @@ public class OtherRoomFragment extends BaseFragment {
         otherRoomRv.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle=new Bundle();
-                bundle.putString("roomId",data.get(position).getId());
-                startActivity(OtherRoomDetailActivity.class,bundle);
+                if (data != null && data.get(position) != null){
+                    if (data.get(position).getApprovalStatus() == ApprovalStatusType.Audit.getType()){
+                        showToast("审核中");
+                        return;
+                    }
+                    if (data.get(position).getApprovalStatus() == ApprovalStatusType.Refuse.getType()){
+                        showToast("已被拒绝");
+                        return;
+                    }
+                    Bundle bundle=new Bundle();
+                    bundle.putString("roomId",data.get(position).getId());
+                    startActivity(OtherRoomDetailActivity.class,bundle);
+                }else{
+
+                    showToast("房间ID获取失败");
+                }
+
             }
         });
         getRoomData();

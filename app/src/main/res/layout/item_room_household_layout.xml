@@ -28,7 +28,7 @@
                 android:id="@+id/item_room_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="18073667958"
+                android:text="18000000001"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_primary"/>
             <TextView

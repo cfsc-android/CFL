@@ -24,22 +24,29 @@ public class EquipmentAdapter extends BaseQuickAdapter<EquipmentInfoBo, BaseView
     public EquipmentAdapter(Context context, @Nullable List<EquipmentInfoBo> data) {
         super(R.layout.item_equipment_list,data);
         this.context=context;
-        for (int i = 0; i < data.size(); i++) {
-            statusList.add(false);
+        if (data != null){
+            for (int i = 0; i < data.size(); i++) {
+                statusList.add(false);
+            }
         }
+
     }
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, EquipmentInfoBo item) {
-        helper.setText(R.id.equipment_tv_name,item.getDeviceName());
-        boolean status=statusList.get(helper.getAdapterPosition());
-        if(status){
-            helper.setText(R.id.equipment_tv_status,"门已打开");
-            helper.setTextColor(R.id.equipment_tv_status,context.getResources().getColor(R.color.blue_color));
-        }else{
-            helper.setText(R.id.equipment_tv_status,"点击开门");
-            helper.setTextColor(R.id.equipment_tv_status,context.getResources().getColor(R.color.text_warn));
+
+        if (statusList != null){
+            helper.setText(R.id.equipment_tv_name,item.getDeviceName());
+            boolean status=statusList.get(helper.getAdapterPosition());
+            if(status){
+                helper.setText(R.id.equipment_tv_status,"门已打开");
+                helper.setTextColor(R.id.equipment_tv_status,context.getResources().getColor(R.color.blue_color));
+            }else{
+                helper.setText(R.id.equipment_tv_status,"点击开门");
+                helper.setTextColor(R.id.equipment_tv_status,context.getResources().getColor(R.color.text_warn));
+            }
         }
+
     }
 
     public void setEquipmentOpen(int position){

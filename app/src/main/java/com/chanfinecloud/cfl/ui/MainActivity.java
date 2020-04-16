@@ -358,12 +358,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
             if(!TextUtils.isEmpty(currentDistrict.getRoomId())){
                 List<HouseholdRoomEntity> list= getUserInfo().getRoomList();
-                for (int i = 0; i < list.size(); i++) {
-                    if(list.get(i).getId().equals(currentDistrict.getRoomId())){
-                        tagSet.add(list.get(i).getHouseholdType());
+                if (list != null){
+                    for (int i = 0; i < list.size(); i++) {
+                        if(list.get(i).getId().equals(currentDistrict.getRoomId())){
+                            tagSet.add(list.get(i).getHouseholdType());
+                        }
                     }
-                }
 
+                }else{
+                    tagSet.add("YK");
+                }
             }else{
                 tagSet.add("YK");
             }

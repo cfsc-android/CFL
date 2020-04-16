@@ -19,6 +19,7 @@ import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
+import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.view.RecyclerViewDivider;
 import com.google.gson.reflect.TypeToken;
 
@@ -69,39 +70,46 @@ public class UnLockListActivity extends BaseActivity {
      * 获取门禁数据
      */
     private void getData(){
-        RequestParam requestParam=new RequestParam(BASE_URL+IOT+"community/api/access/v1/devices/user", HttpMethod.Get);
-        Map<String,Object> map=new HashMap<>();
-        map.put("phaseId", FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());
-        map.put("userId",FileManagement.getUserInfo().getId());
-        requestParam.setRequestMap(map);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtil.d(result);
-                Type type = new TypeToken<List<EquipmentInfoBo>>() {}.getType();
-                BaseEntity<List<EquipmentInfoBo>> baseEntity= JsonParse.parse(result,type);
-                if(baseEntity.isSuccess()){
-                    data.addAll(baseEntity.getResult());
-                    initAdapter();
-                }else{
-                    showToast(baseEntity.getMessage());
+
+        if (FileManagement.getUserInfo() != null && FileManagement.getUserInfo().getRoomList() != null
+         && FileManagement.getUserInfo().getRoomList().get(0) != null
+         && !Utils.isEmpty(FileManagement.getUserInfo().getRoomList().get(0).getPhaseId())){
+            RequestParam requestParam=new RequestParam(BASE_URL+IOT+"community/api/access/v1/devices/user", HttpMethod.Get);
+            Map<String,Object> map=new HashMap<>();
+            map.put("phaseId", FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());
+            map.put("userId",FileManagement.getUserInfo().getId());
+            requestParam.setRequestMap(map);
+            requestParam.setCallback(new MyCallBack<String>(){
+                @Override
+                public void onSuccess(String result) {
+                    super.onSuccess(result);
+                    LogUtil.d(result);
+                    Type type = new TypeToken<List<EquipmentInfoBo>>() {}.getType();
+                    BaseEntity<List<EquipmentInfoBo>> baseEntity= JsonParse.parse(result,type);
+                    if(baseEntity.isSuccess()){
+                        data.addAll(baseEntity.getResult());
+                        initAdapter();
+                        //adapter.notifyDataSetChanged();
+                    }else{
+                        showToast(baseEntity.getMessage());
+                    }
                 }
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    super.onError(ex, isOnCallback);
+                    showToast(ex.getMessage());
+                }
 
-            @Override
-            public void onFinished() {
-                super.onFinished();
-                stopProgressDialog();
-            }
-        });
-        sendRequest(requestParam,true);
+                @Override
+                public void onFinished() {
+                    super.onFinished();
+                    stopProgressDialog();
+                }
+            });
+            sendRequest(requestParam,true);
+        }
+
     }
 
     /**
@@ -127,33 +135,41 @@ public class UnLockListActivity extends BaseActivity {
      * @param position 列表索引
      */
     private void openDoor(final int position){
-        RequestParam requestParam=new RequestParam(BASE_URL+IOT+"community/api/access/v1/remote/open", HttpMethod.Post);
-        Map<String,Object> map=new HashMap<>();
-        map.put("cmd","open");
-        map.put("deviceSerial",data.get(position).getDeviceSerial());
-        map.put("phaseId", FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());
-        requestParam.setRequestMap(map);
-        requestParam.setParamType(ParamType.Json);
-        requestParam.setCallback(new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                LogUtil.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
-                if(baseEntity.isSuccess()){
-                    adapter.setEquipmentOpen(position);
-                }else{
-                    showToast(baseEntity.getMessage());
-                }
-            }
+        if (FileManagement.getUserInfo() != null && FileManagement.getUserInfo().getRoomList() != null
+                && FileManagement.getUserInfo().getRoomList().get(0) != null
+                && !Utils.isEmpty(FileManagement.getUserInfo().getRoomList().get(0).getPhaseId())){
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                showToast(ex.getMessage());
-            }
-        });
-        sendRequest(requestParam,false);
+            RequestParam requestParam=new RequestParam(BASE_URL+IOT+"community/api/access/v1/remote/open", HttpMethod.Post);
+            Map<String,Object> map=new HashMap<>();
+            map.put("cmd","open");
+            map.put("deviceSerial",data.get(position).getDeviceSerial());
+            map.put("phaseId", FileManagement.getUserInfo().getRoomList().get(0).getPhaseId());
+            requestParam.setRequestMap(map);
+            requestParam.setParamType(ParamType.Json);
+            requestParam.setCallback(new MyCallBack<String>(){
+                @Override
+                public void onSuccess(String result) {
+                    super.onSuccess(result);
+                    LogUtil.d(result);
+                    BaseEntity baseEntity= JsonParse.parse(result);
+                    if(baseEntity.isSuccess()){
+                        adapter.setEquipmentOpen(position);
+                    }else{
+                        showToast(baseEntity.getMessage());
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    super.onError(ex, isOnCallback);
+                    showToast(ex.getMessage());
+                }
+            });
+            sendRequest(requestParam,false);
+
+
+        }
+
     }
 
     @OnClick({R.id.toolbar_btn_back})

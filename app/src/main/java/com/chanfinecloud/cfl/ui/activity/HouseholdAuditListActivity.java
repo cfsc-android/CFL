@@ -84,7 +84,7 @@ public class HouseholdAuditListActivity extends BaseActivity {
                 LogUtil.d("position:"+position+" index:"+index);
                 AuditEntity auditEntity=data.get(position);
 
-                if(auditEntity.getStatus() != ApprovalStatusType.Audit.getType()){
+                if(auditEntity.getStatus() == ApprovalStatusType.Audit.getType()){
                     if(index==0){
                         refuseAudit(position);
                     }else{

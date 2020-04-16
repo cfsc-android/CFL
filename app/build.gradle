@@ -14,7 +14,7 @@ android {
         applicationId "com.chanfinecloud.cfl"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 3
+        versionCode 4
         versionName "1.0.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -52,9 +52,8 @@ android {
         debug {
             debuggable true
             minifyEnabled true
-            zipAlignEnabled false
-            shrinkResources false
-            useProguard false
+            zipAlignEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.cfl
             //测试
@@ -68,7 +67,6 @@ android {
             minifyEnabled true
             zipAlignEnabled true
             shrinkResources true
-            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.cfl
             //正式

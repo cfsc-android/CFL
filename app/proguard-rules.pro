@@ -20,6 +20,25 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-libraryjars libs/commons-codec-1.4.jar
+
+
+#XUtils3
+-keepattributes Signature,*Annotation*
+-keep public class org.xutils.** {
+    public protected *;
+}
+-keep public interface org.xutils.** {
+    public protected *;
+}
+-keepclassmembers class * extends org.xutils.** {
+    public protected *;
+}
+-keepclassmembers @org.xutils.db.annotation.* class * {*;}
+-keepclassmembers @org.xutils.http.annotation.* class * {*;}
+-keepclassmembers class * {
+    @org.xutils.view.annotation.Event <methods>;
+}
 
 -keep class com.google.android.material.** {*;}
 -keep class androidx.** {*;}

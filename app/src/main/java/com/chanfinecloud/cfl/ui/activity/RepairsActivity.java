@@ -23,6 +23,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
+import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
 import com.chanfinecloud.cfl.entity.smart.OrderTypeEntity;
 import com.chanfinecloud.cfl.entity.smart.UserType;
 import com.chanfinecloud.cfl.entity.smart.WorkflowType;
@@ -181,7 +182,10 @@ public class RepairsActivity extends BaseActivity {
         orderTypeEntityList= FileManagement.getOrderType();
         initProblemSpinner();
         resourceKey= UUID.randomUUID().toString().replaceAll("-","");
-        addOrderEtAddress.setText(FileManagement.getUserInfo().getAncestor());
+        CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
+        String address=currentDistrict.getProjectName()+currentDistrict.getPhaseName()+currentDistrict.getBuildingName()
+                +currentDistrict.getUnitName()+currentDistrict.getRoomName();
+        addOrderEtAddress.setText(address);
         addOrderEtContact.setText(FileManagement.getUserInfo().getName());
         addOrderEtContactTel.setText(FileManagement.getUserInfo().getMobile());
 
@@ -308,9 +312,9 @@ public class RepairsActivity extends BaseActivity {
         requestMap.put("linkMan",addOrderEtContact.getText().toString());
         requestMap.put("mobile",addOrderEtContactTel.getText().toString());
         requestMap.put("problemDesc",addOrderEtRemark.getText().toString());
-        requestMap.put("projectId",FileManagement.getUserInfo().getRoomList().get(0).getProjectId());
+        requestMap.put("projectId",FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
         requestMap.put("reportType", UserType.Household.getType());
-        requestMap.put("roomId",FileManagement.getUserInfo().getRoomList().get(0).getId());
+        requestMap.put("roomId",FileManagement.getUserInfo().getCurrentDistrict().getRoomId());
         requestMap.put("typeId",projectValue);
         if(dataList.size()>1)
             requestMap.put("problemResourceKey",resourceKey);

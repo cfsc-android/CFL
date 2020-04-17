@@ -374,7 +374,13 @@ public class RepairsDetailActivity extends BaseActivity {
         orderDetailUserName.setText(workOrder.getCreateName());
         orderDetailUserRoom.setText(workOrder.getBriefDesc());
         orderDetailOrderType.setText(workOrder.getWorkTypeName());
-        orderDetailAddress.setText(getString(R.string.address_value,workOrder.getProjectName(),workOrder.getPhaseName(),workOrder.getBriefDesc()));
+        String address;
+        if(TextUtils.isEmpty(workOrder.getAddress())){
+            address=getString(R.string.address_value,workOrder.getProjectName(),workOrder.getPhaseName(),workOrder.getBriefDesc());
+        }else{
+            address=workOrder.getAddress();
+        }
+        orderDetailAddress.setText(address);
         orderDetailContact.setText(workOrder.getHouseholdName());
         if (!TextUtils.isEmpty(workOrder.getHouseholdMobile())) {
             orderDetailContactTel.setText(workOrder.getHouseholdMobile());

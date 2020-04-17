@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.68
 # min_api: 19
-# pg_map_id: e2dac6d
+# pg_map_id: ec10f72
 android.support.v4.app.INotificationSideChannel -> a.a.a.a.a:
 android.support.v4.app.INotificationSideChannel$Stub -> a.a.a.a.a$a:
     20:22:void <init>() -> <init>
@@ -26204,10 +26204,10 @@ com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment -> com.chanfinecloud.cfl.
     java.util.List imageUrls -> o
     java.util.List bannerList -> n
     68:111:void <init>() -> <init>
-    128:137:void Event(com.chanfinecloud.cfl.entity.eventbus.EventBusMessage) -> Event
+    128:138:void Event(com.chanfinecloud.cfl.entity.eventbus.EventBusMessage) -> Event
     68:68:java.util.List access$000(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> a
     68:68:void access$300(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment,java.lang.String) -> a
-    141:144:void initView(android.view.LayoutInflater) -> a
+    142:145:void initView(android.view.LayoutInflater) -> a
     68:68:java.util.ArrayList access$100(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> b
     68:68:void access$400(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment,java.lang.String) -> b
     68:68:void access$200(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> c
@@ -26215,36 +26215,36 @@ com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment -> com.chanfinecloud.cfl.
     68:68:java.util.List access$500(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> d
     68:68:void access$700(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment,java.lang.String) -> d
     119:124:void onFragmentStartLazy() -> f
-    148:174:void initData() -> l
-    180:220:void getHotTips() -> n
-    226:265:void getWheelPlanting() -> o
-    288:293:void onDestroy() -> onDestroy
-    299:366:void onViewClicked(android.view.View) -> onViewClicked
-    271:284:void initADTextView() -> p
+    149:177:void initData() -> l
+    183:223:void getHotTips() -> n
+    229:268:void getWheelPlanting() -> o
+    291:296:void onDestroy() -> onDestroy
+    302:369:void onViewClicked(android.view.View) -> onViewClicked
+    274:287:void initADTextView() -> p
 com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$1 -> com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$1:
-    153:153:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
-    161:161:android.view.View createImageView(android.content.Context) -> createImageView
-    156:157:void displayImage(android.content.Context,java.lang.Object,android.view.View) -> displayImage
+    154:154:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
+    162:162:android.view.View createImageView(android.content.Context) -> createImageView
+    157:158:void displayImage(android.content.Context,java.lang.Object,android.view.View) -> displayImage
 com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$2 -> com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$a:
     com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment this$0 -> a
-    164:164:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
-    167:171:void OnBannerClick(int) -> a
+    165:165:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
+    168:172:void OnBannerClick(int) -> a
 com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$3 -> com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$b:
     com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment this$0 -> a
-    189:189:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
-    212:214:void onError(java.lang.Throwable,boolean) -> onError
-    189:189:void onSuccess(java.lang.Object) -> onSuccess
-    192:208:void onSuccess(java.lang.String) -> onSuccess
+    192:192:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
+    215:217:void onError(java.lang.Throwable,boolean) -> onError
+    192:192:void onSuccess(java.lang.Object) -> onSuccess
+    195:211:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$4 -> com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$c:
     com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment this$0 -> a
-    236:236:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
-    258:260:void onError(java.lang.Throwable,boolean) -> onError
-    236:236:void onSuccess(java.lang.Object) -> onSuccess
-    239:254:void onSuccess(java.lang.String) -> onSuccess
+    239:239:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
+    261:263:void onError(java.lang.Throwable,boolean) -> onError
+    239:239:void onSuccess(java.lang.Object) -> onSuccess
+    242:257:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$5 -> com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$d:
     com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment this$0 -> a
-    274:274:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
-    277:282:void OnAdConetentClickListener(int,com.chanfinecloud.cfl.entity.NoticeEntity) -> a
+    277:277:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
+    280:285:void OnAdConetentClickListener(int,com.chanfinecloud.cfl.entity.NoticeEntity) -> a
 com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment_ViewBinding -> com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment_ViewBinding:
     android.view.View view7f0802f8 -> i
     android.view.View view7f0802f6 -> h
@@ -26382,21 +26382,25 @@ com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment -> com.chanfi
     android.app.Activity context -> m
     com.chanfinecloud.cfl.adapter.smart.RoomHouseholdListAdapter adapter -> n
     58:95:void <init>() -> <init>
-    221:225:void Event(com.chanfinecloud.cfl.entity.eventbus.EventBusMessage) -> Event
+    235:239:void Event(com.chanfinecloud.cfl.entity.eventbus.EventBusMessage) -> Event
     58:58:java.util.List access$000(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> a
-    58:58:com.chanfinecloud.cfl.entity.smart.RoomEntity access$102(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment,com.chanfinecloud.cfl.entity.smart.RoomEntity) -> a
-    58:58:com.chanfinecloud.cfl.entity.smart.RoomHouseholdEntity access$202(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment,com.chanfinecloud.cfl.entity.smart.RoomHouseholdEntity) -> a
-    58:58:void access$500(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment,java.lang.String) -> a
+    58:58:com.chanfinecloud.cfl.entity.smart.RoomEntity access$202(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment,com.chanfinecloud.cfl.entity.smart.RoomEntity) -> a
+    58:58:com.chanfinecloud.cfl.entity.smart.RoomHouseholdEntity access$302(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment,com.chanfinecloud.cfl.entity.smart.RoomHouseholdEntity) -> a
+    58:58:void access$600(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment,java.lang.String) -> a
     101:106:void initView(android.view.LayoutInflater) -> a
-    58:58:com.chanfinecloud.cfl.entity.smart.RoomEntity access$100(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> b
-    58:58:void access$600(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment,java.lang.String) -> b
-    58:58:void access$300(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> c
-    58:58:com.chanfinecloud.cfl.adapter.smart.RoomHouseholdListAdapter access$400(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> d
+    58:58:void access$100(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> b
+    58:58:void access$700(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment,java.lang.String) -> b
+    58:58:void access$1000(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> c
+    58:58:com.chanfinecloud.cfl.entity.smart.RoomEntity access$200(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> d
+    58:58:void access$400(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> e
+    58:58:com.chanfinecloud.cfl.adapter.smart.RoomHouseholdListAdapter access$500(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> f
+    58:58:void access$800(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> g
+    58:58:void access$900(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> h
     111:113:void initData() -> l
-    159:196:void getRoomData() -> n
-    199:216:void initCurrentRoomView() -> o
-    229:234:void onDestroy() -> onDestroy
-    238:249:void onViewClicked(android.view.View) -> onViewClicked
+    159:210:void getRoomData() -> n
+    213:230:void initCurrentRoomView() -> o
+    243:248:void onDestroy() -> onDestroy
+    252:263:void onViewClicked(android.view.View) -> onViewClicked
     116:155:void initRoomData() -> p
 com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment$1 -> com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment$a:
     com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment this$0 -> a
@@ -26405,9 +26409,11 @@ com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment$1 -> com.chan
 com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment$2 -> com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment$b:
     com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment this$0 -> a
     162:162:void <init>(com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment) -> <init>
-    188:190:void onError(java.lang.Throwable,boolean) -> onError
+    196:198:void onCancelled(org.xutils.common.Callback$CancelledException) -> onCancelled
+    189:192:void onError(java.lang.Throwable,boolean) -> onError
+    202:204:void onFinished() -> onFinished
     162:162:void onSuccess(java.lang.Object) -> onSuccess
-    165:184:void onSuccess(java.lang.String) -> onSuccess
+    165:185:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment_ViewBinding -> com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment_ViewBinding:
     android.view.View view7f0800c1 -> c
     com.chanfinecloud.cfl.ui.fragment.minefragment.CurrentRoomFragment target -> a

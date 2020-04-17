@@ -127,6 +127,7 @@ public class HomeFragment extends BaseFragment {
     public void Event(EventBusMessage message) {
         LogUtils.d(message.getMessage());
         if("projectSelect".equals(message.getMessage())){
+            userInfo = FileManagement.getUserInfo();
             tvProjectLogoName.setText(userInfo.getCurrentDistrict().getProjectName());
             getHotTips();
             getWheelPlanting();
@@ -171,6 +172,8 @@ public class HomeFragment extends BaseFragment {
             }
         });
         bannerHomeAd.start();
+
+        EventBus.getDefault().register(this);
     }
 
     /**

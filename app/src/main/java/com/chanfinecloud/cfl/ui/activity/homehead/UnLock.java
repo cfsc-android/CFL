@@ -17,6 +17,7 @@ import com.chanfinecloud.cfl.http.ParamType;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
+import com.chanfinecloud.cfl.util.Utils;
 
 import org.xutils.common.util.LogUtil;
 
@@ -89,7 +90,8 @@ public class UnLock extends BaseActivity {
                 LogUtil.d(result);
                 BaseEntity<QrCodeEntity> baseEntity= JsonParse.parse(result, QrCodeEntity.class);
                 if(baseEntity.isSuccess()){
-                    Glide.with(getApplicationContext()).load(baseEntity.getResult().getQrCodeUrl()).into(ivQrCode);
+                    if (baseEntity.getResult() != null && !Utils.isEmpty(baseEntity.getResult().getQrCodeUrl()))
+                        Glide.with(getApplicationContext()).load(baseEntity.getResult().getQrCodeUrl()).into(ivQrCode);
                 }else{
                     showToast(baseEntity.getMessage());
                 }

@@ -3,6 +3,7 @@ package com.chanfinecloud.cfl.ui.activity;
 import android.Manifest;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -82,8 +83,11 @@ public class HouseholdFaceActivity extends BaseActivity {
             householdFaceBtnCollection.setVisibility(View.GONE);
         }
         householdEntity= (RoomHouseholdEntity) getIntent().getExtras().getSerializable("household");
-        if (householdEntity != null)
+        if (householdEntity != null){
             toolbarTvTitle.setText(TextUtils.isEmpty(householdEntity.getNickName())?"人脸信息":householdEntity.getNickName());
+            Log.e("HouseholdFaceActivity", "initData: "+ householdEntity.toString() );
+        }
+
         initFaceResource();
         PermissionsUtils.getInstance().checkPermissions(this, permission, new PermissionsUtils.IPermissionsResult() {
             @Override
@@ -200,7 +204,7 @@ public class HouseholdFaceActivity extends BaseActivity {
                     if (householdEntity != null){
                         bundle.putString("id",householdEntity.getId());
                         bundle.putString("name",householdEntity.getName());
-                        bundle.putBoolean("update",householdEntity.getFaceInfos()!=null&&householdEntity.getFaceInfos().size()>0);
+                        bundle.putBoolean("update",householdEntity!=null && householdEntity.getFaceId() != null);
                         startActivity(FaceCollectionPhotoActivity.class,bundle);
                     }
                     else{

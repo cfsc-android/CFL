@@ -208,9 +208,11 @@ public class LaunchActivity extends BaseActivity {
                 getUserInfo();
             } else {
                 startActivity(LoginActivity.class);
+                finish();
             }
         } else {
             startActivity(LoginActivity.class);
+            finish();
         }
     }
 
@@ -230,14 +232,17 @@ public class LaunchActivity extends BaseActivity {
                     CurrentDistrictEntity currentDistrict = baseEntity.getResult().getCurrentDistrict();
                     if(currentDistrict!=null && !TextUtils.isEmpty(currentDistrict.getProjectId())){
                         startActivity(MainActivity.class);
+                        finish();
                     }else{
                         Bundle bundle=new Bundle();
                         bundle.putString("openFrom","Login");
                         startActivity(ProjectSelectActivity.class,bundle);
+                        finish();
                     }
                 }else{
                     showToast(baseEntity.getMessage());
                     startActivity(LoginActivity.class);
+                    finish();
                 }
             }
 
@@ -246,6 +251,7 @@ public class LaunchActivity extends BaseActivity {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
                 startActivity(LoginActivity.class);
+                finish();
             }
         });
         sendRequest(requestParam,false);
@@ -254,6 +260,6 @@ public class LaunchActivity extends BaseActivity {
 
     @OnClick(R.id.tv_loading_version)
     public void onViewClicked() {
-        startActivity(LoginActivity.class);
+        //startActivity(LoginActivity.class);
     }
 }

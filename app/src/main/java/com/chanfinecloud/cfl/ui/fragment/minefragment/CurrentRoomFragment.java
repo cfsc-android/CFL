@@ -107,6 +107,12 @@ public class CurrentRoomFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+
+        initRoomData();
+
+    }
+
+    private void initRoomData() {
         userInfo= FileManagement.getUserInfo();
         CurrentDistrictEntity currentDistrictEntity = userInfo.getCurrentDistrict();
         if(!TextUtils.isEmpty(currentDistrictEntity.getRoomId())){
@@ -125,6 +131,11 @@ public class CurrentRoomFragment extends BaseFragment {
                     startActivity(HouseholdFaceActivity.class,bundle);
                 }
             });
+            currentRoomProjectLine.setVisibility(View.VISIBLE);
+            currentRoomProjectLl.setVisibility(View.VISIBLE);
+            currentRoomLlAdd.setVisibility(View.GONE);
+
+
         }else{
             currentRoomProjectLine.setVisibility(View.GONE);
             currentRoomProjectLl.setVisibility(View.GONE);
@@ -209,7 +220,7 @@ public class CurrentRoomFragment extends BaseFragment {
     public void Event(EventBusMessage message){
         if("HouseholdRefresh".equals(message.getMessage())){
             data.clear();
-            initData();
+            initRoomData();
         }
     }
 

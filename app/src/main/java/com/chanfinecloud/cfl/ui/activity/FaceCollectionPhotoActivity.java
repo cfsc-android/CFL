@@ -91,6 +91,8 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
     private FileEntity file;
     private int flag;
 
+    Map<String, String> roomMap = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -243,19 +245,43 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
      */
     private void faceAccess(){
         flag=0;
+        if (roomMap.size() > 0 ){
+            roomMap.clear();
+        }
         for (int i = 0; i < roomList.size(); i++) {
+            String phaseId = roomList.get(i).getPhaseId();
+            String unitIds = roomList.get(i).getUnitId();
+            if (roomMap.containsKey(phaseId)){
+                String curUnitIds = roomMap.get(phaseId);
+                String[] idsList = curUnitIds.split(",");
+                int hasCode = 0;
+                for (int j = 0; j < idsList.length; j++ ){
+                    if (idsList[j].equals(unitIds)){
+                        hasCode = 1;
+                    }
+                }
+                if (hasCode == 0){
+                    roomMap.put(phaseId,roomMap.get(phaseId) + "," + unitIds);
+                }
+            }else{
+                roomMap.put(phaseId, unitIds);
+            }
+        }
+        for(Map.Entry<String, String> entry : roomMap.entrySet()){
+
             Map<String,Object> requestMap=new HashMap<>();
             requestMap.put("id",id);
             requestMap.put("name",name);
-            requestMap.put("phaseId",roomList.get(i).getPhaseId());
-            requestMap.put("unitIds",roomList.get(i).getUnitId());
+            requestMap.put("phaseId",entry.getKey());
+            requestMap.put("unitIds",entry.getValue());
             RequestParam requestParam = new RequestParam(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId(), HttpMethod.Put);
 
             if(update){
                 requestParam.setMethod(HttpMethod.Put);
                 requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
-
+                Log.e( "faceAccess: ", "更新");
             }else{
+                Log.e( "faceAccess: ", "不更新");
                 requestParam.setMethod(HttpMethod.Post);
                 requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
             }
@@ -295,7 +321,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         @Override
         public void onFinished() {
             super.onFinished();
-            if(flag==roomList.size()){
+            if(flag==roomMap.size()){
                 EventBusMessage<FaceCollectionEventBusData> eventBusMessage=new EventBusMessage<>("faceCollection");
                 String createTime = file.getCreateTime();
                 createTime=createTime.replace("T"," ");

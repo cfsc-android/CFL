@@ -156,7 +156,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
     public void onTagOperatorResult(Context context, JPushMessage jPushMessage) {
         super.onTagOperatorResult(context, jPushMessage);
         //设置标签回调
-        LogUtils.d("onTagOperatorResult:"+jPushMessage.toString());
+     //   LogUtils.d("onTagOperatorResult:"+jPushMessage.toString());
         //设置不成功就继续设置
         if(jPushMessage.getErrorCode()!=0){
             JPushInterface.setTags(CFLApplication.getAppContext(),jPushMessage.getSequence(),jPushMessage.getTags());
@@ -174,7 +174,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
     public void onAliasOperatorResult(Context context, JPushMessage jPushMessage) {
         super.onAliasOperatorResult(context, jPushMessage);
         //设置别名回调
-        LogUtils.d("onAliasOperatorResult:"+jPushMessage.toString());
+      //  LogUtils.d("onAliasOperatorResult:"+jPushMessage.toString());
         //设置不成功就继续设置
         if(jPushMessage.getErrorCode()!=0){
             JPushInterface.setAlias(CFLApplication.getAppContext(),jPushMessage.getSequence(),jPushMessage.getAlias());

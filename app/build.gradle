@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 
 //def Release_Url = "\"http://10.222.1.25:9200/\""//开发环境
-def Release_Url = "\"http://10.88.0.58:9200/\""//开发环境
+def Release_Url = "\"http://222.240.190.70:9200/\""
+//def Release_Url = "\"http://10.88.0.58:9200/\""//开发环境
 def Debug_Url = "\"http://10.222.5.49:8888/\""//本地调试环境
 //def Debug_Url = "\"http://192.168.1.101:8888/\""//本地调试环境
 
@@ -13,7 +14,7 @@ android {
         applicationId "com.chanfinecloud.cfl"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 2
+        versionCode 4
         versionName "1.0.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -50,22 +51,22 @@ android {
     buildTypes {
         debug {
             debuggable true
-            minifyEnabled false
-            zipAlignEnabled false
-            shrinkResources false
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.cfl
             //测试
-            buildConfigField "String", "BASE_URL", Debug_Url
-            buildConfigField "String", "ENV", "\"debug\""
-//            buildConfigField "String", "BASE_URL", Release_Url
-//            buildConfigField "String", "ENV", "\"release\""
+//            buildConfigField "String", "BASE_URL", Debug_Url
+//            buildConfigField "String", "ENV", "\"debug\""
+            buildConfigField "String", "BASE_URL", Release_Url
+            buildConfigField "String", "ENV", "\"release\""
         }
         release {
             debuggable true
-            minifyEnabled false
-            zipAlignEnabled false
-            shrinkResources false
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.cfl
             //正式

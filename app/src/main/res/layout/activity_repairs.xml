@@ -196,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
                 android:layout_gravity="center"
-                android:background="@drawable/btn_solid_night_shape"
+                android:background="@drawable/btn_green_shape"
                 android:text="提交"
                 android:textColor="@color/text_white"
                 android:textSize="@dimen/dp_10" />

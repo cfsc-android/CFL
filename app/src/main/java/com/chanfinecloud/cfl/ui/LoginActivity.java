@@ -30,6 +30,7 @@ import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
+import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.weidgt.EditTextDelView;
 import com.chanfinecloud.cfl.weidgt.alertview.AlertView;
@@ -255,7 +256,9 @@ public class LoginActivity extends BaseActivity {
                 token.setInit_time(new Date().getTime()/1000);
                 FileManagement.setTokenEntity(token);
                 FileManagement.setPhone(mobileNum);
-                getUserInfo();
+
+                freshUserInfo();
+                //getUserInfo();
             }
 
             @Override
@@ -266,6 +269,31 @@ public class LoginActivity extends BaseActivity {
             }
         });
         sendRequest(requestParam,true);
+    }
+
+    private void freshUserInfo() {
+        UserInfoUtil.refreshUserInfoByServerCache(new UserInfoUtil.OnRefreshListener() {
+            @Override
+            public void onSuccess() {
+                etdUserMobileNumber.setText("");
+                etUserMobileCode.setText("");
+                CurrentDistrictEntity currentDistrict = FileManagement.getUserInfo().getCurrentDistrict();
+                if(currentDistrict!=null && !TextUtils.isEmpty(currentDistrict.getProjectId())){
+                    startActivity(MainActivity.class);
+                }else{
+                    Bundle bundle=new Bundle();
+                    bundle.putString("openFrom","Login");
+                    startActivity(ProjectSelectActivity.class,bundle);
+                }
+            }
+
+            @Override
+            public void onFail(String msg) {
+                showToast(msg);
+                stopProgressDialog();
+            }
+        });
+
     }
 
 
@@ -291,6 +319,7 @@ public class LoginActivity extends BaseActivity {
                         Bundle bundle=new Bundle();
                         bundle.putString("openFrom","Login");
                         startActivity(ProjectSelectActivity.class,bundle);
+                        finish();
                     }
                 }else{
                     showToast(baseEntity.getMessage());

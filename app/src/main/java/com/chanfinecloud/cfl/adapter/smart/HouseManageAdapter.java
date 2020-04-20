@@ -85,7 +85,7 @@ public class HouseManageAdapter extends BaseSwipListAdapter {
         }else{
             holder.room_list_line.setVisibility(View.INVISIBLE);
         }
-        if(householdRoomEntity.getHouseholdType().equals("YZ")){
+        if(householdRoomEntity.getHouseholdType() != null && householdRoomEntity.getHouseholdType().equals("YZ")){
             holder.room_nav_next.setVisibility(View.VISIBLE);
         }else{
             holder.room_nav_next.setVisibility(View.INVISIBLE);

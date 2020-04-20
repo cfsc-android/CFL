@@ -26,6 +26,7 @@ public class WorkflowProcessesEntity implements Serializable {
      * remark :
      * shortDesc : 工程部
      * createTime : 2020-03-13 17:10:05
+     * updateTime
      * processResult :
      */
 
@@ -43,6 +44,7 @@ public class WorkflowProcessesEntity implements Serializable {
     private String remark;
     private String briefDesc;
     private String createTime;
+    private String updateTime;
     private String processResult;
     private List<ResourceEntity> resourceValue;
     private List<OperationInfoEntity> operationInfos;
@@ -181,6 +183,14 @@ public class WorkflowProcessesEntity implements Serializable {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getProcessResult() {

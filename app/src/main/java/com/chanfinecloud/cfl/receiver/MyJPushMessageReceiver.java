@@ -59,7 +59,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         LogUtils.d("onNotifyMessageOpened:"+notificationMessage.toString());
         Gson gson=new Gson();
         NoticePushEntity noticePush=gson.fromJson(notificationMessage.notificationExtras,NoticePushEntity.class);
-        if("1".equals(noticePush.getType())){
+        if("1".equals(noticePush.getType())){//新闻类推送
             Intent intent=new Intent(context, NoticeDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
@@ -67,25 +67,25 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
             bundle.putString("title",notificationMessage.notificationTitle);
             intent.putExtras(bundle);
             context.startActivity(intent);
-        }else if("2".equals(noticePush.getType())){
+        }else if("2".equals(noticePush.getType())){//工单推送
             Intent intent=new Intent(context, RepairsDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
             bundle.putString("order_id",noticePush.getBusinessId());
             intent.putExtras(bundle);
             context.startActivity(intent);
-        }else if("3".equals(noticePush.getType())){
+        }else if("3".equals(noticePush.getType())){//投诉推送
             Intent intent=new Intent(context, ComplainDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
             bundle.putString("complain_id",noticePush.getBusinessId());
             intent.putExtras(bundle);
             context.startActivity(intent);
-        }else if("4".equals(noticePush.getType())){
+        }else if("4".equals(noticePush.getType())){//审核通过的推送
             Intent intent=new Intent(context, HouseHoldActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-        }else if("5".equals(noticePush.getType())){
+        }else if("5".equals(noticePush.getType())){//收到审核的推送
             Intent intent=new Intent(context, HouseholdAuditListActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();

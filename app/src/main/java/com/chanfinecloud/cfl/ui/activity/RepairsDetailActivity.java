@@ -315,7 +315,11 @@ public class RepairsDetailActivity extends BaseActivity {
                 }
                 item_workflow_content.setText(item.getRemark());
                 item_workflow_node.setText(item.getNodeName());
-                item_workflow_time.setText(item.getCreateTime());
+                if(item.getUpdateTime()==null){
+                    item_workflow_time.setText("正在处理");
+                }else{
+                    item_workflow_time.setText(item.getCreateTime());
+                }
                 List<ResourceEntity> picData=item.getResourceValue();
                 if(picData!=null&&picData.size()>0){
                     final List<ImageViewInfo> data=new ArrayList<>();

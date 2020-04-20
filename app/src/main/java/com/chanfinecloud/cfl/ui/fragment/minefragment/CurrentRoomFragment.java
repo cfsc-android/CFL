@@ -164,6 +164,7 @@ public class CurrentRoomFragment extends BaseFragment {
                 public void onSuccess(String result) {
                     super.onSuccess(result);
                     LogUtils.d(result);
+                    stopProgressDialog();
                     BaseEntity<RoomEntity> baseEntity = JsonParse.parse(result, RoomEntity.class);
                     if (baseEntity.isSuccess()) {
                         roomEntity = baseEntity.getResult();
@@ -187,10 +188,23 @@ public class CurrentRoomFragment extends BaseFragment {
                 public void onError(Throwable ex, boolean isOnCallback) {
                     super.onError(ex, isOnCallback);
                     showToast(ex.getMessage());
+                    stopProgressDialog();
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+                    super.onCancelled(cex);
+                    stopProgressDialog();
+                }
+
+                @Override
+                public void onFinished() {
+                    super.onFinished();
+                    stopProgressDialog();
                 }
             });
 
-            sendRequest(requestParam, false);
+            sendRequest(requestParam, true);
 
         }
     }

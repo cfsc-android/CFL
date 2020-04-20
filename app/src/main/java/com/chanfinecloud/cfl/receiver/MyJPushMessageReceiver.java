@@ -26,8 +26,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
-
-import static com.chanfinecloud.cfl.config.Config.CLEAR_JPUSH_TAGS_SEQUENCE;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 /**
  * Created by Loong on 2020/3/26.
@@ -102,6 +101,10 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         super.onNotifyMessageArrived(context, notificationMessage);
         //收到通知消息
         LogUtils.d("onNotifyMessageArrived:"+notificationMessage.toString());
+        // TODO: 2020/4/20  可能需要分类型添加小红标
+        int badgeCount = 1;
+        ShortcutBadger.applyCount(context, badgeCount); //for 1.1.4+
+        //EventBus.getDefault().post(new EventBusMessage<>("OrderNotice"));
         Gson gson=new Gson();
         NoticePushEntity noticePush=gson.fromJson(notificationMessage.notificationExtras,NoticePushEntity.class);
         if("4".equals(noticePush.getType())){
@@ -118,6 +121,12 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
             });
         }else if("1".equals(noticePush.getType())){
             EventBus.getDefault().post(new EventBusMessage<>("NoticeRefresh"));
+        }else if("2".equals(noticePush.getType())){
+
+            EventBus.getDefault().post(new EventBusMessage<>("OrderNotice"));
+        }else if("3".equals(noticePush.getType())){
+
+            EventBus.getDefault().post(new EventBusMessage<>("ComplaintNotice"));
         }
     }
 
@@ -156,7 +165,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
     public void onTagOperatorResult(Context context, JPushMessage jPushMessage) {
         super.onTagOperatorResult(context, jPushMessage);
         //设置标签回调
-     //   LogUtils.d("onTagOperatorResult:"+jPushMessage.toString());
+        LogUtils.d("onTagOperatorResult:"+jPushMessage.toString());
         //设置不成功就继续设置
         if(jPushMessage.getErrorCode()!=0){
             JPushInterface.setTags(CFLApplication.getAppContext(),jPushMessage.getSequence(),jPushMessage.getTags());

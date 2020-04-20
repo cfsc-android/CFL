@@ -467,4 +467,5 @@
     <color name="line">#CCCCCC</color>
     <color name="title_backgroud">#2C3447</color>
     <color name="backgroud_color">#FFFDEF</color>
+    <color name="dialog_bg">#33000000</color>
 </resources>

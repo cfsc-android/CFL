@@ -152,7 +152,7 @@
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/tv_project_progress"
-                        android:layout_width="0dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="@dimen/dp_10"
@@ -169,7 +169,7 @@
                         android:background="@color/grey_200" />
                     <TextView
                         android:id="@+id/tv_property_right"
-                        android:layout_width="0dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="@dimen/dp_10"
@@ -186,7 +186,7 @@
                         android:background="@color/grey_200" />
                     <TextView
                         android:id="@+id/tv_to_more"
-                        android:layout_width="0dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="@dimen/dp_10"
@@ -203,7 +203,7 @@
                         android:background="@color/grey_200" />
                     <TextView
                         android:id="@+id/tv_to_tongzhi"
-                        android:layout_width="0dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="@dimen/dp_10"
@@ -226,7 +226,7 @@
 
                     <TextView
                         android:id="@+id/tv_to_shjf"
-                        android:layout_width="0dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="@dimen/dp_10"
@@ -245,7 +245,7 @@
 
                     <TextView
                         android:id="@+id/tv_complaint"
-                        android:layout_width="0dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="@dimen/dp_10"
@@ -264,7 +264,7 @@
 
                     <TextView
                         android:id="@+id/tv_repair"
-                        android:layout_width="0dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="@dimen/dp_10"
@@ -282,7 +282,7 @@
                         android:background="@color/grey_200" />
                     <TextView
                         android:id="@+id/tv_to_zhoubian"
-                        android:layout_width="0dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="@dimen/dp_10"

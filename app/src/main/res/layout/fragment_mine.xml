@@ -69,7 +69,7 @@
 
         <TextView
             android:id="@+id/tv_mine_gongdan"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/dp_10"
@@ -88,7 +88,7 @@
 
         <TextView
             android:id="@+id/tv_mine_tousu"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/dp_10"
@@ -107,7 +107,7 @@
 
         <TextView
             android:id="@+id/tv_mine_car"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/dp_10"
@@ -126,7 +126,7 @@
 
         <TextView
             android:id="@+id/tv_mine_face"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/dp_10"
@@ -152,7 +152,7 @@
 
         <TextView
             android:id="@+id/tv_mine_express"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/dp_10"
@@ -171,7 +171,7 @@
 
         <TextView
             android:id="@+id/tv_mine_evaluation"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/dp_10"
@@ -190,7 +190,7 @@
 
         <TextView
             android:id="@+id/tv_mine_data"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/dp_10"
@@ -209,7 +209,7 @@
 
         <TextView
             android:id="@+id/tv_mine_setting"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/dp_10"

@@ -33,8 +33,15 @@ public class WorkflowStepAdapter extends BaseQuickAdapter<WorkflowProcessesEntit
         }else{
             helper.setGone(R.id.workflow_step_up_line,true);
         }
-        helper.setText(R.id.workflow_step_date,item.getUpdateTime().substring(0,10));
-        helper.setText(R.id.workflow_step_time,item.getUpdateTime().substring(11));
+        if(item.getUpdateTime()==null){
+            helper.setText(R.id.workflow_step_date,"正在处理");
+            helper.setText(R.id.workflow_step_time,"请耐心等待");
+        }else{
+            helper.setText(R.id.workflow_step_date,item.getUpdateTime().substring(0,10));
+            helper.setText(R.id.workflow_step_time,item.getUpdateTime().substring(11));
+        }
+
+
         ImageView avatar=helper.getView(R.id.workflow_step_avatar);
         Glide.with(context)
                 .load(item.getAvatarUrl())

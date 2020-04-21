@@ -41,13 +41,20 @@ public class WorkflowStepAdapter extends BaseQuickAdapter<WorkflowProcessesEntit
             helper.setText(R.id.workflow_step_time,item.getUpdateTime().substring(11));
         }
 
-
         ImageView avatar=helper.getView(R.id.workflow_step_avatar);
-        Glide.with(context)
-                .load(item.getAvatarUrl())
-                .error(R.drawable.icon_user_default)
-                .circleCrop()
-                .into(avatar);
+        if (item.getHandlerId() != null){
+            Glide.with(context)
+                    .load(item.getAvatarUrl())
+                    .error(R.drawable.icon_user_default)
+                    .circleCrop()
+                    .into(avatar);
+        } else{
+            Glide.with(context)
+                    .load(item.getAvatarUrl())
+                    .error(R.drawable.icon_user_default_red)
+                    .circleCrop()
+                    .into(avatar);
+        }
         helper.setText(R.id.workflow_step_press,item.getNodeName());
     }
 }

@@ -118,6 +118,7 @@ public class RepairsDetailActivity extends BaseActivity {
     SmartRefreshLayout orderDetailSrl;
     private String orderId;
     private List<WorkflowProcessesEntity> data = new ArrayList<>();
+    private List<WorkflowProcessesEntity> progressData=new ArrayList<>();
     private NoUnderlineSpan mNoUnderlineSpan;
     private FragmentManager fragmentManager;
     private WorkflowActionFragment workflowActionFragment;
@@ -208,7 +209,7 @@ public class RepairsDetailActivity extends BaseActivity {
                 break;
             case R.id.toolbar_tv_action:
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("workflowProcessesList", (Serializable) data);
+                bundle.putSerializable("workflowProcessesList", (Serializable) progressData);
                 startActivity(WorkflowStepActivity.class,bundle);
                 break;
             case R.id.toolbar_btn_action:
@@ -248,6 +249,8 @@ public class RepairsDetailActivity extends BaseActivity {
                     initAction(baseEntity.getResult());
                     List<WorkflowProcessesEntity> workflowList=baseEntity.getResult().getProcesses();
                     WorkflowProcessesEntity lastWorkflow=workflowList.get(workflowList.size()-1);
+                    progressData.clear();
+                    progressData.addAll(workflowList);
                     if(lastWorkflow.getOperationInfos()!=null&&lastWorkflow.getOperationInfos().size()>0){
                         workflowList.remove(workflowList.size()-1);
                     }

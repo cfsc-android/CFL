@@ -1,10 +1,14 @@
 package com.chanfinecloud.cfl.ui.fragment.mainfrg;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,6 +42,7 @@ import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.weidgt.ADTextView;
+import com.chanfinecloud.cfl.weidgt.BadgeView;
 import com.chanfinecloud.cfl.weidgt.OnAdConetentClickListener;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -112,7 +117,8 @@ public class HomeFragment extends BaseFragment {
     private UserInfoEntity userInfo;
 
 
-
+    private BadgeView orderBadgeTextView = null;
+    private BadgeView complaintBadgeTextView = null;
 
     @Override
     protected void onFragmentStartLazy() {
@@ -134,6 +140,10 @@ public class HomeFragment extends BaseFragment {
         }else if("NoticeRefresh".equals(message.getMessage())){
             getHotTips();
             getWheelPlanting();
+        }else if("OrderNotice".equals(message.getMessage())){
+            toShowBadgeView(1, orderBadgeTextView, 1);
+        }else if("ComplaintNotice".equals(message.getMessage())){
+            toShowBadgeView(1, complaintBadgeTextView, 1);
         }
     }
 
@@ -287,6 +297,12 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
+    protected void onResumeLazy() {
+        super.onResumeLazy();
+
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (unbinder != null) {
@@ -354,9 +370,11 @@ public class HomeFragment extends BaseFragment {
                 startActivity(LifePaymentActivity.class);
                 break;
             case R.id.tv_complaint:
+                toHideBadgeView(complaintBadgeTextView);
                 startActivity(ComplainActivity.class);
                 break;
             case R.id.tv_repair:
+                toHideBadgeView(orderBadgeTextView);
                 startActivity(RepairsActivity.class);
                 break;
             case R.id.tv_to_zhoubian:
@@ -365,6 +383,67 @@ public class HomeFragment extends BaseFragment {
                 a_bundle.putString("url", "https://map.baidu.com/mobile/webapp/index/index");
                 startActivity(NewsInfoActivity.class, a_bundle);
                 break;
+        }
+    }
+
+
+    
+
+    private void toShowBadgeView(final int count, BadgeView badgeView, int nType) {
+
+        int lastNum = 0;
+        if (nType == 1){
+
+            if(badgeView == null){
+                badgeView = new BadgeView(getActivity(), tvRepair);
+                badgeView.setBadgeBackgroundColor(Color.parseColor("#fffa5050"));
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);//设置显示的位置
+                badgeView.setTextSize(12);//设置字体大小
+                badgeView.setTextColor(Color.WHITE);//设置字体颜色
+                badgeView.setGravity(Gravity.CENTER);
+            }else {
+
+                lastNum = Integer.parseInt(badgeView.getText().toString());
+            }
+        }
+
+
+        if (count > 0) {
+            if (count + lastNum < 99) {
+                badgeView.setBadgeMargin(24,10);//设置margin
+                badgeView.setText((count + lastNum) + "");//设置显示的内容
+            } else {
+                badgeView.setText("99+");
+                badgeView.setBadgeMargin(20,10);//设置margin
+            }
+
+            // 1
+            // 设置进入的移动动画，设置了插值器，可以实现颤动的效果
+            TranslateAnimation anim1 = new TranslateAnimation(0, 0, 0, 0);
+            anim1.setInterpolator(new BounceInterpolator());
+            // 设置动画的持续时间
+            anim1.setDuration(500);
+            badgeView.show(true,anim1);
+
+            //orderBadgeTextView.show();//显示
+        } else {
+            badgeView.hide();//隐藏
+        }
+
+
+
+    }
+
+
+
+    private void toHideBadgeView(BadgeView badgeView) {
+
+        if (badgeView != null && badgeView.isShown()){
+            // 设置退出的移动动画
+            TranslateAnimation anim2 = new TranslateAnimation(0, 0, 0, 0);
+            anim2.setDuration(500);
+            badgeView.hide(false, anim2);
+            badgeView.setText(0+"");
         }
     }
 }

@@ -26,8 +26,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
-
-import static com.chanfinecloud.cfl.config.Config.CLEAR_JPUSH_TAGS_SEQUENCE;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 /**
  * Created by Loong on 2020/3/26.
@@ -60,7 +59,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         LogUtils.d("onNotifyMessageOpened:"+notificationMessage.toString());
         Gson gson=new Gson();
         NoticePushEntity noticePush=gson.fromJson(notificationMessage.notificationExtras,NoticePushEntity.class);
-        if("1".equals(noticePush.getType())){
+        if("1".equals(noticePush.getType())){//新闻类推送
             Intent intent=new Intent(context, NoticeDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
@@ -68,25 +67,25 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
             bundle.putString("title",notificationMessage.notificationTitle);
             intent.putExtras(bundle);
             context.startActivity(intent);
-        }else if("2".equals(noticePush.getType())){
+        }else if("2".equals(noticePush.getType())){//工单推送
             Intent intent=new Intent(context, RepairsDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
             bundle.putString("order_id",noticePush.getBusinessId());
             intent.putExtras(bundle);
             context.startActivity(intent);
-        }else if("3".equals(noticePush.getType())){
+        }else if("3".equals(noticePush.getType())){//投诉推送
             Intent intent=new Intent(context, ComplainDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
             bundle.putString("complain_id",noticePush.getBusinessId());
             intent.putExtras(bundle);
             context.startActivity(intent);
-        }else if("4".equals(noticePush.getType())){
+        }else if("4".equals(noticePush.getType())){//审核通过的推送
             Intent intent=new Intent(context, HouseHoldActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-        }else if("5".equals(noticePush.getType())){
+        }else if("5".equals(noticePush.getType())){//收到审核的推送
             Intent intent=new Intent(context, HouseholdAuditListActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
@@ -102,6 +101,10 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         super.onNotifyMessageArrived(context, notificationMessage);
         //收到通知消息
         LogUtils.d("onNotifyMessageArrived:"+notificationMessage.toString());
+        // TODO: 2020/4/20  可能需要分类型添加小红标
+        int badgeCount = 1;
+        ShortcutBadger.applyCount(context, badgeCount); //for 1.1.4+
+        //EventBus.getDefault().post(new EventBusMessage<>("OrderNotice"));
         Gson gson=new Gson();
         NoticePushEntity noticePush=gson.fromJson(notificationMessage.notificationExtras,NoticePushEntity.class);
         if("4".equals(noticePush.getType())){
@@ -118,6 +121,12 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
             });
         }else if("1".equals(noticePush.getType())){
             EventBus.getDefault().post(new EventBusMessage<>("NoticeRefresh"));
+        }else if("2".equals(noticePush.getType())){
+
+            EventBus.getDefault().post(new EventBusMessage<>("OrderNotice"));
+        }else if("3".equals(noticePush.getType())){
+
+            EventBus.getDefault().post(new EventBusMessage<>("ComplaintNotice"));
         }
     }
 
@@ -156,7 +165,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
     public void onTagOperatorResult(Context context, JPushMessage jPushMessage) {
         super.onTagOperatorResult(context, jPushMessage);
         //设置标签回调
-     //   LogUtils.d("onTagOperatorResult:"+jPushMessage.toString());
+        LogUtils.d("onTagOperatorResult:"+jPushMessage.toString());
         //设置不成功就继续设置
         if(jPushMessage.getErrorCode()!=0){
             JPushInterface.setTags(CFLApplication.getAppContext(),jPushMessage.getSequence(),jPushMessage.getTags());

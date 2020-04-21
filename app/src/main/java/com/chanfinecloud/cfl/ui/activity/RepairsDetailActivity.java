@@ -318,7 +318,7 @@ public class RepairsDetailActivity extends BaseActivity {
                 if(item.getUpdateTime()==null){
                     item_workflow_time.setText("正在处理");
                 }else{
-                    item_workflow_time.setText(item.getCreateTime());
+                    item_workflow_time.setText(item.getUpdateTime());
                 }
                 List<ResourceEntity> picData=item.getResourceValue();
                 if(picData!=null&&picData.size()>0){

@@ -170,7 +170,6 @@ dependencies {
     //桌面图标小红点
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
     //动态权限申请及回调
-    implementation 'com.github.goweii:AnyLayer:3.4.1-androidx'
     implementation 'com.yanzhenjie:permission:2.0.3'
 }
 

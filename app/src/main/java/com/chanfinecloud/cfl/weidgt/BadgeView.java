@@ -2,21 +2,10 @@ package com.chanfinecloud.cfl.weidgt;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
-import android.text.TextPaint;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -31,8 +20,6 @@ import android.widget.FrameLayout;
 import android.widget.TabWidget;
 
 import androidx.appcompat.widget.AppCompatTextView;
-
-import com.chanfinecloud.cfl.R;
 /**
  * A simple text label view that can be applied as a "badge" to any given {@link View}.
  * This class is intended to be instantiated at runtime rather than included in XML layouts.

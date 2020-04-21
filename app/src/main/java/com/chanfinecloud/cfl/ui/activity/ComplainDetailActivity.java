@@ -59,6 +59,7 @@ import org.xutils.common.util.LogUtil;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.TreeMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,6 +118,7 @@ public class ComplainDetailActivity extends BaseActivity {
     private String complainId;
     private NoUnderlineSpan mNoUnderlineSpan;
     private List<WorkflowProcessesEntity> data=new ArrayList<>();
+    private List<WorkflowProcessesEntity> progressData=new ArrayList<>();
     private FragmentManager fragmentManager;
     private WorkflowActionFragment workflowActionFragment;
 
@@ -209,7 +211,7 @@ public class ComplainDetailActivity extends BaseActivity {
                 break;
             case R.id.toolbar_tv_action:
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("workflowProcessesList", (Serializable) data);
+                bundle.putSerializable("workflowProcessesList", (Serializable) progressData);
                 startActivity(WorkflowStepActivity.class,bundle);
                 break;
         }
@@ -246,6 +248,8 @@ public class ComplainDetailActivity extends BaseActivity {
                     initAction(baseEntity.getResult());
                     List<WorkflowProcessesEntity> workflowList=baseEntity.getResult().getProcesses();
                     WorkflowProcessesEntity lastWorkflow=workflowList.get(workflowList.size()-1);
+                    progressData.clear();
+                    progressData.addAll(workflowList);
                     if(lastWorkflow.getOperationInfos()!=null&&lastWorkflow.getOperationInfos().size()>0){
                         workflowList.remove(workflowList.size()-1);
                     }

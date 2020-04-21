@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.68
 # min_api: 19
-# pg_map_id: 9e4aaaa
+# pg_map_id: cf6b004
 android.support.v4.app.INotificationSideChannel -> a.a.a.a.a:
 android.support.v4.app.INotificationSideChannel$Stub -> a.a.a.a.a$a:
     20:22:void <init>() -> <init>
@@ -21327,8 +21327,8 @@ com.chanfinecloud.cfl.CFLApplication$2 -> com.chanfinecloud.cfl.CFLApplication$b
     96:96:void <init>() -> <init>
     100:100:com.scwang.smartrefresh.layout.api.RefreshFooter createRefreshFooter(android.content.Context,com.scwang.smartrefresh.layout.api.RefreshLayout) -> a
 com.chanfinecloud.cfl.R$styleable -> d.c.a.a:
-    10919:29884:void <clinit>() -> <clinit>
-    10893:10893:void <init>() -> <init>
+    10926:29891:void <clinit>() -> <clinit>
+    10900:10900:void <init>() -> <init>
 com.chanfinecloud.cfl.adapter.AbstractSpinerAdapter -> d.c.a.b.a:
     java.util.List mObjects -> a
     android.view.LayoutInflater mInflater -> b
@@ -21572,7 +21572,7 @@ com.chanfinecloud.cfl.adapter.smart.WorkflowListAdapter -> com.chanfinecloud.cfl
 com.chanfinecloud.cfl.adapter.smart.WorkflowStepAdapter -> com.chanfinecloud.cfl.adapter.smart.WorkflowStepAdapter:
     android.content.Context context -> a
     25:27:void <init>(android.content.Context,java.util.List) -> <init>
-    31:52:void convert(com.chad.library.adapter.base.BaseViewHolder,com.chanfinecloud.cfl.entity.smart.WorkflowProcessesEntity) -> a
+    31:59:void convert(com.chad.library.adapter.base.BaseViewHolder,com.chanfinecloud.cfl.entity.smart.WorkflowProcessesEntity) -> a
     22:22:void convert(com.chad.library.adapter.base.BaseViewHolder,java.lang.Object) -> convert
 com.chanfinecloud.cfl.config.Config -> d.c.a.c.a:
     java.lang.String WORKORDER -> g
@@ -22940,44 +22940,50 @@ com.chanfinecloud.cfl.entity.smart.WorkflowListEntity -> com.chanfinecloud.cfl.e
     30:31:void setData(java.util.List) -> setData
 com.chanfinecloud.cfl.entity.smart.WorkflowProcessesEntity -> com.chanfinecloud.cfl.entity.smart.WorkflowProcessesEntity:
     11:11:void <init>() -> <init>
-    101:101:java.lang.String getAssigneeId() -> getAssigneeId
-    109:109:java.lang.String getAvatarUrl() -> getAvatarUrl
-    173:173:java.lang.String getBriefDesc() -> getBriefDesc
-    181:181:java.lang.String getCreateTime() -> getCreateTime
-    54:54:java.util.List getFormContent() -> getFormContent
-    85:85:java.lang.String getHandlerId() -> getHandlerId
-    125:125:java.lang.String getHandlerMobile() -> getHandlerMobile
-    93:93:java.lang.String getHandlerName() -> getHandlerName
-    117:117:java.lang.String getHandlerType() -> getHandlerType
-    77:77:java.lang.String getId() -> getId
-    133:133:java.lang.String getNodeName() -> getNodeName
-    157:157:java.lang.String getNotAcceptable() -> getNotAcceptable
-    141:141:java.lang.String getOperation() -> getOperation
-    69:69:java.util.List getOperationInfos() -> getOperationInfos
-    197:197:java.lang.String getProcessResult() -> getProcessResult
-    165:165:java.lang.String getRemark() -> getRemark
-    149:149:java.lang.String getResourceKey() -> getResourceKey
-    61:61:java.util.List getResourceValue() -> getResourceValue
-    189:189:java.lang.String getUpdateTime() -> getUpdateTime
-    105:106:void setAssigneeId(java.lang.String) -> setAssigneeId
-    113:114:void setAvatarUrl(java.lang.String) -> setAvatarUrl
-    177:178:void setBriefDesc(java.lang.String) -> setBriefDesc
-    185:186:void setCreateTime(java.lang.String) -> setCreateTime
-    58:59:void setFormContent(java.util.List) -> setFormContent
-    89:90:void setHandlerId(java.lang.String) -> setHandlerId
-    129:130:void setHandlerMobile(java.lang.String) -> setHandlerMobile
-    97:98:void setHandlerName(java.lang.String) -> setHandlerName
-    121:122:void setHandlerType(java.lang.String) -> setHandlerType
-    81:82:void setId(java.lang.String) -> setId
-    137:138:void setNodeName(java.lang.String) -> setNodeName
-    161:162:void setNotAcceptable(java.lang.String) -> setNotAcceptable
-    145:146:void setOperation(java.lang.String) -> setOperation
-    73:74:void setOperationInfos(java.util.List) -> setOperationInfos
-    201:202:void setProcessResult(java.lang.String) -> setProcessResult
-    169:170:void setRemark(java.lang.String) -> setRemark
-    153:154:void setResourceKey(java.lang.String) -> setResourceKey
-    65:66:void setResourceValue(java.util.List) -> setResourceValue
-    193:194:void setUpdateTime(java.lang.String) -> setUpdateTime
+    108:108:java.lang.String getAssigneeId() -> getAssigneeId
+    116:116:java.lang.String getAvatarUrl() -> getAvatarUrl
+    180:180:java.lang.String getBriefDesc() -> getBriefDesc
+    212:212:java.lang.String getCommentLevel() -> getCommentLevel
+    220:220:java.lang.String getContent() -> getContent
+    228:228:java.lang.String getContentDate() -> getContentDate
+    188:188:java.lang.String getCreateTime() -> getCreateTime
+    61:61:java.util.List getFormContent() -> getFormContent
+    92:92:java.lang.String getHandlerId() -> getHandlerId
+    132:132:java.lang.String getHandlerMobile() -> getHandlerMobile
+    100:100:java.lang.String getHandlerName() -> getHandlerName
+    124:124:java.lang.String getHandlerType() -> getHandlerType
+    84:84:java.lang.String getId() -> getId
+    140:140:java.lang.String getNodeName() -> getNodeName
+    164:164:java.lang.String getNotAcceptable() -> getNotAcceptable
+    148:148:java.lang.String getOperation() -> getOperation
+    76:76:java.util.List getOperationInfos() -> getOperationInfos
+    204:204:java.lang.String getProcessResult() -> getProcessResult
+    172:172:java.lang.String getRemark() -> getRemark
+    156:156:java.lang.String getResourceKey() -> getResourceKey
+    68:68:java.util.List getResourceValue() -> getResourceValue
+    196:196:java.lang.String getUpdateTime() -> getUpdateTime
+    112:113:void setAssigneeId(java.lang.String) -> setAssigneeId
+    120:121:void setAvatarUrl(java.lang.String) -> setAvatarUrl
+    184:185:void setBriefDesc(java.lang.String) -> setBriefDesc
+    216:217:void setCommentLevel(java.lang.String) -> setCommentLevel
+    224:225:void setContent(java.lang.String) -> setContent
+    232:233:void setContentDate(java.lang.String) -> setContentDate
+    192:193:void setCreateTime(java.lang.String) -> setCreateTime
+    65:66:void setFormContent(java.util.List) -> setFormContent
+    96:97:void setHandlerId(java.lang.String) -> setHandlerId
+    136:137:void setHandlerMobile(java.lang.String) -> setHandlerMobile
+    104:105:void setHandlerName(java.lang.String) -> setHandlerName
+    128:129:void setHandlerType(java.lang.String) -> setHandlerType
+    88:89:void setId(java.lang.String) -> setId
+    144:145:void setNodeName(java.lang.String) -> setNodeName
+    168:169:void setNotAcceptable(java.lang.String) -> setNotAcceptable
+    152:153:void setOperation(java.lang.String) -> setOperation
+    80:81:void setOperationInfos(java.util.List) -> setOperationInfos
+    208:209:void setProcessResult(java.lang.String) -> setProcessResult
+    176:177:void setRemark(java.lang.String) -> setRemark
+    160:161:void setResourceKey(java.lang.String) -> setResourceKey
+    72:73:void setResourceValue(java.util.List) -> setResourceValue
+    200:201:void setUpdateTime(java.lang.String) -> setUpdateTime
 com.chanfinecloud.cfl.entity.smart.WorkflowType -> com.chanfinecloud.cfl.entity.smart.WorkflowType:
     com.chanfinecloud.cfl.entity.smart.WorkflowType[] $VALUES -> a
     9:8:void <clinit>() -> <clinit>
@@ -23097,19 +23103,13 @@ com.chanfinecloud.cfl.receiver.NetBroadcastReceiver$NetEvent -> com.chanfineclou
 com.chanfinecloud.cfl.ui.-$$Lambda$MainActivity$5TBfnerLuiLHh7vva-pMbe4XH2E -> d.c.a.f.a:
     com.chanfinecloud.cfl.ui.MainActivity f$0 -> a
     void onAction(java.lang.Object) -> a
-com.chanfinecloud.cfl.ui.-$$Lambda$MainActivity$5ZpGlnEMAYwIC-cdoK0L_XNVKAA -> d.c.a.f.b:
+com.chanfinecloud.cfl.ui.-$$Lambda$MainActivity$BOpJIF6vvcaC6RozMcmTuA32hrw -> d.c.a.f.b:
     com.chanfinecloud.cfl.ui.MainActivity f$0 -> a
     void onAction(java.lang.Object) -> a
-com.chanfinecloud.cfl.ui.-$$Lambda$MainActivity$BOpJIF6vvcaC6RozMcmTuA32hrw -> d.c.a.f.c:
+com.chanfinecloud.cfl.ui.-$$Lambda$MainActivity$f6CLXbFX6W51Xrssf7rbk09VoBE -> d.c.a.f.c:
     com.chanfinecloud.cfl.ui.MainActivity f$0 -> a
     void onAction(java.lang.Object) -> a
-com.chanfinecloud.cfl.ui.-$$Lambda$MainActivity$f6CLXbFX6W51Xrssf7rbk09VoBE -> d.c.a.f.d:
-    com.chanfinecloud.cfl.ui.MainActivity f$0 -> a
-    void onAction(java.lang.Object) -> a
-com.chanfinecloud.cfl.ui.-$$Lambda$MainActivity$fshMNTX80HgHrMrICd7r8YUyizI -> d.c.a.f.e:
-    com.chanfinecloud.cfl.ui.MainActivity f$0 -> a
-    void onAction(java.lang.Object) -> a
-com.chanfinecloud.cfl.ui.-$$Lambda$MainActivity$qXUTVJ7jsNSk6kpfHLJlirJL9GQ -> d.c.a.f.f:
+com.chanfinecloud.cfl.ui.-$$Lambda$MainActivity$qXUTVJ7jsNSk6kpfHLJlirJL9GQ -> d.c.a.f.d:
     com.chanfinecloud.cfl.ui.MainActivity f$0 -> a
     void onAction(java.lang.Object) -> a
 com.chanfinecloud.cfl.ui.LaunchActivity -> com.chanfinecloud.cfl.ui.LaunchActivity:
@@ -23159,7 +23159,7 @@ com.chanfinecloud.cfl.ui.LaunchActivity$3 -> com.chanfinecloud.cfl.ui.LaunchActi
     227:247:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.LaunchActivity_ViewBinding -> com.chanfinecloud.cfl.ui.LaunchActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.LaunchActivity target -> a
-    android.view.View view7f0802d9 -> b
+    android.view.View view7f0802df -> b
     26:39:void <init>(com.chanfinecloud.cfl.ui.LaunchActivity,android.view.View) -> <init>
     44:45:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.LaunchActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.LaunchActivity_ViewBinding$a:
@@ -23246,11 +23246,11 @@ com.chanfinecloud.cfl.ui.LoginActivity$MyTimerTask$1 -> com.chanfinecloud.cfl.ui
 com.chanfinecloud.cfl.ui.LoginActivity_ViewBinding -> com.chanfinecloud.cfl.ui.LoginActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.LoginActivity target -> a
     android.view.View view7f08007f -> c
-    android.view.View view7f0802d6 -> b
-    android.view.View view7f08018d -> e
-    android.view.View view7f0802f0 -> d
-    android.view.View view7f0802da -> g
-    android.view.View view7f08018c -> f
+    android.view.View view7f0802dc -> b
+    android.view.View view7f080193 -> e
+    android.view.View view7f0802f6 -> d
+    android.view.View view7f0802e0 -> g
+    android.view.View view7f080192 -> f
     40:100:void <init>(com.chanfinecloud.cfl.ui.LoginActivity,android.view.View) -> <init>
     105:106:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.LoginActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.LoginActivity_ViewBinding$a:
@@ -23288,19 +23288,17 @@ com.chanfinecloud.cfl.ui.MainActivity -> com.chanfinecloud.cfl.ui.MainActivity:
     284:304:void Event(com.chanfinecloud.cfl.entity.eventbus.EventBusMessage) -> Event
     85:85:void access$000(com.chanfinecloud.cfl.ui.MainActivity,java.lang.String) -> a
     85:85:java.util.List access$800(com.chanfinecloud.cfl.ui.MainActivity) -> a
-    630:632:void lambda$requestAndNotificationListener$2(java.lang.Void) -> a
+    612:614:void lambda$requestAndNotificationListener$2(java.lang.Void) -> a
     85:85:void access$100(com.chanfinecloud.cfl.ui.MainActivity,java.lang.String) -> b
     474:476:void changeView(int) -> b
-    635:636:void lambda$requestAndNotificationListener$3(java.lang.Void) -> b
+    617:618:void lambda$requestAndNotificationListener$3(java.lang.Void) -> b
     85:85:void access$200(com.chanfinecloud.cfl.ui.MainActivity,java.lang.String) -> c
     485:493:void imageMove(int) -> c
-    692:693:void lambda$requestAndNotificationShow$4(java.lang.Void) -> c
+    674:675:void lambda$requestAndNotificationShow$4(java.lang.Void) -> c
     85:85:void access$300(com.chanfinecloud.cfl.ui.MainActivity,java.lang.String) -> d
-    696:697:void lambda$requestAndNotificationShow$5(java.lang.Void) -> d
+    678:679:void lambda$requestAndNotificationShow$5(java.lang.Void) -> d
     85:85:void access$400(com.chanfinecloud.cfl.ui.MainActivity,java.lang.String) -> e
-    576:577:void lambda$requestAndOverlay$0(java.lang.Void) -> e
     85:85:void access$500(com.chanfinecloud.cfl.ui.MainActivity,java.lang.String) -> f
-    580:581:void lambda$requestAndOverlay$1(java.lang.Void) -> f
     85:85:void access$600(com.chanfinecloud.cfl.ui.MainActivity,java.lang.String) -> g
     85:85:void access$700(com.chanfinecloud.cfl.ui.MainActivity,java.lang.String) -> h
     108:124:void initData() -> h
@@ -23311,17 +23309,16 @@ com.chanfinecloud.cfl.ui.MainActivity -> com.chanfinecloud.cfl.ui.MainActivity:
     425:437:void onClick(android.view.View) -> onClick
     419:421:void onDestroy() -> onDestroy
     321:336:boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
-    498:531:void onResume() -> onResume
+    498:513:void onResume() -> onResume
     341:357:void onViewClicked(android.view.View) -> onViewClicked
     158:183:void initOrderType() -> p
     127:141:void initView() -> q
-    587:639:void requestAndNotificationListener() -> r
-    643:699:void requestAndNotificationShow() -> s
-    534:584:void requestAndOverlay() -> t
-    396:415:void resetTag() -> u
-    364:390:void setAliasAndTag() -> v
-    307:315:void showUnBindView() -> w
-    707:724:void toOpenNotificationAccessManually() -> x
+    569:621:void requestAndNotificationListener() -> r
+    625:681:void requestAndNotificationShow() -> s
+    396:415:void resetTag() -> t
+    364:390:void setAliasAndTag() -> u
+    307:315:void showUnBindView() -> v
+    689:706:void toOpenNotificationAccessManually() -> w
 com.chanfinecloud.cfl.ui.MainActivity$1 -> com.chanfinecloud.cfl.ui.MainActivity$a:
     com.chanfinecloud.cfl.ui.MainActivity this$0 -> a
     134:134:void <init>(com.chanfinecloud.cfl.ui.MainActivity) -> <init>
@@ -23354,51 +23351,37 @@ com.chanfinecloud.cfl.ui.MainActivity$5 -> com.chanfinecloud.cfl.ui.MainActivity
     260:269:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.MainActivity$5$1 -> com.chanfinecloud.cfl.ui.MainActivity$e$a:
     262:262:void <init>(com.chanfinecloud.cfl.ui.MainActivity$5) -> <init>
-com.chanfinecloud.cfl.ui.MainActivity$6 -> com.chanfinecloud.cfl.ui.MainActivity$f:
-    536:536:void <init>(com.chanfinecloud.cfl.ui.MainActivity) -> <init>
-    536:536:void showRationale(android.content.Context,java.lang.Object,com.yanzhenjie.permission.RequestExecutor) -> a
-    540:572:void showRationale(android.content.Context,java.lang.Void,com.yanzhenjie.permission.RequestExecutor) -> a
-com.chanfinecloud.cfl.ui.MainActivity$6$1 -> com.chanfinecloud.cfl.ui.MainActivity$f$a:
+com.chanfinecloud.cfl.ui.MainActivity$7 -> com.chanfinecloud.cfl.ui.MainActivity$f:
+    572:572:void <init>(com.chanfinecloud.cfl.ui.MainActivity) -> <init>
+    572:572:void showRationale(android.content.Context,java.lang.Object,com.yanzhenjie.permission.RequestExecutor) -> a
+    575:607:void showRationale(android.content.Context,java.lang.Void,com.yanzhenjie.permission.RequestExecutor) -> a
+com.chanfinecloud.cfl.ui.MainActivity$7$1 -> com.chanfinecloud.cfl.ui.MainActivity$f$a:
     androidx.appcompat.app.AlertDialog val$dialog -> b
     com.yanzhenjie.permission.RequestExecutor val$executor -> a
-    556:556:void <init>(com.chanfinecloud.cfl.ui.MainActivity$6,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
-    559:561:void onClick(android.view.View) -> onClick
-com.chanfinecloud.cfl.ui.MainActivity$6$2 -> com.chanfinecloud.cfl.ui.MainActivity$f$b:
+    591:591:void <init>(com.chanfinecloud.cfl.ui.MainActivity$7,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
+    594:596:void onClick(android.view.View) -> onClick
+com.chanfinecloud.cfl.ui.MainActivity$7$2 -> com.chanfinecloud.cfl.ui.MainActivity$f$b:
     androidx.appcompat.app.AlertDialog val$dialog -> b
     com.yanzhenjie.permission.RequestExecutor val$executor -> a
-    564:564:void <init>(com.chanfinecloud.cfl.ui.MainActivity$6,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
-    567:569:void onClick(android.view.View) -> onClick
-com.chanfinecloud.cfl.ui.MainActivity$7 -> com.chanfinecloud.cfl.ui.MainActivity$g:
-    590:590:void <init>(com.chanfinecloud.cfl.ui.MainActivity) -> <init>
-    590:590:void showRationale(android.content.Context,java.lang.Object,com.yanzhenjie.permission.RequestExecutor) -> a
-    593:625:void showRationale(android.content.Context,java.lang.Void,com.yanzhenjie.permission.RequestExecutor) -> a
-com.chanfinecloud.cfl.ui.MainActivity$7$1 -> com.chanfinecloud.cfl.ui.MainActivity$g$a:
-    androidx.appcompat.app.AlertDialog val$dialog -> b
-    com.yanzhenjie.permission.RequestExecutor val$executor -> a
-    609:609:void <init>(com.chanfinecloud.cfl.ui.MainActivity$7,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
-    612:614:void onClick(android.view.View) -> onClick
-com.chanfinecloud.cfl.ui.MainActivity$7$2 -> com.chanfinecloud.cfl.ui.MainActivity$g$b:
-    androidx.appcompat.app.AlertDialog val$dialog -> b
-    com.yanzhenjie.permission.RequestExecutor val$executor -> a
-    617:617:void <init>(com.chanfinecloud.cfl.ui.MainActivity$7,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
-    620:622:void onClick(android.view.View) -> onClick
-com.chanfinecloud.cfl.ui.MainActivity$8 -> com.chanfinecloud.cfl.ui.MainActivity$h:
+    599:599:void <init>(com.chanfinecloud.cfl.ui.MainActivity$7,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
+    602:604:void onClick(android.view.View) -> onClick
+com.chanfinecloud.cfl.ui.MainActivity$8 -> com.chanfinecloud.cfl.ui.MainActivity$g:
     com.chanfinecloud.cfl.ui.MainActivity this$0 -> a
-    646:646:void <init>(com.chanfinecloud.cfl.ui.MainActivity) -> <init>
-    646:646:void showRationale(android.content.Context,java.lang.Object,com.yanzhenjie.permission.RequestExecutor) -> a
-    650:687:void showRationale(android.content.Context,java.lang.Void,com.yanzhenjie.permission.RequestExecutor) -> a
-com.chanfinecloud.cfl.ui.MainActivity$8$1 -> com.chanfinecloud.cfl.ui.MainActivity$h$a:
+    628:628:void <init>(com.chanfinecloud.cfl.ui.MainActivity) -> <init>
+    628:628:void showRationale(android.content.Context,java.lang.Object,com.yanzhenjie.permission.RequestExecutor) -> a
+    632:669:void showRationale(android.content.Context,java.lang.Void,com.yanzhenjie.permission.RequestExecutor) -> a
+com.chanfinecloud.cfl.ui.MainActivity$8$1 -> com.chanfinecloud.cfl.ui.MainActivity$g$a:
     androidx.appcompat.app.AlertDialog val$dialog -> b
     com.yanzhenjie.permission.RequestExecutor val$executor -> a
     com.chanfinecloud.cfl.ui.MainActivity$8 this$1 -> c
-    666:666:void <init>(com.chanfinecloud.cfl.ui.MainActivity$8,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
-    670:676:void onClick(android.view.View) -> onClick
-com.chanfinecloud.cfl.ui.MainActivity$8$2 -> com.chanfinecloud.cfl.ui.MainActivity$h$b:
+    648:648:void <init>(com.chanfinecloud.cfl.ui.MainActivity$8,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
+    652:658:void onClick(android.view.View) -> onClick
+com.chanfinecloud.cfl.ui.MainActivity$8$2 -> com.chanfinecloud.cfl.ui.MainActivity$g$b:
     androidx.appcompat.app.AlertDialog val$dialog -> b
     com.yanzhenjie.permission.RequestExecutor val$executor -> a
-    679:679:void <init>(com.chanfinecloud.cfl.ui.MainActivity$8,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
-    682:684:void onClick(android.view.View) -> onClick
-com.chanfinecloud.cfl.ui.MainActivity$MyFrageStatePagerAdapter -> com.chanfinecloud.cfl.ui.MainActivity$i:
+    661:661:void <init>(com.chanfinecloud.cfl.ui.MainActivity$8,com.yanzhenjie.permission.RequestExecutor,androidx.appcompat.app.AlertDialog) -> <init>
+    664:666:void onClick(android.view.View) -> onClick
+com.chanfinecloud.cfl.ui.MainActivity$MyFrageStatePagerAdapter -> com.chanfinecloud.cfl.ui.MainActivity$h:
     com.chanfinecloud.cfl.ui.MainActivity this$0 -> a
     445:447:void <init>(com.chanfinecloud.cfl.ui.MainActivity,androidx.fragment.app.FragmentManager) -> <init>
     464:465:void finishUpdate(android.view.ViewGroup) -> finishUpdate
@@ -23406,9 +23389,9 @@ com.chanfinecloud.cfl.ui.MainActivity$MyFrageStatePagerAdapter -> com.chanfinecl
     451:451:androidx.fragment.app.Fragment getItem(int) -> getItem
 com.chanfinecloud.cfl.ui.MainActivity_ViewBinding -> com.chanfinecloud.cfl.ui.MainActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.MainActivity target -> a
-    android.view.View view7f08023a -> c
-    android.view.View view7f080239 -> b
-    android.view.View view7f0801a4 -> d
+    android.view.View view7f080240 -> c
+    android.view.View view7f08023f -> b
+    android.view.View view7f0801aa -> d
     33:66:void <init>(com.chanfinecloud.cfl.ui.MainActivity,android.view.View) -> <init>
     71:72:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.MainActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.MainActivity_ViewBinding$a:
@@ -23423,16 +23406,16 @@ com.chanfinecloud.cfl.ui.MainActivity_ViewBinding$3 -> com.chanfinecloud.cfl.ui.
     com.chanfinecloud.cfl.ui.MainActivity val$target -> a
     60:60:void <init>(com.chanfinecloud.cfl.ui.MainActivity_ViewBinding,com.chanfinecloud.cfl.ui.MainActivity) -> <init>
     63:64:void doClick(android.view.View) -> doClick
-com.chanfinecloud.cfl.ui.activity.-$$Lambda$ParkingPaymentActivity$vRZuNt3x7yG0ecCGmgHesmLDXBE -> d.c.a.f.g.a:
+com.chanfinecloud.cfl.ui.activity.-$$Lambda$ParkingPaymentActivity$vRZuNt3x7yG0ecCGmgHesmLDXBE -> d.c.a.f.e.a:
     com.chanfinecloud.cfl.ui.activity.ParkingPaymentActivity f$0 -> a
     void plateNumberValid(boolean) -> a
-com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$CxgElkewECkYY5joMrsgenKB97g -> d.c.a.f.g.b:
+com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$CxgElkewECkYY5joMrsgenKB97g -> d.c.a.f.e.b:
     com.chanfinecloud.cfl.ui.activity.SettingDetailActivity f$0 -> a
-com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$Lxg4-yY9R1DkPlNNeaKAeGoS79E -> d.c.a.f.g.c:
+com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$Lxg4-yY9R1DkPlNNeaKAeGoS79E -> d.c.a.f.e.c:
     com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$Lxg4-yY9R1DkPlNNeaKAeGoS79E INSTANCE -> a
-com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$tIzprRf1T2cpkN0m7lyEc1uLM8Y -> d.c.a.f.g.d:
+com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$tIzprRf1T2cpkN0m7lyEc1uLM8Y -> d.c.a.f.e.d:
     com.chanfinecloud.cfl.ui.activity.SettingDetailActivity f$0 -> a
-com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$xvk4CcMz7PibhnodcnG7JeEqoR8 -> d.c.a.f.g.e:
+com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$xvk4CcMz7PibhnodcnG7JeEqoR8 -> d.c.a.f.e.e:
     com.chanfinecloud.cfl.ui.activity.-$$Lambda$SettingDetailActivity$xvk4CcMz7PibhnodcnG7JeEqoR8 INSTANCE -> a
 com.chanfinecloud.cfl.ui.activity.CarManageActivity -> com.chanfinecloud.cfl.ui.activity.CarManageActivity:
     com.chanfinecloud.cfl.adapter.CarManageListAdapter carManageListAdapter -> h
@@ -23489,8 +23472,8 @@ com.chanfinecloud.cfl.ui.activity.CarManageActivity$5 -> com.chanfinecloud.cfl.u
     203:203:void onSuccess(java.lang.Object) -> onSuccess
     206:220:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.CarManageActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.CarManageActivity_ViewBinding:
-    android.view.View view7f08029f -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a5 -> c
+    android.view.View view7f0802a6 -> b
     com.chanfinecloud.cfl.ui.activity.CarManageActivity target -> a
     31:57:void <init>(com.chanfinecloud.cfl.ui.activity.CarManageActivity,android.view.View) -> <init>
     62:63:void unbind() -> unbind
@@ -23571,17 +23554,17 @@ com.chanfinecloud.cfl.ui.activity.CarManageAddActivity$5 -> com.chanfinecloud.cf
     442:442:void <init>(com.chanfinecloud.cfl.ui.activity.CarManageAddActivity) -> <init>
     445:445:boolean apply(java.lang.String) -> a
 com.chanfinecloud.cfl.ui.activity.CarManageAddActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.CarManageAddActivity_ViewBinding:
-    android.view.View view7f0802b5 -> i
-    android.view.View view7f0802b6 -> h
+    android.view.View view7f0802bb -> i
+    android.view.View view7f0802bc -> h
     android.view.View view7f080083 -> k
     android.view.View view7f08007d -> j
-    android.view.View view7f0802a2 -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a8 -> c
+    android.view.View view7f0802a6 -> b
     com.chanfinecloud.cfl.ui.activity.CarManageAddActivity target -> a
-    android.view.View view7f0802b7 -> e
+    android.view.View view7f0802bd -> e
     android.view.View view7f0800be -> d
-    android.view.View view7f0802b4 -> g
-    android.view.View view7f0802b8 -> f
+    android.view.View view7f0802ba -> g
+    android.view.View view7f0802be -> f
     50:148:void <init>(com.chanfinecloud.cfl.ui.activity.CarManageAddActivity,android.view.View) -> <init>
     153:154:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.CarManageAddActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.CarManageAddActivity_ViewBinding$b:
@@ -23676,18 +23659,18 @@ com.chanfinecloud.cfl.ui.activity.CarManageEditActivity$2 -> com.chanfinecloud.c
     341:341:void onSuccess(java.lang.Object) -> onSuccess
     344:365:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.CarManageEditActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.CarManageEditActivity_ViewBinding:
-    android.view.View view7f0802bc -> i
+    android.view.View view7f0802c2 -> i
     com.chanfinecloud.cfl.ui.activity.CarManageEditActivity target -> a
-    android.view.View view7f0802b6 -> h
-    android.view.View view7f080177 -> k
-    android.view.View view7f080176 -> j
-    android.view.View view7f080178 -> l
-    android.view.View view7f0802a2 -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f0802b7 -> e
-    android.view.View view7f0802b5 -> d
-    android.view.View view7f0802b4 -> g
-    android.view.View view7f0802b8 -> f
+    android.view.View view7f0802bc -> h
+    android.view.View view7f08017d -> k
+    android.view.View view7f08017c -> j
+    android.view.View view7f08017e -> l
+    android.view.View view7f0802a8 -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f0802bd -> e
+    android.view.View view7f0802bb -> d
+    android.view.View view7f0802ba -> g
+    android.view.View view7f0802be -> f
     49:157:void <init>(com.chanfinecloud.cfl.ui.activity.CarManageEditActivity,android.view.View) -> <init>
     162:163:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.CarManageEditActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.CarManageEditActivity_ViewBinding$c:
@@ -23740,10 +23723,10 @@ com.chanfinecloud.cfl.ui.activity.CommentActivity -> com.chanfinecloud.cfl.ui.ac
     49:70:void onViewClicked(android.view.View) -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.CommentActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.CommentActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.CommentActivity target -> a
-    android.view.View view7f0802cf -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f0802d0 -> e
-    android.view.View view7f0802ce -> d
+    android.view.View view7f0802d5 -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f0802d6 -> e
+    android.view.View view7f0802d4 -> d
     35:80:void <init>(com.chanfinecloud.cfl.ui.activity.CommentActivity,android.view.View) -> <init>
     85:86:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.CommentActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.CommentActivity_ViewBinding$a:
@@ -23768,7 +23751,7 @@ com.chanfinecloud.cfl.ui.activity.CommentDetailActivity -> com.chanfinecloud.cfl
     58:63:void onViewClicked(android.view.View) -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.CommentDetailActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.CommentDetailActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.CommentDetailActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     29:50:void <init>(com.chanfinecloud.cfl.ui.activity.CommentDetailActivity,android.view.View) -> <init>
     55:56:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.CommentDetailActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.CommentDetailActivity_ViewBinding$a:
@@ -23852,7 +23835,7 @@ com.chanfinecloud.cfl.ui.activity.ComplainActivity$7 -> com.chanfinecloud.cfl.ui
 com.chanfinecloud.cfl.ui.activity.ComplainActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.ComplainActivity_ViewBinding:
     android.view.View view7f0800ab -> c
     com.chanfinecloud.cfl.ui.activity.ComplainActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     34:63:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainActivity,android.view.View) -> <init>
     68:69:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.ComplainActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.ComplainActivity_ViewBinding$a:
@@ -23864,86 +23847,88 @@ com.chanfinecloud.cfl.ui.activity.ComplainActivity_ViewBinding$2 -> com.chanfine
     57:57:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainActivity_ViewBinding,com.chanfinecloud.cfl.ui.activity.ComplainActivity) -> <init>
     60:61:void doClick(android.view.View) -> doClick
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity:
-    com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment workflowActionFragment -> l
     com.chanfinecloud.cfl.weidgt.NoUnderlineSpan mNoUnderlineSpan -> i
+    com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment workflowActionFragment -> m
     java.lang.String complainId -> h
-    androidx.recyclerview.widget.GridLayoutManager contentGridLayoutManager -> p
-    com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter contentImageAdapter -> o
-    java.lang.String resourceKey -> m
+    java.util.List contentImageData -> o
+    com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter contentImageAdapter -> p
     java.util.List data -> j
-    androidx.fragment.app.FragmentManager fragmentManager -> k
-    java.util.List contentImageData -> n
-    80:126:void <init>() -> <init>
-    220:223:void Event(com.chanfinecloud.cfl.entity.eventbus.EventBusMessage) -> Event
-    80:80:void access$000(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> a
-    80:80:void access$1000(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> a
-    80:80:void access$400(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity) -> a
-    80:80:void access$600(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.util.List) -> a
-    398:422:void initAction(com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity) -> a
-    444:476:void compress(java.util.List) -> a
-    80:80:androidx.recyclerview.widget.GridLayoutManager access$100(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> b
-    80:80:void access$1200(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> b
-    80:80:void access$500(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity) -> b
-    277:356:void initWorkFlow(java.util.List) -> b
-    359:395:void initView(com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity) -> b
-    480:502:void uploadPic(java.lang.String) -> b
-    80:80:com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment access$1100(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> c
-    80:80:void access$800(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> c
-    80:80:com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter access$200(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> d
-    80:80:void access$900(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> d
-    80:80:java.util.List access$300(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> e
-    80:80:java.util.List access$700(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> f
-    506:511:void finish() -> finish
-    138:185:void initData() -> h
-    234:273:void getData() -> l
-    426:440:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    132:134:void onCreate(android.os.Bundle) -> onCreate
-    227:229:void onDestroy() -> onDestroy
-    190:195:void onNewIntent(android.content.Intent) -> onNewIntent
-    199:202:void onStart() -> onStart
-    206:216:void onViewClicked(android.view.View) -> onViewClicked
+    java.lang.String resourceKey -> n
+    androidx.recyclerview.widget.GridLayoutManager contentGridLayoutManager -> q
+    androidx.fragment.app.FragmentManager fragmentManager -> l
+    java.util.List progressData -> k
+    82:129:void <init>() -> <init>
+    223:226:void Event(com.chanfinecloud.cfl.entity.eventbus.EventBusMessage) -> Event
+    82:82:void access$000(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> a
+    82:82:void access$1000(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> a
+    82:82:void access$400(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity) -> a
+    82:82:void access$700(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.util.List) -> a
+    439:463:void initAction(com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity) -> a
+    485:517:void compress(java.util.List) -> a
+    82:82:androidx.recyclerview.widget.GridLayoutManager access$100(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> b
+    82:82:void access$1100(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> b
+    82:82:void access$500(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity) -> b
+    282:397:void initWorkFlow(java.util.List) -> b
+    400:436:void initView(com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity) -> b
+    521:543:void uploadPic(java.lang.String) -> b
+    82:82:com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment access$1200(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> c
+    82:82:void access$1300(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> c
+    82:82:com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter access$200(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> d
+    82:82:void access$900(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> d
+    82:82:java.util.List access$300(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> e
+    82:82:java.util.List access$600(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> f
+    547:552:void finish() -> finish
+    82:82:java.util.List access$800(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> g
+    141:188:void initData() -> h
+    237:278:void getData() -> l
+    467:481:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    135:137:void onCreate(android.os.Bundle) -> onCreate
+    230:232:void onDestroy() -> onDestroy
+    193:198:void onNewIntent(android.content.Intent) -> onNewIntent
+    202:205:void onStart() -> onStart
+    209:219:void onViewClicked(android.view.View) -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$1 -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$a:
     com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity this$0 -> a
-    150:150:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
-    153:154:void onRefresh(com.scwang.smartrefresh.layout.api.RefreshLayout) -> a
+    153:153:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
+    156:157:void onRefresh(com.scwang.smartrefresh.layout.api.RefreshLayout) -> a
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$2 -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$b:
     com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity this$0 -> a
-    163:163:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
-    166:182:void onSimpleItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> onSimpleItemClick
+    166:166:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
+    169:185:void onSimpleItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> onSimpleItemClick
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$3 -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$c:
     com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity this$0 -> a
-    238:238:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
-    262:264:void onError(java.lang.Throwable,boolean) -> onError
-    268:270:void onFinished() -> onFinished
-    238:238:void onSuccess(java.lang.Object) -> onSuccess
-    241:258:void onSuccess(java.lang.String) -> onSuccess
+    241:241:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
+    267:269:void onError(java.lang.Throwable,boolean) -> onError
+    273:275:void onFinished() -> onFinished
+    241:241:void onSuccess(java.lang.Object) -> onSuccess
+    244:263:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$4 -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$d:
     com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter val$imageAdapter -> b
     java.util.List val$data -> c
     androidx.recyclerview.widget.GridLayoutManager val$mGridLayoutManager -> a
     com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity this$0 -> d
-    327:327:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,androidx.recyclerview.widget.GridLayoutManager,com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter,java.util.List) -> <init>
-    330:346:void onSimpleItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> onSimpleItemClick
+    368:368:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,androidx.recyclerview.widget.GridLayoutManager,com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter,java.util.List) -> <init>
+    371:387:void onSimpleItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> onSimpleItemClick
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$5 -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$e:
     com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity this$0 -> a
-    456:456:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
-    464:469:void onSuccess(java.io.File) -> a
-    473:474:void onError(java.lang.Throwable) -> a
-    459:460:void onStart() -> onStart
+    497:497:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
+    505:510:void onSuccess(java.io.File) -> a
+    514:515:void onError(java.lang.Throwable) -> a
+    500:501:void onStart() -> onStart
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$6 -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$f:
-    450:450:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
-    453:453:boolean apply(java.lang.String) -> a
+    491:491:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity) -> <init>
+    494:494:boolean apply(java.lang.String) -> a
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$7 -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity$g:
     java.lang.String val$path -> a
     com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity this$0 -> b
-    485:485:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> <init>
-    495:497:void onError(java.lang.Throwable,boolean) -> onError
-    485:485:void onSuccess(java.lang.Object) -> onSuccess
-    488:491:void onSuccess(java.lang.String) -> onSuccess
+    526:526:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,java.lang.String) -> <init>
+    536:538:void onError(java.lang.Throwable,boolean) -> onError
+    526:526:void onSuccess(java.lang.Object) -> onSuccess
+    529:532:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity_ViewBinding:
-    android.view.View view7f0802a2 -> c
+    android.view.View view7f0802a8 -> c
     com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     34:70:void <init>(com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity,android.view.View) -> <init>
     75:76:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity_ViewBinding$a:
@@ -24039,7 +24024,7 @@ com.chanfinecloud.cfl.ui.activity.FaceCollectionPhotoActivity$6$1 -> com.chanfin
 com.chanfinecloud.cfl.ui.activity.FaceCollectionPhotoActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.FaceCollectionPhotoActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.FaceCollectionPhotoActivity target -> a
     android.view.View view7f08008a -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     android.view.View view7f08008c -> e
     android.view.View view7f08008b -> d
     37:83:void <init>(com.chanfinecloud.cfl.ui.activity.FaceCollectionPhotoActivity,android.view.View) -> <init>
@@ -24171,7 +24156,7 @@ com.chanfinecloud.cfl.ui.activity.HouseManageActivity$9 -> com.chanfinecloud.cfl
     389:399:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.HouseManageActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.HouseManageActivity_ViewBinding:
     android.view.View view7f080116 -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     com.chanfinecloud.cfl.ui.activity.HouseManageActivity target -> a
     31:59:void <init>(com.chanfinecloud.cfl.ui.activity.HouseManageActivity,android.view.View) -> <init>
     64:65:void unbind() -> unbind
@@ -24201,8 +24186,8 @@ com.chanfinecloud.cfl.ui.activity.HouseholdAuditActivity$1 -> com.chanfinecloud.
     112:125:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.HouseholdAuditActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.HouseholdAuditActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.HouseholdAuditActivity target -> a
-    android.view.View view7f080126 -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f080127 -> c
+    android.view.View view7f0802a6 -> b
     32:61:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditActivity,android.view.View) -> <init>
     66:67:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.HouseholdAuditActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.HouseholdAuditActivity_ViewBinding$a:
@@ -24218,58 +24203,58 @@ com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity -> com.chanfineclou
     java.lang.String roomId -> j
     com.chanfinecloud.cfl.adapter.smart.HouseholdAuditListAdapter adapter -> h
     java.util.List data -> i
-    43:217:void <init>() -> <init>
-    43:43:java.util.List access$000(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> a
-    43:43:void access$100(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,int) -> a
-    43:43:void access$1000(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> a
-    43:43:void access$1100(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> b
-    43:43:int access$1200(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,int) -> b
-    43:43:com.chanfinecloud.cfl.adapter.smart.HouseholdAuditListAdapter access$400(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> b
-    248:248:int dp2px(int) -> b
-    43:43:void access$200(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,int) -> c
-    43:43:void access$300(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> c
-    43:43:void access$700(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> c
-    147:179:void passAudit(int) -> c
-    43:43:void access$500(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> d
-    186:215:void refuseAudit(int) -> d
-    43:43:void access$600(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> e
-    43:43:void access$800(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> f
-    43:43:void access$900(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> g
-    70:104:void initData() -> h
-    108:140:void getData() -> l
-    64:66:void onCreate(android.os.Bundle) -> onCreate
-    254:255:void onViewClicked() -> onViewClicked
+    44:230:void <init>() -> <init>
+    44:44:java.util.List access$000(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> a
+    44:44:void access$100(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,int) -> a
+    44:44:void access$1000(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> a
+    44:44:void access$1100(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> b
+    44:44:int access$1200(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,int) -> b
+    44:44:com.chanfinecloud.cfl.adapter.smart.HouseholdAuditListAdapter access$400(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> b
+    261:261:int dp2px(int) -> b
+    44:44:void access$200(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,int) -> c
+    44:44:void access$300(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> c
+    44:44:void access$700(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> c
+    159:191:void passAudit(int) -> c
+    44:44:void access$500(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> d
+    199:228:void refuseAudit(int) -> d
+    44:44:void access$600(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> e
+    44:44:void access$800(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> f
+    44:44:void access$900(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,java.lang.String) -> g
+    74:107:void initData() -> h
+    111:151:void getData() -> l
+    68:70:void onCreate(android.os.Bundle) -> onCreate
+    267:268:void onViewClicked() -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$1 -> com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$a:
     com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity this$0 -> a
-    81:81:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
-    84:97:boolean onMenuItemClick(int,com.baoyz.swipemenulistview.SwipeMenu,int) -> a
+    85:85:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
+    88:101:boolean onMenuItemClick(int,com.baoyz.swipemenulistview.SwipeMenu,int) -> a
 com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$2 -> com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$b:
     com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity this$0 -> a
-    115:115:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
-    133:135:void onError(java.lang.Throwable,boolean) -> onError
-    115:115:void onSuccess(java.lang.Object) -> onSuccess
-    118:129:void onSuccess(java.lang.String) -> onSuccess
+    118:118:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
+    144:146:void onError(java.lang.Throwable,boolean) -> onError
+    118:118:void onSuccess(java.lang.Object) -> onSuccess
+    121:140:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$3 -> com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$c:
     com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity this$0 -> a
-    155:155:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
-    171:173:void onError(java.lang.Throwable,boolean) -> onError
-    155:155:void onSuccess(java.lang.Object) -> onSuccess
-    158:167:void onSuccess(java.lang.String) -> onSuccess
+    167:167:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
+    183:185:void onError(java.lang.Throwable,boolean) -> onError
+    167:167:void onSuccess(java.lang.Object) -> onSuccess
+    170:179:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$4 -> com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$d:
     com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity this$0 -> a
-    192:192:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
-    208:210:void onError(java.lang.Throwable,boolean) -> onError
-    192:192:void onSuccess(java.lang.Object) -> onSuccess
-    195:204:void onSuccess(java.lang.String) -> onSuccess
+    205:205:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
+    221:223:void onError(java.lang.Throwable,boolean) -> onError
+    205:205:void onSuccess(java.lang.Object) -> onSuccess
+    208:217:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$5 -> com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity$e:
     com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity this$0 -> a
-    217:217:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
-    222:244:void create(com.baoyz.swipemenulistview.SwipeMenu) -> a
+    230:230:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
+    235:257:void create(com.baoyz.swipemenulistview.SwipeMenu) -> a
 com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity target -> a
-    android.view.View view7f0802a0 -> b
-    30:48:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,android.view.View) -> <init>
-    53:54:void unbind() -> unbind
+    android.view.View view7f0802a6 -> b
+    30:49:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity,android.view.View) -> <init>
+    54:55:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity_ViewBinding$a:
     com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity val$target -> a
     37:37:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity_ViewBinding,com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity) -> <init>
@@ -24308,8 +24293,8 @@ com.chanfinecloud.cfl.ui.activity.HouseholdFaceActivity$2 -> com.chanfinecloud.c
     117:126:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.HouseholdFaceActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.HouseholdFaceActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.HouseholdFaceActivity target -> a
-    android.view.View view7f08011d -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f08011e -> c
+    android.view.View view7f0802a6 -> b
     32:60:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdFaceActivity,android.view.View) -> <init>
     65:66:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.HouseholdFaceActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.HouseholdFaceActivity_ViewBinding$a:
@@ -24328,11 +24313,11 @@ com.chanfinecloud.cfl.ui.activity.HouseholdTypeSelectActivity -> com.chanfineclo
     67:96:void onViewClicked(android.view.View) -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.HouseholdTypeSelectActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.HouseholdTypeSelectActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.HouseholdTypeSelectActivity target -> a
-    android.view.View view7f080123 -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f080125 -> e
-    android.view.View view7f080121 -> d
-    android.view.View view7f080126 -> f
+    android.view.View view7f080124 -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f080126 -> e
+    android.view.View view7f080122 -> d
+    android.view.View view7f080127 -> f
     39:95:void <init>(com.chanfinecloud.cfl.ui.activity.HouseholdTypeSelectActivity,android.view.View) -> <init>
     100:101:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.HouseholdTypeSelectActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.HouseholdTypeSelectActivity_ViewBinding$a:
@@ -24366,7 +24351,7 @@ com.chanfinecloud.cfl.ui.activity.IpSettingActivity$1 -> com.chanfinecloud.cfl.u
 com.chanfinecloud.cfl.ui.activity.IpSettingActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.IpSettingActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.IpSettingActivity target -> a
     android.view.View view7f08007e -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     32:62:void <init>(com.chanfinecloud.cfl.ui.activity.IpSettingActivity,android.view.View) -> <init>
     67:68:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.IpSettingActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.IpSettingActivity_ViewBinding$a:
@@ -24394,7 +24379,7 @@ com.chanfinecloud.cfl.ui.activity.LifePaymentActivity$1 -> com.chanfinecloud.cfl
     63:77:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.chanfinecloud.cfl.ui.activity.LifePaymentActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.LifePaymentActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.LifePaymentActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     29:47:void <init>(com.chanfinecloud.cfl.ui.activity.LifePaymentActivity,android.view.View) -> <init>
     52:53:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.LifePaymentActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.LifePaymentActivity_ViewBinding$a:
@@ -24437,7 +24422,7 @@ com.chanfinecloud.cfl.ui.activity.NewVisitorActivity$3 -> com.chanfinecloud.cfl.
 com.chanfinecloud.cfl.ui.activity.NewVisitorActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.NewVisitorActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.NewVisitorActivity target -> a
     android.view.View view7f0800f0 -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     android.view.View view7f080080 -> e
     android.view.View view7f0800ee -> d
     36:82:void <init>(com.chanfinecloud.cfl.ui.activity.NewVisitorActivity,android.view.View) -> <init>
@@ -24488,8 +24473,8 @@ com.chanfinecloud.cfl.ui.activity.NewsInfoActivity$webViewClient -> com.chanfine
     129:130:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
 com.chanfinecloud.cfl.ui.activity.NewsInfoActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.NewsInfoActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.NewsInfoActivity target -> a
-    android.view.View view7f08029f -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a5 -> c
+    android.view.View view7f0802a6 -> b
     32:58:void <init>(com.chanfinecloud.cfl.ui.activity.NewsInfoActivity,android.view.View) -> <init>
     63:64:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.NewsInfoActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.NewsInfoActivity_ViewBinding$a:
@@ -24542,7 +24527,7 @@ com.chanfinecloud.cfl.ui.activity.NoticeActivity$4 -> com.chanfinecloud.cfl.ui.a
     125:125:void onSuccess(java.lang.Object) -> onSuccess
     128:159:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.NoticeActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.NoticeActivity_ViewBinding:
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     com.chanfinecloud.cfl.ui.activity.NoticeActivity target -> a
     30:49:void <init>(com.chanfinecloud.cfl.ui.activity.NoticeActivity,android.view.View) -> <init>
     54:55:void unbind() -> unbind
@@ -24577,7 +24562,7 @@ com.chanfinecloud.cfl.ui.activity.NoticeAttachmentActivity$2 -> com.chanfineclou
     90:92:void onSuccess(java.io.File) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.NoticeAttachmentActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.NoticeAttachmentActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.NoticeAttachmentActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     29:47:void <init>(com.chanfinecloud.cfl.ui.activity.NoticeAttachmentActivity,android.view.View) -> <init>
     52:53:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.NoticeAttachmentActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.NoticeAttachmentActivity_ViewBinding$a:
@@ -24660,10 +24645,10 @@ com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity$webViewClient -> com.chan
     274:275:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
 com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity target -> a
-    android.view.View view7f0801d6 -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f0801d1 -> e
-    android.view.View view7f0801d2 -> d
+    android.view.View view7f0801dc -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f0801d7 -> e
+    android.view.View view7f0801d8 -> d
     36:87:void <init>(com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity,android.view.View) -> <init>
     92:93:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity_ViewBinding$a:
@@ -24729,9 +24714,9 @@ com.chanfinecloud.cfl.ui.activity.OtherRoomDetailActivity$3$1 -> com.chanfineclo
     231:232:void onFail(java.lang.String) -> a
 com.chanfinecloud.cfl.ui.activity.OtherRoomDetailActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.OtherRoomDetailActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.OtherRoomDetailActivity target -> a
-    android.view.View view7f0801fc -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f0801fb -> d
+    android.view.View view7f080202 -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f080201 -> d
     35:77:void <init>(com.chanfinecloud.cfl.ui.activity.OtherRoomDetailActivity,android.view.View) -> <init>
     82:83:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.OtherRoomDetailActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.OtherRoomDetailActivity_ViewBinding$a:
@@ -24785,7 +24770,7 @@ com.chanfinecloud.cfl.ui.activity.ParkingPaymentActivity$2 -> com.chanfinecloud.
 com.chanfinecloud.cfl.ui.activity.ParkingPaymentActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.ParkingPaymentActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.ParkingPaymentActivity target -> a
     android.view.View view7f0800be -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     android.view.View view7f080081 -> e
     android.view.View view7f080082 -> d
     37:87:void <init>(com.chanfinecloud.cfl.ui.activity.ParkingPaymentActivity,android.view.View) -> <init>
@@ -24820,10 +24805,10 @@ com.chanfinecloud.cfl.ui.activity.PaymentTestActivity$1 -> com.chanfinecloud.cfl
     103:109:void handleMessage(android.os.Message) -> handleMessage
 com.chanfinecloud.cfl.ui.activity.PaymentTestActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.PaymentTestActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.PaymentTestActivity target -> a
-    android.view.View view7f08017e -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f08017d -> e
-    android.view.View view7f08017c -> d
+    android.view.View view7f080184 -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f080183 -> e
+    android.view.View view7f080182 -> d
     android.view.View view7f080084 -> f
     38:96:void <init>(com.chanfinecloud.cfl.ui.activity.PaymentTestActivity,android.view.View) -> <init>
     101:102:void unbind() -> unbind
@@ -24925,12 +24910,12 @@ com.chanfinecloud.cfl.ui.activity.PersonActivity$9 -> com.chanfinecloud.cfl.ui.a
     384:384:void onSuccess(java.lang.Object) -> onSuccess
     387:397:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.PersonActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.PersonActivity_ViewBinding:
-    android.view.View view7f080210 -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f080211 -> e
-    android.view.View view7f080213 -> d
+    android.view.View view7f080216 -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f080217 -> e
+    android.view.View view7f080219 -> d
     com.chanfinecloud.cfl.ui.activity.PersonActivity target -> a
-    android.view.View view7f080212 -> f
+    android.view.View view7f080218 -> f
     37:93:void <init>(com.chanfinecloud.cfl.ui.activity.PersonActivity,android.view.View) -> <init>
     98:99:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.PersonActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.PersonActivity_ViewBinding$a:
@@ -24967,8 +24952,8 @@ com.chanfinecloud.cfl.ui.activity.PersonNickNameActivity$1 -> com.chanfinecloud.
     63:63:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
 com.chanfinecloud.cfl.ui.activity.PersonNickNameActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.PersonNickNameActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.PersonNickNameActivity target -> a
-    android.view.View view7f0802a2 -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a8 -> c
+    android.view.View view7f0802a6 -> b
     31:57:void <init>(com.chanfinecloud.cfl.ui.activity.PersonNickNameActivity,android.view.View) -> <init>
     62:63:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.PersonNickNameActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.PersonNickNameActivity_ViewBinding$a:
@@ -25012,7 +24997,7 @@ com.chanfinecloud.cfl.ui.activity.ProjectListActivity$3$1 -> com.chanfinecloud.c
 com.chanfinecloud.cfl.ui.activity.ProjectListActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.ProjectListActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.ProjectListActivity target -> a
     android.view.View view7f080085 -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     android.view.View view7f080087 -> e
     android.view.View view7f080086 -> d
     36:83:void <init>(com.chanfinecloud.cfl.ui.activity.ProjectListActivity,android.view.View) -> <init>
@@ -25080,7 +25065,7 @@ com.chanfinecloud.cfl.ui.activity.ProjectSelectActivity$3$1 -> com.chanfinecloud
     177:177:void <init>(com.chanfinecloud.cfl.ui.activity.ProjectSelectActivity$3) -> <init>
 com.chanfinecloud.cfl.ui.activity.ProjectSelectActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.ProjectSelectActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.ProjectSelectActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     29:47:void <init>(com.chanfinecloud.cfl.ui.activity.ProjectSelectActivity,android.view.View) -> <init>
     52:53:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.ProjectSelectActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.ProjectSelectActivity_ViewBinding$a:
@@ -25202,12 +25187,12 @@ com.chanfinecloud.cfl.ui.activity.RegisterActivity$9$1 -> com.chanfinecloud.cfl.
     500:501:void onFail(java.lang.String) -> a
 com.chanfinecloud.cfl.ui.activity.RegisterActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.RegisterActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.RegisterActivity target -> a
-    android.view.View view7f0802f8 -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f08018d -> e
+    android.view.View view7f0802fe -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f080193 -> e
     android.view.View view7f080088 -> d
-    android.view.View view7f0802da -> g
-    android.view.View view7f08018c -> f
+    android.view.View view7f0802e0 -> g
+    android.view.View view7f080192 -> f
     40:104:void <init>(com.chanfinecloud.cfl.ui.activity.RegisterActivity,android.view.View) -> <init>
     109:110:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.RegisterActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.RegisterActivity_ViewBinding$a:
@@ -25330,8 +25315,8 @@ com.chanfinecloud.cfl.ui.activity.RepairsActivity$9 -> com.chanfinecloud.cfl.ui.
 com.chanfinecloud.cfl.ui.activity.RepairsActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.RepairsActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.RepairsActivity target -> a
     android.view.View view7f080062 -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f0801a0 -> d
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f0801a6 -> d
     36:78:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsActivity,android.view.View) -> <init>
     83:84:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.RepairsActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.RepairsActivity_ViewBinding$a:
@@ -25347,87 +25332,89 @@ com.chanfinecloud.cfl.ui.activity.RepairsActivity_ViewBinding$3 -> com.chanfinec
     72:72:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsActivity_ViewBinding,com.chanfinecloud.cfl.ui.activity.RepairsActivity) -> <init>
     75:76:void doClick(android.view.View) -> doClick
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity:
-    com.chanfinecloud.cfl.weidgt.NoUnderlineSpan mNoUnderlineSpan -> j
-    com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment workflowActionFragment -> l
+    com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment workflowActionFragment -> m
     java.lang.String orderId -> h
-    androidx.recyclerview.widget.GridLayoutManager contentGridLayoutManager -> p
-    com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter contentImageAdapter -> o
-    java.lang.String resourceKey -> m
+    com.chanfinecloud.cfl.weidgt.NoUnderlineSpan mNoUnderlineSpan -> k
+    java.util.List contentImageData -> o
+    com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter contentImageAdapter -> p
+    java.util.List progressData -> j
     java.util.List data -> i
-    androidx.fragment.app.FragmentManager fragmentManager -> k
-    java.util.List contentImageData -> n
-    80:128:void <init>() -> <init>
-    222:225:void Event(com.chanfinecloud.cfl.entity.eventbus.EventBusMessage) -> Event
-    80:80:void access$000(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> a
-    80:80:void access$1000(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> a
-    80:80:void access$400(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity) -> a
-    80:80:void access$600(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.util.List) -> a
-    411:434:void initAction(com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity) -> a
-    456:488:void compress(java.util.List) -> a
-    80:80:androidx.recyclerview.widget.GridLayoutManager access$100(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> b
-    80:80:void access$1200(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> b
-    80:80:void access$500(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity) -> b
-    279:362:void initWorkFlow(java.util.List) -> b
-    365:408:void initView(com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity) -> b
-    492:514:void uploadPic(java.lang.String) -> b
-    80:80:com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment access$1100(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> c
-    80:80:void access$800(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> c
-    80:80:com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter access$200(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> d
-    80:80:void access$900(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> d
-    80:80:java.util.List access$300(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> e
-    80:80:java.util.List access$700(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> f
-    518:523:void finish() -> finish
-    140:185:void initData() -> h
-    236:277:void getData() -> l
-    438:452:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    134:136:void onCreate(android.os.Bundle) -> onCreate
-    229:232:void onDestroy() -> onDestroy
-    189:194:void onNewIntent(android.content.Intent) -> onNewIntent
-    198:201:void onStart() -> onStart
-    205:217:void onViewClicked(android.view.View) -> onViewClicked
+    java.lang.String resourceKey -> n
+    androidx.recyclerview.widget.GridLayoutManager contentGridLayoutManager -> q
+    androidx.fragment.app.FragmentManager fragmentManager -> l
+    81:130:void <init>() -> <init>
+    224:227:void Event(com.chanfinecloud.cfl.entity.eventbus.EventBusMessage) -> Event
+    81:81:void access$000(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> a
+    81:81:void access$1000(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> a
+    81:81:void access$400(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity) -> a
+    81:81:void access$700(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.util.List) -> a
+    450:473:void initAction(com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity) -> a
+    495:527:void compress(java.util.List) -> a
+    81:81:androidx.recyclerview.widget.GridLayoutManager access$100(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> b
+    81:81:void access$1100(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> b
+    81:81:void access$500(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity) -> b
+    283:401:void initWorkFlow(java.util.List) -> b
+    404:447:void initView(com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity) -> b
+    531:553:void uploadPic(java.lang.String) -> b
+    81:81:com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment access$1200(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> c
+    81:81:void access$1300(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> c
+    81:81:com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter access$200(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> d
+    81:81:void access$900(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> d
+    81:81:java.util.List access$300(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> e
+    81:81:java.util.List access$600(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> f
+    557:562:void finish() -> finish
+    81:81:java.util.List access$800(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> g
+    142:187:void initData() -> h
+    238:281:void getData() -> l
+    477:491:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    136:138:void onCreate(android.os.Bundle) -> onCreate
+    231:234:void onDestroy() -> onDestroy
+    191:196:void onNewIntent(android.content.Intent) -> onNewIntent
+    200:203:void onStart() -> onStart
+    207:219:void onViewClicked(android.view.View) -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$1 -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$a:
     com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity this$0 -> a
-    151:151:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
-    154:155:void onRefresh(com.scwang.smartrefresh.layout.api.RefreshLayout) -> a
+    153:153:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
+    156:157:void onRefresh(com.scwang.smartrefresh.layout.api.RefreshLayout) -> a
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$2 -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$b:
     com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity this$0 -> a
-    164:164:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
-    167:183:void onSimpleItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> onSimpleItemClick
+    166:166:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
+    169:185:void onSimpleItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> onSimpleItemClick
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$3 -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$c:
     com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity this$0 -> a
-    240:240:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
-    264:266:void onError(java.lang.Throwable,boolean) -> onError
-    270:272:void onFinished() -> onFinished
-    240:240:void onSuccess(java.lang.Object) -> onSuccess
-    243:260:void onSuccess(java.lang.String) -> onSuccess
+    242:242:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
+    268:270:void onError(java.lang.Throwable,boolean) -> onError
+    274:276:void onFinished() -> onFinished
+    242:242:void onSuccess(java.lang.Object) -> onSuccess
+    245:264:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$4 -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$d:
     com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter val$imageAdapter -> b
     com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity this$0 -> d
     java.util.List val$data -> c
     androidx.recyclerview.widget.GridLayoutManager val$mGridLayoutManager -> a
-    333:333:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,androidx.recyclerview.widget.GridLayoutManager,com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter,java.util.List) -> <init>
-    336:352:void onSimpleItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> onSimpleItemClick
+    372:372:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,androidx.recyclerview.widget.GridLayoutManager,com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter,java.util.List) -> <init>
+    375:391:void onSimpleItemClick(com.chad.library.adapter.base.BaseQuickAdapter,android.view.View,int) -> onSimpleItemClick
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$5 -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$e:
     com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity this$0 -> a
-    468:468:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
-    476:481:void onSuccess(java.io.File) -> a
-    485:486:void onError(java.lang.Throwable) -> a
-    471:472:void onStart() -> onStart
+    507:507:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
+    515:520:void onSuccess(java.io.File) -> a
+    524:525:void onError(java.lang.Throwable) -> a
+    510:511:void onStart() -> onStart
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$6 -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$f:
-    462:462:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
-    465:465:boolean apply(java.lang.String) -> a
+    501:501:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity) -> <init>
+    504:504:boolean apply(java.lang.String) -> a
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$7 -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity$g:
     com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity this$0 -> b
     java.lang.String val$path -> a
-    497:497:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> <init>
-    507:509:void onError(java.lang.Throwable,boolean) -> onError
-    497:497:void onSuccess(java.lang.Object) -> onSuccess
-    500:503:void onSuccess(java.lang.String) -> onSuccess
+    536:536:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,java.lang.String) -> <init>
+    546:548:void onError(java.lang.Throwable,boolean) -> onError
+    536:536:void onSuccess(java.lang.Object) -> onSuccess
+    539:542:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity target -> a
-    android.view.View view7f0802a2 -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f08029f -> d
+    android.view.View view7f0802a8 -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f0802a5 -> d
     36:82:void <init>(com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity,android.view.View) -> <init>
     87:88:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity_ViewBinding$a:
@@ -25487,7 +25474,7 @@ com.chanfinecloud.cfl.ui.activity.RoomSelectActivity$4 -> com.chanfinecloud.cfl.
     129:129:void onSuccess(java.lang.Object) -> onSuccess
     132:167:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.RoomSelectActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.RoomSelectActivity_ViewBinding:
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     com.chanfinecloud.cfl.ui.activity.RoomSelectActivity target -> a
     30:50:void <init>(com.chanfinecloud.cfl.ui.activity.RoomSelectActivity,android.view.View) -> <init>
     55:56:void unbind() -> unbind
@@ -25501,7 +25488,7 @@ com.chanfinecloud.cfl.ui.activity.SettingAboutActivity -> com.chanfinecloud.cfl.
     35:40:void onViewClicked(android.view.View) -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.SettingAboutActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.SettingAboutActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.SettingAboutActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     26:40:void <init>(com.chanfinecloud.cfl.ui.activity.SettingAboutActivity,android.view.View) -> <init>
     45:46:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.SettingAboutActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.SettingAboutActivity_ViewBinding$a:
@@ -25563,18 +25550,18 @@ com.chanfinecloud.cfl.ui.activity.SettingActivity$9 -> com.chanfinecloud.cfl.ui.
     340:340:void <init>(com.chanfinecloud.cfl.ui.activity.SettingActivity) -> <init>
     343:344:void onClick(android.content.DialogInterface,int) -> onClick
 com.chanfinecloud.cfl.ui.activity.SettingActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.SettingActivity_ViewBinding:
-    android.view.View view7f0802f5 -> i
-    android.view.View view7f0802f6 -> h
-    android.view.View view7f080182 -> k
-    android.view.View view7f08018a -> j
-    android.view.View view7f080181 -> l
-    android.view.View view7f0802a0 -> c
-    android.view.View view7f080189 -> b
-    android.view.View view7f08018b -> e
-    android.view.View view7f080187 -> d
+    android.view.View view7f0802fb -> i
+    android.view.View view7f0802fc -> h
+    android.view.View view7f080188 -> k
+    android.view.View view7f080190 -> j
+    android.view.View view7f080187 -> l
+    android.view.View view7f0802a6 -> c
+    android.view.View view7f08018f -> b
+    android.view.View view7f080191 -> e
+    android.view.View view7f08018d -> d
     com.chanfinecloud.cfl.ui.activity.SettingActivity target -> a
-    android.view.View view7f0802f4 -> g
-    android.view.View view7f080188 -> f
+    android.view.View view7f0802fa -> g
+    android.view.View view7f08018e -> f
     47:143:void <init>(com.chanfinecloud.cfl.ui.activity.SettingActivity,android.view.View) -> <init>
     148:149:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.SettingActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.SettingActivity_ViewBinding$c:
@@ -25642,9 +25629,9 @@ com.chanfinecloud.cfl.ui.activity.SettingDetailActivity$3 -> com.chanfinecloud.c
     81:88:void onCheckedChanged(android.widget.CompoundButton,boolean) -> onCheckedChanged
 com.chanfinecloud.cfl.ui.activity.SettingDetailActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.SettingDetailActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.SettingDetailActivity target -> a
-    android.view.View view7f080184 -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f080185 -> d
+    android.view.View view7f08018a -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f08018b -> d
     32:64:void <init>(com.chanfinecloud.cfl.ui.activity.SettingDetailActivity,android.view.View) -> <init>
     69:70:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.SettingDetailActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.SettingDetailActivity_ViewBinding$a:
@@ -25698,7 +25685,7 @@ com.chanfinecloud.cfl.ui.activity.UnLockListActivity$3 -> com.chanfinecloud.cfl.
     149:149:void onSuccess(java.lang.Object) -> onSuccess
     152:160:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.UnLockListActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.UnLockListActivity_ViewBinding:
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     com.chanfinecloud.cfl.ui.activity.UnLockListActivity target -> a
     29:47:void <init>(com.chanfinecloud.cfl.ui.activity.UnLockListActivity,android.view.View) -> <init>
     52:53:void unbind() -> unbind
@@ -25733,7 +25720,7 @@ com.chanfinecloud.cfl.ui.activity.UnitSelectActivity$2$1 -> com.chanfinecloud.cf
     101:101:void <init>(com.chanfinecloud.cfl.ui.activity.UnitSelectActivity$2) -> <init>
 com.chanfinecloud.cfl.ui.activity.UnitSelectActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.UnitSelectActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.UnitSelectActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     29:47:void <init>(com.chanfinecloud.cfl.ui.activity.UnitSelectActivity,android.view.View) -> <init>
     52:53:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.UnitSelectActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.UnitSelectActivity_ViewBinding$a:
@@ -25777,7 +25764,7 @@ com.chanfinecloud.cfl.ui.activity.VisitorQrCodeActivity$1 -> com.chanfinecloud.c
     204:204:void onStart(com.umeng.socialize.bean.SHARE_MEDIA) -> onStart
 com.chanfinecloud.cfl.ui.activity.VisitorQrCodeActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.VisitorQrCodeActivity_ViewBinding:
     android.view.View view7f080090 -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     com.chanfinecloud.cfl.ui.activity.VisitorQrCodeActivity target -> a
     android.view.View view7f08008f -> d
     34:74:void <init>(com.chanfinecloud.cfl.ui.activity.VisitorQrCodeActivity,android.view.View) -> <init>
@@ -25800,7 +25787,7 @@ com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity -> com.chanfinec
     37:44:void onViewClicked(android.view.View) -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     28:42:void <init>(com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity,android.view.View) -> <init>
     47:48:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.WaitingForDevelopmentActivity_ViewBinding$a:
@@ -25814,7 +25801,7 @@ com.chanfinecloud.cfl.ui.activity.WorkflowStepActivity -> com.chanfinecloud.cfl.
     65:66:void onViewClicked() -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.WorkflowStepActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.WorkflowStepActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.WorkflowStepActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     29:47:void <init>(com.chanfinecloud.cfl.ui.activity.WorkflowStepActivity,android.view.View) -> <init>
     52:53:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.WorkflowStepActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.WorkflowStepActivity_ViewBinding$a:
@@ -25930,8 +25917,8 @@ com.chanfinecloud.cfl.ui.activity.homehead.CarLock$9 -> com.chanfinecloud.cfl.ui
     422:453:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.homehead.CarLock_ViewBinding -> com.chanfinecloud.cfl.ui.activity.homehead.CarLock_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.homehead.CarLock target -> a
-    android.view.View view7f0802b2 -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802b8 -> c
+    android.view.View view7f0802a6 -> b
     33:65:void <init>(com.chanfinecloud.cfl.ui.activity.homehead.CarLock,android.view.View) -> <init>
     70:71:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.homehead.CarLock_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.homehead.CarLock_ViewBinding$a:
@@ -25959,8 +25946,8 @@ com.chanfinecloud.cfl.ui.activity.homehead.UnLock$1 -> com.chanfinecloud.cfl.ui.
     89:98:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.homehead.UnLock_ViewBinding -> com.chanfinecloud.cfl.ui.activity.homehead.UnLock_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.homehead.UnLock target -> a
-    android.view.View view7f0802ef -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802f5 -> c
+    android.view.View view7f0802a6 -> b
     31:58:void <init>(com.chanfinecloud.cfl.ui.activity.homehead.UnLock,android.view.View) -> <init>
     63:64:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.homehead.UnLock_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.homehead.UnLock_ViewBinding$a:
@@ -26013,7 +26000,7 @@ com.chanfinecloud.cfl.ui.activity.homehead.VideoCallActivity$3 -> com.chanfinecl
     135:141:void handleMessage(android.os.Message) -> handleMessage
 com.chanfinecloud.cfl.ui.activity.homehead.VideoCallActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.homehead.VideoCallActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.homehead.VideoCallActivity target -> a
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     28:43:void <init>(com.chanfinecloud.cfl.ui.activity.homehead.VideoCallActivity,android.view.View) -> <init>
     48:49:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.homehead.VideoCallActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.homehead.VideoCallActivity_ViewBinding$a:
@@ -26065,7 +26052,7 @@ com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity$4 -> com.chanfineclou
     151:182:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity_ViewBinding:
     android.view.View view7f08008e -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a6 -> b
     com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity target -> a
     33:61:void <init>(com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity,android.view.View) -> <init>
     66:67:void unbind() -> unbind
@@ -26090,9 +26077,9 @@ com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity -> com.chanfine
     94:104:void onViewClicked(android.view.View) -> onViewClicked
 com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity_ViewBinding:
     com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity target -> a
-    android.view.View view7f0802a3 -> c
-    android.view.View view7f0802a0 -> b
-    android.view.View view7f0802a2 -> d
+    android.view.View view7f0802a9 -> c
+    android.view.View view7f0802a6 -> b
+    android.view.View view7f0802a8 -> d
     34:69:void <init>(com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity,android.view.View) -> <init>
     74:75:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity_ViewBinding$1 -> com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity_ViewBinding$a:
@@ -26153,8 +26140,8 @@ com.chanfinecloud.cfl.ui.activity.minefeatures.WorkflowListActivity$4 -> com.cha
     181:181:void onSuccess(java.lang.Object) -> onSuccess
     184:215:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.activity.minefeatures.WorkflowListActivity_ViewBinding -> com.chanfinecloud.cfl.ui.activity.minefeatures.WorkflowListActivity_ViewBinding:
-    android.view.View view7f08029f -> c
-    android.view.View view7f0802a0 -> b
+    android.view.View view7f0802a5 -> c
+    android.view.View view7f0802a6 -> b
     com.chanfinecloud.cfl.ui.activity.minefeatures.WorkflowListActivity target -> a
     32:59:void <init>(com.chanfinecloud.cfl.ui.activity.minefeatures.WorkflowListActivity,android.view.View) -> <init>
     64:65:void unbind() -> unbind
@@ -26231,14 +26218,14 @@ com.chanfinecloud.cfl.ui.base.BaseFragment -> com.chanfinecloud.cfl.ui.base.Base
 com.chanfinecloud.cfl.ui.base.BaseFragment$1 -> com.chanfinecloud.cfl.ui.base.BaseFragment$a:
     int[] $SwitchMap$com$chanfinecloud$cfl$entity$core$Transition -> a
     233:233:void <clinit>() -> <clinit>
-com.chanfinecloud.cfl.ui.base.BaseHandler -> d.c.a.f.h.a:
+com.chanfinecloud.cfl.ui.base.BaseHandler -> d.c.a.f.f.a:
     java.util.List taskList -> a
     java.lang.ref.WeakReference mActivity -> b
     30:32:void <init>(android.app.Activity) -> <init>
     53:78:void doRequest(android.os.Message) -> a
     84:88:void cancelRequest() -> a
     36:46:void handleMessage(android.os.Message) -> handleMessage
-com.chanfinecloud.cfl.ui.base.BaseHandler$1 -> d.c.a.f.h.a$a:
+com.chanfinecloud.cfl.ui.base.BaseHandler$1 -> d.c.a.f.f.a$a:
     int[] $SwitchMap$com$chanfinecloud$cfl$http$HttpMethod -> a
     56:56:void <clinit>() -> <clinit>
 com.chanfinecloud.cfl.ui.fragment.lazyfrg.LazyBaseFragment -> com.chanfinecloud.cfl.ui.fragment.lazyfrg.LazyBaseFragment:
@@ -26299,7 +26286,7 @@ com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment -> com.chanfinecloud.cfl.
     196:236:void getHotTips() -> n
     242:281:void getWheelPlanting() -> o
     310:315:void onDestroy() -> onDestroy
-    321:392:void onViewClicked(android.view.View) -> onViewClicked
+    321:390:void onViewClicked(android.view.View) -> onViewClicked
     287:300:void initADTextView() -> p
 com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$1 -> com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$1:
     167:167:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
@@ -26326,19 +26313,19 @@ com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment$5 -> com.chanfinecloud.cf
     290:290:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment) -> <init>
     293:298:void OnAdConetentClickListener(int,com.chanfinecloud.cfl.entity.NoticeEntity) -> a
 com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment_ViewBinding -> com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment_ViewBinding:
-    android.view.View view7f0802fd -> i
-    android.view.View view7f0802fb -> h
-    android.view.View view7f0802d1 -> k
-    android.view.View view7f0802fc -> j
-    android.view.View view7f080300 -> m
-    android.view.View view7f0802f1 -> l
+    android.view.View view7f080303 -> i
+    android.view.View view7f080301 -> h
+    android.view.View view7f0802d7 -> k
+    android.view.View view7f080302 -> j
+    android.view.View view7f080306 -> m
+    android.view.View view7f0802f7 -> l
     com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment target -> a
-    android.view.View view7f0802ff -> c
-    android.view.View view7f0802fa -> b
-    android.view.View view7f080158 -> e
-    android.view.View view7f0802fe -> d
-    android.view.View view7f0802ee -> g
-    android.view.View view7f0802ec -> f
+    android.view.View view7f080305 -> c
+    android.view.View view7f080300 -> b
+    android.view.View view7f08015e -> e
+    android.view.View view7f080304 -> d
+    android.view.View view7f0802f4 -> g
+    android.view.View view7f0802f2 -> f
     47:164:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment,android.view.View) -> <init>
     169:170:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment_ViewBinding$1 -> com.chanfinecloud.cfl.ui.fragment.mainfrg.HomeFragment_ViewBinding$d:
@@ -26405,16 +26392,16 @@ com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment -> com.chanfinecloud.cfl.
     120:125:void onDestroy() -> onDestroy
     139:188:void onViewClicked(android.view.View) -> onViewClicked
 com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment_ViewBinding -> com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment_ViewBinding:
-    android.view.View view7f0802dd -> i
-    android.view.View view7f0802de -> h
-    android.view.View view7f0802e3 -> j
-    android.view.View view7f0802e1 -> c
-    android.view.View view7f08017a -> b
-    android.view.View view7f0802dc -> e
+    android.view.View view7f0802e3 -> i
+    android.view.View view7f0802e4 -> h
+    android.view.View view7f0802e9 -> j
+    android.view.View view7f0802e7 -> c
+    android.view.View view7f080180 -> b
+    android.view.View view7f0802e2 -> e
     com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment target -> a
-    android.view.View view7f0802e4 -> d
-    android.view.View view7f0802df -> g
-    android.view.View view7f0802e0 -> f
+    android.view.View view7f0802ea -> d
+    android.view.View view7f0802e5 -> g
+    android.view.View view7f0802e6 -> f
     39:127:void <init>(com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment,android.view.View) -> <init>
     132:133:void unbind() -> unbind
 com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment_ViewBinding$1 -> com.chanfinecloud.cfl.ui.fragment.mainfrg.MineFragment_ViewBinding$a:
@@ -26643,7 +26630,7 @@ com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment$9 -> com.c
     561:561:void onSuccess(java.lang.Object) -> onSuccess
     564:573:void onSuccess(java.lang.String) -> onSuccess
 com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment_ViewBinding -> com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment_ViewBinding:
-    android.view.View view7f080338 -> b
+    android.view.View view7f08033e -> b
     com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment target -> a
     24:41:void <init>(com.chanfinecloud.cfl.ui.fragment.minefragment.WorkflowActionFragment,android.view.View) -> <init>
     46:47:void unbind() -> unbind
@@ -46331,15 +46318,12 @@ com.yanzhenjie.permission.AndPermission -> d.p.a.b:
     47:47:java.lang.String bridgeAction(android.content.Context,java.lang.String) -> a
     87:87:com.yanzhenjie.permission.option.Option with(android.app.Activity) -> a
 com.yanzhenjie.permission.Boot -> d.p.a.c:
-    com.yanzhenjie.permission.Boot$OverlayRequestFactory OVERLAY_REQUEST_FACTORY -> b
     com.yanzhenjie.permission.source.Source mSource -> a
     43:54:void <clinit>() -> <clinit>
     74:76:void <init>(com.yanzhenjie.permission.source.Source) -> <init>
-    90:90:com.yanzhenjie.permission.overlay.OverlayRequest overlay() -> a
-    95:95:com.yanzhenjie.permission.notify.option.NotifyOption notification() -> b
+    95:95:com.yanzhenjie.permission.notify.option.NotifyOption notification() -> a
 com.yanzhenjie.permission.Boot$InstallRequestFactory -> d.p.a.c$a:
 com.yanzhenjie.permission.Boot$OverlayRequestFactory -> d.p.a.c$b:
-    com.yanzhenjie.permission.overlay.OverlayRequest create(com.yanzhenjie.permission.source.Source) -> a
 com.yanzhenjie.permission.FileProvider -> com.yanzhenjie.permission.FileProvider:
     java.io.File DEVICE_ROOT -> c
     com.yanzhenjie.permission.FileProvider$PathStrategy mStrategy -> a
@@ -46369,11 +46353,9 @@ com.yanzhenjie.permission.FileProvider$SimplePathStrategy -> com.yanzhenjie.perm
     246:248:void <init>(java.lang.String) -> <init>
     251:252:void addRoot(java.lang.String,java.io.File) -> a
     300:308:java.io.File getFileForUri(android.net.Uri) -> getFileForUri
-com.yanzhenjie.permission.R$style -> d.p.a.d:
-    921:921:void <init>() -> <init>
-com.yanzhenjie.permission.Rationale -> d.p.a.e:
+com.yanzhenjie.permission.Rationale -> d.p.a.d:
     void showRationale(android.content.Context,java.lang.Object,com.yanzhenjie.permission.RequestExecutor) -> a
-com.yanzhenjie.permission.RequestExecutor -> d.p.a.f:
+com.yanzhenjie.permission.RequestExecutor -> d.p.a.e:
     void execute() -> b
 com.yanzhenjie.permission.bridge.BridgeActivity -> com.yanzhenjie.permission.bridge.BridgeActivity:
     java.lang.String mActionSuffix -> a
@@ -46391,7 +46373,7 @@ com.yanzhenjie.permission.bridge.BridgeActivity -> com.yanzhenjie.permission.bri
     206:209:boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
     188:190:void onRequestPermissionsResult(int,java.lang.String[],int[]) -> onRequestPermissionsResult
     194:195:void startActivityForResult(android.content.Intent,int) -> startActivityForResult
-com.yanzhenjie.permission.bridge.BridgeRequest -> d.p.a.g.a:
+com.yanzhenjie.permission.bridge.BridgeRequest -> d.p.a.f.a:
     com.yanzhenjie.permission.bridge.BridgeRequest$Callback mCallback -> c
     java.util.List mPermissions -> d
     com.yanzhenjie.permission.source.Source mSource -> a
@@ -46403,7 +46385,7 @@ com.yanzhenjie.permission.bridge.BridgeRequest -> d.p.a.g.a:
     67:67:java.util.List getPermissions() -> b
     47:47:com.yanzhenjie.permission.source.Source getSource() -> c
     51:51:int getType() -> d
-com.yanzhenjie.permission.bridge.BridgeRequest$Callback -> d.p.a.g.a$a:
+com.yanzhenjie.permission.bridge.BridgeRequest$Callback -> d.p.a.f.a$a:
     void onCallback() -> a
 com.yanzhenjie.permission.bridge.BridgeService -> com.yanzhenjie.permission.bridge.BridgeService:
     com.yanzhenjie.permission.bridge.IBridge$Stub mStub -> a
@@ -46421,7 +46403,7 @@ com.yanzhenjie.permission.bridge.BridgeService$1 -> com.yanzhenjie.permission.br
     45:46:void requestAppDetails(java.lang.String) -> e
     65:66:void requestAlertWindow(java.lang.String) -> f
     55:56:void requestInstall(java.lang.String) -> g
-com.yanzhenjie.permission.bridge.IBridge -> d.p.a.g.b:
+com.yanzhenjie.permission.bridge.IBridge -> d.p.a.f.b:
     void requestNotify(java.lang.String) -> a
     void requestPermission(java.lang.String,java.lang.String[]) -> a
     void requestNotificationListener(java.lang.String) -> b
@@ -46430,13 +46412,13 @@ com.yanzhenjie.permission.bridge.IBridge -> d.p.a.g.b:
     void requestAppDetails(java.lang.String) -> e
     void requestAlertWindow(java.lang.String) -> f
     void requestInstall(java.lang.String) -> g
-com.yanzhenjie.permission.bridge.IBridge$Stub -> d.p.a.g.b$a:
+com.yanzhenjie.permission.bridge.IBridge$Stub -> d.p.a.f.b$a:
     69:71:void <init>() -> <init>
     78:85:com.yanzhenjie.permission.bridge.IBridge asInterface(android.os.IBinder) -> a
     391:391:com.yanzhenjie.permission.bridge.IBridge getDefaultImpl() -> a
     89:89:android.os.IBinder asBinder() -> asBinder
     93:99:boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
-com.yanzhenjie.permission.bridge.IBridge$Stub$Proxy -> d.p.a.g.b$a$a:
+com.yanzhenjie.permission.bridge.IBridge$Stub$Proxy -> d.p.a.f.b$a$a:
     com.yanzhenjie.permission.bridge.IBridge sDefaultImpl -> b
     android.os.IBinder mRemote -> a
     185:187:void <init>(android.os.IBinder) -> <init>
@@ -46449,7 +46431,7 @@ com.yanzhenjie.permission.bridge.IBridge$Stub$Proxy -> d.p.a.g.b$a$a:
     201:216:void requestAppDetails(java.lang.String) -> e
     290:305:void requestAlertWindow(java.lang.String) -> f
     246:261:void requestInstall(java.lang.String) -> g
-com.yanzhenjie.permission.bridge.Messenger -> d.p.a.g.c:
+com.yanzhenjie.permission.bridge.Messenger -> d.p.a.f.c:
     android.content.Context mContext -> a
     com.yanzhenjie.permission.bridge.Messenger$Callback mCallback -> b
     38:41:void <init>(android.content.Context,com.yanzhenjie.permission.bridge.Messenger$Callback) -> <init>
@@ -46457,9 +46439,9 @@ com.yanzhenjie.permission.bridge.Messenger -> d.p.a.g.c:
     44:46:void register(java.lang.String) -> a
     49:50:void unRegister() -> a
     54:55:void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.yanzhenjie.permission.bridge.Messenger$Callback -> d.p.a.g.c$a:
+com.yanzhenjie.permission.bridge.Messenger$Callback -> d.p.a.f.c$a:
     void onCallback() -> a
-com.yanzhenjie.permission.bridge.RequestExecutor -> d.p.a.g.d:
+com.yanzhenjie.permission.bridge.RequestExecutor -> d.p.a.f.d:
     com.yanzhenjie.permission.bridge.BridgeRequest mRequest -> a
     android.content.ServiceConnection mConnection -> c
     com.yanzhenjie.permission.bridge.Messenger mMessenger -> b
@@ -46468,30 +46450,30 @@ com.yanzhenjie.permission.bridge.RequestExecutor -> d.p.a.g.d:
     72:108:void executeCurrent(com.yanzhenjie.permission.bridge.IBridge) -> a
     113:119:void onCallback() -> a
     44:53:void run() -> run
-com.yanzhenjie.permission.bridge.RequestExecutor$1 -> d.p.a.g.d$a:
+com.yanzhenjie.permission.bridge.RequestExecutor$1 -> d.p.a.f.d$a:
     com.yanzhenjie.permission.bridge.RequestExecutor this$0 -> a
     55:55:void <init>(com.yanzhenjie.permission.bridge.RequestExecutor) -> <init>
     58:64:void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
     68:68:void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
-com.yanzhenjie.permission.bridge.RequestManager -> d.p.a.g.e:
+com.yanzhenjie.permission.bridge.RequestManager -> d.p.a.f.e:
     com.yanzhenjie.permission.bridge.RequestManager sManager -> b
     java.util.concurrent.Executor mExecutor -> a
     41:43:void <init>() -> <init>
     29:36:com.yanzhenjie.permission.bridge.RequestManager get() -> a
     46:47:void add(com.yanzhenjie.permission.bridge.BridgeRequest) -> a
-com.yanzhenjie.permission.checker.DoubleChecker -> d.p.a.h.a:
+com.yanzhenjie.permission.checker.DoubleChecker -> d.p.a.g.a:
     27:28:void <clinit>() -> <clinit>
     25:25:void <init>() -> <init>
-com.yanzhenjie.permission.checker.PermissionChecker -> d.p.a.h.b:
-com.yanzhenjie.permission.checker.StandardChecker -> d.p.a.h.c:
+com.yanzhenjie.permission.checker.PermissionChecker -> d.p.a.g.b:
+com.yanzhenjie.permission.checker.StandardChecker -> d.p.a.g.c:
     35:36:void <init>() -> <init>
-com.yanzhenjie.permission.checker.StrictChecker -> d.p.a.h.d:
+com.yanzhenjie.permission.checker.StrictChecker -> d.p.a.g.d:
     31:32:void <init>() -> <init>
-com.yanzhenjie.permission.install.NRequestFactory -> d.p.a.i.a:
+com.yanzhenjie.permission.install.NRequestFactory -> d.p.a.h.a:
     24:24:void <init>() -> <init>
-com.yanzhenjie.permission.install.ORequestFactory -> d.p.a.i.b:
+com.yanzhenjie.permission.install.ORequestFactory -> d.p.a.h.b:
     24:24:void <init>() -> <init>
-com.yanzhenjie.permission.notify.BaseRequest -> d.p.a.j.a:
+com.yanzhenjie.permission.notify.BaseRequest -> d.p.a.i.a:
     com.yanzhenjie.permission.Action mGranted -> c
     com.yanzhenjie.permission.Rationale mRationale -> b
     com.yanzhenjie.permission.Action mDenied -> d
@@ -46503,21 +46485,21 @@ com.yanzhenjie.permission.notify.BaseRequest -> d.p.a.j.a:
     59:60:com.yanzhenjie.permission.notify.PermissionRequest onDenied(com.yanzhenjie.permission.Action) -> b
     83:86:void callbackFailed() -> c
     74:77:void callbackSucceed() -> d
-com.yanzhenjie.permission.notify.BaseRequest$1 -> d.p.a.j.a$a:
+com.yanzhenjie.permission.notify.BaseRequest$1 -> d.p.a.i.a$a:
     32:32:void <init>(com.yanzhenjie.permission.notify.BaseRequest) -> <init>
     32:32:void showRationale(android.content.Context,java.lang.Object,com.yanzhenjie.permission.RequestExecutor) -> a
     35:36:void showRationale(android.content.Context,java.lang.Void,com.yanzhenjie.permission.RequestExecutor) -> a
-com.yanzhenjie.permission.notify.NRequest -> d.p.a.j.b:
+com.yanzhenjie.permission.notify.NRequest -> d.p.a.i.b:
     com.yanzhenjie.permission.source.Source mSource -> e
     31:33:void <init>(com.yanzhenjie.permission.source.Source) -> <init>
     59:64:void onCallback() -> a
     46:50:void execute() -> b
     54:55:void cancel() -> cancel
     37:42:void start() -> start
-com.yanzhenjie.permission.notify.NRequestFactory -> d.p.a.j.c:
+com.yanzhenjie.permission.notify.NRequestFactory -> d.p.a.i.c:
     23:23:void <init>() -> <init>
     27:27:com.yanzhenjie.permission.notify.PermissionRequest create(com.yanzhenjie.permission.source.Source) -> a
-com.yanzhenjie.permission.notify.Notify -> d.p.a.j.d:
+com.yanzhenjie.permission.notify.Notify -> d.p.a.i.d:
     com.yanzhenjie.permission.notify.Notify$ListenerRequestFactory LISTENER_REQUEST_FACTORY -> c
     com.yanzhenjie.permission.notify.Notify$PermissionRequestFactory PERMISSION_REQUEST_FACTORY -> b
     com.yanzhenjie.permission.source.Source mSource -> a
@@ -46525,25 +46507,25 @@ com.yanzhenjie.permission.notify.Notify -> d.p.a.j.d:
     66:68:void <init>(com.yanzhenjie.permission.source.Source) -> <init>
     71:71:com.yanzhenjie.permission.notify.PermissionRequest permission() -> a
     75:75:com.yanzhenjie.permission.notify.listener.ListenerRequest listener() -> b
-com.yanzhenjie.permission.notify.Notify$ListenerRequestFactory -> d.p.a.j.d$a:
+com.yanzhenjie.permission.notify.Notify$ListenerRequestFactory -> d.p.a.i.d$a:
     com.yanzhenjie.permission.notify.listener.ListenerRequest create(com.yanzhenjie.permission.source.Source) -> a
-com.yanzhenjie.permission.notify.Notify$PermissionRequestFactory -> d.p.a.j.d$b:
+com.yanzhenjie.permission.notify.Notify$PermissionRequestFactory -> d.p.a.i.d$b:
     com.yanzhenjie.permission.notify.PermissionRequest create(com.yanzhenjie.permission.source.Source) -> a
-com.yanzhenjie.permission.notify.ORequest -> d.p.a.j.e:
+com.yanzhenjie.permission.notify.ORequest -> d.p.a.i.e:
     com.yanzhenjie.permission.source.Source mSource -> e
     31:33:void <init>(com.yanzhenjie.permission.source.Source) -> <init>
     59:64:void onCallback() -> a
     46:50:void execute() -> b
     54:55:void cancel() -> cancel
     37:42:void start() -> start
-com.yanzhenjie.permission.notify.ORequestFactory -> d.p.a.j.f:
+com.yanzhenjie.permission.notify.ORequestFactory -> d.p.a.i.f:
     23:23:void <init>() -> <init>
     27:27:com.yanzhenjie.permission.notify.PermissionRequest create(com.yanzhenjie.permission.source.Source) -> a
-com.yanzhenjie.permission.notify.PermissionRequest -> d.p.a.j.g:
+com.yanzhenjie.permission.notify.PermissionRequest -> d.p.a.i.g:
     com.yanzhenjie.permission.notify.PermissionRequest onGranted(com.yanzhenjie.permission.Action) -> a
     com.yanzhenjie.permission.notify.PermissionRequest rationale(com.yanzhenjie.permission.Rationale) -> a
     com.yanzhenjie.permission.notify.PermissionRequest onDenied(com.yanzhenjie.permission.Action) -> b
-com.yanzhenjie.permission.notify.listener.BaseRequest -> d.p.a.j.h.a:
+com.yanzhenjie.permission.notify.listener.BaseRequest -> d.p.a.i.h.a:
     com.yanzhenjie.permission.Action mGranted -> c
     com.yanzhenjie.permission.Rationale mRationale -> b
     com.yanzhenjie.permission.Action mDenied -> d
@@ -46555,80 +46537,42 @@ com.yanzhenjie.permission.notify.listener.BaseRequest -> d.p.a.j.h.a:
     59:60:com.yanzhenjie.permission.notify.listener.ListenerRequest onDenied(com.yanzhenjie.permission.Action) -> b
     83:86:void callbackFailed() -> c
     74:77:void callbackSucceed() -> d
-com.yanzhenjie.permission.notify.listener.BaseRequest$1 -> d.p.a.j.h.a$a:
+com.yanzhenjie.permission.notify.listener.BaseRequest$1 -> d.p.a.i.h.a$a:
     32:32:void <init>(com.yanzhenjie.permission.notify.listener.BaseRequest) -> <init>
     32:32:void showRationale(android.content.Context,java.lang.Object,com.yanzhenjie.permission.RequestExecutor) -> a
     35:36:void showRationale(android.content.Context,java.lang.Void,com.yanzhenjie.permission.RequestExecutor) -> a
-com.yanzhenjie.permission.notify.listener.J1Request -> d.p.a.j.h.b:
+com.yanzhenjie.permission.notify.listener.J1Request -> d.p.a.i.h.b:
     27:28:void <init>(com.yanzhenjie.permission.source.Source) -> <init>
     38:38:void execute() -> b
     43:43:void cancel() -> cancel
     32:33:void start() -> start
-com.yanzhenjie.permission.notify.listener.J1RequestFactory -> d.p.a.j.h.c:
+com.yanzhenjie.permission.notify.listener.J1RequestFactory -> d.p.a.i.h.c:
     24:24:void <init>() -> <init>
     28:28:com.yanzhenjie.permission.notify.listener.ListenerRequest create(com.yanzhenjie.permission.source.Source) -> a
-com.yanzhenjie.permission.notify.listener.J2Request -> d.p.a.j.h.d:
+com.yanzhenjie.permission.notify.listener.J2Request -> d.p.a.i.h.d:
     com.yanzhenjie.permission.source.Source mSource -> e
     31:33:void <init>(com.yanzhenjie.permission.source.Source) -> <init>
     59:64:void onCallback() -> a
     46:50:void execute() -> b
     54:55:void cancel() -> cancel
     37:42:void start() -> start
-com.yanzhenjie.permission.notify.listener.J2RequestFactory -> d.p.a.j.h.e:
+com.yanzhenjie.permission.notify.listener.J2RequestFactory -> d.p.a.i.h.e:
     24:24:void <init>() -> <init>
     28:28:com.yanzhenjie.permission.notify.listener.ListenerRequest create(com.yanzhenjie.permission.source.Source) -> a
-com.yanzhenjie.permission.notify.listener.ListenerRequest -> d.p.a.j.h.f:
+com.yanzhenjie.permission.notify.listener.ListenerRequest -> d.p.a.i.h.f:
     com.yanzhenjie.permission.notify.listener.ListenerRequest onGranted(com.yanzhenjie.permission.Action) -> a
     com.yanzhenjie.permission.notify.listener.ListenerRequest rationale(com.yanzhenjie.permission.Rationale) -> a
     com.yanzhenjie.permission.notify.listener.ListenerRequest onDenied(com.yanzhenjie.permission.Action) -> b
-com.yanzhenjie.permission.notify.option.NotifyOption -> d.p.a.j.i.a:
+com.yanzhenjie.permission.notify.option.NotifyOption -> d.p.a.i.i.a:
     com.yanzhenjie.permission.notify.PermissionRequest permission() -> a
     com.yanzhenjie.permission.notify.listener.ListenerRequest listener() -> b
-com.yanzhenjie.permission.option.Option -> d.p.a.k.a:
-    com.yanzhenjie.permission.overlay.OverlayRequest overlay() -> a
-    com.yanzhenjie.permission.notify.option.NotifyOption notification() -> b
-com.yanzhenjie.permission.overlay.BaseRequest -> d.p.a.l.a:
-    com.yanzhenjie.permission.Action mGranted -> c
-    com.yanzhenjie.permission.Rationale mRationale -> b
-    com.yanzhenjie.permission.Action mDenied -> d
-    com.yanzhenjie.permission.source.Source mSource -> a
-    46:48:void <init>(com.yanzhenjie.permission.source.Source) -> <init>
-    52:53:com.yanzhenjie.permission.overlay.OverlayRequest rationale(com.yanzhenjie.permission.Rationale) -> a
-    58:59:com.yanzhenjie.permission.overlay.OverlayRequest onGranted(com.yanzhenjie.permission.Action) -> a
-    72:73:void showRationale(com.yanzhenjie.permission.RequestExecutor) -> a
-    94:104:boolean tryDisplayDialog(android.content.Context) -> a
-    64:65:com.yanzhenjie.permission.overlay.OverlayRequest onDenied(com.yanzhenjie.permission.Action) -> b
-    88:91:void callbackFailed() -> c
-    79:82:void callbackSucceed() -> d
-com.yanzhenjie.permission.overlay.BaseRequest$1 -> d.p.a.l.a$a:
-    37:37:void <init>(com.yanzhenjie.permission.overlay.BaseRequest) -> <init>
-    37:37:void showRationale(android.content.Context,java.lang.Object,com.yanzhenjie.permission.RequestExecutor) -> a
-    40:41:void showRationale(android.content.Context,java.lang.Void,com.yanzhenjie.permission.RequestExecutor) -> a
-com.yanzhenjie.permission.overlay.LRequest -> d.p.a.l.b:
-    com.yanzhenjie.permission.source.Source mSource -> e
-    31:33:void <init>(com.yanzhenjie.permission.source.Source) -> <init>
-    59:64:void onCallback() -> a
-    46:50:void execute() -> b
-    54:55:void cancel() -> cancel
-    37:42:void start() -> start
-com.yanzhenjie.permission.overlay.LRequestFactory -> d.p.a.l.c:
+com.yanzhenjie.permission.option.Option -> d.p.a.j.a:
+    com.yanzhenjie.permission.notify.option.NotifyOption notification() -> a
+com.yanzhenjie.permission.overlay.LRequestFactory -> d.p.a.k.a:
     24:24:void <init>() -> <init>
-    28:28:com.yanzhenjie.permission.overlay.OverlayRequest create(com.yanzhenjie.permission.source.Source) -> a
-com.yanzhenjie.permission.overlay.MRequest -> d.p.a.l.d:
-    com.yanzhenjie.permission.source.Source mSource -> e
-    31:33:void <init>(com.yanzhenjie.permission.source.Source) -> <init>
-    59:64:void onCallback() -> a
-    46:50:void execute() -> b
-    54:55:void cancel() -> cancel
-    37:42:void start() -> start
-com.yanzhenjie.permission.overlay.MRequestFactory -> d.p.a.l.e:
+com.yanzhenjie.permission.overlay.MRequestFactory -> d.p.a.k.b:
     24:24:void <init>() -> <init>
-    28:28:com.yanzhenjie.permission.overlay.OverlayRequest create(com.yanzhenjie.permission.source.Source) -> a
-com.yanzhenjie.permission.overlay.OverlayRequest -> d.p.a.l.f:
-    com.yanzhenjie.permission.overlay.OverlayRequest onGranted(com.yanzhenjie.permission.Action) -> a
-    com.yanzhenjie.permission.overlay.OverlayRequest rationale(com.yanzhenjie.permission.Rationale) -> a
-    com.yanzhenjie.permission.overlay.OverlayRequest onDenied(com.yanzhenjie.permission.Action) -> b
-com.yanzhenjie.permission.overlay.setting.LSettingPage -> d.p.a.l.g.a:
+com.yanzhenjie.permission.overlay.setting.LSettingPage -> d.p.a.k.c.a:
     com.yanzhenjie.permission.source.Source mSource -> a
     java.lang.String MARK -> b
     33:33:void <clinit>() -> <clinit>
@@ -46641,7 +46585,7 @@ com.yanzhenjie.permission.overlay.setting.LSettingPage -> d.p.a.l.g.a:
     116:124:android.content.Intent vivoApi(android.content.Context) -> d
     89:96:android.content.Intent xiaomiApi(android.content.Context) -> e
     66:68:android.content.Intent defaultApi(android.content.Context) -> f
-com.yanzhenjie.permission.overlay.setting.MSettingPage -> d.p.a.l.g.b:
+com.yanzhenjie.permission.overlay.setting.MSettingPage -> d.p.a.k.c.b:
     com.yanzhenjie.permission.source.Source mSource -> a
     java.lang.String MARK -> b
     32:32:void <clinit>() -> <clinit>
@@ -46651,35 +46595,32 @@ com.yanzhenjie.permission.overlay.setting.MSettingPage -> d.p.a.l.g.b:
     80:81:boolean hasActivity(android.content.Context,android.content.Intent) -> a
     63:67:android.content.Intent defaultApi(android.content.Context) -> b
     71:76:android.content.Intent meiZuApi(android.content.Context) -> c
-com.yanzhenjie.permission.source.ActivitySource -> d.p.a.m.a:
-    android.app.Activity mActivity -> e
+com.yanzhenjie.permission.source.ActivitySource -> d.p.a.l.a:
+    android.app.Activity mActivity -> d
     31:33:void <init>(android.app.Activity) -> <init>
     42:43:void startActivity(android.content.Intent) -> a
     47:48:void startActivityForResult(android.content.Intent,int) -> a
-    37:37:android.content.Context getContext() -> e
-com.yanzhenjie.permission.source.ContextSource -> d.p.a.m.b:
-    android.content.Context mContext -> e
+    37:37:android.content.Context getContext() -> d
+com.yanzhenjie.permission.source.ContextSource -> d.p.a.l.b:
+    android.content.Context mContext -> d
     33:35:void <init>(android.content.Context) -> <init>
     44:46:void startActivity(android.content.Intent) -> a
     50:50:void startActivityForResult(android.content.Intent,int) -> a
-    39:39:android.content.Context getContext() -> e
-com.yanzhenjie.permission.source.Source -> d.p.a.m.c:
-    android.app.NotificationManager mNotificationManager -> d
-    java.lang.String mPackageName -> b
-    android.app.AppOpsManager mAppOpsManager -> c
-    int mTargetSdkVersion -> a
+    39:39:android.content.Context getContext() -> d
+com.yanzhenjie.permission.source.Source -> d.p.a.l.c:
+    android.app.NotificationManager mNotificationManager -> c
+    java.lang.String mPackageName -> a
+    android.app.AppOpsManager mAppOpsManager -> b
     35:35:void <init>() -> <init>
     void startActivity(android.content.Intent) -> a
     void startActivityForResult(android.content.Intent,int) -> a
-    112:120:boolean canDrawOverlays() -> a
+    134:140:boolean canListenerNotification() -> a
     157:166:boolean reflectionOps(java.lang.String) -> a
-    134:140:boolean canListenerNotification() -> b
-    124:129:boolean canNotify() -> c
-    84:87:android.app.AppOpsManager getAppOpsManager() -> d
-    android.content.Context getContext() -> e
-    91:94:android.app.NotificationManager getNotificationManager() -> f
-    69:72:java.lang.String getPackageName() -> g
-    62:65:int getTargetSdkVersion() -> h
+    124:129:boolean canNotify() -> b
+    84:87:android.app.AppOpsManager getAppOpsManager() -> c
+    android.content.Context getContext() -> d
+    91:94:android.app.NotificationManager getNotificationManager() -> e
+    69:72:java.lang.String getPackageName() -> f
 com.youth.banner.Banner -> com.youth.banner.Banner:
     int mLayoutResId -> n
     int mIndicatorSelectedResId -> l
@@ -51311,16 +51252,13 @@ me.leolin.shortcutbadger.ShortcutBadgeException -> me.leolin.shortcutbadger.Shor
     9:10:void <init>(java.lang.String,java.lang.Exception) -> <init>
 me.leolin.shortcutbadger.ShortcutBadger -> h.a.a.b:
     java.util.List BADGERS -> a
-    me.leolin.shortcutbadger.Badger sShortcutBadger -> d
-    java.lang.Object sCounterSupportedLock -> c
-    android.content.ComponentName sComponentName -> e
-    java.lang.Boolean sIsBadgeCounterSupported -> b
+    android.content.ComponentName sComponentName -> c
+    me.leolin.shortcutbadger.Badger sShortcutBadger -> b
     41:61:void <clinit>() -> <clinit>
     75:81:boolean applyCount(android.content.Context,int) -> a
     192:236:boolean initBadger(android.content.Context) -> a
     92:102:void applyCountOrThrow(android.content.Context,int) -> b
-    133:166:boolean isBadgeCounterSupported(android.content.Context) -> b
-    113:113:boolean removeCount(android.content.Context) -> c
+    113:113:boolean removeCount(android.content.Context) -> b
 me.leolin.shortcutbadger.impl.AdwHomeBadger -> me.leolin.shortcutbadger.impl.AdwHomeBadger:
     17:17:void <init>() -> <init>
     26:32:void executeBadge(android.content.Context,android.content.ComponentName,int) -> a

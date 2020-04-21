@@ -16,7 +16,7 @@
         android:id="@+id/action_spinner_spinner"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginStart="@dimen/dp_20"/>
+        android:layout_height="@dimen/dp_42"
+        android:textSize="@dimen/sp_13"/>
 
 </LinearLayout>

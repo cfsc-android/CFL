@@ -33,8 +33,8 @@
             <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/add_complain_ms_complain_type"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:layout_marginStart="@dimen/dp_10"/>
+                android:layout_height="@dimen/dp_42"
+                android:textSize="@dimen/sp_13"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

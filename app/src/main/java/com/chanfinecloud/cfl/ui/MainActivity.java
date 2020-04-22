@@ -46,6 +46,13 @@ import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.chanfinecloud.cfl.weidgt.NoScrollViewPager;
 import com.google.gson.reflect.TypeToken;
+import com.videogo.errorlayer.ErrorInfo;
+import com.videogo.errorlayer.ErrorLayer;
+import com.videogo.exception.BaseException;
+import com.videogo.openapi.annotation.HttpParam;
+import com.videogo.openapi.bean.BaseInfo;
+import com.videogo.openapi.model.ApiResponse;
+import com.videogo.util.LogUtil;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RequestExecutor;
@@ -53,6 +60,7 @@ import com.yanzhenjie.permission.RequestExecutor;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -732,8 +740,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             e.printStackTrace();
         }
     }
-
-
-
 
 }

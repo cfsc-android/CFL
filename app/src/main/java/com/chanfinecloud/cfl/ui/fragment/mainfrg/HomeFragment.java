@@ -374,11 +374,19 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.tv_complaint:
                 Utils.toHideBadgeView(complaintBadgeTextView);
-                startActivity(ComplainActivity.class);
+                if (CFLApplication.bind) {
+                    startActivity(ComplainActivity.class);
+                } else {
+                    EventBus.getDefault().post(new EventBusMessage<>("unbind"));
+                }
                 break;
             case R.id.tv_repair:
                 Utils.toHideBadgeView(orderBadgeTextView);
-                startActivity(RepairsActivity.class);
+                if (CFLApplication.bind) {
+                    startActivity(RepairsActivity.class);
+                } else {
+                    EventBus.getDefault().post(new EventBusMessage<>("unbind"));
+                }
                 break;
             case R.id.tv_to_zhoubian:
                 Bundle a_bundle = new Bundle();

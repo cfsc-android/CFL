@@ -21,7 +21,7 @@ android {
         flavorDimensions "versionCode"
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
-            abiFilters "armeabi-v7a", "x86", "armeabi"
+            abiFilters "armeabi","armeabi-v7a", "x86"
             //abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
@@ -53,7 +53,7 @@ android {
             debuggable true
             minifyEnabled true
             zipAlignEnabled true
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.cfl
             //测试
@@ -64,9 +64,9 @@ android {
         }
         release {
             debuggable true
-            minifyEnabled true
-            zipAlignEnabled true
-            shrinkResources true
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.cfl
             //正式

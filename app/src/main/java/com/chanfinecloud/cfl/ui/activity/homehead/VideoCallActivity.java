@@ -97,7 +97,7 @@ public class VideoCallActivity extends BaseActivity {
                     @Override
                     public void onStartPlayFail(com.videogo.errorlayer.ErrorInfo errorInfo) {
                         Log.e("可视对讲","预览失败" + errorInfo.description);
-                        showToast("预览失败");
+                        showToast("预览失败" + errorInfo.description);
                     }
 
                     @Override

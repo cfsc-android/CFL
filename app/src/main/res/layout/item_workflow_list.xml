@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_item_workflow"
     android:layout_margin="@dimen/dp_10"
     android:padding="@dimen/dp_10"
@@ -48,13 +49,74 @@
             android:drawableLeft="@drawable/ic_action_phone"
             android:textSize="@dimen/sp_12"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_workflow_solution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        android:text="解决方案：--"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/text_primary"
+        />
+    <TextView
+        android:id="@+id/item_workflow_wish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        android:text="预期时间：--"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/text_primary"
+        />
+    <LinearLayout
+        android:id="@+id/item_ll_score"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/dp_10"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/dp_10"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/item_workflow_score_label"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/sp_14"
+            android:text="评分："
+            android:textColor="@color/text_primary"/>
+        <com.idlestar.ratingstar.RatingStarView
+            android:id="@+id/item_workflow_score"
+            android:background="#fff"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_10"
+            app:rsv_cornerRadius="3dp"
+            app:rsv_starMargin="@dimen/sp_12"
+            app:rsv_strokeWidth="2px"
+            app:rsv_strokeColor="#457DD7"
+            app:rsv_starForegroundColor="#DB6958"
+            app:rsv_starBackgroundColor="#E8E8E8"
+            app:rsv_starNum="5"
+            app:rsv_rating="4.0"
+            app:rsv_onlyHalfStar="true"
+            app:rsv_enableSelectRating="true"
+            app:rsv_starThickness="0.7"
+            app:rsv_drawStrokeForEmptyStar="false"
+            app:rsv_drawStrokeForHalfStar="true"
+            />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/item_workflow_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginStart="@dimen/dp_10"
-        android:text="家里水管爆了，快来快来，不然就要水漫金山了！家里水管爆了，快来快来，不然就要水漫金山了！"
+        android:text="备注：家里水管爆了，快来快来，不然就要水漫金山了！家里水管爆了，快来快来，不然就要水漫金山了！"
         android:textSize="@dimen/sp_12"
         android:textColor="@color/text_primary"/>
     <androidx.recyclerview.widget.RecyclerView

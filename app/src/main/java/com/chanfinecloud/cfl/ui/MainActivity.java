@@ -1,13 +1,10 @@
 package com.chanfinecloud.cfl.ui;
 
-import android.Manifest;
-import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
+import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -16,11 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.R;
@@ -30,7 +31,6 @@ import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
 import com.chanfinecloud.cfl.entity.smart.HouseholdRoomEntity;
 import com.chanfinecloud.cfl.entity.smart.OrderStatusEntity;
 import com.chanfinecloud.cfl.entity.smart.OrderTypeListEntity;
-import com.chanfinecloud.cfl.entity.smart.RoomEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
@@ -44,12 +44,11 @@ import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.util.UserInfoUtil;
-import com.chanfinecloud.cfl.util.permission.AnyPermission;
-import com.chanfinecloud.cfl.util.permission.RequestInterceptor;
-import com.chanfinecloud.cfl.util.permission.RequestListener;
-import com.chanfinecloud.cfl.util.permission.RuntimeRequester;
 import com.chanfinecloud.cfl.weidgt.NoScrollViewPager;
 import com.google.gson.reflect.TypeToken;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RequestExecutor;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,21 +62,15 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Executor;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 import me.leolin.shortcutbadger.ShortcutBadger;
-import per.goweii.anylayer.AnyLayer;
-import per.goweii.anylayer.Layer;
 
+import static android.provider.Settings.EXTRA_APP_PACKAGE;
+import static android.provider.Settings.EXTRA_CHANNEL_ID;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.SET_JPUSH_ALIAS_SEQUENCE;
 import static com.chanfinecloud.cfl.config.Config.SET_JPUSH_TAGS_SEQUENCE;
@@ -107,9 +100,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private List<Fragment> fragmentList = new ArrayList<>();
     private Fragment home, mine;
     private long time = 0;
-    private RuntimeRequester mRuntimeRequester;
     private int isFirstIn = 0;
-
+    private boolean permissionFlag = false;
 
     @Override
     protected void initData() {
@@ -119,6 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initView();
         initFileData();
         isFirstIn = 0;
+        permissionFlag = false;
         CurrentDistrictEntity currentDistrict = getUserInfo().getCurrentDistrict();
         if (currentDistrict != null && !TextUtils.isEmpty(currentDistrict.getRoomId())) {
             CFLApplication.bind = true;
@@ -424,9 +417,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -511,262 +502,208 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if ( isFirstIn == 0){
             isFirstIn = 1;
         }else{
-            //动态请求权通知权限
-            // TODO: 2020/4/20 fangkaiceshi
-            //requestOverlay();
+            if (!permissionFlag){
+                //悬浮窗权限不强求吧
+                //requestAndOverlay();
+                requestAndNotificationListener();
+            }
+
         }
 
     }
 
-    //获取悬浮窗权限
-    public void requestOverlay() {
-
-        AnyPermission.with(this).overlay()
-                .onWithoutPermission(new RequestInterceptor<Void>() {
+    public void requestAndOverlay(){
+        AndPermission.with(this)
+                .overlay()
+                .rationale(new Rationale<Void>() {
                     @Override
-                    public void intercept(@NonNull final Void data, @NonNull final Executor executor) {
-                        AnyLayer.dialog(MainActivity.this)
-                                .contentView(R.layout.dialog_runtime_before_request)
-                                .backgroundColorRes(R.color.dialog_bg)
-                                .cancelableOnTouchOutside(false)
-                                .cancelableOnClickKeyBack(false)
-                                .bindData(new Layer.DataBinder() {
-                                    @Override
-                                    public void bindData(Layer  anyLayer) {
-                                        TextView tvTitle = anyLayer.getView(R.id.tv_dialog_permission_title);
-                                        TextView tvDescription = anyLayer.getView(R.id.tv_dialog_permission_description);
-                                        TextView tvNext = anyLayer.getView(R.id.tv_dialog_permission_next);
+                    public void showRationale(Context context, Void data, RequestExecutor executor) {
 
-                                        tvNext.setText("去打开");
-                                        tvTitle.setText("悬浮窗，锁屏显示");
-                                        tvDescription.setText("我们将开始请求悬浮窗，锁屏显示权限");
-                                    }
-                                })
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer layer, View v) {
-                                        executor.execute();
-                                    }
-                                }, R.id.tv_dialog_permission_next)
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer anyLayer, View v) {
-                                        executor.cancel();
-                                    }
-                                }, R.id.tv_dialog_permission_close)
-                                .show();
-                    }
-                })
-                .request(new RequestListener() {
-                    @Override
-                    public void onSuccess() {
-                        // Toast.makeText(MainActivity.this, "成功1", Toast.LENGTH_SHORT).show();
-                        requestNotificationShow();
-                    }
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.dialog);
+                        View view = LayoutInflater.from(context).inflate(R.layout.dialog_runtime_before_request, null);
+                        TextView tvTitle = view.findViewById(R.id.tv_dialog_permission_title);
+                        TextView tvDescription = view.findViewById(R.id.tv_dialog_permission_description);
+                        TextView tvNext = view.findViewById(R.id.tv_dialog_permission_next);
+                        TextView tvClose = view.findViewById(R.id.tv_dialog_permission_close);
 
-                    @Override
-                    public void onFailed() {
-                        Toast.makeText(MainActivity.this, "权限获取失败", Toast.LENGTH_SHORT).show();
-                        // requestNotificationShow();
-                    }
-                });
-    }
-
-    private void requestNotificationShow() {
-        AnyPermission.with(this).notificationShow()
-                .onWithoutPermission(new RequestInterceptor<Void>() {
-                    @Override
-                    public void intercept(@NonNull final Void data, @NonNull final Executor executor) {
-                        AnyLayer.dialog(MainActivity.this)
-                                .contentView(R.layout.dialog_runtime_before_request)
-                                .backgroundColorRes(R.color.dialog_bg)
-                                .cancelableOnTouchOutside(false)
-                                .cancelableOnClickKeyBack(false)
-                                .bindData(new Layer.DataBinder() {
-                                    @Override
-                                    public void bindData(Layer anyLayer) {
-                                        TextView tvTitle = anyLayer.getView(R.id.tv_dialog_permission_title);
-                                        TextView tvDescription = anyLayer.getView(R.id.tv_dialog_permission_description);
-                                        TextView tvNext = anyLayer.getView(R.id.tv_dialog_permission_next);
-
-                                        tvNext.setText("去打开");
-                                        tvTitle.setText("通知，道全锁屏通知");
-                                        tvDescription.setText("我们将请求开启通知及锁屏通知权限");
-                                    }
-                                })
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer anyLayer, View v) {
-                                        executor.execute();
-                                    }
-                                }, R.id.tv_dialog_permission_next)
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer anyLayer, View v) {
-                                        executor.cancel();
-                                    }
-                                }, R.id.tv_dialog_permission_close)
-                                .show();
-                    }
-                })
-                .request(new RequestListener() {
-                    @Override
-                    public void onSuccess() {
-                        // Toast.makeText(MainActivity.this, "成功2", Toast.LENGTH_SHORT).show();
-                        requestRuntime();
-                    }
-
-                    @Override
-                    public void onFailed() {
-                        Toast.makeText(MainActivity.this, "获取通知权限失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (mRuntimeRequester != null) {
-            mRuntimeRequester.onActivityResult(requestCode);
-        }
-    }
-
-    private void requestRuntime() {
-        mRuntimeRequester = AnyPermission.with(this).runtime(1)
-                .permissions(Manifest.permission.DISABLE_KEYGUARD)
-                .onBeforeRequest(new RequestInterceptor<String>() {
-                    @Override
-                    public void intercept(@NonNull final String permission, @NonNull final Executor executor) {
-                        AnyLayer.dialog(MainActivity.this)
-                                .contentView(R.layout.dialog_runtime_before_request)
-                                .backgroundColorRes(R.color.dialog_bg)
-                                .cancelableOnTouchOutside(false)
-                                .cancelableOnClickKeyBack(false)
-                                .bindData(new Layer.DataBinder() {
-                                    @Override
-                                    public void bindData(Layer anyLayer) {
-                                        TextView tvTitle = anyLayer.getView(R.id.tv_dialog_permission_title);
-                                        TextView tvDescription = anyLayer.getView(R.id.tv_dialog_permission_description);
-                                        TextView tvNext = anyLayer.getView(R.id.tv_dialog_permission_next);
-
-                                        tvNext.setText("去授权");
-                                        tvTitle.setText(AnyPermission.with(MainActivity.this).name(permission));
-                                        tvDescription.setText("我们将开始请求\"" + AnyPermission.with(MainActivity.this).name(permission) + "\"权限");
-                                    }
-                                })
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer anyLayer, View v) {
-                                        executor.execute();
-                                    }
-                                }, R.id.tv_dialog_permission_next)
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer anyLayer, View v) {
-                                        executor.cancel();
-                                    }
-                                }, R.id.tv_dialog_permission_close)
-                                .show();
-                    }
-                })
-                .onBeenDenied(new RequestInterceptor<String>() {
-                    @Override
-                    public void intercept(@NonNull final String permission, @NonNull final Executor executor) {
-                        AnyLayer.dialog(MainActivity.this)
-                                .contentView(R.layout.dialog_runtime_before_request)
-                                .backgroundColorRes(R.color.dialog_bg)
-                                .cancelableOnTouchOutside(false)
-                                .cancelableOnClickKeyBack(false)
-                                .bindData(new Layer.DataBinder() {
-                                    @Override
-                                    public void bindData(Layer anyLayer) {
-                                        TextView tvTitle = anyLayer.getView(R.id.tv_dialog_permission_title);
-                                        TextView tvDescription = anyLayer.getView(R.id.tv_dialog_permission_description);
-                                        TextView tvNext = anyLayer.getView(R.id.tv_dialog_permission_next);
-
-                                        tvNext.setText("重新授权");
-                                        tvTitle.setText(AnyPermission.with(MainActivity.this).name(permission));
-                                        tvDescription.setText("啊哦，\"" + AnyPermission.with(MainActivity.this).name(permission) + "\"权限被拒了");
-                                    }
-                                })
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer anyLayer, View v) {
-                                        executor.execute();
-                                    }
-                                }, R.id.tv_dialog_permission_next)
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer anyLayer, View v) {
-                                        executor.cancel();
-                                    }
-                                }, R.id.tv_dialog_permission_close)
-                                .show();
-                    }
-                })
-                .onGoSetting(new RequestInterceptor<String>() {
-                    @Override
-                    public void intercept(@NonNull final String permission, @NonNull final Executor executor) {
-                        AnyLayer.dialog(MainActivity.this)
-                                .contentView(R.layout.dialog_runtime_before_request)
-                                .backgroundColorRes(R.color.dialog_bg)
-                                .cancelableOnTouchOutside(false)
-                                .cancelableOnClickKeyBack(false)
-                                .bindData(new Layer.DataBinder() {
-                                    @Override
-                                    public void bindData(Layer anyLayer) {
-                                        TextView tvTitle = anyLayer.getView(R.id.tv_dialog_permission_title);
-                                        TextView tvDescription = anyLayer.getView(R.id.tv_dialog_permission_description);
-                                        TextView tvNext = anyLayer.getView(R.id.tv_dialog_permission_next);
-
-                                        tvNext.setText("去设置");
-                                        tvTitle.setText(AnyPermission.with(MainActivity.this).name(permission));
-                                        tvDescription.setText("不能禁止\"" + AnyPermission.with(MainActivity.this).name(permission) + "\"权限");
-                                    }
-                                })
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer anyLayer, View v) {
-                                        executor.execute();
-                                    }
-                                }, R.id.tv_dialog_permission_next)
-                                .onClickToDismiss(new Layer.OnClickListener() {
-                                    @Override
-                                    public void onClick(Layer anyLayer, View v) {
-                                        executor.cancel();
-                                    }
-                                }, R.id.tv_dialog_permission_close)
-                                .show();
-                    }
-                })
-                .request(new RequestListener() {
-
-                    @Override
-                    public void onSuccess() {
-                        //  Toast.makeText(MainActivity.this, "成功3", Toast.LENGTH_SHORT).show();
-
-                        // requestNotificationAccess();
-                        //有些手机会一直闪
-                        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && LocalOSUtils.isMIUI()){
-
-                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1){
-                                gotoMiuiPermission25();
-                            } else {
-                                gotoMiuiPermission();
+                        tvNext.setText("去打开");
+                        tvTitle.setText("悬浮窗显示");
+                        tvDescription.setText("我们将开始请求悬浮窗显示权限");
+                        // 设置我们自己定义的布局文件作为弹出框的Content
+                        alertDialogBuilder.setView(view);
+                        //按对话框以外的地方不起作用,按返回键也不起作用,防止点击外面对话框消失
+                        alertDialogBuilder.setCancelable(false);
+                        //这个位置十分重要，只有位于这个位置逻辑才是正确的
+                        AlertDialog dialog = alertDialogBuilder.show();
+                        tvNext.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                executor.execute();
+                                dialog.dismiss();
                             }
-                        }else{
-                            gotoMiuiPermission25();
-                        }*/
-                    }
+                        });
 
-                    @Override
-                    public void onFailed() {
-                        Toast.makeText(MainActivity.this, "获取权限失败", Toast.LENGTH_SHORT).show();
+                        tvClose.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                executor.cancel();
+                                dialog.dismiss();
+                            }
+                        });
+
                     }
-                });
+                })
+                .onGranted(permissions -> {
+                    // Storage permission are allowed.
+                    requestAndNotificationListener();
+                })
+                .onDenied(permissions -> {
+                    // Storage permission are not allowed.
+                    Toast.makeText(MainActivity.this, "悬浮窗权限获取失败", Toast.LENGTH_SHORT).show();
+                })
+                .start();
+
     }
 
+    private void requestAndNotificationListener() {
+        AndPermission.with(this)
+                .notification()
+                .listener()
+                .rationale(new Rationale<Void>() {
+                    @Override
+                    public void showRationale(Context context, Void data, RequestExecutor executor) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.dialog);
+                        View view = LayoutInflater.from(context).inflate(R.layout.dialog_runtime_before_request, null);
+                        TextView tvTitle = view.findViewById(R.id.tv_dialog_permission_title);
+                        TextView tvDescription = view.findViewById(R.id.tv_dialog_permission_description);
+                        TextView tvNext = view.findViewById(R.id.tv_dialog_permission_next);
+                        TextView tvClose = view.findViewById(R.id.tv_dialog_permission_close);
+
+                        tvNext.setText("去打开");
+                        tvTitle.setText("管理通知");
+                        tvDescription.setText("我们将开始请求通知管理权限");
+                        // 设置我们自己定义的布局文件作为弹出框的Content
+                        alertDialogBuilder.setView(view);
+                        //按对话框以外的地方不起作用,按返回键也不起作用,防止点击外面对话框消失
+                        alertDialogBuilder.setCancelable(false);
+                        //这个位置十分重要，只有位于这个位置逻辑才是正确的
+                        AlertDialog dialog = alertDialogBuilder.show();
+                        tvNext.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                executor.execute();
+                                dialog.dismiss();
+                            }
+                        });
+
+                        tvClose.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                executor.cancel();
+                                dialog.dismiss();
+                            }
+                        });
+
+                    }
+                })
+                .onGranted(permissions -> {
+                    // Storage permission are allowed.
+                    //permissionFlag = true;
+                    requestAndNotificationShow();
+
+                })
+                .onDenied(permissions -> {
+                    // Storage permission are not allowed.
+                    Toast.makeText(MainActivity.this, "通知管理权限获取失败", Toast.LENGTH_SHORT).show();
+                })
+                .start();
+
+    }
+
+
+    private void requestAndNotificationShow() {
+        AndPermission.with(this)
+                .notification()
+                .permission()
+                .rationale(new Rationale<Void>() {
+                    @Override
+                    public void showRationale(Context context, Void data, RequestExecutor executor) {
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.dialog);
+                        View view = LayoutInflater.from(context).inflate(R.layout.dialog_runtime_before_request, null);
+                        TextView tvTitle = view.findViewById(R.id.tv_dialog_permission_title);
+                        TextView tvDescription = view.findViewById(R.id.tv_dialog_permission_description);
+                        TextView tvNext = view.findViewById(R.id.tv_dialog_permission_next);
+                        TextView tvClose = view.findViewById(R.id.tv_dialog_permission_close);
+
+                        tvNext.setText("去打开");
+                        tvTitle.setText("接收通知");
+                        tvDescription.setText("我们将开始请求通知显示权限");
+                        // 设置我们自己定义的布局文件作为弹出框的Content
+                        alertDialogBuilder.setView(view);
+                        //按对话框以外的地方不起作用,按返回键也不起作用,防止点击外面对话框消失
+                        alertDialogBuilder.setCancelable(false);
+                        //这个位置十分重要，只有位于这个位置逻辑才是正确的
+                        AlertDialog dialog = alertDialogBuilder.show();
+                        tvNext.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    toOpenNotificationAccessManually();
+                                }else{
+                                    executor.execute();
+                                }
+                                dialog.dismiss();
+                            }
+                        });
+
+                        tvClose.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                executor.cancel();
+                                dialog.dismiss();
+                            }
+                        });
+
+                    }
+                })
+                .onGranted(permissions -> {
+                    // Storage permission are allowed.
+                    //requestAndNotificationListener();
+                    permissionFlag = true;
+                })
+                .onDenied(permissions -> {
+                    // Storage permission are not allowed.
+                    Toast.makeText(MainActivity.this, "显示通知权限获取失败", Toast.LENGTH_SHORT).show();
+                })
+                .start();
+    }
+
+    /**
+     * 去设置里手动打开Notification权限
+     *
+     */
+    public void toOpenNotificationAccessManually() {
+        try {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            //这种方案适用于 API 26, 即8.0（含8.0）以上可以用
+            intent.putExtra(EXTRA_APP_PACKAGE, getPackageName());
+            intent.putExtra(EXTRA_CHANNEL_ID, getApplicationInfo().uid);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 出现异常则跳转到应用设置界面：锤子坚果3——OC105 API25
+            Intent intent = new Intent();
+            //下面这种方案是直接跳转到当前应用的设置界面。
+            //https://blog.csdn.net/ysy950803/article/details/71910806
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+        }
+    }
 
     private void gotoMiuiPermission25() {
         try {

@@ -276,15 +276,19 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             requestMap.put("unitIds",entry.getValue());
             RequestParam requestParam = new RequestParam(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId(), HttpMethod.Put);
 
-            if(update){
-                requestParam.setMethod(HttpMethod.Put);
-                requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
-                Log.e( "faceAccess: ", "更新");
-            }else{
-                Log.e( "faceAccess: ", "不更新");
-                requestParam.setMethod(HttpMethod.Post);
-                requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
-            }
+//            if(update){
+//                requestParam.setMethod(HttpMethod.Put);
+//                requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
+//                Log.e( "faceAccess: ", "更新");
+//            }else{
+//                Log.e( "faceAccess: ", "不更新");
+//                requestParam.setMethod(HttpMethod.Post);
+//                requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
+//            }
+
+            requestParam.setMethod(HttpMethod.Post);
+            requestParam.setUrl(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId());
+
             requestParam.setParamType(ParamType.Json);
             requestParam.setRequestMap(requestMap);
             Log.d( "faceAccess: ", requestMap.toString() );

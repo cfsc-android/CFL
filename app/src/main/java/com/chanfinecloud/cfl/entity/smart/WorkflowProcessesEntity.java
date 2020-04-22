@@ -28,6 +28,9 @@ public class WorkflowProcessesEntity implements Serializable {
      * createTime : 2020-03-13 17:10:05
      * updateTime
      * processResult :
+     * commentLevel: 评分
+     * content: "解决方案"
+     * contentDate: "预期--2020-04-17"
      */
 
     private String id;
@@ -49,6 +52,10 @@ public class WorkflowProcessesEntity implements Serializable {
     private List<ResourceEntity> resourceValue;
     private List<OperationInfoEntity> operationInfos;
     private List<WorkflowFormContentEntity> formContent;
+
+    private String commentLevel;
+    private String content;
+    private String contentDate;
 
     public List<WorkflowFormContentEntity> getFormContent() {
         return formContent;
@@ -199,5 +206,29 @@ public class WorkflowProcessesEntity implements Serializable {
 
     public void setProcessResult(String processResult) {
         this.processResult = processResult;
+    }
+
+    public String getCommentLevel() {
+        return commentLevel;
+    }
+
+    public void setCommentLevel(String commentLevel) {
+        this.commentLevel = commentLevel;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getContentDate() {
+        return contentDate;
+    }
+
+    public void setContentDate(String contentDate) {
+        this.contentDate = contentDate;
     }
 }

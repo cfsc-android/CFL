@@ -95,7 +95,7 @@ public class HouseManageActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HouseholdRoomEntity householdRoom=currentData.get(position);
-                if(householdRoom.getHouseholdType().equals("YZ")){
+                if(householdRoom.getHouseholdType() != null && householdRoom.getHouseholdType().equals("YZ")){
                     Bundle bundle=new Bundle();
                     bundle.putString("roomId",householdRoom.getId());
                     startActivity(HouseholdAuditListActivity.class,bundle);
@@ -129,10 +129,12 @@ public class HouseManageActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HouseholdRoomEntity householdRoom=otherData.get(position);
-                if(householdRoom.getHouseholdType().equals("YZ")){
+                if(householdRoom.getHouseholdType() != null && householdRoom.getHouseholdType().equals("YZ")){
                     Bundle bundle=new Bundle();
                     bundle.putString("roomId",householdRoom.getId());
                     startActivity(HouseholdAuditListActivity.class,bundle);
+                }else{
+                    showToast("对不起，您没有权限！");
                 }
             }
         });

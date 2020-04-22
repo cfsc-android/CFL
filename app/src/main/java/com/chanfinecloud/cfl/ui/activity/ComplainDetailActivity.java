@@ -46,6 +46,7 @@ import com.chanfinecloud.cfl.weidgt.NoUnderlineSpan;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImageViewInfo;
 import com.chanfinecloud.cfl.weidgt.imagepreview.PreviewBuilder;
+import com.idlestar.ratingstar.RatingStarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -290,7 +291,38 @@ public class ComplainDetailActivity extends BaseActivity {
                 RecyclerView item_workflow_pic=v.findViewById(R.id.item_workflow_pic);
                 TextView item_workflow_node=v.findViewById(R.id.item_workflow_node);
                 TextView item_workflow_time=v.findViewById(R.id.item_workflow_time);
+
+                TextView item_workflow_solution=v.findViewById(R.id.item_workflow_solution);
+                TextView item_workflow_wish=v.findViewById(R.id.item_workflow_wish);
+                LinearLayout item_ll_score = v.findViewById(R.id.item_ll_score);
+                RatingStarView item_workflow_score=v.findViewById(R.id.item_workflow_score);
+
                 WorkflowProcessesEntity item=list.get(i);
+
+                if(TextUtils.isEmpty(item.getContent())){
+                    item_workflow_solution.setVisibility(View.GONE);
+                }else{
+                    item_workflow_solution.setVisibility(View.VISIBLE);
+                    item_workflow_solution.setText("解决方案："+ item.getContent() );
+                }
+                if(TextUtils.isEmpty(item.getContentDate())){
+                    item_workflow_wish.setVisibility(View.GONE);
+                }else{
+                    item_workflow_wish.setVisibility(View.VISIBLE);
+                    item_workflow_wish.setText("预期时间："+ item.getContentDate() );
+                }
+                if(TextUtils.isEmpty(item.getCommentLevel())){
+                    item_ll_score.setVisibility(View.GONE);
+                }else{
+                    item_ll_score.setVisibility(View.VISIBLE);
+                    if (Float.parseFloat(item.getCommentLevel()) > 5)
+                        item_workflow_score.setRating(5.0f);
+                    else
+                        item_workflow_score.setRating(Float.parseFloat(item.getCommentLevel()));
+                    item_workflow_score.setClickable(false);
+                }
+
+
                 if(TextUtils.isEmpty(item.getAvatarUrl())){
                     Glide.with(this)
                             .load(R.drawable.ic_launcher)
@@ -315,7 +347,12 @@ public class ComplainDetailActivity extends BaseActivity {
                     Spannable s = (Spannable) item_workflow_tel.getText();
                     s.setSpan(mNoUnderlineSpan, 0, s.length(), Spanned.SPAN_MARK_MARK);
                 }
-                item_workflow_content.setText(item.getRemark());
+                if(TextUtils.isEmpty(item.getRemark())){
+                    item_workflow_content.setVisibility(View.GONE);
+                }else{
+                    item_workflow_content.setVisibility(View.VISIBLE);
+                    item_workflow_content.setText("备注："+ item.getRemark() );
+                }
                 item_workflow_node.setText(item.getNodeName());
                 item_workflow_time.setText(item.getCreateTime());
                 List<ResourceEntity> picData=item.getResourceValue();

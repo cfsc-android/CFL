@@ -123,7 +123,7 @@ public class RoomSelectActivity extends BaseActivity {
         Map<String,String> map=new HashMap<>();
         map.put("unitId",unitId);
         map.put("pageNo",page+"");
-        map.put("pageSize",pageSize+"");
+        map.put("pageSize","20");
         RequestParam requestParam = new RequestParam(BASE_URL+BASIC+"basic/room/page", HttpMethod.Get);
         requestParam.setRequestMap(map);
         requestParam.setCallback(new MyCallBack<String>(){

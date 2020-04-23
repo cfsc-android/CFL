@@ -159,7 +159,7 @@ public class RepairsActivity extends BaseActivity {
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if(position==dataList.size()-1){
                     if(permissionFlag){
-                        PhotoPicker.pick(RepairsActivity.this,10,true,REQUEST_CODE_CHOOSE);
+                        PhotoPicker.pick(RepairsActivity.this,1,true,REQUEST_CODE_CHOOSE);
                     }else{
                         showToast("相机或读写手机存储的权限被禁止！");
                     }

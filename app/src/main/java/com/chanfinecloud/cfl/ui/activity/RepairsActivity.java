@@ -39,6 +39,7 @@ import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.util.PermissionsUtils;
+import com.chanfinecloud.cfl.weidgt.EditTextFilterView;
 import com.chanfinecloud.cfl.weidgt.WheelDialog;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImageViewInfo;
@@ -84,15 +85,15 @@ public class RepairsActivity extends BaseActivity {
     @BindView(R.id.toolbar_ll_view)
     LinearLayout toolbarLlView;
     @BindView(R.id.add_order_et_address)
-    EditText addOrderEtAddress;
+    EditTextFilterView addOrderEtAddress;
     @BindView(R.id.add_order_et_contact)
-    EditText addOrderEtContact;
+    EditTextFilterView addOrderEtContact;
     @BindView(R.id.add_order_et_contact_tel)
     EditText addOrderEtContactTel;
     @BindView(R.id.add_order_et_plain_time)
     EditText addOrderEtPlainTime;
     @BindView(R.id.add_order_et_remark)
-    EditText addOrderEtRemark;
+    EditTextFilterView addOrderEtRemark;
     @BindView(R.id.add_order_rlv_pic)
     RecyclerView addOrderRlvPic;
     @BindView(R.id.add_order_ms_problem_type)

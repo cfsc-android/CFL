@@ -30,7 +30,7 @@
                 android:text="维修地点"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_primary"/>
-            <EditText
+            <com.chanfinecloud.cfl.weidgt.EditTextFilterView
                 android:id="@+id/add_order_et_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 android:text="联  系  人"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_primary"/>
-            <EditText
+            <com.chanfinecloud.cfl.weidgt.EditTextFilterView
                 android:id="@+id/add_order_et_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
                 android:textSize="@dimen/sp_14"
+                android:inputType="number"
                 android:textColor="@color/text_primary"
                 android:background="@drawable/bg_box_desc_shape"
                 android:hint="输入联系电话"/>
@@ -120,7 +121,7 @@
                 android:text="问题描述"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_primary"/>
-            <EditText
+            <com.chanfinecloud.cfl.weidgt.EditTextFilterView
                 android:id="@+id/add_order_et_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

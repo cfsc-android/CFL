@@ -19,47 +19,41 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-dontwarn com.ezviz.download.**
+-keep class com.ezviz.download.** { *;}
 
--libraryjars libs/commons-codec-1.4.jar
+-dontwarn com.ezviz.downloader.**
+-keep class com.ezviz.downloader.** { *;}
 
--libraryjars libs/zhyjsdk_v1.3.6.jar
--dontwarn com.hikvision.zhyjsdk.**
--keep class com.hikvision.zhyjsdk.** {*;}
--keep interface com.hikvision.zhyjsdk.** {*;}
+-dontwarn com.ezviz.hcnetsdk.**
+-keep class com.ezviz.hcnetsdk.** { *;}
 
--dontwarn javax.validation.**
--keep class javax.validation.**{*;}
--dontwarn org.MediaPlayer.PlayM4.**
--keep class org.MediaPlayer.PlayM4.**{*;}
--dontwarn jcom.loopj.android.http.**
--keep class jcom.loopj.android.http.**{*;}
+-dontwarn com.ezviz.jna.**
+-keep class com.ezviz.jna.** { *;}
 
--dontwarn com.tencent.mars.**
--keep class com.tencent.mars.** { *;}
-#========SDK对外接口=======#
+-dontwarn com.ezviz.npcsdk.**
+-keep class com.ezviz.npcsdk.** { *;}
+
+-dontwarn com.ezviz.opensdk.**
 -keep class com.ezviz.opensdk.** { *;}
 
-
-#========以下是hik二方库=======#
+-dontwarn com.ezviz.player.**
 -keep class com.ezviz.player.** { *;}
 
--dontwarn com.ezviz.**
--keep class com.ezviz.** { *;}
+-dontwarn com.ezviz.statistics.**
+-keep class com.ezviz.statistics.** { *;}
 
--dontwarn com.videogo.**
--keep class com.videogo.** { *;}
+-dontwarn com.ezviz.stream.**
+-keep class com.ezviz.stream.** { *;}
 
--dontwarn com.hik.TTSClient.**
--keep class com.hik.TTSClient.** { *;}
+-dontwarn com.hik.**
+-keep class com.hik.** { *;}
 
--dontwarn com.hik.stunclient.**
--keep class com.hik.stunclient.** { *;}
+-dontwarn com.hikvision.audio.**
+-keep class com.hikvision.audio.** { *;}
 
--dontwarn com.hik.streamclient.**
--keep class com.hik.streamclient.** { *;}
-
--dontwarn com.hik.CASClient.**
--keep class com.hik.CASClient.** { *;}
+-dontwarn com.hikvision.keyprotect.**
+-keep class com.hikvision.keyprotect.** { *;}
 
 -dontwarn com.hikvision.sadp.**
 -keep class com.hikvision.sadp.** { *;}
@@ -67,45 +61,55 @@
 -dontwarn com.hikvision.netsdk.**
 -keep class com.hikvision.netsdk.** { *;}
 
--dontwarn com.hikvision.audio.**
--keep class com.hikvision.audio.** { *;}
-
 -dontwarn com.hikvision.wifi.**
 -keep class com.hikvision.wifi.** { *;}
 
--dontwarn com.hikvision.keyprotect.**
--keep class com.hikvision.keyprotect.** { *;}
+-dontwarn com.hikvision.cloud.sdk.data.**
+-keep class com.hikvision.cloud.sdk.data.** { *;}
 
--dontwarn com.hikvision.audio.**
--keep class com.hikvision.audio.** { *;}
+-dontwarn com.videogo.**
+-keep class com.videogo.** { *;}
+
+-dontwarn okhttp3.**
+-keep class okhttp3.** { *;}
 
 -dontwarn org.MediaPlayer.PlayM4.**
 -keep class org.MediaPlayer.PlayM4.** { *;}
-#========以上是hik二方库=======#
 
-#========以下是第三方开源库=======#
-# JNA
 -dontwarn com.sun.jna.**
--keep class com.sun.jna.** { *;}
+-keep class com.sun.jna.**{*;}
 
-# Gson
--keepattributes *Annotation*
+#Gson混淆配置
+-keepattributes Annotation
 -keep class sun.misc.Unsafe { *; }
--keep class com.idea.fifaalarmclock.entity.***
--keep class com.google.gson.stream.** { *; }
+-keep class com.idea.fifaalarmclock.entity.*
+-keep class com.google.gson.stream.* { *; }
 
-# OkHttp
-# JSR 305 annotations are for embedding nullability information.
--dontwarn javax.annotation.**
-# A resource is loaded with a relative path so the package of this class must be preserved.
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
-# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
--dontwarn org.codehaus.mojo.animal_sniffer.*
-# OkHttp platform used only on JVM and when Conscrypt dependency is available.
--dontwarn okhttp3.internal.platform.ConscryptPlatform
-# 必须额外加的，否则编译无法通过
+#引用mars的xlog，混淆配置
+-keep class com.tencent.mars.** {
+ public protected private *;
+}
+
+
+#okhttp okio
 -dontwarn okio.**
-#========以上是haikang第三方开源库=======#
+-keep class okio.** { *;}
+
+#Rxjava RxAndroid
+
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+long producerIndex;
+long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+##################################
+-libraryjars libs/commons-codec-1.4.jar
 
 ###################
 -keep class com.yanzhenjie.permission.** {*;}

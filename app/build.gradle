@@ -7,7 +7,6 @@ def Debug_Url = "\"http://10.222.5.49:8888/\""//本地调试环境
 //def Debug_Url = "\"http://192.168.1.101:8888/\""//本地调试环境
 
 
-
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -21,7 +20,8 @@ android {
         flavorDimensions "versionCode"
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
-            abiFilters "armeabi","armeabi-v7a", "x86"
+            //abiFilters "armeabi", "armeabi-v7a", "x86"
+            abiFilters "armeabi-v7a", "arm64-v8a"
             //abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
@@ -53,7 +53,7 @@ android {
             debuggable true
             minifyEnabled true
             zipAlignEnabled true
-            shrinkResources false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.cfl
             //测试
@@ -64,9 +64,9 @@ android {
         }
         release {
             debuggable true
-            minifyEnabled false
-            zipAlignEnabled false
-            shrinkResources false
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.cfl
             //正式
@@ -118,9 +118,9 @@ dependencies {
 
     implementation files('libs/commons-codec-1.4.jar')
     //海康视频sdk
-    implementation files('libs/zhyjsdk_v1.3.6.jar')
-    implementation 'com.hikvision.ezviz:ezviz-sdk:4.8.4'
-    implementation 'com.loopj.android:android-async-http:1.4.9'
+   // implementation files('libs/zhyjsdk_v1.3.6.jar')
+  //  implementation 'com.hikvision.ezviz:ezviz-sdk:4.8.4'
+   // implementation 'com.loopj.android:android-async-http:1.4.9'
     //状态栏设置为透明
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     //XUtils 3.0
@@ -171,6 +171,11 @@ dependencies {
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
     //动态权限申请及回调
     implementation 'com.yanzhenjie:permission:2.0.3'
+    //海康cloud
+    implementation files('libs/HikCloudOpenSDK-1.0.3.aar')
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'javax.jmdns:jmdns:3.4.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 }
 
 tasks.withType(JavaCompile) {

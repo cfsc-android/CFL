@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bgColor_alertview_alert_start"
+    android:orientation="vertical"
+    tools:context=".ui.activity.homehead.VideoCall2Activity">
+
+    <include layout="@layout/toolbar_layout" />
+    <RelativeLayout
+        android:id="@+id/ss_video_call2_rlv_surface"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:visibility="gone">
+        <SurfaceView
+            android:id="@+id/ss_video_call2_preview_play"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:visibility="visible"/>
+
+        <ProgressBar
+            android:id="@+id/ss_video_call2_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lv_video_call2_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

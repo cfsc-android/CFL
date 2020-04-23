@@ -16,32 +16,31 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
-    <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
-    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
-    <!-- 申请华为角标权限  -->
-    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" /> <!-- 申请华为角标权限 -->
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
     <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
-
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 悬浮窗 -->
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!--解锁-->
-    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-        tools:ignore="ProtectedPermissions" /> <!--通知-->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 解锁 -->
+    <uses-permission
+        android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".CFLApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".weidgt.imagepreview.ui.PreviewActivity"/>
-        <activity android:name=".weidgt.imagepreview.ui.VideoPlayerActivity"/>
+        <activity android:name=".ui.activity.homehead.VideoCall2Activity"/>
+        <activity android:name=".weidgt.imagepreview.ui.PreviewActivity" />
+        <activity android:name=".weidgt.imagepreview.ui.VideoPlayerActivity" />
         <activity android:name=".ui.activity.homehead.VideoCallActivity" />
         <activity android:name=".ui.activity.CarManageEditActivity" />
         <activity android:name=".ui.activity.UnLockListActivity" />
@@ -104,9 +103,7 @@
         <activity android:name=".ui.activity.PersonActivity" />
         <activity android:name=".ui.activity.PersonNickNameActivity" />
         <activity android:name=".ui.activity.ParkingPaymentActivity" />
-        <activity android:name=".ui.activity.PaymentTestActivity" />
-
-        <!-- 网络状态监听服务 -->
+        <activity android:name=".ui.activity.PaymentTestActivity" /> <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -140,11 +137,7 @@
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-
-
-        <!-- 蒲公英APPKEY 必填 -->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 蒲公英APPKEY 必填 -->
         <meta-data
             android:name="PGYER_APPID"
             android:value="d67cceb544c6f7d61bbcf11b53b3c1a6" /> <!-- Since JCore2.0.0 Required SDK核心功能 -->

@@ -9,12 +9,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.text.InputFilter;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -248,6 +252,7 @@ public class Utils {
         return ntime;
     }
 
+    //view空间小红点
     public static BadgeView toShowBadgeView(Context context, View target, final int count, BadgeView badgeView, int nType) {
 
         int lastNum = 0;
@@ -301,6 +306,96 @@ public class Utils {
             badgeView.hide(false, anim2);
             badgeView.setText(0+"");
         }
+    }
+
+    //EditText特殊符号过滤
+    public static void setProhibitEmoji(EditText et) {
+        InputFilter[] filters = { getInputFilterProhibitEmoji() ,getInputFilterProhibitSP()};
+        et.setFilters(filters);
+    }
+
+    public static  InputFilter getInputFilterProhibitEmoji() {
+        InputFilter filter = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                StringBuffer buffer = new StringBuffer();
+                for (int i = start; i < end; i++) {
+                    char codePoint = source.charAt(i);
+                    if (!getIsEmoji(codePoint)) {
+                        buffer.append(codePoint);
+                    } else {
+
+                        Toast.makeText(getUiContext(), "内容不能含有第三方表情", Toast.LENGTH_SHORT).show();
+                        i++;
+                        continue;
+                    }
+                }
+                if (source instanceof Spanned) {
+                    SpannableString sp = new SpannableString(buffer);
+                    TextUtils.copySpansFrom((Spanned) source, start, end, null,
+                            sp, 0);
+                    return sp;
+                } else {
+                    return buffer;
+                }
+            }
+        };
+        return filter;
+    }
+
+
+    public static boolean getIsEmoji(char codePoint) {
+        if ((codePoint == 0x0) || (codePoint == 0x9) || (codePoint == 0xA)
+                || (codePoint == 0xD)
+                || ((codePoint >= 0x20) && (codePoint <= 0xD7FF))
+                || ((codePoint >= 0xE000) && (codePoint <= 0xFFFD))
+                || ((codePoint >= 0x10000) && (codePoint <= 0x10FFFF)))
+            return false;
+        return true;
+    }
+
+
+    public static InputFilter getInputFilterProhibitSP() {
+        InputFilter filter = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                StringBuffer buffer = new StringBuffer();
+                int isHaveFilter = 0;
+                for (int i = start; i < end; i++) {
+                    char codePoint = source.charAt(i);
+                    if (!getIsSp(codePoint)) {
+                        buffer.append(codePoint);
+                    } else {
+                        isHaveFilter = 1;
+
+                        i++;
+                        continue;
+                    }
+                }
+                if (isHaveFilter == 1){
+                    Toast.makeText(getUiContext(), "内容不能含有特殊字符", Toast.LENGTH_SHORT).show();
+                }
+                if (source instanceof Spanned) {
+                    SpannableString sp = new SpannableString(buffer);
+                    TextUtils.copySpansFrom((Spanned) source, start, end, null,
+                            sp, 0);
+                    return sp;
+                } else {
+                    return buffer;
+                }
+            }
+        };
+        return filter;
+    }
+
+    public static boolean getIsSp(char codePoint){
+        if(Character.getType(codePoint)>Character.LETTER_NUMBER){
+            return true;
+        }
+        return false;
+
     }
 
 }

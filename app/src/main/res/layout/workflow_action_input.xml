@@ -12,7 +12,7 @@
         android:gravity="right"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/text_primary"/>
-    <EditText
+    <com.chanfinecloud.cfl.weidgt.EditTextFilterView
         android:id="@+id/action_text_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

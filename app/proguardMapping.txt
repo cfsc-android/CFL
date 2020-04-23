@@ -22304,7 +22304,7 @@ com.chanfinecloud.cfl.entity.smart.HouseholdRoomEntity -> com.chanfinecloud.cfl.
     375:375:java.lang.String getProjectName() -> getProjectName
     327:327:java.lang.String getPropertyMark() -> getPropertyMark
     319:319:java.lang.String getPropertyName() -> getPropertyName
-    311:311:java.lang.String getPropertyNo() -> getPropertyNo
+    311:311:java.lang.String getpropertyNO() -> getpropertyNO
     191:191:double getPropertySpace() -> getPropertySpace
     271:271:java.lang.String getPurpose() -> getPurpose
     439:439:java.lang.String getRoomBoMap() -> getRoomBoMap
@@ -22347,7 +22347,7 @@ com.chanfinecloud.cfl.entity.smart.HouseholdRoomEntity -> com.chanfinecloud.cfl.
     379:380:void setProjectName(java.lang.String) -> setProjectName
     331:332:void setPropertyMark(java.lang.String) -> setPropertyMark
     323:324:void setPropertyName(java.lang.String) -> setPropertyName
-    315:316:void setPropertyNo(java.lang.String) -> setPropertyNo
+    315:316:void setpropertyNO(java.lang.String) -> setpropertyNO
     195:196:void setPropertySpace(double) -> setPropertySpace
     275:276:void setPurpose(java.lang.String) -> setPurpose
     443:444:void setRoomBoMap(java.lang.String) -> setRoomBoMap
@@ -22617,7 +22617,7 @@ com.chanfinecloud.cfl.entity.smart.RoomEntity -> com.chanfinecloud.cfl.entity.sm
     367:367:java.lang.String getProjectName() -> getProjectName
     319:319:java.lang.String getPropertyMark() -> getPropertyMark
     311:311:java.lang.String getPropertyName() -> getPropertyName
-    303:303:java.lang.String getPropertyNo() -> getPropertyNo
+    303:303:java.lang.String getpropertyNO() -> getpropertyNO
     183:183:double getPropertySpace() -> getPropertySpace
     263:263:java.lang.String getPurpose() -> getPurpose
     431:431:java.lang.String getRoomBoMap() -> getRoomBoMap
@@ -22659,7 +22659,7 @@ com.chanfinecloud.cfl.entity.smart.RoomEntity -> com.chanfinecloud.cfl.entity.sm
     371:372:void setProjectName(java.lang.String) -> setProjectName
     323:324:void setPropertyMark(java.lang.String) -> setPropertyMark
     315:316:void setPropertyName(java.lang.String) -> setPropertyName
-    307:308:void setPropertyNo(java.lang.String) -> setPropertyNo
+    307:308:void setpropertyNO(java.lang.String) -> setpropertyNO
     187:188:void setPropertySpace(double) -> setPropertySpace
     267:268:void setPurpose(java.lang.String) -> setPurpose
     435:436:void setRoomBoMap(java.lang.String) -> setRoomBoMap

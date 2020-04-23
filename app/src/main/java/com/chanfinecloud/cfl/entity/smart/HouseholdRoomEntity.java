@@ -36,7 +36,7 @@ public class HouseholdRoomEntity implements Serializable {
      * orientationDisplay : 正南
      * decorationStandard : JZ
      * decorationStandardDisplay : 精装
-     * propertyNo :
+     * propertyNO :
      * propertyName :
      * propertyMark :
      * createBy :
@@ -79,7 +79,7 @@ public class HouseholdRoomEntity implements Serializable {
     private String orientationDisplay;
     private String decorationStandard;
     private String decorationStandardDisplay;
-    private String propertyNo;
+    private String propertyNO;
     private String propertyName;
     private String propertyMark;
     private String createBy;
@@ -307,12 +307,12 @@ public class HouseholdRoomEntity implements Serializable {
         this.decorationStandardDisplay = decorationStandardDisplay;
     }
 
-    public String getPropertyNo() {
-        return propertyNo;
+    public String getPropertyNO() {
+        return propertyNO;
     }
 
-    public void setPropertyNo(String propertyNo) {
-        this.propertyNo = propertyNo;
+    public void setPropertyNO(String propertyNO) {
+        this.propertyNO = propertyNO;
     }
 
     public String getPropertyName() {

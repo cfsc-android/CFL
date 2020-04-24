@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -182,6 +183,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     } else {
                         showToast(baseEntity.getMessage());
                     }
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+                    super.onCancelled(cex);
+                    Log.e("initCloudOpenSDK", "onCancelled: "+cex.getMessage() );
                 }
 
                 @Override

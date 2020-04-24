@@ -381,6 +381,10 @@ public class VideoCall2Activity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        if (null != mRealPlayer) {
+            mRealPlayer.release();
+        }
+
     }
 
 }

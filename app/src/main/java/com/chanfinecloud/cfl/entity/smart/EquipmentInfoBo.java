@@ -15,11 +15,31 @@ public class EquipmentInfoBo implements Serializable {
      * deviceSerial : 231857475
      * devicePlatformId : 85e234e64ede4e3a92c37f408e54a383
      * deviceName : 长房时代城二期8栋3单元
+     * validateCode": "AOZPFF", //验证码
+     * "deviceStatus": "1"
      */
 
     private String deviceSerial;
     private String devicePlatformId;
     private String deviceName;
+    private String validateCode;
+    private String deviceStatus;
+
+    public String getValidateCode() {
+        return validateCode;
+    }
+
+    public void setValidateCode(String validateCode) {
+        this.validateCode = validateCode;
+    }
+
+    public String getDeviceStatus() {
+        return deviceStatus;
+    }
+
+    public void setDeviceStatus(String deviceStatus) {
+        this.deviceStatus = deviceStatus;
+    }
 
     public String getDeviceSerial() {
         return deviceSerial;

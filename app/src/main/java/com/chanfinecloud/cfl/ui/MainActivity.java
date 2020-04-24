@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.R;
+import com.chanfinecloud.cfl.config.HikConfig;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
@@ -46,13 +47,6 @@ import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.util.UserInfoUtil;
 import com.chanfinecloud.cfl.weidgt.NoScrollViewPager;
 import com.google.gson.reflect.TypeToken;
-import com.videogo.errorlayer.ErrorInfo;
-import com.videogo.errorlayer.ErrorLayer;
-import com.videogo.exception.BaseException;
-import com.videogo.openapi.annotation.HttpParam;
-import com.videogo.openapi.bean.BaseInfo;
-import com.videogo.openapi.model.ApiResponse;
-import com.videogo.util.LogUtil;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RequestExecutor;
@@ -60,7 +54,6 @@ import com.yanzhenjie.permission.RequestExecutor;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -80,6 +73,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
 import static android.provider.Settings.EXTRA_CHANNEL_ID;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.config.Config.IOT;
 import static com.chanfinecloud.cfl.config.Config.SET_JPUSH_ALIAS_SEQUENCE;
 import static com.chanfinecloud.cfl.config.Config.SET_JPUSH_TAGS_SEQUENCE;
 import static com.chanfinecloud.cfl.config.Config.WORKORDER;
@@ -110,12 +104,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private long time = 0;
     private int isFirstIn = 0;
     private boolean permissionFlag = false;
+    private boolean isInitCloudSDK = false;
 
     @Override
     protected void initData() {
         setContentView(R.layout.activity_main);
         setAliasAndTag();
         ButterKnife.bind(this);
+        isInitCloudSDK = false;
         initView();
         initFileData();
         isFirstIn = 0;
@@ -129,7 +125,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         EventBus.getDefault().register(this);
         //showUnBindView();
+
     }
+
+
 
     private void initView() {
         home = new HomeFragment();
@@ -157,6 +156,46 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initComplainType();
         initComplainStatus();
         UserInfoUtil.initAvatarResource(null);//缓存用户头像
+
+
+
+    }
+
+    private void initCloudOpenSDK() {
+
+        if (CFLApplication.bind && !isInitCloudSDK){
+            RequestParam requestParam = new RequestParam(BASE_URL + IOT + "community/api/access/v1/poseidon/token", HttpMethod.Get);
+            Map<String, String> requestMap = new HashMap<>();
+            requestMap.put("phaseId",FileManagement.getUserInfo().getCurrentDistrict().getPhaseId());
+            requestParam.setRequestMap(requestMap);
+            requestParam.setCallback(new MyCallBack<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    super.onSuccess(result);
+                    LogUtils.d(result);
+                    BaseEntity baseEntity = JsonParse.parse(result);
+                    if (baseEntity.isSuccess()) {
+                        String sdkToken = String.valueOf(baseEntity.getResult());
+                        HikConfig.OAUTH_TOKEN = sdkToken;
+                        CFLApplication.initCloudOpenSDKConfig();
+
+                    } else {
+                        showToast(baseEntity.getMessage());
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    super.onError(ex, isOnCallback);
+                    showToast(ex.getMessage());
+                }
+            });
+            sendRequest(requestParam, false);
+
+
+        }
+
+
     }
 
     /**
@@ -299,6 +338,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
             changeView(0);//切换到首页
             resetTag();
+            isInitCloudSDK = false;
+            initCloudOpenSDK();
         }else if("AuditPass".equals(message.getMessage())){
             CurrentDistrictEntity currentDistrict = getUserInfo().getCurrentDistrict();
             if (currentDistrict != null && !TextUtils.isEmpty(currentDistrict.getRoomId())) {
@@ -308,6 +349,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }else if ("unbind".equals(message.getMessage())) {
             showUnBindView();
+        }else if ("CloudOpenSDKInit".equals(message.getMessage())){
+            isInitCloudSDK = true;
+        }else if ("CloudOpenSDKNotInit".equals(message.getMessage())){
+            isInitCloudSDK = false;
+            //不成功不放弃 这似乎不太好吧
+            initCloudOpenSDK();
         }
     }
 
@@ -516,6 +563,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 requestAndNotificationListener();
             }
 
+        }
+        if (!isInitCloudSDK){
+            initCloudOpenSDK();//初始化海康SDK
         }
 
     }

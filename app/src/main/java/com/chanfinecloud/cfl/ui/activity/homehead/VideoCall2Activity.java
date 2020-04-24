@@ -120,7 +120,12 @@ public class VideoCall2Activity extends BaseActivity {
                         return;
                     }
                     curPosition = position;
-                    // mDeviceSerial = data.get(position).getDeviceSerial();
+                    if (data.get(position).getDeviceSerial() != null)
+                        mDeviceSerial = data.get(position).getDeviceSerial();
+                    if (data.get(position).getValidateCode() != null)
+                        mDeviceCode = data.get(position).getValidateCode();
+                    /*if (data.get(position).getDeviceStatus() != null)
+                        mChannelNo = Integer.parseInt(data.get(position).getDeviceStatus());*/
                     handler.sendMessage(handler.obtainMessage(0, data.get(position).getDeviceSerial()));
                 } else {
                     showToast("不支持视频预览");
@@ -146,10 +151,7 @@ public class VideoCall2Activity extends BaseActivity {
 
             showToast("surface创建失败");
         }
-
-
     }
-
 
     private void initPlayer() {
         ssVideoCall2PreviewPlay.getHolder().addCallback(new SurfaceHolder.Callback() {

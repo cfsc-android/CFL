@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.chanfinecloud.cfl.config.HikConfig;
 import com.chanfinecloud.cfl.entity.core.Transition;
+import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.util.Utils;
 import com.hikvision.cloud.sdk.CloudOpenSDK;
 import com.hikvision.cloud.sdk.core.OnCommonCallBack;
@@ -30,6 +31,7 @@ import com.squareup.leakcanary.RefWatcher;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
+import org.greenrobot.eventbus.EventBus;
 import org.xutils.BuildConfig;
 import org.xutils.common.Callback;
 import org.xutils.x;
@@ -84,8 +86,7 @@ public class CFLApplication extends Application {
         JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);            // 初始化 JPush
 
-        initCloudOpenSDKConfig();
-
+        //initCloudOpenSDKConfig();//需要有token后再初始化
     }
 
     static {
@@ -132,26 +133,28 @@ public class CFLApplication extends Application {
         MultiDex.install(this); // 初始化
     }
 
-    private void initCloudOpenSDKConfig() {
+    public static void initCloudOpenSDKConfig() {
         CloudOpenSDK.getInstance()
                 .setLogDebugMode(true) // 默认日志开关状态：打开
                 //sdk数据缓存加密开关（例如SP存储），放在init()方法前设置
                 //isEncrypt,true:开启加密,false:不加密
                 .setDataCacheEncrypt(true, "123456")//密码长度不限制
                 .init(
-                        this,
+                        getInstance,
                         HikConfig.OAUTH_TOKEN,
                         new OnCommonCallBack() {
                             @Override
                             public void onSuccess() {
                                // Toast.makeText(getApplicationContext(), "SDK初始化成功", Toast.LENGTH_SHORT).show();
                                 Log.d("AppApplication", "SDK初始化成功");
+                                EventBus.getDefault().post(new EventBusMessage<>("CloudOpenSDKInit"));
                             }
 
                             @Override
                             public void onFailed(Exception e) {
                               //  Toast.makeText(getApplicationContext(), "SDK初始化失败", Toast.LENGTH_SHORT).show();
                                 Log.d("AppApplication", "SDK初始化失败");
+                                EventBus.getDefault().post(new EventBusMessage<>("CloudOpenSDKNotInit"));
                             }
                         });
     }

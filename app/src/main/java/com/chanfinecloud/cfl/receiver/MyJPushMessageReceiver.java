@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.chanfinecloud.cfl.CFLApplication;
+import com.chanfinecloud.cfl.entity.enumtype.JpushType;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.entity.smart.NoticePushEntity;
 import com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity;
@@ -59,7 +60,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         LogUtils.d("onNotifyMessageOpened:"+notificationMessage.toString());
         Gson gson=new Gson();
         NoticePushEntity noticePush=gson.fromJson(notificationMessage.notificationExtras,NoticePushEntity.class);
-        if("1".equals(noticePush.getType())){//新闻类推送
+        if((JpushType.News.getType()).equals(noticePush.getType())){//新闻类推送
             Intent intent=new Intent(context, NoticeDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
@@ -67,25 +68,25 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
             bundle.putString("title",notificationMessage.notificationTitle);
             intent.putExtras(bundle);
             context.startActivity(intent);
-        }else if("2".equals(noticePush.getType())){//工单推送
+        }else if((JpushType.Orders.getType()).equals(noticePush.getType())){//工单推送
             Intent intent=new Intent(context, RepairsDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
             bundle.putString("order_id",noticePush.getBusinessId());
             intent.putExtras(bundle);
             context.startActivity(intent);
-        }else if("3".equals(noticePush.getType())){//投诉推送
+        }else if((JpushType.Complain.getType()).equals(noticePush.getType())){//投诉推送
             Intent intent=new Intent(context, ComplainDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
             bundle.putString("complain_id",noticePush.getBusinessId());
             intent.putExtras(bundle);
             context.startActivity(intent);
-        }else if("4".equals(noticePush.getType())){//审核通过的推送
+        }else if((JpushType.OwnerVerifyPass.getType()).equals(noticePush.getType())){//审核通过的推送
             Intent intent=new Intent(context, HouseHoldActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-        }else if("5".equals(noticePush.getType())){//收到审核的推送
+        }else if((JpushType.OwnerVerifying.getType()).equals(noticePush.getType())){//收到审核的推送
             Intent intent=new Intent(context, HouseholdAuditListActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle=new Bundle();
@@ -107,7 +108,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         //EventBus.getDefault().post(new EventBusMessage<>("OrderNotice"));
         Gson gson=new Gson();
         NoticePushEntity noticePush=gson.fromJson(notificationMessage.notificationExtras,NoticePushEntity.class);
-        if("4".equals(noticePush.getType())){
+        if((JpushType.OwnerVerifyPass.getType()).equals(noticePush.getType())){
             UserInfoUtil.refreshUserInfoByServerCache(new UserInfoUtil.OnRefreshListener() {
                 @Override
                 public void onSuccess() {
@@ -119,12 +120,12 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
 
                 }
             });
-        }else if("1".equals(noticePush.getType())){
+        }else if((JpushType.News.getType()).equals(noticePush.getType())){
             EventBus.getDefault().post(new EventBusMessage<>("NoticeRefresh"));
-        }else if("2".equals(noticePush.getType())){
+        }else if((JpushType.Orders.getType()).equals(noticePush.getType())){
 
             EventBus.getDefault().post(new EventBusMessage<>("OrderNotice"));
-        }else if("3".equals(noticePush.getType())){
+        }else if((JpushType.Complain.getType()).equals(noticePush.getType())){
 
             EventBus.getDefault().post(new EventBusMessage<>("ComplaintNotice"));
         }

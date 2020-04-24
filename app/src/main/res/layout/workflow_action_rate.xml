@@ -27,7 +27,7 @@
         app:rsv_starForegroundColor="#DB6958"
         app:rsv_starBackgroundColor="#E8E8E8"
         app:rsv_starNum="5"
-        app:rsv_rating="4.0"
+        app:rsv_rating="5.0"
         app:rsv_onlyHalfStar="true"
         app:rsv_enableSelectRating="true"
         app:rsv_starThickness="0.7"

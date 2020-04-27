@@ -391,7 +391,7 @@ public class Utils {
     }
 
     public static boolean getIsSp(char codePoint){
-        if(Character.getType(codePoint)>Character.LETTER_NUMBER){
+        if(Character.getType(codePoint)>Character.CURRENCY_SYMBOL){
             return true;
         }
         return false;

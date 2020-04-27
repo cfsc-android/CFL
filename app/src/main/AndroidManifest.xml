@@ -38,7 +38,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.homehead.VideoCall2Activity"/>
+        <activity android:name=".ui.activity.VideoCallInActivity"></activity>
+        <activity android:name=".ui.activity.homehead.VideoCall2Activity" />
         <activity android:name=".weidgt.imagepreview.ui.PreviewActivity" />
         <activity android:name=".weidgt.imagepreview.ui.VideoPlayerActivity" />
         <activity android:name=".ui.activity.homehead.VideoCallActivity" />

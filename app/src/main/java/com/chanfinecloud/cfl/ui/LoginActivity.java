@@ -272,6 +272,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void freshUserInfo() {
+        startProgressDialog(true);
         UserInfoUtil.refreshUserInfoByServerCache(new UserInfoUtil.OnRefreshListener() {
             @Override
             public void onSuccess() {
@@ -285,6 +286,8 @@ public class LoginActivity extends BaseActivity {
                     bundle.putString("openFrom","Login");
                     startActivity(ProjectSelectActivity.class,bundle);
                 }
+
+                stopProgressDialog();
             }
 
             @Override

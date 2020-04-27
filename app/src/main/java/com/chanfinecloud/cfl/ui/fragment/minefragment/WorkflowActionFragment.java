@@ -37,6 +37,7 @@ import com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.AnimationUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
+import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.weidgt.EditTextFilterView;
 import com.chanfinecloud.cfl.weidgt.WheelDialog;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter;
@@ -456,7 +457,8 @@ public class WorkflowActionFragment extends BaseFragment {
             }else if("input_number".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initInputView(formContent.get(i).getFormItemLabel());
                 EditText et= (EditText) workflowViewEntity.getContent();
-                et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                //et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                et.setInputType(0x00002002);
             }else if("text".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initTextView(formContent.get(i).getFormItemLabel());
                 TextView textView= (TextView) workflowViewEntity.getContent();
@@ -531,7 +533,13 @@ public class WorkflowActionFragment extends BaseFragment {
                 map.put(workflowViewTag.getFormKey(),rate.getRating());
             }else if("input_number".equals(workflowViewTag.getFormType())){
                 EditTextFilterView manualCost= (EditTextFilterView) workflowViewTag.getWorkflowView().getContent();
-                map.put(workflowViewTag.getFormKey(),Double.parseDouble(manualCost.getText().toString()));
+                if (Utils.isEmpty(manualCost.getText().toString())){
+                    showToast("请填写正确的数值内容");
+                    return;
+                }else{
+                    map.put(workflowViewTag.getFormKey(),Double.parseDouble(manualCost.getText().toString()));
+                }
+
             }
         }
         map.put("businessId",businessId);

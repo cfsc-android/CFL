@@ -22,7 +22,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.adapter.VideoListAdapter;
+import com.chanfinecloud.cfl.config.HikConfig;
 import com.chanfinecloud.cfl.entity.smart.EquipmentInfoBo;
+import com.chanfinecloud.cfl.ui.activity.VideoCallInActivity;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.RxUtils;
@@ -113,6 +115,7 @@ public class VideoCall2Activity extends BaseActivity {
         lvVideoCall2List.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                // TODO: 2020/4/26 跳界面需要注释掉  注意onResume
                 ssVideoCall2RlvSurface.setVisibility(VISIBLE);
                 if (!TextUtils.isEmpty(data.get(position).getDeviceSerial())) {
                     if (curPosition == position){
@@ -124,8 +127,14 @@ public class VideoCall2Activity extends BaseActivity {
                         mDeviceSerial = data.get(position).getDeviceSerial();
                     if (data.get(position).getValidateCode() != null)
                         mDeviceCode = data.get(position).getValidateCode();
-                    /*if (data.get(position).getDeviceStatus() != null)
-                        mChannelNo = Integer.parseInt(data.get(position).getDeviceStatus());*/
+
+                    HikConfig.DEVICE_SERIAL = mDeviceSerial;
+                    HikConfig.DEVICE_CHANNEL_NO = 1;
+                    HikConfig.VERIFY_CODE = mDeviceCode;
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("openType", 1);
+                    //startActivity(VideoCallInActivity.class, bundle);
+                    // TODO: 2020/4/26 打开新的界面 就不用需要下面的操作了 需打开上面的 注释下面的  注意onResume
                     handler.sendMessage(handler.obtainMessage(0, data.get(position).getDeviceSerial()));
                 } else {
                     showToast("不支持视频预览");
@@ -141,6 +150,13 @@ public class VideoCall2Activity extends BaseActivity {
         mDeviceCode = "AOZPFF";
         initPlayer();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // TODO: 2020/4/26 如果跳转界面的话就需要这一句
+        //curPosition = -1;
     }
 
     private void startPlayer() {

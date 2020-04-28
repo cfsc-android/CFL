@@ -125,7 +125,7 @@ public class CarLock extends BaseActivity {
         setContentView(R.layout.activity_car_lock);
         ButterKnife.bind(this);
 
-        hikUser= FileManagement.getHikUser();
+       // hikUser= FileManagement.getHikUser();
 
         if (FileManagement.getUserInfo() != null
                 && FileManagement.getUserInfo().getRoomList() != null

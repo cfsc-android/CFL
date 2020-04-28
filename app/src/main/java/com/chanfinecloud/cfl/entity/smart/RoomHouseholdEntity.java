@@ -56,7 +56,6 @@ public class RoomHouseholdEntity implements Serializable {
     private String name;
     private String nickName;
     private String avatarId;
-    private String avatarResource;
     private String type;
     private String mobile;
     private String backupPhone;
@@ -91,6 +90,25 @@ public class RoomHouseholdEntity implements Serializable {
     private String householdType;
     private String householdTypeDisplay;
 
+    private ResourceEntity avatarResource;
+    private ResourceEntity faceResource;
+
+    public ResourceEntity getAvatarResource() {
+        return avatarResource;
+    }
+
+    public void setAvatarResource(ResourceEntity avatarResource) {
+        this.avatarResource = avatarResource;
+    }
+
+    public ResourceEntity getFaceResource() {
+        return faceResource;
+    }
+
+    public void setFaceResource(ResourceEntity faceResource) {
+        this.faceResource = faceResource;
+    }
+
     public String getId() {
         return id;
     }
@@ -121,14 +139,6 @@ public class RoomHouseholdEntity implements Serializable {
 
     public void setAvatarId(String avatarId) {
         this.avatarId = avatarId;
-    }
-
-    public String getAvatarResource() {
-        return avatarResource;
-    }
-
-    public void setAvatarResource(String avatarResource) {
-        this.avatarResource = avatarResource;
     }
 
     public String getType() {

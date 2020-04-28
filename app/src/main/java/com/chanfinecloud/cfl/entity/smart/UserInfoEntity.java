@@ -21,7 +21,7 @@ public class UserInfoEntity implements Serializable {
      * type :
      * mobile : 18073667575
      * backupPhone :
-     * faceId :
+     * status :
      * defaultCardNo : 900900070
      * idcardType :
      * idcardTypeDisplay :
@@ -59,7 +59,6 @@ public class UserInfoEntity implements Serializable {
     private String type;
     private String mobile;
     private String backupPhone;
-    private String faceId;
     private int defaultCardNo;
     private String idcardType;
     private String idcardTypeDisplay;
@@ -88,7 +87,7 @@ public class UserInfoEntity implements Serializable {
     private String ancestor;
     private String householdType;
     private String householdTypeDisplay;
-
+    private String status;
     private ResourceEntity avatarResource;
     private CurrentDistrictEntity currentDistrict;
     private List<HouseholdRoomEntity> roomList;
@@ -192,12 +191,12 @@ public class UserInfoEntity implements Serializable {
         this.backupPhone = backupPhone;
     }
 
-    public String getFaceId() {
-        return faceId;
+    public String getStatus() {
+        return status;
     }
 
-    public void setFaceId(String faceId) {
-        this.faceId = faceId;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getDefaultCardNo() {

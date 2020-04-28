@@ -53,6 +53,8 @@ public class HouseholdRoomEntity implements Serializable {
      * householdType : ZH
      * householdTypeDisplay : 租户
      * roomBoMap :
+     * faceId:
+     * faceResource:
      */
 
     private String id;
@@ -98,6 +100,24 @@ public class HouseholdRoomEntity implements Serializable {
     private String roomBoMap;
     private int approvalStatus;
     private String approvalId;
+    private String faceId;
+    private ResourceEntity faceResource;
+
+    public String getFaceId() {
+        return faceId;
+    }
+
+    public void setFaceId(String faceId) {
+        this.faceId = faceId;
+    }
+
+    public ResourceEntity getFaceResource() {
+        return faceResource;
+    }
+
+    public void setFaceResource(ResourceEntity faceResource) {
+        this.faceResource = faceResource;
+    }
 
     public String getApprovalId() {
         return approvalId;

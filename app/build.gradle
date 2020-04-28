@@ -13,7 +13,7 @@ android {
         applicationId "com.chanfinecloud.cfl"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 5
+        versionCode 6
         versionName "1.0.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -57,10 +57,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.cfl
             //测试
-//            buildConfigField "String", "BASE_URL", Debug_Url
-//            buildConfigField "String", "ENV", "\"debug\""
-            buildConfigField "String", "BASE_URL", Release_Url
-            buildConfigField "String", "ENV", "\"release\""
+            buildConfigField "String", "BASE_URL", Debug_Url
+            buildConfigField "String", "ENV", "\"debug\""
+//            buildConfigField "String", "BASE_URL", Release_Url
+//            buildConfigField "String", "ENV", "\"release\""
         }
         release {
             debuggable true

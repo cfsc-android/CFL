@@ -1,5 +1,7 @@
 package com.chanfinecloud.cfl.adapter.smart;
 
+import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
+
 import java.io.Serializable;
 
 /**
@@ -22,6 +24,7 @@ public class CarEntity implements Serializable {
      * ownerPhone : 13786099183
      * ownerName : 好啊
      * vehicleType : 1
+     * vehicleImageId
      * vehicleColor : WHITE
      * plateType : BZMYC
      * plateColor : BLUE
@@ -40,6 +43,7 @@ public class CarEntity implements Serializable {
      * nickName : 马冬梅
      * due :
      * type : 1
+     * vehicleImageResource
      */
 
     private String id;
@@ -53,6 +57,7 @@ public class CarEntity implements Serializable {
     private String ownerPhone;
     private String ownerName;
     private String vehicleType;
+    private String vehicleImageId;
     private String vehicleColor;
     private String plateType;
     private String plateColor;
@@ -71,6 +76,7 @@ public class CarEntity implements Serializable {
     private String nickName;
     private String due;
     private int type;
+    private ResourceEntity vehicleImageResource;
 
     public String getId() {
         return id;
@@ -158,6 +164,14 @@ public class CarEntity implements Serializable {
 
     public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
+    }
+
+    public String getVehicleImageId() {
+        return vehicleImageId;
+    }
+
+    public void setVehicleImageId(String vehicleImageId) {
+        this.vehicleImageId = vehicleImageId;
     }
 
     public String getVehicleColor() {
@@ -302,5 +316,13 @@ public class CarEntity implements Serializable {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public ResourceEntity getVehicleImageResource() {
+        return vehicleImageResource;
+    }
+
+    public void setVehicleImageResource(ResourceEntity vehicleImageResource) {
+        this.vehicleImageResource = vehicleImageResource;
     }
 }

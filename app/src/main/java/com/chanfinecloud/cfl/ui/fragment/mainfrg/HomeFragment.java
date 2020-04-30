@@ -121,9 +121,6 @@ public class HomeFragment extends BaseFragment {
     private UserInfoEntity userInfo;
 
 
-    private BadgeView orderBadgeTextView = null;
-    private BadgeView complaintBadgeTextView = null;
-
     @Override
     protected void onFragmentStartLazy() {
         super.onFragmentStartLazy();
@@ -144,10 +141,6 @@ public class HomeFragment extends BaseFragment {
         }else if("NoticeRefresh".equals(message.getMessage())){
             getHotTips();
             getWheelPlanting();
-        }else if("OrderNotice".equals(message.getMessage())){
-            orderBadgeTextView = Utils.toShowBadgeView(getActivity(),tvRepair,1, orderBadgeTextView, 1);
-        }else if("ComplaintNotice".equals(message.getMessage())){
-            complaintBadgeTextView = Utils.toShowBadgeView(getActivity(), tvComplaint,1, complaintBadgeTextView, 1);
         }
     }
 
@@ -375,7 +368,6 @@ public class HomeFragment extends BaseFragment {
                 startActivity(LifePaymentActivity.class);
                 break;
             case R.id.tv_complaint:
-                Utils.toHideBadgeView(complaintBadgeTextView);
                 if (CFLApplication.bind) {
                     startActivity(ComplainActivity.class);
                 } else {
@@ -383,7 +375,6 @@ public class HomeFragment extends BaseFragment {
                 }
                 break;
             case R.id.tv_repair:
-                Utils.toHideBadgeView(orderBadgeTextView);
                 if (CFLApplication.bind) {
                     startActivity(RepairsActivity.class);
                 } else {

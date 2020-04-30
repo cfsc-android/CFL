@@ -25,6 +25,8 @@ import com.chanfinecloud.cfl.ui.activity.minefeatures.HouseHoldActivity;
 import com.chanfinecloud.cfl.ui.activity.minefeatures.WorkflowListActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.FileManagement;
+import com.chanfinecloud.cfl.util.Utils;
+import com.chanfinecloud.cfl.weidgt.BadgeView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -73,6 +75,10 @@ public class MineFragment extends BaseFragment {
     private Unbinder unbinder;
 
     private UserInfoEntity userInfo;
+
+    private BadgeView orderBadgeTextView = null;
+    private BadgeView complaintBadgeTextView = null;
+
 
     @Override
     protected void initView(LayoutInflater inflater) {
@@ -128,6 +134,10 @@ public class MineFragment extends BaseFragment {
     public void Event(EventBusMessage message){
         if("refresh".equals(message.getMessage())){
             initViewDara();
+        }else if("OrderNotice".equals(message.getMessage())){
+            orderBadgeTextView = Utils.toShowBadgeView(getActivity(),tvMineGongdan,1, orderBadgeTextView, 1);
+        }else if("ComplaintNotice".equals(message.getMessage())){
+            complaintBadgeTextView = Utils.toShowBadgeView(getActivity(), tvMineTousu,1, complaintBadgeTextView, 1);
         }
     }
 
@@ -142,6 +152,7 @@ public class MineFragment extends BaseFragment {
                 startActivity(PersonActivity.class);
                 break;
             case R.id.tv_mine_gongdan:
+                Utils.toHideBadgeView(orderBadgeTextView);
                 if(CFLApplication.bind){
                     bundle.putSerializable("workflowType", WorkflowType.Order);
                     startActivity(WorkflowListActivity.class,bundle);
@@ -151,6 +162,7 @@ public class MineFragment extends BaseFragment {
                 
                 break;
             case R.id.tv_mine_tousu:
+                Utils.toHideBadgeView(complaintBadgeTextView);
                 if (CFLApplication.bind){
                     bundle.putSerializable("workflowType", WorkflowType.Complain);
                     startActivity(WorkflowListActivity.class,bundle);

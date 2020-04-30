@@ -143,7 +143,7 @@ public abstract class BaseActivity extends FragmentActivity implements NetBroadc
             progressDialogView.stopLoad();
             progressDialogView = null;
         }
-        handler.sendEmptyMessage(HTTP_CANCEL);//取消http请求
+     //   handler.sendEmptyMessage(HTTP_CANCEL);//取消http请求
         unregisterReceiver(netBroadcastReceiver);//注销广播服务
         LynActivityManager.getInstance().popActivity(this);//从栈中移除当前Activity
         //移除转场动画

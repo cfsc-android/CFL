@@ -154,7 +154,13 @@ public class CarManageActivity extends BaseActivity {
                 startActivity(CarManageEditActivity.class,bundle);
             }
         });
-        getCarManageList();
+       getCarManageList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     private void deleteCar(int position){

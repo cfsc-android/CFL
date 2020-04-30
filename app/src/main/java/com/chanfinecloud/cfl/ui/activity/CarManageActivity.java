@@ -201,6 +201,7 @@ public class CarManageActivity extends BaseActivity {
 
     private void getCarManageList(){
 
+        startProgressDialog(true);
         Map<String,String> requestMap=new HashMap<>();
         requestMap.put("pageNo","1");
         requestMap.put("pageSize","10");
@@ -231,6 +232,11 @@ public class CarManageActivity extends BaseActivity {
                 showToast(ex.getMessage());
             }
 
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                stopProgressDialog();
+            }
         });
         sendRequest(requestParam, false);
 

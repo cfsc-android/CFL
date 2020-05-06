@@ -9,6 +9,7 @@ import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.entity.enumtype.JpushType;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.entity.smart.NoticePushEntity;
+import com.chanfinecloud.cfl.ui.activity.CarManageActivity;
 import com.chanfinecloud.cfl.ui.activity.ComplainDetailActivity;
 import com.chanfinecloud.cfl.ui.activity.HouseholdAuditListActivity;
 import com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity;
@@ -93,6 +94,14 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
             bundle.putString("roomId",noticePush.getBusinessId());
             intent.putExtras(bundle);
             context.startActivity(intent);
+        }else if((JpushType.CarVerifyPass.getType()).equals(noticePush.getType())){//收到车辆审核通过的推送
+            Intent intent=new Intent(context, CarManageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }else if((JpushType.CarVerifyRefuse.getType()).equals(noticePush.getType())){//收到车辆审核不通过的推送
+            Intent intent=new Intent(context, CarManageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         }
     }
 
@@ -128,6 +137,12 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         }else if((JpushType.Complain.getType()).equals(noticePush.getType())){
 
             EventBus.getDefault().post(new EventBusMessage<>("ComplaintNotice"));
+        }else if((JpushType.CarVerifyPass.getType()).equals(noticePush.getType())){
+
+            EventBus.getDefault().post(new EventBusMessage<>("carAdd"));
+        }else if((JpushType.CarVerifyRefuse.getType()).equals(noticePush.getType())){
+
+            EventBus.getDefault().post(new EventBusMessage<>("carAdd"));
         }
     }
 

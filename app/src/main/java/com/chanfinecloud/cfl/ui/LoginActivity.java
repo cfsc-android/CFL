@@ -242,6 +242,8 @@ public class LoginActivity extends BaseActivity {
         requestParam.setParamHeader(headerMap);
         Map<String,Object> map=new HashMap<>();
         map.put("mobile",mobileNum);
+        if (Utils.isEmpty(validKey))
+            validKey = "123456";
         map.put("key",validKey);
         map.put("validCode",vcerificationCode);
         requestParam.setRequestMap(map);

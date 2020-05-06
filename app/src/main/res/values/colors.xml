@@ -468,4 +468,5 @@
     <color name="title_backgroud">#2C3447</color>
     <color name="backgroud_color">#FFFDEF</color>
     <color name="dialog_bg">#33000000</color>
+    <color name="item_bak">#E8E8E0</color>
 </resources>

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 //def Release_Url = "\"http://10.222.1.25:9200/\""//开发环境
 def Release_Url = "\"http://222.240.190.70:9200/\""
 //def Release_Url = "\"http://10.88.0.58:9200/\""//开发环境
-def Debug_Url = "\"http://10.222.5.49:8888/\""//本地调试环境
+def Debug_Url = "\"http://10.222.5.14:8888/\""//本地调试环境
 //def Debug_Url = "\"http://192.168.1.101:8888/\""//本地调试环境
 
 
@@ -200,6 +200,9 @@ dependencies {
     implementation 'javax.jmdns:jmdns:3.4.1'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation files('libs/DongDongSDK-1.1.2.jar')
+    //view 侧滑 上下滑
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
 }
 
 tasks.withType(JavaCompile) {

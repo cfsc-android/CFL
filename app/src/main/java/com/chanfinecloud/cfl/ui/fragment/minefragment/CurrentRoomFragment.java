@@ -3,6 +3,7 @@ package com.chanfinecloud.cfl.ui.fragment.minefragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
 import com.chanfinecloud.cfl.entity.smart.ResourceEntity;
 import com.chanfinecloud.cfl.entity.smart.RoomEntity;
 import com.chanfinecloud.cfl.entity.smart.RoomHouseholdEntity;
+import com.chanfinecloud.cfl.entity.smart.RoomHouseholdEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
 import com.chanfinecloud.cfl.http.HttpMethod;
 import com.chanfinecloud.cfl.http.JsonParse;
@@ -39,6 +41,8 @@ import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +98,9 @@ public class CurrentRoomFragment extends BaseFragment {
     private RoomHouseholdListAdapter adapter;
     private List<RoomHouseholdEntity> data=new ArrayList<>();
     private RoomHouseholdEntity currentHousehold;
-    private RoomEntity roomEntity;
     private UserInfoEntity userInfo;
+    private RoomEntity roomEntity;
+
     @Override
     protected void initView(LayoutInflater inflater) {
         View view = inflater.inflate(R.layout.fragment_current_room, null);
@@ -210,10 +215,10 @@ public class CurrentRoomFragment extends BaseFragment {
     }
 
     private void initCurrentRoomView(){
-        if(!TextUtils.isEmpty(currentHousehold.getAvatarResource())){
+        if(currentHousehold.getAvatarResource() != null && !TextUtils.isEmpty(currentHousehold.getAvatarResource().getUrl())){
             Glide.with(context)
-                    .load(currentHousehold.getAvatarResource())
-                    .error(R.drawable.ic_default_img)
+                    .load(currentHousehold.getAvatarResource().getUrl())
+                    .error(R.drawable.icon_user_default)
                     .circleCrop()
                     .into(currentRoomUserAvatar);
         }else{
@@ -222,6 +227,8 @@ public class CurrentRoomFragment extends BaseFragment {
                     .circleCrop()
                     .into(currentRoomUserAvatar);
         }
+
+
         currentRoomProjectName.setText(roomEntity.getProjectName());
         currentRoomRoomName.setText(roomEntity.getFullName());
         currentRoomRoomCode.setText(roomEntity.getCode());

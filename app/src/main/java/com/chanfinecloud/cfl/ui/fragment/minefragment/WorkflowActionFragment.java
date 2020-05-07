@@ -37,6 +37,8 @@ import com.chanfinecloud.cfl.ui.activity.RepairsDetailActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
 import com.chanfinecloud.cfl.util.AnimationUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
+import com.chanfinecloud.cfl.util.Utils;
+import com.chanfinecloud.cfl.weidgt.EditTextFilterView;
 import com.chanfinecloud.cfl.weidgt.WheelDialog;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImageViewInfo;
@@ -316,7 +318,7 @@ public class WorkflowActionFragment extends BaseFragment {
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_remark,null);
         TextView labelView=v.findViewById(R.id.action_remark_label);
         labelView.setText(label);
-        EditText remark=v.findViewById(R.id.action_remark_content);
+        EditTextFilterView remark=v.findViewById(R.id.action_remark_content);
         WorkflowViewEntity<EditText> workflowView=new WorkflowViewEntity<>(v);
         workflowView.setLabel(labelView);
         workflowView.setContent(remark);
@@ -332,7 +334,7 @@ public class WorkflowActionFragment extends BaseFragment {
         View v = LayoutInflater.from(context).inflate(R.layout.workflow_action_input,null);
         TextView labelView=v.findViewById(R.id.action_text_label);
         labelView.setText(label);
-        EditText text=v.findViewById(R.id.action_text_content);
+        EditTextFilterView text=v.findViewById(R.id.action_text_content);
         WorkflowViewEntity<EditText> workflowView=new WorkflowViewEntity<>(v);
         workflowView.setLabel(labelView);
         workflowView.setContent(text);
@@ -455,7 +457,8 @@ public class WorkflowActionFragment extends BaseFragment {
             }else if("input_number".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initInputView(formContent.get(i).getFormItemLabel());
                 EditText et= (EditText) workflowViewEntity.getContent();
-                et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                //et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                et.setInputType(0x00002002);
             }else if("text".equals(formContent.get(i).getFormItemType())){
                 workflowViewEntity=initTextView(formContent.get(i).getFormItemLabel());
                 TextView textView= (TextView) workflowViewEntity.getContent();
@@ -517,7 +520,7 @@ public class WorkflowActionFragment extends BaseFragment {
                         break;
                 }
             }else if("textarea".equals(workflowViewTag.getFormType())){
-                EditText remark= (EditText) workflowViewTag.getWorkflowView().getContent();
+                EditTextFilterView remark= (EditTextFilterView) workflowViewTag.getWorkflowView().getContent();
                 map.put(workflowViewTag.getFormKey(),remark.getText().toString());
             }else if("director".equals(workflowViewTag.getFormType())||"employee".equals(workflowViewTag.getFormType())||"emergency".equals(workflowViewTag.getFormType())){
                 MaterialSpinner assignId= (MaterialSpinner) workflowViewTag.getWorkflowView().getContent();
@@ -529,8 +532,14 @@ public class WorkflowActionFragment extends BaseFragment {
                 RatingStarView rate= (RatingStarView) workflowViewTag.getWorkflowView().getContent();
                 map.put(workflowViewTag.getFormKey(),rate.getRating());
             }else if("input_number".equals(workflowViewTag.getFormType())){
-                EditText manualCost= (EditText) workflowViewTag.getWorkflowView().getContent();
-                map.put(workflowViewTag.getFormKey(),Double.parseDouble(manualCost.getText().toString()));
+                EditTextFilterView manualCost= (EditTextFilterView) workflowViewTag.getWorkflowView().getContent();
+                if (Utils.isEmpty(manualCost.getText().toString())){
+                    showToast("请填写正确的数值内容");
+                    return;
+                }else{
+                    map.put(workflowViewTag.getFormKey(),Double.parseDouble(manualCost.getText().toString()));
+                }
+
             }
         }
         map.put("businessId",businessId);

@@ -36,6 +36,7 @@ import com.chanfinecloud.cfl.ui.activity.NoticeDetailActivity;
 import com.chanfinecloud.cfl.ui.activity.RepairsActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.CarLock;
 import com.chanfinecloud.cfl.ui.activity.homehead.UnLock;
+import com.chanfinecloud.cfl.ui.activity.homehead.VideoCall2Activity;
 import com.chanfinecloud.cfl.ui.activity.homehead.VideoCallActivity;
 import com.chanfinecloud.cfl.ui.activity.homehead.VisitorActivity;
 import com.chanfinecloud.cfl.ui.base.BaseFragment;
@@ -67,6 +68,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static com.chanfinecloud.cfl.config.Config.ARTICLE;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.util.UserInfoUtil.getCurrentHouseholdType;
 import static com.chanfinecloud.cfl.util.Utils.toHideBadgeView;
 
 /**
@@ -120,9 +122,6 @@ public class HomeFragment extends BaseFragment {
     private UserInfoEntity userInfo;
 
 
-    private BadgeView orderBadgeTextView = null;
-    private BadgeView complaintBadgeTextView = null;
-
     @Override
     protected void onFragmentStartLazy() {
         super.onFragmentStartLazy();
@@ -143,10 +142,6 @@ public class HomeFragment extends BaseFragment {
         }else if("NoticeRefresh".equals(message.getMessage())){
             getHotTips();
             getWheelPlanting();
-        }else if("OrderNotice".equals(message.getMessage())){
-            orderBadgeTextView = Utils.toShowBadgeView(getActivity(),tvRepair,1, orderBadgeTextView, 1);
-        }else if("ComplaintNotice".equals(message.getMessage())){
-            complaintBadgeTextView = Utils.toShowBadgeView(getActivity(), tvComplaint,1, complaintBadgeTextView, 1);
         }
     }
 
@@ -196,7 +191,7 @@ public class HomeFragment extends BaseFragment {
         RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE + "smart/content/pages", HttpMethod.Get);
         Map<String, String> map = new HashMap<>();
         map.put("projectId", FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
-        map.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());
+        map.put("receiver", getCurrentHouseholdType());
         map.put("announcementTypeId", NoticeType.热点关注.getType());
         map.put("auditStatus", "1");
         map.put("pageNo", "1");
@@ -243,7 +238,7 @@ public class HomeFragment extends BaseFragment {
         Map<String, String> map = new HashMap<>();
         // TODO: 2020/4/10  动态获取
         map.put("projectId",FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
-        map.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());
+        map.put("receiver", getCurrentHouseholdType());
         map.put("announcementTypeId", NoticeType.轮播动态.getType());
         map.put("auditStatus", "1");
         map.put("pageNo", "1");
@@ -335,7 +330,8 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.tv_to_video_call:
                 if (CFLApplication.bind) {
-                    startActivity(VideoCallActivity.class);
+                   // startActivity(VideoCallActivity.class);
+                    startActivity(VideoCall2Activity.class);
                 } else {
                     EventBus.getDefault().post(new EventBusMessage<>("unbind"));
                 }
@@ -373,7 +369,6 @@ public class HomeFragment extends BaseFragment {
                 startActivity(LifePaymentActivity.class);
                 break;
             case R.id.tv_complaint:
-                Utils.toHideBadgeView(complaintBadgeTextView);
                 if (CFLApplication.bind) {
                     startActivity(ComplainActivity.class);
                 } else {
@@ -381,7 +376,6 @@ public class HomeFragment extends BaseFragment {
                 }
                 break;
             case R.id.tv_repair:
-                Utils.toHideBadgeView(orderBadgeTextView);
                 if (CFLApplication.bind) {
                     startActivity(RepairsActivity.class);
                 } else {

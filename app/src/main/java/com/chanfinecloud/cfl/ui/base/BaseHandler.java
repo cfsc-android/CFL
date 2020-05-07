@@ -3,6 +3,7 @@ package com.chanfinecloud.cfl.ui.base;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 
 import com.chanfinecloud.cfl.http.HttpMethod;
@@ -23,12 +24,13 @@ public class BaseHandler extends Handler {
     public final static int HTTP_REQUEST = 0x002;
     public final static int HTTP_CANCEL = 0x003;
 
-    private List<org.xutils.common.Callback.Cancelable> taskList=new ArrayList<>();
+    private List<org.xutils.common.Callback.Cancelable> taskList;
 
     private final WeakReference<Activity> mActivity;
 
     public BaseHandler(Activity activity) {
         mActivity = new WeakReference<>(activity);
+        taskList=new ArrayList<>();
     }
 
     @Override
@@ -81,6 +83,7 @@ public class BaseHandler extends Handler {
      * 取消请求
      */
     private void cancelRequest(){
+
         for (int i = 0; i < taskList.size(); i++) {
             if(!taskList.get(i).isCancelled())
                 taskList.get(i).cancel();

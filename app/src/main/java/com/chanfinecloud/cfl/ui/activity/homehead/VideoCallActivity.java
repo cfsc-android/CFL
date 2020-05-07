@@ -18,9 +18,7 @@ import com.chanfinecloud.cfl.entity.smart.EquipmentInfoBo;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
 import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
-import com.hikvision.zhyjsdk.ZHYJHandler;
-import com.hikvision.zhyjsdk.ZHYJSDK;
-import com.hikvision.zhyjsdk.utils.LogUtils;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +41,12 @@ public class VideoCallActivity extends BaseActivity {
     @BindView(R.id.lv_video_call_list)
     RecyclerView lvVideoCallList;
 
-    private VideoListAdapter adapter;
+    @Override
+    protected void initData() {
+
+    }
+
+ /*   private VideoListAdapter adapter;
     private List<EquipmentInfoBo> data=new ArrayList<>();
     private ZHYJSDK sdk;
     private boolean sdkInit=false;
@@ -165,6 +168,6 @@ public class VideoCallActivity extends BaseActivity {
             sdk.releasePlayer();
             sdk.destroySDK();
         }
-    }
+    }*/
 
 }

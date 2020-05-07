@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
@@ -39,6 +40,7 @@ import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.util.PermissionsUtils;
+import com.chanfinecloud.cfl.weidgt.EditTextFilterView;
 import com.chanfinecloud.cfl.weidgt.WheelDialog;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImageViewInfo;
@@ -84,15 +86,15 @@ public class RepairsActivity extends BaseActivity {
     @BindView(R.id.toolbar_ll_view)
     LinearLayout toolbarLlView;
     @BindView(R.id.add_order_et_address)
-    EditText addOrderEtAddress;
+    EditTextFilterView addOrderEtAddress;
     @BindView(R.id.add_order_et_contact)
-    EditText addOrderEtContact;
+    EditTextFilterView addOrderEtContact;
     @BindView(R.id.add_order_et_contact_tel)
     EditText addOrderEtContactTel;
     @BindView(R.id.add_order_et_plain_time)
     EditText addOrderEtPlainTime;
     @BindView(R.id.add_order_et_remark)
-    EditText addOrderEtRemark;
+    EditTextFilterView addOrderEtRemark;
     @BindView(R.id.add_order_rlv_pic)
     RecyclerView addOrderRlvPic;
     @BindView(R.id.add_order_ms_problem_type)
@@ -101,19 +103,21 @@ public class RepairsActivity extends BaseActivity {
     MaterialSpinner addOrderMsProjectType;
     @BindView(R.id.login_btn_login)
     Button loginBtnLogin;
+    @BindView(R.id.add_order_ll_project_type)
+    LinearLayout addOrderLlProjectType;
 
-    private static final String[] permission={Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-    private static final int REQUEST_CODE_CHOOSE=0x001;
-    private List<ImageViewInfo> dataList=new ArrayList<>();
+    private static final String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+    private static final int REQUEST_CODE_CHOOSE = 0x001;
+    private List<ImageViewInfo> dataList = new ArrayList<>();
     private GridLayoutManager mGridLayoutManager;
     private ImagePreviewListAdapter adapter;
     private boolean permissionFlag;
     private List<OrderTypeEntity> orderTypeEntityList;
-    private List<String> problemData=new ArrayList<>();
-    private List<OrderTypeEntity> problemTypeData=new ArrayList<>();
-    private List<String> projectData=new ArrayList<>();
-    private List<OrderTypeEntity> projectTypeData=new ArrayList<>();
-    private int problemValue,projectValue;
+    private List<String> problemData = new ArrayList<>();
+    private List<OrderTypeEntity> problemTypeData = new ArrayList<>();
+    private List<String> projectData = new ArrayList<>();
+    private List<OrderTypeEntity> projectTypeData = new ArrayList<>();
+    private int problemValue;
     private String resourceKey;
     private MaterialSpinnerAdapter projectDataAdapter;
     private WheelDialog wheeldialog;
@@ -132,6 +136,7 @@ public class RepairsActivity extends BaseActivity {
 
         canSubmit = true;
         toolbarTvTitle.setText("创建工单");
+        problemValue = -1;
         //默认不弹出软键盘
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -139,32 +144,32 @@ public class RepairsActivity extends BaseActivity {
             @Override
             public void success() {
                 LogUtil.d("申请权限通过");
-                permissionFlag=true;
+                permissionFlag = true;
             }
 
             @Override
             public void fail() {
                 LogUtil.d("申请权限未通过");
-                permissionFlag=false;
+                permissionFlag = false;
             }
         });
 
         dataList.add(new ImageViewInfo("plus"));
-        addOrderRlvPic.setLayoutManager(mGridLayoutManager = new GridLayoutManager(this,4));
-        adapter=new ImagePreviewListAdapter(this, R.layout.item_workflow_image_perview_list,dataList);
+        addOrderRlvPic.setLayoutManager(mGridLayoutManager = new GridLayoutManager(this, 4));
+        adapter = new ImagePreviewListAdapter(this, R.layout.item_workflow_image_perview_list, dataList);
         addOrderRlvPic.setAdapter(adapter);
-        addOrderRlvPic.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
+        addOrderRlvPic.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(position==dataList.size()-1){
-                    if(permissionFlag){
-                        PhotoPicker.pick(RepairsActivity.this,1,true,REQUEST_CODE_CHOOSE);
-                    }else{
+                if (position == dataList.size() - 1) {
+                    if (permissionFlag) {
+                        PhotoPicker.pick(RepairsActivity.this, 1, true, REQUEST_CODE_CHOOSE);
+                    } else {
                         showToast("相机或读写手机存储的权限被禁止！");
                     }
-                }else{
-                    List<ImageViewInfo> data=new ArrayList<>();
-                    for (int i = 0; i < dataList.size()-1; i++) {
+                } else {
+                    List<ImageViewInfo> data = new ArrayList<>();
+                    for (int i = 0; i < dataList.size() - 1; i++) {
                         data.add(dataList.get(i));
                     }
                     computeBoundsBackward(mGridLayoutManager.findFirstVisibleItemPosition());
@@ -179,12 +184,12 @@ public class RepairsActivity extends BaseActivity {
         });
 
 
-        orderTypeEntityList= FileManagement.getOrderType();
+        orderTypeEntityList = FileManagement.getOrderType();
         initProblemSpinner();
-        resourceKey= UUID.randomUUID().toString().replaceAll("-","");
-        CurrentDistrictEntity currentDistrict=FileManagement.getUserInfo().getCurrentDistrict();
-        String address=currentDistrict.getProjectName()+currentDistrict.getPhaseName()+currentDistrict.getBuildingName()
-                +currentDistrict.getUnitName()+currentDistrict.getRoomName();
+        resourceKey = UUID.randomUUID().toString().replaceAll("-", "");
+        CurrentDistrictEntity currentDistrict = FileManagement.getUserInfo().getCurrentDistrict();
+        String address = currentDistrict.getProjectName() + currentDistrict.getPhaseName() + currentDistrict.getBuildingName()
+                + currentDistrict.getUnitName() + currentDistrict.getRoomName();
         addOrderEtAddress.setText(address);
         addOrderEtContact.setText(FileManagement.getUserInfo().getName());
         addOrderEtContactTel.setText(FileManagement.getUserInfo().getMobile());
@@ -198,6 +203,10 @@ public class RepairsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.login_btn_login:
+                if (problemValue == -1){
+                    showToast("工单类型获取失败");
+                    return;
+                }
                 addOrderSubmit();
                 break;
             case R.id.add_order_et_plain_time:
@@ -216,54 +225,30 @@ public class RepairsActivity extends BaseActivity {
         }
     }
 
-    private void initProblemSpinner(){
+    private void initProblemSpinner() {
         for (int i = 0; i < orderTypeEntityList.size(); i++) {
-            if(orderTypeEntityList.get(i).getParentId()==0){
-                problemData.add(orderTypeEntityList.get(i).getName());
-                problemTypeData.add(orderTypeEntityList.get(i));
-            }
+            problemData.add(orderTypeEntityList.get(i).getName());
+            problemTypeData.add(orderTypeEntityList.get(i));
         }
-        problemValue=problemTypeData.get(0).getId();
-        addOrderMsProblemType.setItems(problemData);
-        addOrderMsProblemType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                LogUtils.d(position+"_"+id+"_"+item.toString());
-                problemValue=problemTypeData.get(position).getId();
-                initProjectSpinner();
-            }
-        });
-        initProjectSpinner();
-    }
+        if (problemData != null && problemTypeData != null){
 
-    private void initProjectSpinner(){
-        projectData.clear();
-        projectTypeData.clear();
-        for (int i = 0; i < orderTypeEntityList.size(); i++) {
-            if(orderTypeEntityList.get(i).getParentId()==problemValue){
-                projectData.add(orderTypeEntityList.get(i).getName());
-                projectTypeData.add(orderTypeEntityList.get(i));
-                projectValue=orderTypeEntityList.get(i).getId();
-            }
-        }
-        projectValue=projectTypeData.get(0).getId();
-        if(projectDataAdapter==null){
-            projectDataAdapter=new MaterialSpinnerAdapter(this,projectData);
-            addOrderMsProjectType.setAdapter(projectDataAdapter);
-            addOrderMsProjectType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            addOrderLlProjectType.setVisibility(View.VISIBLE);
+            problemValue = problemTypeData.get(0).getId();
+            addOrderMsProblemType.setItems(problemData);
+            addOrderMsProblemType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                    LogUtils.d(position+"_"+id+"_"+item.toString());
-                    projectValue=projectTypeData.get(position).getId();
+                    LogUtils.d(position + "_" + id + "_" + item.toString());
+                    problemValue = problemTypeData.get(position).getId();
+
                 }
             });
         }else{
-            projectDataAdapter.notifyDataSetChanged();
-            addOrderMsProjectType.setSelectedIndex(0);
+            addOrderLlProjectType.setVisibility(View.GONE);
+            problemValue = -1;
         }
 
     }
-
     //计算返回的边界
     private void computeBoundsBackward(int firstCompletelyVisiblePos) {
         for (int i = firstCompletelyVisiblePos; i < adapter.getItemCount(); i++) {
@@ -278,67 +263,66 @@ public class RepairsActivity extends BaseActivity {
     }
 
 
+    private void addOrderSubmit() {
 
-    private void addOrderSubmit(){
-
-        if (!canSubmit){
+        if (!canSubmit) {
             showToast("不能重复，提交中...");
             return;
         }
         canSubmit = false;
 
-        if(TextUtils.isEmpty(addOrderEtAddress.getText())){
+        if (TextUtils.isEmpty(addOrderEtAddress.getText())) {
             showToast("请输入维修地点");
             return;
         }
-        if(TextUtils.isEmpty(addOrderEtContact.getText())){
+        if (TextUtils.isEmpty(addOrderEtContact.getText())) {
             showToast("请输入联系人");
             return;
         }
-        if(TextUtils.isEmpty(addOrderEtContactTel.getText())){
+        if (TextUtils.isEmpty(addOrderEtContactTel.getText())) {
             showToast("请输入联系电话");
             return;
         }
-        if(TextUtils.isEmpty(addOrderEtRemark.getText())){
+        if (TextUtils.isEmpty(addOrderEtRemark.getText())) {
             showToast("请输入问题描述");
             return;
         }
 
-        Map<String,Object> requestMap=new HashMap<>();
-        requestMap.put("address",addOrderEtAddress.getText().toString());
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("address", addOrderEtAddress.getText().toString());
         requestMap.put("createType", UserType.Household.getType());
-        requestMap.put("expectTime",addOrderEtPlainTime.getText().toString()+":00");
-        requestMap.put("householdId",FileManagement.getUserInfo().getId());
-        requestMap.put("linkMan",addOrderEtContact.getText().toString());
-        requestMap.put("mobile",addOrderEtContactTel.getText().toString());
-        requestMap.put("problemDesc",addOrderEtRemark.getText().toString());
-        requestMap.put("projectId",FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
+        requestMap.put("expectTime", addOrderEtPlainTime.getText().toString() + ":00");
+        requestMap.put("householdId", FileManagement.getUserInfo().getId());
+        requestMap.put("linkMan", addOrderEtContact.getText().toString());
+        requestMap.put("mobile", addOrderEtContactTel.getText().toString());
+        requestMap.put("problemDesc", addOrderEtRemark.getText().toString());
+        requestMap.put("projectId", FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
         requestMap.put("reportType", UserType.Household.getType());
-        requestMap.put("roomId",FileManagement.getUserInfo().getCurrentDistrict().getRoomId());
-        requestMap.put("typeId",projectValue);
-        if(dataList.size()>1)
-            requestMap.put("problemResourceKey",resourceKey);
+        requestMap.put("roomId", FileManagement.getUserInfo().getCurrentDistrict().getRoomId());
+        requestMap.put("typeId", problemValue);
+        if (dataList.size() > 1)
+            requestMap.put("problemResourceKey", resourceKey);
 
 
-        RequestParam requestParam = new RequestParam(BASE_URL+WORKORDER+"workflow/api/workorder", HttpMethod.Post);
+        RequestParam requestParam = new RequestParam(BASE_URL + WORKORDER + "workflow/api/workorder", HttpMethod.Post);
         requestParam.setRequestMap(requestMap);
         requestParam.setParamType(ParamType.Json);
-        requestParam.setCallback(new MyCallBack<String>(){
+        requestParam.setCallback(new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                BaseEntity baseEntity= JsonParse.parse(result);
-                if(baseEntity.isSuccess()){
-                    if(LynActivityManager.getInstance().getActivityByClass(WorkflowListActivity.class)!=null){
+                BaseEntity baseEntity = JsonParse.parse(result);
+                if (baseEntity.isSuccess()) {
+                    if (LynActivityManager.getInstance().getActivityByClass(WorkflowListActivity.class) != null) {
                         EventBus.getDefault().post(new EventBusMessage<>("WorkListRefresh"));
-                    }else{
-                        Bundle bundle=new Bundle();
+                    } else {
+                        Bundle bundle = new Bundle();
                         bundle.putSerializable("workflowType", WorkflowType.Order);
-                        startActivity(WorkflowListActivity.class,bundle);
+                        startActivity(WorkflowListActivity.class, bundle);
                     }
                     finish();
-                }else{
+                } else {
                     showToast(baseEntity.getMessage());
                 }
             }
@@ -368,13 +352,12 @@ public class RepairsActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_CODE_CHOOSE&&resultCode==RESULT_OK){
+        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             //图片路径 同样视频地址也是这个 根据requestCode
             List<Uri> pathList = Matisse.obtainResult(data);
             List<String> _List = new ArrayList<>();
-            for (Uri _Uri : pathList)
-            {
-                String _Path = FilePathUtil.getPathByUri(this,_Uri);
+            for (Uri _Uri : pathList) {
+                String _Path = FilePathUtil.getPathByUri(this, _Uri);
                 File _File = new File(_Path);
                 LogUtil.d("压缩前图片大小->" + _File.length() / 1024 + "k");
                 _List.add(_Path);
@@ -386,11 +369,11 @@ public class RepairsActivity extends BaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionsUtils.getInstance().onRequestPermissionsResult(this,requestCode,permissions,grantResults);
+        PermissionsUtils.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
     //压缩图片
-    private void compress(List<String> list){
+    private void compress(List<String> list) {
         String _Path = FilePathUtil.createPathIfNotExist("/" + SD_APP_DIR_NAME + "/" + PHOTO_DIR_NAME);
         LogUtil.d("_Path->" + _Path);
         Luban.with(this)
@@ -426,19 +409,19 @@ public class RepairsActivity extends BaseActivity {
     }
 
     //上传照片
-    private void uploadPic(final String path){
-        Map<String,Object> requestMap=new HashMap<>();
-        requestMap.put("resourceKey",resourceKey);
-        requestMap.put("UploadFile",new File(path));
-        RequestParam requestParam = new RequestParam(BASE_URL+FILE+"files-anon", HttpMethod.Upload);
+    private void uploadPic(final String path) {
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("resourceKey", resourceKey);
+        requestMap.put("UploadFile", new File(path));
+        RequestParam requestParam = new RequestParam(BASE_URL + FILE + "files-anon", HttpMethod.Upload);
         requestParam.setRequestMap(requestMap);
 
-        requestParam.setCallback(new MyCallBack<String>(){
+        requestParam.setCallback(new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 LogUtils.d(result);
-                dataList.add(dataList.size()-1,new ImageViewInfo(path));
+                dataList.add(dataList.size() - 1, new ImageViewInfo(path));
                 adapter.notifyDataSetChanged();
             }
 

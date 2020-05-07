@@ -580,7 +580,9 @@ public class CarManageEditActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+       // EventBus.getDefault().post(new EventBusMessage<>("carAdd"));
         EventBus.getDefault().unregister(this);
+
     }
 
 }

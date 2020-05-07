@@ -424,9 +424,13 @@ public class RepairsDetailActivity extends BaseActivity {
             address=workOrder.getAddress();
         }
         orderDetailAddress.setText(address);
-        orderDetailContact.setText(workOrder.getHouseholdName());
-        if (!TextUtils.isEmpty(workOrder.getHouseholdMobile())) {
-            orderDetailContactTel.setText(workOrder.getHouseholdMobile());
+        if (!TextUtils.isEmpty(workOrder.getLinkMan())){
+            orderDetailContact.setText(workOrder.getLinkMan());
+        }else{
+            orderDetailContact.setText("");
+        }
+        if (!TextUtils.isEmpty(workOrder.getMobile())) {
+            orderDetailContactTel.setText(workOrder.getMobile());
         } else {
             orderDetailContactTel.setVisibility(View.GONE);
         }

@@ -43,6 +43,7 @@ import butterknife.OnClick;
 
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
 import static com.chanfinecloud.cfl.config.Config.ARTICLE;
+import static com.chanfinecloud.cfl.util.UserInfoUtil.getCurrentHouseholdType;
 
 /**
 * 此类描述的是:通知公告activity
@@ -116,7 +117,7 @@ public class NoticeActivity extends BaseActivity {
         RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE +"smart/content/pages", HttpMethod.Get);
         Map<String, String> requestMap = new HashMap<>();
         requestMap.put("projectId", FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
-        requestMap.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());
+        requestMap.put("receiver", getCurrentHouseholdType());
         requestMap.put("announcementTypeId", getIntent().getExtras().getString("notice_type"));
         requestMap.put("auditStatus", "1");
         requestMap.put("pageNo", page + "");

@@ -8,10 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.smart.RoomHouseholdEntity;
+import com.chanfinecloud.cfl.weidgt.photopicker.GlideRoundTransform;
 
 import java.util.List;
 
@@ -32,11 +35,12 @@ public class RoomHouseholdListAdapter extends BaseQuickAdapter<RoomHouseholdEnti
         helper.setText(R.id.item_room_user_name,TextUtils.isEmpty(item.getNickName())?item.getName():item.getNickName());
         helper.setText(R.id.item_room_user_type, item.getHouseholdTypeDisplay());
         ImageView picView=helper.getView(R.id.item_room_user_avatar);
-        if(!TextUtils.isEmpty(item.getAvatarResource())){
+        if( item.getAvatarResource() != null && !TextUtils.isEmpty(item.getAvatarResource().getUrl())){
             Glide.with(context)
-                    .load(item.getAvatarResource())
+                    .load(item.getAvatarResource().getUrl())
                     .error(R.drawable.ic_default_img)
-                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .transform(new CenterCrop(),new GlideRoundTransform(context, 120))
                     .into(picView);
         }else{
             Glide.with(context)

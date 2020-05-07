@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -39,6 +41,7 @@ import com.chanfinecloud.cfl.util.FilePathUtil;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.util.LynActivityManager;
 import com.chanfinecloud.cfl.util.PermissionsUtils;
+import com.chanfinecloud.cfl.util.Utils;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImagePreviewListAdapter;
 import com.chanfinecloud.cfl.weidgt.imagepreview.ImageViewInfo;
 import com.chanfinecloud.cfl.weidgt.imagepreview.PreviewBuilder;
@@ -166,6 +169,25 @@ public class ComplainActivity extends BaseActivity {
         initSpinner();
         resourceKey= UUID.randomUUID().toString().replaceAll("-","");
 
+
+        addComplainEtRemark.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Utils.setProhibitEmoji(addComplainEtRemark);
 
     }
 

@@ -22,6 +22,7 @@ import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.BaseEntity;
 import com.chanfinecloud.cfl.entity.eventbus.EventBusMessage;
 import com.chanfinecloud.cfl.entity.eventbus.FaceCollectionEventBusData;
+import com.chanfinecloud.cfl.entity.smart.CurrentDistrictEntity;
 import com.chanfinecloud.cfl.entity.smart.FileEntity;
 import com.chanfinecloud.cfl.entity.smart.HouseholdRoomEntity;
 import com.chanfinecloud.cfl.entity.smart.UserInfoEntity;
@@ -88,6 +89,7 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
 
     private boolean update;
     private List<HouseholdRoomEntity> roomList;
+    private CurrentDistrictEntity currentDistrictEntity;
     private FileEntity file;
     private int flag;
 
@@ -108,7 +110,8 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         id=bundle.getString("id");
         name=bundle.getString("name");
         update=bundle.getBoolean("update");
-        roomList = FileManagement.getUserInfo().getRoomList();
+       // roomList = FileManagement.getUserInfo().getRoomList();
+        currentDistrictEntity = FileManagement.getUserInfo().getCurrentDistrict();
         if(Build.VERSION.SDK_INT>=23){
             int hasPermission = checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
             if(hasPermission!= PackageManager.PERMISSION_GRANTED){
@@ -244,8 +247,8 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
      * 下发人脸
      */
     private void faceAccess(){
-        flag=0;
-        if (roomMap.size() > 0 ){
+       // flag=0;
+       /* if (roomMap.size() > 0 ){
             roomMap.clear();
         }
         for (int i = 0; i < roomList.size(); i++) {
@@ -266,14 +269,15 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             }else{
                 roomMap.put(phaseId, unitIds);
             }
-        }
-        for(Map.Entry<String, String> entry : roomMap.entrySet()){
+        }*/
+       // for(Map.Entry<String, String> entry : roomMap.entrySet()){}
 
+        if (currentDistrictEntity != null){
             Map<String,Object> requestMap=new HashMap<>();
             requestMap.put("id",id);
             requestMap.put("name",name);
-            requestMap.put("phaseId",entry.getKey());
-            requestMap.put("unitIds",entry.getValue());
+            requestMap.put("phaseId",currentDistrictEntity.getPhaseId());
+            requestMap.put("unitIds",currentDistrictEntity.getUnitId());
             RequestParam requestParam = new RequestParam(BASE_URL+IOT+"community/api/access/v1/face/"+file.getId(), HttpMethod.Put);
 
 //            if(update){
@@ -295,7 +299,10 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             requestParam.setCallback(faceAccessBack);
 
             sendRequest(requestParam,false);
+        }else{
+            showToast("当前房屋信息获取失败");
         }
+
     }
 
     /**
@@ -306,7 +313,6 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         public void onSuccess(String result) {
             super.onSuccess(result);
             LogUtils.d(result);
-            flag++;
             BaseEntity baseEntity= JsonParse.parse(result);
             if(!baseEntity.isSuccess()){
                 showToast(baseEntity.getMessage());
@@ -317,7 +323,6 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         @Override
         public void onError(Throwable ex, boolean isOnCallback) {
             super.onError(ex, isOnCallback);
-            flag++;
             showToast(ex.getMessage());
             stopProgressDialog();
         }
@@ -325,15 +330,15 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
         @Override
         public void onFinished() {
             super.onFinished();
-            if(flag==roomMap.size()){
-                EventBusMessage<FaceCollectionEventBusData> eventBusMessage=new EventBusMessage<>("faceCollection");
-                String createTime = file.getCreateTime();
-                createTime=createTime.replace("T"," ");
-                createTime=createTime.substring(0,19);
-                eventBusMessage.setData(new FaceCollectionEventBusData(createTime,file.getDomain()+file.getUrl()));
-                EventBus.getDefault().post(eventBusMessage);
-                updateHouseholdFace(file.getId());
-            }
+
+            EventBusMessage<FaceCollectionEventBusData> eventBusMessage=new EventBusMessage<>("faceCollection");
+            String createTime = file.getCreateTime();
+            createTime=createTime.replace("T"," ");
+            createTime=createTime.substring(0,19);
+            eventBusMessage.setData(new FaceCollectionEventBusData(createTime,file.getDomain()+file.getUrl()));
+            EventBus.getDefault().post(eventBusMessage);
+            updateHouseholdFace(file.getId());
+
         }
     };
 

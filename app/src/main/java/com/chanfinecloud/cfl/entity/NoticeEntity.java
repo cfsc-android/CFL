@@ -58,7 +58,8 @@ public class NoticeEntity implements Serializable {
     private String notifyEvent;
     private int pushStatus;
     private int auditStatus;
-    private int receiver;
+    private String receiver;
+    private String receiverDesc;
     private int browseNum;
     private int praiseNum;
     private int collectionNum;
@@ -185,12 +186,20 @@ public class NoticeEntity implements Serializable {
         this.auditStatus = auditStatus;
     }
 
-    public int getReceiver() {
+    public String getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(int receiver) {
+    public void setReceiver(String receiver) {
         this.receiver = receiver;
+    }
+
+    public String getReceiverDesc() {
+        return receiverDesc;
+    }
+
+    public void setReceiverDesc(String receiverDesc) {
+        this.receiverDesc = receiverDesc;
     }
 
     public int getBrowseNum() {

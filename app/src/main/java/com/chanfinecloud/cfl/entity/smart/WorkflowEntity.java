@@ -32,23 +32,24 @@ public class WorkflowEntity implements Serializable {
      * nodeName : 到场拍照
      * assignTime : 2020-03-12 15:57:54
      */
-
     private String id;
-    private String processId;
+    private Object processId;
     private String problemDesc;
+    private String code;
+    private String projectId;
+    private String projectName;
     private String problemResourceKey;
     private String liveResourceKey;
     private int typeId;
     private String typeName;
     private int statusId;
     private String statusName;
-    private String createBy;
+    private String householdId;
     private String createTime;
-    private String creator;
-    private String avatarUrl;
-    private String creatorMobile;
-    private String briefDesc;
-    private String handlerId;
+    private String householdName;
+    private String householdMobile;
+    private String address;
+    private String assigneeId;
     private String nodeName;
     private String assignTime;
     private List<ResourceEntity> problemResourceValue;
@@ -63,11 +64,11 @@ public class WorkflowEntity implements Serializable {
         this.id = id;
     }
 
-    public String getProcessId() {
+    public Object getProcessId() {
         return processId;
     }
 
-    public void setProcessId(String processId) {
+    public void setProcessId(Object processId) {
         this.processId = processId;
     }
 
@@ -77,6 +78,30 @@ public class WorkflowEntity implements Serializable {
 
     public void setProblemDesc(String problemDesc) {
         this.problemDesc = problemDesc;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getProblemResourceKey() {
@@ -127,12 +152,12 @@ public class WorkflowEntity implements Serializable {
         this.statusName = statusName;
     }
 
-    public String getCreateBy() {
-        return createBy;
+    public String getHouseholdId() {
+        return householdId;
     }
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
+    public void setHouseholdId(String householdId) {
+        this.householdId = householdId;
     }
 
     public String getCreateTime() {
@@ -143,44 +168,36 @@ public class WorkflowEntity implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getCreator() {
-        return creator;
+    public String getHouseholdName() {
+        return householdName;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setHouseholdName(String householdName) {
+        this.householdName = householdName;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getHouseholdMobile() {
+        return householdMobile;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setHouseholdMobile(String householdMobile) {
+        this.householdMobile = householdMobile;
     }
 
-    public String getCreatorMobile() {
-        return creatorMobile;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCreatorMobile(String creatorMobile) {
-        this.creatorMobile = creatorMobile;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getBriefDesc() {
-        return briefDesc;
+    public String getAssigneeId() {
+        return assigneeId;
     }
 
-    public void setBriefDesc(String briefDesc) {
-        this.briefDesc = briefDesc;
-    }
-
-    public String getHandlerId() {
-        return handlerId;
-    }
-
-    public void setHandlerId(String handlerId) {
-        this.handlerId = handlerId;
+    public void setAssigneeId(String assigneeId) {
+        this.assigneeId = assigneeId;
     }
 
     public String getNodeName() {

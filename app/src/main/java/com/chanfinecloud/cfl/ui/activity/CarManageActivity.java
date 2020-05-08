@@ -63,9 +63,14 @@ public class CarManageActivity extends BaseActivity {
     @BindView(R.id.car_manage_smart)
     SmartRefreshLayout carManageSmart;
 
+    private int pageNo = 1;
+    private int pageSize = 4;
+    private int maxPage = 1;
 
     private CarManageRecyclerViewAdapter carManageListAdapter;
     private ArrayList<CarEntity> carManageList = new ArrayList<>();
+    private LinearLayoutManager linearLayoutManager;
+    private int scrollFlag;//0完成刷新  ，1 刷新中 禁止滚动刷新求情
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,19 +85,27 @@ public class CarManageActivity extends BaseActivity {
         toolbarTvTitle.setText("车辆管理");
         toolbarBtnAction.setVisibility(View.VISIBLE);
         toolbarBtnAction.setImageResource(R.drawable.btn_home_add);
-
+        scrollFlag = 0;
         EventBus.getDefault().register(this);
-
-        carManageRecycle.setLayoutManager(new LinearLayoutManager(this));
+        linearLayoutManager = new LinearLayoutManager(this);
+        carManageRecycle.setLayoutManager(linearLayoutManager);
         // Item Decorator:
         carManageRecycle.addItemDecoration(new RecyclerViewDivider(this, LinearLayoutManager.VERTICAL, R.drawable.divider));
         carManageRecycle.setItemAnimator(new FadeInLeftAnimator());
-
         carManageRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                // TODO: 2020/5/6   分页请求不清晰
+                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                if (lastVisibleItemPosition == carManageList.size() - 1 && scrollFlag == 0) {
+                    pageNo++;
+                    scrollFlag = 1;
+                    if (pageNo > maxPage) {
+                        //toastFragment("没有更多数据了");
+                    } else {
+                        getCarManageList(true);
+                    }
+                }
 
             }
         });
@@ -102,8 +115,10 @@ public class CarManageActivity extends BaseActivity {
         carManageSmart.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                getCarManageList();
-
+                pageNo = 1;
+                if (carManageList != null)
+                    carManageList.clear();
+                getCarManageList(false);
                 carManageSmart.finishRefresh(3000);
             }
         });
@@ -121,7 +136,7 @@ public class CarManageActivity extends BaseActivity {
 
         carManageRecycle.setAdapter(carManageListAdapter);
 
-        getCarManageList();
+        getCarManageList(true);
     }
 
     @Override
@@ -142,7 +157,7 @@ public class CarManageActivity extends BaseActivity {
                 LogUtils.d(result);
                 BaseEntity baseEntity = JsonParse.parse(result);
                 if (baseEntity.isSuccess()) {
-                    getCarManageList();
+                    getCarManageList(true);
                 } else {
                     showToast(baseEntity.getMessage());
                 }
@@ -167,12 +182,14 @@ public class CarManageActivity extends BaseActivity {
                 getResources().getDisplayMetrics());
     }
 
-    private void getCarManageList() {
+    private void getCarManageList(boolean show) {
 
-        startProgressDialog(true);
+        if (show){
+            startProgressDialog(true);
+        }
         Map<String, String> requestMap = new HashMap<>();
-        requestMap.put("pageNo", "1");
-        requestMap.put("pageSize", "50");
+        requestMap.put("pageNo", pageNo+"");
+        requestMap.put("pageSize", pageSize+"");
         RequestParam requestParam = new RequestParam(BASE_URL + BASIC + "basic/vehicleInfo/vehiclePage", HttpMethod.Get);
         requestParam.setRequestMap(requestMap);
         requestParam.setCallback(new MyCallBack<String>() {
@@ -182,7 +199,9 @@ public class CarManageActivity extends BaseActivity {
                 LogUtils.d(result);
                 BaseEntity<CarListEntity> baseEntity = JsonParse.parse(result, CarListEntity.class);
                 if (baseEntity.isSuccess()) {
-                    carManageList.clear();
+                    int count = baseEntity.getResult().getCount();
+                    maxPage = (int) Math.ceil(count/pageSize);
+                    scrollFlag = 0;
                     carManageList.addAll(baseEntity.getResult().getData());
                     carManageListAdapter.setData(carManageList);
 
@@ -212,7 +231,7 @@ public class CarManageActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(EventBusMessage message) {
         if ("carAdd".equals(message.getMessage())) {
-            getCarManageList();
+            getCarManageList(true);
         } else if ("onCarItemDelete".equals(message.getMessage())) {
             String postion = String.valueOf(message.getData());
             deleteCar(Integer.parseInt(postion));

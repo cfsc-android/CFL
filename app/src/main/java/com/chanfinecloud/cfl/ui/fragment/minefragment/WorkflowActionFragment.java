@@ -3,7 +3,6 @@ package com.chanfinecloud.cfl.ui.fragment.minefragment;
 import android.animation.Animator;
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +11,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -23,6 +25,7 @@ import com.chanfinecloud.cfl.entity.smart.ComplainDetailsEntity;
 import com.chanfinecloud.cfl.entity.smart.EmergencyLevelType;
 import com.chanfinecloud.cfl.entity.smart.OperationInfoEntity;
 import com.chanfinecloud.cfl.entity.smart.OrderDetailsEntity;
+import com.chanfinecloud.cfl.entity.smart.WorkflowContentVerificationEntity;
 import com.chanfinecloud.cfl.entity.smart.WorkflowFormContentEntity;
 import com.chanfinecloud.cfl.entity.smart.WorkflowProcessesEntity;
 import com.chanfinecloud.cfl.entity.smart.WorkflowType;
@@ -56,8 +59,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -480,7 +481,7 @@ public class WorkflowActionFragment extends BaseFragment {
             }
             if(workflowViewEntity!=null){
                 workflowActionContentLl.addView(workflowViewEntity.getView());
-                workflowViewTagList.add(new WorkflowViewTagEntity(formContent.get(i).getFormItemType(),formContent.get(i).getFormKey(),workflowViewEntity));
+                workflowViewTagList.add(new WorkflowViewTagEntity(formContent.get(i).getFormItemType(),formContent.get(i).getFormKey(),workflowViewEntity, formContent.get(i)));
             }
         }
     }
@@ -521,6 +522,9 @@ public class WorkflowActionFragment extends BaseFragment {
                 }
             }else if("textarea".equals(workflowViewTag.getFormType())){
                 EditTextFilterView remark= (EditTextFilterView) workflowViewTag.getWorkflowView().getContent();
+                if (!contentVerificationPass(remark.getText().toString(), workflowViewTag.getWorkflowFormContent())){
+                    return;
+                }
                 map.put(workflowViewTag.getFormKey(),remark.getText().toString());
             }else if("director".equals(workflowViewTag.getFormType())||"employee".equals(workflowViewTag.getFormType())||"emergency".equals(workflowViewTag.getFormType())){
                 MaterialSpinner assignId= (MaterialSpinner) workflowViewTag.getWorkflowView().getContent();
@@ -533,13 +537,10 @@ public class WorkflowActionFragment extends BaseFragment {
                 map.put(workflowViewTag.getFormKey(),rate.getRating());
             }else if("input_number".equals(workflowViewTag.getFormType())){
                 EditTextFilterView manualCost= (EditTextFilterView) workflowViewTag.getWorkflowView().getContent();
-                if (Utils.isEmpty(manualCost.getText().toString())){
-                    showToast("请填写正确的数值内容");
+                if (!contentVerificationPass(manualCost.getText().toString(), workflowViewTag.getWorkflowFormContent())){
                     return;
-                }else{
-                    map.put(workflowViewTag.getFormKey(),Double.parseDouble(manualCost.getText().toString()));
                 }
-
+                map.put(workflowViewTag.getFormKey(),Double.parseDouble(manualCost.getText().toString()));
             }
         }
         map.put("businessId",businessId);
@@ -552,6 +553,52 @@ public class WorkflowActionFragment extends BaseFragment {
         LogUtil.d(gson.toJson(map));
         workflowAction(map);
     }
+
+    /**
+     * 统一校验流程提交内容的合法性
+     * @param content
+     * @param workflowFormContentEntity
+     * @return
+     */
+    private boolean contentVerificationPass(String content, WorkflowFormContentEntity workflowFormContentEntity) {
+        if (workflowFormContentEntity.getRequired() != null && workflowFormContentEntity.getRequired().equals("true")){
+            if (Utils.isEmpty(content)){
+                showToast("提交内容不能为空");
+                return false;
+            }
+        }
+        List<WorkflowContentVerificationEntity> valid = workflowFormContentEntity.getValid();
+        if (!Utils.isEmpty(content) && valid != null && valid.size() > 0){
+            for (int i = 0; i < valid.size(); i++){
+                WorkflowContentVerificationEntity verificationEntity = valid.get(i);
+                if (verificationEntity != null){
+                    switch (verificationEntity.getType()){
+                        case "String":
+                            if (content.length() > Integer.parseInt(verificationEntity.getMaxLength())){
+                                showToast(verificationEntity.getMessage());
+                                return false;
+                            }
+                            break;
+                        case "Number":
+
+                            if (Double.parseDouble(content) > Double.parseDouble(verificationEntity.getMax())
+                                    || Double.parseDouble(content) < Double.parseDouble(verificationEntity.getMin())){
+
+                                showToast(verificationEntity.getMessage());
+                                return false;
+                            }
+                            break;
+                    }
+
+                }
+
+            }
+
+        }
+
+        return true;
+    }
+
     /**
      * 初始化流程处理请求参数
      * @param map

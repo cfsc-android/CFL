@@ -6,16 +6,19 @@ package com.chanfinecloud.cfl.entity.smart;
  * Describe: 公告接收方
  */
 public enum NoticeReceiverType {
-    业主(1),
-    员工(2),
-    全部(3);
-    private final int type;
+    业主("YZ"),
+    家属("JS"),
+    租户("ZH"),
+    商户("SH"),
+    员工("YG"),
+    游客("YK");
+    private final String type;
 
-    NoticeReceiverType(int type) {
+    NoticeReceiverType(String type) {
         this.type = type;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 }

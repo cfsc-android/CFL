@@ -68,6 +68,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static com.chanfinecloud.cfl.config.Config.ARTICLE;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.util.UserInfoUtil.getCurrentHouseholdType;
 import static com.chanfinecloud.cfl.util.Utils.toHideBadgeView;
 
 /**
@@ -190,7 +191,7 @@ public class HomeFragment extends BaseFragment {
         RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE + "smart/content/pages", HttpMethod.Get);
         Map<String, String> map = new HashMap<>();
         map.put("projectId", FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
-        map.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());
+        map.put("receiver", getCurrentHouseholdType());
         map.put("announcementTypeId", NoticeType.热点关注.getType());
         map.put("auditStatus", "1");
         map.put("pageNo", "1");
@@ -237,7 +238,7 @@ public class HomeFragment extends BaseFragment {
         Map<String, String> map = new HashMap<>();
         // TODO: 2020/4/10  动态获取
         map.put("projectId",FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
-        map.put("receiver", NoticeReceiverType.全部.getType() + "," + NoticeReceiverType.业主.getType());
+        map.put("receiver", getCurrentHouseholdType());
         map.put("announcementTypeId", NoticeType.轮播动态.getType());
         map.put("auditStatus", "1");
         map.put("pageNo", "1");

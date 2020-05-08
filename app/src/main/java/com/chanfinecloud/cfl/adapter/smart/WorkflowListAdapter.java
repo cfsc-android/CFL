@@ -32,7 +32,7 @@ public class WorkflowListAdapter extends BaseQuickAdapter<WorkflowEntity, BaseVi
         helper.setText(R.id.order_list_tv_type, item.getTypeName());
         helper.setText(R.id.order_list_tv_time,item.getCreateTime());
         helper.setText(R.id.order_list_tv_workflow,item.getStatusName());
-        helper.setText(R.id.order_list_tv_room,item.getBriefDesc());
+        helper.setText(R.id.order_list_tv_room,item.getAddress());
         ImageView picView=helper.getView(R.id.order_list_iv_pic);
         if(item.getProblemResourceValue()!=null&&item.getProblemResourceValue().size()>0){
             Glide.with(context)

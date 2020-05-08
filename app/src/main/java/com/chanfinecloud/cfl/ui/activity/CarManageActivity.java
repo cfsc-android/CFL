@@ -24,6 +24,7 @@ import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+import com.chanfinecloud.cfl.util.FileManagement;
 import com.chanfinecloud.cfl.util.LogUtils;
 import com.chanfinecloud.cfl.weidgt.RecyclerViewDivider;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -190,6 +191,7 @@ public class CarManageActivity extends BaseActivity {
         Map<String, String> requestMap = new HashMap<>();
         requestMap.put("pageNo", pageNo+"");
         requestMap.put("pageSize", pageSize+"");
+        requestMap.put("ownerPhone", FileManagement.getUserInfo().getMobile());
         RequestParam requestParam = new RequestParam(BASE_URL + BASIC + "basic/vehicleInfo/vehiclePage", HttpMethod.Get);
         requestParam.setRequestMap(requestMap);
         requestParam.setCallback(new MyCallBack<String>() {

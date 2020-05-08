@@ -66,10 +66,6 @@ import static com.chanfinecloud.cfl.config.Config.BASIC;
 import static com.chanfinecloud.cfl.config.Config.FILE;
 import static com.chanfinecloud.cfl.config.Config.PHOTO_DIR_NAME;
 import static com.chanfinecloud.cfl.config.Config.SD_APP_DIR_NAME;
-import static com.chanfinecloud.cfl.util.EnumUtils.getCarColorString;
-import static com.chanfinecloud.cfl.util.EnumUtils.getCarTypeString;
-import static com.chanfinecloud.cfl.util.EnumUtils.getPlateColorString;
-import static com.chanfinecloud.cfl.util.EnumUtils.getPlateTypeString;
 
 public class CarManageAddActivity extends BaseActivity {
 

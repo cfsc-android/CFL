@@ -32,9 +32,9 @@ public class CarEntity implements Serializable {
      * parkingNO : 123456
      * parkStartdate :
      * parkEnddate :
-     * status : 0
+     * status : 0 字段状态(0-正常,1-冻结,2-删除)
      * description :
-     * auditStatus : 0
+     * auditStatus : 0  审核状态（0 未审核，1审核通过）
      * householdName : 马冬梅
      * projectName : 长房明宸府
      * mobile : 13687954685
@@ -52,7 +52,6 @@ public class CarEntity implements Serializable {
     private String createTime;
     private String updateTime;
     private String householdId;
-    private String roomId;
     private String plateNO;
     private String ownerPhone;
     private String ownerName;
@@ -63,8 +62,8 @@ public class CarEntity implements Serializable {
     private String plateColor;
     private String parkingAddress;
     private String parkingNO;
-    private String parkStartdate;
-    private String parkEnddate;
+    private String startTime;
+    private String endTime;
     private int status;
     private String description;
     private int auditStatus;
@@ -72,9 +71,8 @@ public class CarEntity implements Serializable {
     private String projectName;
     private String mobile;
     private String projectId;
-    private String periodTime;
     private String nickName;
-    private String due;
+    private String overDue;
     private int type;
     private ResourceEntity vehicleImageResource;
 
@@ -124,14 +122,6 @@ public class CarEntity implements Serializable {
 
     public void setHouseholdId(String householdId) {
         this.householdId = householdId;
-    }
-
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
     }
 
     public String getPlateNO() {
@@ -214,20 +204,20 @@ public class CarEntity implements Serializable {
         this.parkingNO = parkingNO;
     }
 
-    public String getParkStartdate() {
-        return parkStartdate;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setParkStartdate(String parkStartdate) {
-        this.parkStartdate = parkStartdate;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public String getParkEnddate() {
-        return parkEnddate;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setParkEnddate(String parkEnddate) {
-        this.parkEnddate = parkEnddate;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public int getStatus() {
@@ -286,14 +276,6 @@ public class CarEntity implements Serializable {
         this.projectId = projectId;
     }
 
-    public String getPeriodTime() {
-        return periodTime;
-    }
-
-    public void setPeriodTime(String periodTime) {
-        this.periodTime = periodTime;
-    }
-
     public String getNickName() {
         return nickName;
     }
@@ -302,12 +284,12 @@ public class CarEntity implements Serializable {
         this.nickName = nickName;
     }
 
-    public String getDue() {
-        return due;
+    public String getOverDue() {
+        return overDue;
     }
 
-    public void setDue(String due) {
-        this.due = due;
+    public void setOverDue(String overDue) {
+        this.overDue = overDue;
     }
 
     public int getType() {

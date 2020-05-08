@@ -152,8 +152,7 @@ public class CarManageEditActivity extends BaseActivity {
         toolbarTvAction.setText("确定");
         toolbarTvAction.setVisibility(View.VISIBLE);
         toolbarBtnAction.setVisibility(View.GONE);
-        tvCarManageEditCharge.setVisibility(View.VISIBLE);
-        tvCarManageEditCharge.setText("包期");
+
         initViewData();
         Bundle bundle = getIntent().getExtras();
         carManageEntity = (CarEntity) bundle.getSerializable("car");
@@ -447,7 +446,7 @@ public class CarManageEditActivity extends BaseActivity {
         Map<String, Object> requestDataMap = new HashMap<>();
         requestDataMap.put("parkSyscode", FileManagement.getParkIndexCode());
         if (carManageEntity != null) {
-            requestDataMap.put("plateNO", carManageEntity.getPlateNO());
+            requestDataMap.put("plateNo", carManageEntity.getPlateNO());
         }
         requestDataMap.put("fee", feeStr);
         requestDataMap.put("startTime", startTime);
@@ -509,11 +508,14 @@ public class CarManageEditActivity extends BaseActivity {
                                     try {
                                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                         Date end_date = sdf.parse(carManageEntity.getEndTime());
-                                        if (carManageEntity.getOverDue().equals(true)) {
+                                        if (carManageEntity.getOverDue().equals("true")) {
                                             tvCarManageEditPayMode.setText("包期-已过期\r\n" + carManageEntity.getStartTime() +
                                                     "至" + carManageEntity.getEndTime());
+                                            tvCarManageEditCharge.setVisibility(View.VISIBLE);
+                                            tvCarManageEditCharge.setText("包期");
                                         } else if (end_date.getTime() > new Date().getTime() && end_date.getTime() < new Date().getTime() + 7 * 24 * 60 * 60 * 1000) {
                                             tvCarManageEditCharge.setText("即将到期，续费");
+                                            tvCarManageEditCharge.setVisibility(View.VISIBLE);
                                         } else {
                                             tvCarManageEditCharge.setVisibility(View.GONE);
                                         }
@@ -521,7 +523,10 @@ public class CarManageEditActivity extends BaseActivity {
                                         e.printStackTrace();
                                     }
                                 } else {
+                                    tvCarManageEditPayMode.setVisibility(View.VISIBLE);
                                     tvCarManageEditPayMode.setText("临时车缴费");
+                                    tvCarManageEditCharge.setVisibility(View.VISIBLE);
+                                    tvCarManageEditCharge.setText("包期");
                                 }
                             }
                         }

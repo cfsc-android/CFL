@@ -22,6 +22,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.CFLApplication;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
@@ -396,6 +399,41 @@ public class Utils {
         }
         return false;
 
+    }
+
+    /**
+     * damien recyclerView 是否滑动到底部
+     * @param recyclerView
+     * @return
+     */
+    public static boolean isVisBottom(RecyclerView recyclerView){
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        //屏幕中最后一个可见子项的position
+        int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+        //当前屏幕所看到的子项个数
+        int visibleItemCount = layoutManager.getChildCount();
+        //当前RecyclerView的所有子项个数
+        int totalItemCount = layoutManager.getItemCount();
+        //RecyclerView的滑动状态
+        int state = recyclerView.getScrollState();
+        if(visibleItemCount > 0 && lastVisibleItemPosition == totalItemCount - 1 && state == recyclerView.SCROLL_STATE_IDLE){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * recyclerView 是否滑动到底部
+     * @param recyclerView
+     * @return
+     */
+    public static boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
     }
 
 }

@@ -158,7 +158,9 @@ public class CarManageRecyclerViewAdapter extends RecyclerSwipeAdapter<CarManage
                 notifyDataSetChanged();
             }
         });
-        if (!Utils.isEmpty(carManage.getEndTime()) && !Utils.isEmpty(carManage.getStartTime())) {
+        if ( carManage.getType() == 3) {
+            viewHolder.tvCarManagePayMode.setText("群组车");
+        } else if (!Utils.isEmpty(carManage.getEndTime()) && !Utils.isEmpty(carManage.getStartTime())) {
             long nTime = new Date().getTime();
             if (Utils.getDateTimeByStringAndFormat(carManage.getStartTime(), "yyyy-MM-dd") > nTime) {
                 viewHolder.tvCarManagePayMode.setText("包期-未开始");

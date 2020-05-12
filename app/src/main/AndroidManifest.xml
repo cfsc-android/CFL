@@ -38,69 +38,104 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.VideoCallInActivity"
+        <activity android:name=".ui.activity.CommunityEventsEnrollActivity"></activity>
+        <activity android:name=".ui.activity.CommunityEventsDetailActivity" />
+        <activity android:name=".ui.activity.CommunityEventsMoreActivity" />
+        <activity
+            android:name=".ui.activity.VideoCallInActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.homehead.VideoCall2Activity"
+        <activity
+            android:name=".ui.activity.homehead.VideoCall2Activity"
             android:launchMode="singleTask" />
-        <activity android:name=".weidgt.imagepreview.ui.PreviewActivity"
+        <activity
+            android:name=".weidgt.imagepreview.ui.PreviewActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".weidgt.imagepreview.ui.VideoPlayerActivity"
+        <activity
+            android:name=".weidgt.imagepreview.ui.VideoPlayerActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.homehead.VideoCallActivity"
+        <activity
+            android:name=".ui.activity.homehead.VideoCallActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.CarManageEditActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".ui.activity.UnLockListActivity"
+        <activity
+            android:name=".ui.activity.CarManageEditActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.CarManageAddActivity"
+        <activity
+            android:name=".ui.activity.UnLockListActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.ComplainActivity"
+        <activity
+            android:name=".ui.activity.CarManageAddActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.RepairsActivity"
+        <activity
+            android:name=".ui.activity.ComplainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.WorkflowStepActivity"
+        <activity
+            android:name=".ui.activity.RepairsActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.ComplainDetailActivity"
+        <activity
+            android:name=".ui.activity.WorkflowStepActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.RepairsDetailActivity"
+        <activity
+            android:name=".ui.activity.ComplainDetailActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.minefeatures.WorkflowListActivity"
+        <activity
+            android:name=".ui.activity.RepairsDetailActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.CarManageActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".ui.activity.OtherRoomDetailActivity"
+        <activity
+            android:name=".ui.activity.minefeatures.WorkflowListActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.HouseholdAuditListActivity"
+        <activity
+            android:name=".ui.activity.CarManageActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.ProjectSelectActivity"
+        <activity
+            android:name=".ui.activity.OtherRoomDetailActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.HouseholdAuditActivity"
+        <activity
+            android:name=".ui.activity.HouseholdAuditListActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.HouseholdTypeSelectActivity"
+        <activity
+            android:name=".ui.activity.ProjectSelectActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.RoomSelectActivity"
+        <activity
+            android:name=".ui.activity.HouseholdAuditActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.HouseManageActivity"
+        <activity
+            android:name=".ui.activity.HouseholdTypeSelectActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.UnitSelectActivity"
+        <activity
+            android:name=".ui.activity.RoomSelectActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.FaceCollectionPhotoActivity"
+        <activity
+            android:name=".ui.activity.HouseManageActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.HouseholdFaceActivity"
+        <activity
+            android:name=".ui.activity.UnitSelectActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.minefeatures.HouseHoldActivity"
+        <activity
+            android:name=".ui.activity.FaceCollectionPhotoActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.homehead.CarLock"
+        <activity
+            android:name=".ui.activity.HouseholdFaceActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.NewVisitorActivity"
+        <activity
+            android:name=".ui.activity.minefeatures.HouseHoldActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.VisitorQrCodeActivity"
+        <activity
+            android:name=".ui.activity.homehead.CarLock"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.homehead.VisitorActivity"
+        <activity
+            android:name=".ui.activity.NewVisitorActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.RegisterActivity"
+        <activity
+            android:name=".ui.activity.VisitorQrCodeActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.homehead.UnLock"
+        <activity
+            android:name=".ui.activity.homehead.VisitorActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.activity.homehead.UnLock"
             android:launchMode="singleTask" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.MainActivity" />
@@ -112,36 +147,51 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.SettingActivity"
+        <activity
+            android:name=".ui.activity.SettingActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.SettingDetailActivity"
+        <activity
+            android:name=".ui.activity.SettingDetailActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.SettingAboutActivity"
+        <activity
+            android:name=".ui.activity.SettingAboutActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.WaitingForDevelopmentActivity"
+        <activity
+            android:name=".ui.activity.WaitingForDevelopmentActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.NewsInfoActivity"
+        <activity
+            android:name=".ui.activity.NewsInfoActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.NoticeActivity"
+        <activity
+            android:name=".ui.activity.NoticeActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.NoticeDetailActivity"
+        <activity
+            android:name=".ui.activity.NoticeDetailActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.NoticeAttachmentActivity"
+        <activity
+            android:name=".ui.activity.NoticeAttachmentActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.LifePaymentActivity"
+        <activity
+            android:name=".ui.activity.LifePaymentActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.CommentActivity"
+        <activity
+            android:name=".ui.activity.CommentActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.CommentDetailActivity"
+        <activity
+            android:name=".ui.activity.CommentDetailActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.PersonActivity"
+        <activity
+            android:name=".ui.activity.PersonActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.PersonNickNameActivity"
+        <activity
+            android:name=".ui.activity.PersonNickNameActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.ParkingPaymentActivity"
+        <activity
+            android:name=".ui.activity.ParkingPaymentActivity"
             android:launchMode="singleTask" />
         <activity android:name=".ui.activity.PaymentTestActivity" /> <!-- 网络状态监听服务 -->
         <receiver android:name=".receiver.NetBroadcastReceiver">

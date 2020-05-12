@@ -51,7 +51,9 @@ public class UserInfoUtil {
      * 刷新服务器用户信息缓存
      */
     public static void refreshUserInfoByServerCache(OnRefreshListener listener){
-        XHttp.Get(BASE_URL+BASIC+"basic/householdInfo/household-anon/refresh",null,null,new MyCallBack<String>(){
+        //接口更新后不需要再刷缓存了
+        refreshUserInfo(listener);
+        /*XHttp.Get(BASE_URL+BASIC+"basic/householdInfo/household-anon/refresh",null,null,new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -70,7 +72,7 @@ public class UserInfoUtil {
                 if(listener!=null)
                 listener.onFail(ex.getMessage());
             }
-        },true);
+        },true);*/
     }
 
     /**
@@ -105,7 +107,7 @@ public class UserInfoUtil {
     /**
      * 缓存用户头像信息
      */
-    public static void initAvatarResource(OnRefreshListener listener){
+    /*public static void initAvatarResource(OnRefreshListener listener){
         String avatarId=FileManagement.getUserInfo().getAvatarId();
         if(avatarId!=null){
             XHttp.Get(BASE_URL+FILE+"files/byid/"+avatarId,null,null,new MyCallBack<String>(){
@@ -138,7 +140,7 @@ public class UserInfoUtil {
                 }
             },true);
         }
-    }
+    }*/
 
     /**
      * 缓存业主人脸信息

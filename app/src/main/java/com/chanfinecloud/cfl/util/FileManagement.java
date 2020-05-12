@@ -128,14 +128,6 @@ public class FileManagement {
         return (List<OrderStatusEntity>) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","orderStatus");
     }
 
-    public static void setAvatarReseource(ResourceEntity resource){
-        SharedPreferencesUtil.getInstance().saveObject(CFLApplication.getAppContext(),"cfl","avatar",resource);
-    }
-
-    public static ResourceEntity getAvatarResource(){
-        return (ResourceEntity) SharedPreferencesUtil.getInstance().getObject(CFLApplication.getAppContext(),"cfl","avatar");
-    }
-
     public static void setPushFlag(boolean flag){
         SharedPreferencesUtil.getInstance().saveBooleanValue(CFLApplication.getAppContext(),"cfl","PushFlag",flag);
     }

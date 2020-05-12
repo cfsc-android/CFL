@@ -145,7 +145,7 @@ public class CurrentRoomFragment extends BaseFragment {
             currentRoomProjectLine.setVisibility(View.GONE);
             currentRoomProjectLl.setVisibility(View.GONE);
             currentRoomLlAdd.setVisibility(View.VISIBLE);
-            ResourceEntity avatarResource=FileManagement.getAvatarResource();
+            ResourceEntity avatarResource=userInfo.getAvatarResource();
             if(avatarResource!=null){
                 Glide.with(context)
                         .load(avatarResource.getUrl())

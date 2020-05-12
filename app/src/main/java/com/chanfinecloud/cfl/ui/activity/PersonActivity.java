@@ -138,10 +138,10 @@ public class PersonActivity extends BaseActivity {
         } else {
             personTvBirthday.setText("请填写出生日期");
         }
-        ResourceEntity avatar=FileManagement.getAvatarResource();
-        if (avatar != null && !TextUtils.isEmpty(avatar.getUrl())) {
+
+        if (userInfoEntity.getAvatarResource() != null && !TextUtils.isEmpty(userInfoEntity.getAvatarResource().getUrl())) {
             Glide.with(this)
-                    .load(avatar.getUrl())
+                    .load(userInfoEntity.getAvatarResource().getUrl())
                     .circleCrop()
                     .into(personIvAvatar);
 
@@ -267,18 +267,10 @@ public class PersonActivity extends BaseActivity {
                         @Override
                         public void onSuccess() {
                             if(type.equals("avatar")){
-                                UserInfoUtil.initAvatarResource(new UserInfoUtil.OnRefreshListener() {
-                                    @Override
-                                    public void onSuccess() {
-                                        init();
-                                        EventBus.getDefault().post(new EventBusMessage<>("refresh"));
-                                    }
 
-                                    @Override
-                                    public void onFail(String msg) {
-                                        showToast(msg);
-                                    }
-                                });
+                                init();
+                                EventBus.getDefault().post(new EventBusMessage<>("refresh"));
+
                             }else{
                                 if(type.equals("nickName")){
                                     EventBus.getDefault().post(new EventBusMessage<>("refresh"));

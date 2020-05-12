@@ -15,6 +15,7 @@ import java.io.File;
 public class Config {
 
     public static final String BASE_URL= BuildConfig.BASE_URL;//后台服务地址
+    //public static final String BASE_URL= "http://10.222.5.14:8888/";//后台服务地址
     public static final String ENV= BuildConfig.ENV;//当前运行环境
 
     public static final String PROVIDER_AUTHORITY="com.chanfinecloud.cfl.fileProvider";//清单文件中provider的authorities属性的值

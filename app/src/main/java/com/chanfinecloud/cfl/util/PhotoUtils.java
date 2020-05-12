@@ -23,13 +23,6 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
-import android.widget.ImageView;
-
-
-import com.chanfinecloud.cfl.CFLApplication;
-import com.chanfinecloud.cfl.R;
-import com.youth.banner.loader.ImageLoader;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;

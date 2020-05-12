@@ -63,4 +63,15 @@ public class ResourceEntity implements Serializable {
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
+
+    @Override
+    public String toString() {
+        return "ResourceEntity{" +
+                "createTime='" + createTime + '\'' +
+                ", name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", url='" + url + '\'' +
+                ", contentType='" + contentType + '\'' +
+                '}';
+    }
 }

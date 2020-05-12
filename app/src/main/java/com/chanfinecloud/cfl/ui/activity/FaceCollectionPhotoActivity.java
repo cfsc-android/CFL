@@ -316,8 +316,17 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             BaseEntity baseEntity= JsonParse.parse(result);
             if(!baseEntity.isSuccess()){
                 showToast(baseEntity.getMessage());
-                stopProgressDialog();
+            }else{
+
+                EventBusMessage<FaceCollectionEventBusData> eventBusMessage=new EventBusMessage<>("faceCollection");
+                String createTime = file.getCreateTime();
+                createTime=createTime.replace("T"," ");
+                createTime=createTime.substring(0,19);
+                eventBusMessage.setData(new FaceCollectionEventBusData(createTime,file.getDomain()+file.getUrl()));
+                EventBus.getDefault().post(eventBusMessage);
+                updateHouseholdFace(file.getId());
             }
+            stopProgressDialog();
         }
 
         @Override
@@ -325,20 +334,14 @@ public class FaceCollectionPhotoActivity extends BaseActivity {
             super.onError(ex, isOnCallback);
             showToast(ex.getMessage());
             stopProgressDialog();
+            finish();
         }
 
         @Override
         public void onFinished() {
             super.onFinished();
 
-            EventBusMessage<FaceCollectionEventBusData> eventBusMessage=new EventBusMessage<>("faceCollection");
-            String createTime = file.getCreateTime();
-            createTime=createTime.replace("T"," ");
-            createTime=createTime.substring(0,19);
-            eventBusMessage.setData(new FaceCollectionEventBusData(createTime,file.getDomain()+file.getUrl()));
-            EventBus.getDefault().post(eventBusMessage);
-            updateHouseholdFace(file.getId());
-
+            stopProgressDialog();
         }
     };
 

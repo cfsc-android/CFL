@@ -34,6 +34,17 @@
         android:textColor="@color/text_white"
         android:visibility="gone"
         />
+    <CheckBox
+        android:id="@+id/toolbar_btn_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/text_white"
+        android:button="@null"
+        android:checked="false"
+        android:visibility="visible"
+        />
     <ImageButton
         android:id="@+id/toolbar_btn_action"
         android:layout_width="wrap_content"

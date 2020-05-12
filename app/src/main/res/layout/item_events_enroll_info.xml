@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_5"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="*"
+            android:textSize="@dimen/sp_20"
+            android:textColor="@color/red"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_2"/>
+
+        <TextView
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="match_parent"
+            android:text="姓名："
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_20"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_2"/>
+
+        <EditText
+            android:id="@+id/item_events_enroll_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_20"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:hint="输入报名者姓名"
+            android:maxLines="1"
+            android:layout_marginLeft="@dimen/dp_8"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/thin_grey"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="*"
+            android:textSize="@dimen/sp_20"
+            android:textColor="@color/red"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_2"/>
+
+        <TextView
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="match_parent"
+            android:text="电话："
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_20"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_2"/>
+
+        <EditText
+            android:id="@+id/item_events_enroll_phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_20"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:hint="输入报名者手机号码"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:layout_marginLeft="@dimen/dp_8"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/thin_grey" />
+
+</LinearLayout>

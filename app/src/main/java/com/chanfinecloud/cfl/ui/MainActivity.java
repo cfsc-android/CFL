@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initOrderStatus();
         initComplainType();
         initComplainStatus();
-        UserInfoUtil.initAvatarResource(null);//缓存用户头像
+        //UserInfoUtil.initAvatarResource(null);//缓存用户头像
 
 
 

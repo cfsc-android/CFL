@@ -111,10 +111,9 @@ public class MineFragment extends BaseFragment {
         }else{
             tvMineAddress.setText(userInfo.getCurrentDistrict().getBuildingName()+userInfo.getCurrentDistrict().getUnitName()+userInfo.getCurrentDistrict().getRoomName());
         }
-        ResourceEntity avatar=FileManagement.getAvatarResource();
-        if (avatar != null && !TextUtils.isEmpty(avatar.getUrl())) {
+        if (userInfo.getAvatarResource() != null && !TextUtils.isEmpty(userInfo.getAvatarResource().getUrl())) {
             Glide.with(this)
-                    .load(avatar.getUrl())
+                    .load(userInfo.getAvatarResource().getUrl())
                     .circleCrop()
                     .into(ivMineHead);
 

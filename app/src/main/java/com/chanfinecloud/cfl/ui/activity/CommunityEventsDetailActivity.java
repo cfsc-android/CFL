@@ -18,9 +18,11 @@ import com.chanfinecloud.cfl.http.JsonParse;
 import com.chanfinecloud.cfl.http.MyCallBack;
 import com.chanfinecloud.cfl.http.RequestParam;
 import com.chanfinecloud.cfl.ui.base.BaseActivity;
+import com.chanfinecloud.cfl.util.DateUtil;
 
 import org.xutils.common.util.LogUtil;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +32,7 @@ import butterknife.OnClick;
 
 import static com.chanfinecloud.cfl.config.Config.ARTICLE;
 import static com.chanfinecloud.cfl.config.Config.BASE_URL;
+import static com.chanfinecloud.cfl.config.Config.DAY_MILLISECOND;
 
 public class CommunityEventsDetailActivity extends BaseActivity {
 
@@ -138,6 +141,7 @@ public class CommunityEventsDetailActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 showToast(ex.getMessage());
+                stopProgressDialog();
             }
 
             @Override
@@ -163,8 +167,29 @@ public class CommunityEventsDetailActivity extends BaseActivity {
             eventsDetailPhone.setText("联系电话：   "+ eventsEntity.getContactNumber());
             eventsDetailDeadline.setText("报名截止：   "+ eventsEntity.getRegistrationDeadline());
             eventsDetailContent.setText(eventsEntity.getContent());
+            eventsDetailTile.setText(eventsEntity.getTitle());
+            Date deadline = DateUtil.stringToDate(eventsEntity.getRegistrationDeadline(), DateUtil.FORMAT_DATE);
+            Date endLine = DateUtil.stringToDate(eventsEntity.getEndTime(), DateUtil.FORMAT_DATE);
+            Date currentDate = new Date();
+            if (currentDate.getTime() < deadline.getTime() + DAY_MILLISECOND){
+                eventsDetailGoto.setText("报名已截止");
+                eventsDetailGoto.setClickable(false);
+                eventsDetailGoto.setBackgroundResource(R.drawable.btn_gray_shape);
 
-            // TODO: 2020/5/12  加个是否已参加的判断  参加了就改成重新报名
+            }else if (currentDate.getTime() < endLine.getTime() + DAY_MILLISECOND){
+                eventsDetailGoto.setText("活动已结束");
+                eventsDetailGoto.setClickable(false);
+                eventsDetailGoto.setBackgroundResource(R.drawable.btn_gray_shape);
+
+            }else{
+
+                if (eventsEntity.isParticipate()){
+
+                    eventsDetailGoto.setText("重新报名");
+
+                }
+            }
+
         }
     }
 

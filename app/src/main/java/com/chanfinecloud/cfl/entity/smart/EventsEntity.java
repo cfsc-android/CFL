@@ -60,6 +60,15 @@ public class EventsEntity implements Serializable {
     private String coverImageId;
     private int isClosed;
     private ResourceEntity coverImageResource;
+    private boolean isParticipate;
+
+    public boolean isParticipate() {
+        return isParticipate;
+    }
+
+    public void setParticipate(boolean participate) {
+        isParticipate = participate;
+    }
 
     public String getContactPerson() {
         return contactPerson;
@@ -226,6 +235,7 @@ public class EventsEntity implements Serializable {
                 ", coverImageId='" + coverImageId + '\'' +
                 ", isClosed=" + isClosed +
                 ", coverImageResource=" + coverImageResource +
+                ", isParticipate=" + isParticipate +
                 '}';
     }
 }

@@ -3,6 +3,7 @@ package com.chanfinecloud.cfl.adapter;
 import android.content.Context;
 import android.content.pm.LauncherActivityInfo;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -15,8 +16,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chanfinecloud.cfl.R;
 import com.chanfinecloud.cfl.entity.NoticeEntity;
 import com.chanfinecloud.cfl.entity.smart.EventsEntity;
+import com.chanfinecloud.cfl.util.DateUtil;
 
+import java.util.Date;
 import java.util.List;
+
+import static com.chanfinecloud.cfl.config.Config.DAY_MILLISECOND;
 
 /**
  * Created by Loong on 2020/2/23.
@@ -54,15 +59,30 @@ public class CommunityEventsListAdapter extends BaseQuickAdapter<EventsEntity, B
             helper.setText(R.id.item_events_tv_title,item.getTitle());
             helper.setText(R.id.item_events_tv_address,"地址："+item.getLocation());
             helper.setText(R.id.item_events_tv_date,"报名截止："+item.getRegistrationDeadline());
-            // TODO: 2020/5/12   不是这个字段判断的 后期加 还要加是否已参加的判断
-            if (item.getStatus() == 0){
-                helper.setText(R.id.item_events_tv_status, "去参加");
-                helper.setBackgroundRes(R.id.item_events_tv_status, R.drawable.bg_stroke_blue);
-                helper.setTextColor(R.id.item_events_tv_status,context.getResources().getColor(R.color.blue) );
-            }else{
-                helper.setText(R.id.item_events_tv_status, "已报名");
+            Date deadline = DateUtil.stringToDate(item.getRegistrationDeadline(), DateUtil.FORMAT_DATE);
+            Date endLine = DateUtil.stringToDate(item.getEndTime(), DateUtil.FORMAT_DATE);
+            Date currentDate = new Date();
+            Log.d(TAG, "convert: "+ deadline.getTime()+ "currentDate:" + currentDate.getTime());
+            if (currentDate.getTime() < deadline.getTime() + DAY_MILLISECOND){
+                helper.setText(R.id.item_events_tv_status, "报名已截止");
                 helper.setBackgroundRes(R.id.item_events_tv_status, R.drawable.bg_stroke_gray);
                 helper.setTextColor(R.id.item_events_tv_status,context.getResources().getColor(R.color.text_gray) );
+
+            }else if (currentDate.getTime() < endLine.getTime() + DAY_MILLISECOND){
+                helper.setText(R.id.item_events_tv_status, "活动已结束");
+                helper.setBackgroundRes(R.id.item_events_tv_status, R.drawable.bg_stroke_gray);
+                helper.setTextColor(R.id.item_events_tv_status,context.getResources().getColor(R.color.text_gray) );
+            }else{
+
+                if (!item.isParticipate()){
+                    helper.setText(R.id.item_events_tv_status, "去参加");
+                    helper.setBackgroundRes(R.id.item_events_tv_status, R.drawable.bg_stroke_blue);
+                    helper.setTextColor(R.id.item_events_tv_status,context.getResources().getColor(R.color.blue) );
+                }else{
+                    helper.setText(R.id.item_events_tv_status, "已报名");
+                    helper.setBackgroundRes(R.id.item_events_tv_status, R.drawable.bg_stroke_gray);
+                    helper.setTextColor(R.id.item_events_tv_status,context.getResources().getColor(R.color.green) );
+                }
             }
 
             helper.setText(R.id.item_events_tv_num, item.getEnrollmentNumber()+"人已参与");

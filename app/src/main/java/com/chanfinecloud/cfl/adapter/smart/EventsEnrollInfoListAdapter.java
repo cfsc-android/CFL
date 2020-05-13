@@ -21,9 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Loong on 2020/2/23.
+ * Created by damien on 2020/5/12.
  * Version: 1.0
- * Describe:
+ * Describe:活动报名
  */
 public class EventsEnrollInfoListAdapter extends RecyclerView.Adapter<EventsEnrollInfoListAdapter.EnrollViewHolder> {
 
@@ -31,14 +31,15 @@ public class EventsEnrollInfoListAdapter extends RecyclerView.Adapter<EventsEnro
     private List<EventEnrollInfoEntity> eventEnrollInfoEntityList;
     private OnItemTextChangeListener onItemTextChangeListener;
 
-    public EventsEnrollInfoListAdapter(Context context, List<EventEnrollInfoEntity> data) {
+    public EventsEnrollInfoListAdapter(Context context, List<EventEnrollInfoEntity> eventEnrollInfoEntityList) {
         this.context = context;
         this.eventEnrollInfoEntityList = eventEnrollInfoEntityList;
     }
 
-    public void setOnItemTextChangeListener(OnItemTextChangeListener onItemTextChangeListener){
-        this.onItemTextChangeListener  = onItemTextChangeListener;
+    public void setOnItemTextChangeListener(OnItemTextChangeListener onItemTextChangeListener) {
+        this.onItemTextChangeListener = onItemTextChangeListener;
     }
+
     @NonNull
     @Override
     public EnrollViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,10 +53,10 @@ public class EventsEnrollInfoListAdapter extends RecyclerView.Adapter<EventsEnro
         EventEnrollInfoEntity item = eventEnrollInfoEntityList.get(position);
         if (item != null) {
 
-            if ( !Utils.isEmpty(item.getName()) )
+            if (!Utils.isEmpty(item.getName()))
                 holder.itemEventsEnrollName.setText(item.getName() + "");
-            if ( !Utils.isEmpty(item.getMobile()) )
-                holder.itemEventsEnrollPhone.setText( item.getMobile() + "");
+            if (!Utils.isEmpty(item.getMobile()))
+                holder.itemEventsEnrollPhone.setText(item.getMobile() + "");
 
             holder.itemEventsEnrollName.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -93,6 +94,42 @@ public class EventsEnrollInfoListAdapter extends RecyclerView.Adapter<EventsEnro
                 }
             });
 
+            holder.itemEventsEnrollSex.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    onItemTextChangeListener.OnItemTextChanged(holder.itemEventsEnrollSex.getText().toString(), position, 3);
+
+                }
+            });
+
+            holder.itemEventsEnrollAge.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    onItemTextChangeListener.OnItemTextChanged(holder.itemEventsEnrollAge.getText().toString(), position, 4);
+
+                }
+            });
+
 
         }
     }
@@ -107,6 +144,10 @@ public class EventsEnrollInfoListAdapter extends RecyclerView.Adapter<EventsEnro
         EditText itemEventsEnrollName;
         @BindView(R.id.item_events_enroll_phone)
         EditText itemEventsEnrollPhone;
+        @BindView(R.id.item_events_enroll_sex)
+        EditText itemEventsEnrollSex;
+        @BindView(R.id.item_events_enroll_age)
+        EditText itemEventsEnrollAge;
 
         public EnrollViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,7 +155,7 @@ public class EventsEnrollInfoListAdapter extends RecyclerView.Adapter<EventsEnro
         }
     }
 
-    public interface  OnItemTextChangeListener{
+    public interface OnItemTextChangeListener {
 
         void OnItemTextChanged(String mContont, int nPosition, int nType);
     }

@@ -1,6 +1,8 @@
 package com.chanfinecloud.cfl.entity.smart;
 
-public class EventEnrollInfoEntity {
+import java.io.Serializable;
+
+public class EventEnrollInfoEntity implements Serializable {
 
     /**
      *          " age": 0,
@@ -20,6 +22,14 @@ public class EventEnrollInfoEntity {
     private String mobile;
     private String name;
     private String remark;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public String getEventId() {
         return eventId;

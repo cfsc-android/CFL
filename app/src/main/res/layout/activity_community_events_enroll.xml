@@ -26,11 +26,23 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_15">
 
-                <ImageView
-                    android:id="@+id/events_enroll_pic"
-                    android:layout_width="@dimen/dp_120"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:scaleType="centerInside"/>
+                    android:padding="@dimen/dp_1"
+                    app:cardCornerRadius="@dimen/dp_4"
+                    app:cardElevation="@dimen/dp_1">
+
+                    <com.chanfinecloud.cfl.weidgt.imagepreview.IconImageView
+                        android:id="@+id/events_enroll_pic"
+                        android:layout_width="@dimen/dp_120"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -104,7 +116,25 @@
                         android:background="@drawable/bg_stroke_gray_2"
                         android:layout_marginTop="@dimen/dp_5"
                         android:layout_marginBottom="@dimen/dp_5"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginRight="@dimen/dp_5"
                         android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/events_enroll_delete"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        android:text="-"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/sp_24"
+                        android:background="@drawable/bg_stroke_gray_2"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_marginBottom="@dimen/dp_5"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:gravity="center"
+                        android:visibility="gone"/>
+
 
                 </LinearLayout>
 

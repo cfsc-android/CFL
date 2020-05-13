@@ -348,7 +348,6 @@ public class HomeFragment extends BaseFragment  implements OnPageChangeListener 
     private void getWheelPlanting() {
         RequestParam requestParam = new RequestParam(BASE_URL + ARTICLE + "smart/content/pages", HttpMethod.Get);
         Map<String, String> map = new HashMap<>();
-        // TODO: 2020/4/10  动态获取
         map.put("projectId", FileManagement.getUserInfo().getCurrentDistrict().getProjectId());
         map.put("receiver", getCurrentHouseholdType());
         map.put("announcementTypeId", NoticeType.轮播动态.getType());
@@ -517,7 +516,7 @@ public class HomeFragment extends BaseFragment  implements OnPageChangeListener 
 
     @Override
     public void onPageSelected(int position) {
-        Log.e("homefragment", "onPageSelected:" + position);
+       // Log.e("homefragment", "onPageSelected:" + position);
     }
 
     @Override

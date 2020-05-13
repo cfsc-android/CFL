@@ -42,4 +42,6 @@ public class Config {
     public static final int SET_JPUSH_TAGS_SEQUENCE=0x02;//极光推送设置标签操作序列号
     public static final int CLEAR_JPUSH_TAGS_SEQUENCE=0x03;//极光推送清空标签操作序列号
     public static final int DELETE_JPUSH_ALIAS_SEQUENCE=0x04;//极光推送删除别名操作序列号
+
+    public static final int DAY_MILLISECOND = 86399999;//一天的毫秒数 减1
 }

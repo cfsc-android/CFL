@@ -63,15 +63,15 @@ public class CommunityEventsListAdapter extends BaseQuickAdapter<EventsEntity, B
             Date endLine = DateUtil.stringToDate(item.getEndTime(), DateUtil.FORMAT_DATE);
             Date currentDate = new Date();
             Log.d(TAG, "convert: "+ deadline.getTime()+ "currentDate:" + currentDate.getTime());
-            if (currentDate.getTime() > deadline.getTime() + DAY_MILLISECOND){
+            if (currentDate.getTime() > endLine.getTime() + DAY_MILLISECOND){
+                helper.setText(R.id.item_events_tv_status, "活动已结束");
+                helper.setBackgroundRes(R.id.item_events_tv_status, R.drawable.bg_stroke_gray);
+                helper.setTextColor(R.id.item_events_tv_status,context.getResources().getColor(R.color.text_gray) );
+            }else if (currentDate.getTime() > deadline.getTime() + DAY_MILLISECOND){
                 helper.setText(R.id.item_events_tv_status, "报名已截止");
                 helper.setBackgroundRes(R.id.item_events_tv_status, R.drawable.bg_stroke_gray);
                 helper.setTextColor(R.id.item_events_tv_status,context.getResources().getColor(R.color.text_gray) );
 
-            }else if (currentDate.getTime() > endLine.getTime() + DAY_MILLISECOND){
-                helper.setText(R.id.item_events_tv_status, "活动已结束");
-                helper.setBackgroundRes(R.id.item_events_tv_status, R.drawable.bg_stroke_gray);
-                helper.setTextColor(R.id.item_events_tv_status,context.getResources().getColor(R.color.text_gray) );
             }else{
 
                 if (!item.isParticipate()){

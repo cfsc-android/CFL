@@ -3,6 +3,7 @@ package com.chanfinecloud.cfl.ui.fragment.mainfrg;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.print.PrintAttributes;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +58,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
+import com.youth.banner.config.IndicatorConfig;
 import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.indicator.RoundLinesIndicator;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.listener.OnPageChangeListener;
 
@@ -187,7 +190,7 @@ public class HomeFragment extends BaseFragment  implements OnPageChangeListener 
         //设置适配器
         bannerHomeAd.setAdapter(new ImageAdapter(imageUrls));
         //设置指示器
-        bannerHomeAd.setIndicator(new CircleIndicator(getActivity()));
+        bannerHomeAd.setIndicator(new RoundLinesIndicator(getActivity()));
         //设置点击事件
         bannerHomeAd.setOnBannerListener((data, position) -> {
             Bundle bundle = new Bundle();
@@ -198,12 +201,17 @@ public class HomeFragment extends BaseFragment  implements OnPageChangeListener 
         });
         //添加切换监听
         bannerHomeAd.addOnPageChangeListener(this);
-        //圆角
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            bannerHomeAd.setBannerRound2(BannerUtils.dp2px(10));
-        }
+        //圆角 针对画面中有多个图的  没啥效果可用
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            bannerHomeAd.setBannerRound2(BannerUtils.dp2px(20));
+//        }else{
+//            bannerHomeAd.setBannerRound(BannerUtils.dp2px(20));
+//        }
 
-        bannerHomeAd.setBannerGalleryMZ(30, 0.88f);
+        bannerHomeAd.setIndicatorWidth(10,20);
+        bannerHomeAd.setIndicatorMargins(new IndicatorConfig.Margins((int) BannerUtils.dp2px(20)));
+        bannerHomeAd.setIndicatorSelectedColor(getResources().getColor(R.color.green));
+        bannerHomeAd.setBannerGalleryMZ(20, 0.99f);
         //添加画廊效果，可以参考我给的参数自己调试(不要和其他PageTransformer同时使用)
         //banner.setBannerGalleryEffect(25, 40, 0.14f);
         //banner.setBannerGalleryEffect(31, 60, 0.12f);

@@ -38,8 +38,7 @@ public class ImageAdapter extends BannerAdapter<ImageBanner, ImageAdapter.ImageH
     //创建ViewHolder，可以用viewType这个字段来区分不同的ViewHolder
     @Override
     public ImageHolder onCreateHolder(ViewGroup parent, int viewType) {
-        ImageView imageView = (ImageView) BannerUtils.getView(parent, R.layout.banner_image);
-        return new ImageHolder(imageView);
+        return new ImageHolder(BannerUtils.getView(parent, R.layout.banner_image));
     }
 
     @Override
@@ -47,7 +46,7 @@ public class ImageAdapter extends BannerAdapter<ImageBanner, ImageAdapter.ImageH
 
         Glide.with(holder.itemView)
                 .load(data.getImageUrl())
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(100)))
                 .into(holder.imageView);
     }
 
@@ -56,7 +55,7 @@ public class ImageAdapter extends BannerAdapter<ImageBanner, ImageAdapter.ImageH
 
         public ImageHolder(@NonNull View view) {
             super(view);
-            this.imageView = (ImageView) view;
+            this.imageView = (ImageView) view.findViewById(R.id.image_view);
         }
     }
 

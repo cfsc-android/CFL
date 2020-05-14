@@ -171,12 +171,12 @@ public class CommunityEventsDetailActivity extends BaseActivity {
             Date deadline = DateUtil.stringToDate(eventsEntity.getRegistrationDeadline(), DateUtil.FORMAT_DATE);
             Date endLine = DateUtil.stringToDate(eventsEntity.getEndTime(), DateUtil.FORMAT_DATE);
             Date currentDate = new Date();
-            if (currentDate.getTime() < deadline.getTime() + DAY_MILLISECOND){
+            if (currentDate.getTime() > deadline.getTime() + DAY_MILLISECOND){
                 eventsDetailGoto.setText("报名已截止");
                 eventsDetailGoto.setClickable(false);
                 eventsDetailGoto.setBackgroundResource(R.drawable.btn_gray_shape);
 
-            }else if (currentDate.getTime() < endLine.getTime() + DAY_MILLISECOND){
+            }else if (currentDate.getTime() > endLine.getTime() + DAY_MILLISECOND){
                 eventsDetailGoto.setText("活动已结束");
                 eventsDetailGoto.setClickable(false);
                 eventsDetailGoto.setBackgroundResource(R.drawable.btn_gray_shape);

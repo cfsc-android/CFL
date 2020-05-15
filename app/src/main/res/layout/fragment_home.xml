@@ -42,7 +42,10 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:fadeScrollbars="false"
+            android:fadingEdge="none"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -347,6 +350,9 @@
                         android:id="@+id/home_activity_rlv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fadeScrollbars="false"
+                        android:fadingEdge="none"
+                        android:overScrollMode="never"
                         />
 
                 </LinearLayout>

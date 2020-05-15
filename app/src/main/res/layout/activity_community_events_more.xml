@@ -32,7 +32,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/events_more_recycle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:fadeScrollbars="false"
+                android:fadingEdge="none"
+                android:overScrollMode="never"/>
         </LinearLayout>
 
 

@@ -39,7 +39,7 @@
     <color name="payment_btn">#FF7F27</color>
     <color name="car_lock_theme">#13AD57</color>
 
-    <color name="white">#ffffffff</color>
+    <color name="white">#FFFFFF</color>
     <!--覆盖颜色-->
     <color name="bgColor_overlay">#60000000</color>
     <!--窗口背景颜色-->
@@ -471,7 +471,8 @@
     <color name="item_bak">#E8E8E0</color>
 
     <!-- 浅灰色 -->
-    <color name="thin_grey">#457c7b7b</color>
-    <color name="background_gray">#88b5b5b5</color>
+    <color name="thin_grey">#45C5C3C3</color>
+    <color name="background_gray">#88CAC8C8</color>
     <color name="thin_black">#bb000000</color>
+    <color name="background_white">#88E8E7E7</color>
 </resources>

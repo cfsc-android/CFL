@@ -28,7 +28,8 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/dp_2"/>
 
-        <EditText
+
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/item_events_enroll_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,11 +43,13 @@
             android:layout_marginLeft="@dimen/dp_8"
             />
 
+
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_10"
         android:background="@color/thin_grey"/>
 
     <LinearLayout
@@ -91,6 +94,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_10"
         android:background="@color/thin_grey" />
 
     <LinearLayout
@@ -135,6 +139,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_10"
         android:background="@color/thin_grey" />
 
     <LinearLayout
@@ -179,6 +184,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_10"
         android:background="@color/thin_grey" />
 
 

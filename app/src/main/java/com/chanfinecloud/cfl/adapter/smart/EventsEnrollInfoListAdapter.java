@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chanfinecloud.cfl.R;
@@ -141,7 +142,7 @@ public class EventsEnrollInfoListAdapter extends RecyclerView.Adapter<EventsEnro
 
     public static class EnrollViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_events_enroll_name)
-        EditText itemEventsEnrollName;
+        AppCompatEditText itemEventsEnrollName;
         @BindView(R.id.item_events_enroll_phone)
         EditText itemEventsEnrollPhone;
         @BindView(R.id.item_events_enroll_sex)

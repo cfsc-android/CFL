@@ -46,6 +46,7 @@
                         android:id="@+id/events_detail_start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_40"
                         android:text="开始时间：   ---"
                         android:textSize="@dimen/sp_18"
                         android:textColor="@color/thin_black"
@@ -59,12 +60,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dp_10"
                         android:background="@color/thin_grey"/>
 
                     <TextView
                         android:id="@+id/events_detail_end"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_40"
                         android:text="结束时间：   ---"
                         android:textSize="@dimen/sp_18"
                         android:textColor="@color/thin_black"
@@ -78,12 +81,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dp_10"
                         android:background="@color/thin_grey"/>
 
                     <TextView
                         android:id="@+id/events_detail_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_40"
                         android:text="活动地点：   ---"
                         android:textSize="@dimen/sp_18"
                         android:textColor="@color/thin_black"
@@ -97,12 +102,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dp_10"
                         android:background="@color/thin_grey"/>
 
                     <TextView
                         android:id="@+id/events_detail_humans"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_40"
                         android:text="参加人数：   ---"
                         android:textSize="@dimen/sp_18"
                         android:textColor="@color/thin_black"
@@ -116,12 +123,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dp_10"
                         android:background="@color/thin_grey"/>
 
                     <TextView
                         android:id="@+id/events_detail_pay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_40"
                         android:text="活动费用：   ---"
                         android:textSize="@dimen/sp_18"
                         android:textColor="@color/thin_black"
@@ -135,12 +144,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dp_10"
                         android:background="@color/thin_grey"/>
 
                     <TextView
                         android:id="@+id/events_detail_contactor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_40"
                         android:text="    联系人：   ---"
                         android:textSize="@dimen/sp_18"
                         android:textColor="@color/thin_black"
@@ -154,12 +165,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dp_10"
                         android:background="@color/thin_grey"/>
 
                     <TextView
                         android:id="@+id/events_detail_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_40"
                         android:text="联系电话：   ---"
                         android:textSize="@dimen/sp_18"
                         android:textColor="@color/thin_black"
@@ -173,12 +186,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dp_10"
                         android:background="@color/thin_grey"/>
 
                     <TextView
                         android:id="@+id/events_detail_deadline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_40"
                         android:text="报名截止：   ---"
                         android:textSize="@dimen/sp_18"
                         android:textColor="@color/thin_black"
@@ -192,6 +207,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dp_10"
                         android:background="@color/thin_grey"/>
 
                     <LinearLayout
@@ -204,6 +220,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dp_40"
                             android:text="活动详情:   "
                             android:textSize="@dimen/sp_18"
                             android:textColor="@color/thin_black"
@@ -240,7 +257,7 @@
                 android:id="@+id/events_detail_goto"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
-                android:background="@drawable/btn_blue_shape"
+                android:background="@drawable/btn_green_shape"
                 android:text="报名参加"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_18"

@@ -189,9 +189,15 @@ public class CommunityEventsEnrollActivity extends BaseActivity {
             eventsEnrollTime.setText(eventsEntity.getStartTime() + "-" + eventsEntity.getEndTime());
             eventsEnrollAddress.setText(eventsEntity.getLocation());
 
-            Glide.with(this).load(eventsEntity.getCoverImageResource().getUrl())
-                    .error(R.drawable.car_manage_test)
-                    .into(eventsEnrollPic);
+            if (eventsEntity.getCoverImageResource() != null && !Utils.isEmpty(eventsEntity.getCoverImageResource().getUrl())){
+                Glide.with(this).load(eventsEntity.getCoverImageResource().getUrl())
+                        .error(R.drawable.car_manage_test)
+                        .into(eventsEnrollPic);
+            }else{
+                Glide.with(this).load(R.drawable.car_manage_test)
+                        .into(eventsEnrollPic);
+            }
+
 
             contentImageData.clear();
             contentImageData.add(new ImageViewInfo(eventsEntity.getCoverImageResource().getUrl()));
